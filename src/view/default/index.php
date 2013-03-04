@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,9 +29,8 @@
 		<div id="content">
 		
 			<div id="head">				
-				<img src="img/marca.jpg" width="60" height="40"></img>
-				<h1><?php echo $this->getTitle() ?></h1>
-				
+				<img src="img/images.jpg" width="60" height="40" />
+                                <h1><?php echo $this->getTitle();?></h1>
 				<div id="head-info">
 					<?php
 						if($this->getUsuario()){

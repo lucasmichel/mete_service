@@ -50,8 +50,4 @@
 	 * Diretório das telas
 	 */
 	define('VIEW', RAIZ . DS . "view");
-	/**
-	 * Constante do hibernate para usuario
-	 */
-	define('arryUsuario', array());
 ?>
