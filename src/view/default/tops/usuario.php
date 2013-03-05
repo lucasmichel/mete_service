@@ -1,11 +1,13 @@
-	<script type="text/javascript">
-		$(document).ready(function($){
-	
-			$("select#select-action").change(function(){
-				window.location="usuario/" + $(this).val();
-			});
-		});
-	</script>
+<?php 
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
+<script type="text/javascript">
+$(document).ready(function($){	
+    $("select#select-action").change(function(){
+        window.location="usuario/" + $(this).val();
+    });
+});
+</script>
 	<div id="icon-index" class="icon32 icon-usuario-modulo"></div>
 	<h2>
 		Usuários

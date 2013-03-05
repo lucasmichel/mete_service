@@ -1,14 +1,17 @@
+<?php 
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
 <script type="text/javascript">
-	$(document).ready(function($){
-		$('#login').focus();
-		$('form').validate( {
-			messages: {
-				login: { required: 'Digite um nome' },
-				senha: { required: 'Digite uma senha' },
-				perfil: { required: 'Selecione um perfil' }
-			}
-		});
-	});
+    $(document).ready(function($){
+        $('#login').focus();
+        $('form').validate( {
+                messages: {
+                        login: { required: 'Digite um nome' },
+                        senha: { required: 'Digite uma senha' },
+                        perfil: { required: 'Selecione um perfil' }
+                }
+        });
+    });
 </script>
 <div class="wrap">
 	<?php 

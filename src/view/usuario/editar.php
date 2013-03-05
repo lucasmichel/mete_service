@@ -1,3 +1,6 @@
+<?php 
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
 <script type="text/javascript">
 	$(document).ready(function($){
 		$('form').validate( {

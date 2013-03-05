@@ -1,15 +1,18 @@
+<?php 
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
 <script type="text/javascript">
-	function validarCamposObrigatorios(){
-		if(($.trim($("#nome").val()) == '')||($("input:checked").size() == 0)){
-			jAlert('Preencha os campos obrigatórios.','Alerta');
-			return false;
-		}
-		return true;
-	}
+    function validarCamposObrigatorios(){
+        if(($.trim($("#nome").val()) == '')||($("input:checked").size() == 0)){
+                jAlert('Preencha os campos obrigatórios.','Alerta');
+                return false;
+        }
+        return true;
+    }
 
 </script>
 <?php 
-	$perfil = $this->getDados('VIEW');
+    $perfil = $this->getDados('VIEW');
 ?>
 <div class="wrap">
 	<?php 

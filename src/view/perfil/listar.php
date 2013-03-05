@@ -1,3 +1,6 @@
+<?php 
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
 <div class="wrap">
 	<?php 
 		include_once(VIEW . DS . "default" . DS . "tops" . DS . "perfil.php");
