@@ -92,8 +92,9 @@
 		 */
 		public function logar($login,$senha){
 			// INSTRUCAO SQL //
-			$sql = "SELECT u.* FROM " . self::TABELA . " u WHERE u.login = '".$login."' AND 
-																 u.senha = '".md5($senha)."'";
+			$sql = "SELECT u.* FROM " . self::TABELA . " u 
+                        WHERE u.login = '".$login."' AND 
+                        u.senha = '".md5($senha)."'";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //

@@ -146,11 +146,24 @@
 				// levantando a excessao LoginInvalido //
 				throw new LoginInvalido();
 			// retornando o Usuario //
-			return new Usuario($usuario['id'],Perfil::buscar($usuario['id_perfil']),
+                        
+                        echo '<pre>';
+                        var_dump($usuario);
+                        die();
+                        
+                        $a = new Usuario(
+                                        $usuario['id'],
+                                        Perfil::buscar($usuario['id_perfil']),
                                         $usuario['login'],
+                                        $usuario['senha'],
                                         $usuario['email'],
                                         $usuario['dataUltimoLogin'],
-                                        $usuario['excluido']);
+                                        $usuario['excluido']
+                                        );
+                        echo '<pre>';
+                        var_dump($a);
+                        die();
+			return $a;
 		}
 		
 		/**
