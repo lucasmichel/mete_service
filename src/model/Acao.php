@@ -57,7 +57,7 @@ class Acao {
 		$acao = $instancia->buscar($codigoAcao,$modulo);
 		if(!$acao)
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACAO);
-		return new Acao($acao['codigoAcao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
+		return new Acao($acao['codigo_acao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
 	}
 	
 	/**

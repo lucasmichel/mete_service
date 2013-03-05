@@ -134,9 +134,9 @@ class PerfilDAO {
      */
     public function setAcoes($perfil) {
         // INSTRUCAO SQL //
-        $sql = "SELECT amp.codigo,amp.id_modulo FROM acoes_modulos_perfis amp
+        $sql = "SELECT amp.codigo_acao,amp.id_modulo FROM acoes_modulos_perfis amp
 					WHERE amp.id_perfil = '" . $perfil . "'
-					ORDER BY amp.codigo";
+					ORDER BY amp.codigo_acao";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //

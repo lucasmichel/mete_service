@@ -41,12 +41,12 @@
 			// FILTRO //
 			$where = array();
 			if(!empty($codigo))
-				$where[] = " a.codigo = '".$codigo."' ";
+				$where[] = " a.codigo_acao = '".$codigo."' ";
 			if(!empty($modulo))
 				$where[] = " a.id_modulo = '".$modulo."' ";
 			$where = (count($where) ? ' WHERE ' . implode(' AND ',$where) : '');	
 			// INSTRUCAO SQL //
-			$sql = "SELECT a.* FROM " . self::TABELA . " a " . @$where;
+			$sql = "SELECT a.* FROM " . self::TABELA . " a " . @$where;                        
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
