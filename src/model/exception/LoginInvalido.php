@@ -3,7 +3,6 @@
  * Classe LoginInvalido
  * @package model
  * @subpackage exception
- * @author Idealizza
  */
 	class LoginInvalido extends Exception {
 		

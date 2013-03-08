@@ -2,7 +2,6 @@
 /**
  * Classe Acao
  * @package model
- * @author Idealizza
  */
 class Acao {
 	
@@ -25,8 +24,7 @@ class Acao {
 	public function __construct($codigoAcao = 0,$nome = '',Modulo $modulo = null){
 		$this->codigoAcao = $codigoAcao;
 		$this->nome = $nome;
-		$this->modulo = $modulo;
-		$this->subMenu = $subMenu;
+		$this->modulo = $modulo;		
 	}
 	
 	/**
@@ -41,7 +39,7 @@ class Acao {
 		if(!$acoes)
 			throw new ListaVazia(ListaVazia::ACOES);
 		foreach($acoes as $acao){
-			$objetos[] = new Acao($acao['codigoAcao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
+			$objetos[] = new Acao($acao['codigo_acao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
 		}
 		return $objetos;
 	}

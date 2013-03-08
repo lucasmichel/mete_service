@@ -4,7 +4,6 @@
  * Camada de acesso a dados da entidade Ação
  * @package model
  * @subpackage DAO
- * @author Idealizza
  */
 	class AcaoDAO {
 		

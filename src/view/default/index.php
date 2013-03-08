@@ -10,19 +10,18 @@
 	
 	<!--CSS-->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-	<link type="text/css" rel="stylesheet" href="lib/js/jquery-tooltip/jquery.tooltip.css" />	
+	<link type="text/css" rel="stylesheet" href="lib/js/jquery-tooltip/jquery.tooltip.css" />
 	
 	<!--JAVASCRIPT-->
-	<script type="text/javascript" src="lib/js/jquery.js" ></script>
+	<script type="text/javascript" src="lib/js/jquery-1.4.2.js" ></script>
 	<script type="text/javascript" src="lib/js/jquery.meio.mask.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-validate/jquery.validate.js"></script>	
 	<script type="text/javascript" src="lib/js/jquery-tooltip/jquery.tooltip.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function($){
-
-			$('input').setMask();
-			$('.tooltip').tooltip({left: 5,top: -15,track: true,opacity: 1,showBody: ' - ',extraClass: 'tip'});			
-		});
+            $(document).ready(function(){
+                $('input').setMask();
+                $('.tooltip').tooltip({left: 5,top: -15,track: true,opacity: 1,showBody: ' - ',extraClass: 'tip'});
+            });
 	</script>
 </head>
 

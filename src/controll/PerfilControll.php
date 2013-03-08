@@ -3,7 +3,6 @@
  * Classe PerfilControll
  * Controlador do modulo de perfis
  * @package controll
- * @author Idealizza
  */
 	class PerfilControll extends Controll {
 		

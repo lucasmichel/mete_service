@@ -39,26 +39,26 @@ $(document).ready(function($){
                                             <fieldset>
                                                     <legend>Módulos/Ações</legend>
                                                     <?php 
-                                                            // LISTANDO TODAS OS MODULOS //
-                                                            try {
-                                                                    $modulos = Modulo::listar();
-                                                                    foreach($modulos as $modulo){
+                                                        // LISTANDO TODAS OS MODULOS //
+                                                        try {
+                                                                $modulos = Modulo::listar();                                                                
+                                                                foreach($modulos as $modulo){
                                                     ?>
                                                     <ul class="list-cadastro">
                                                             <li style="color:#333333;"><strong><?php echo $modulo->getNome();?></strong></li>
                                                             <li>
-                                                                    <?php 
-                                                                            try {
-                                                                                    $acoes = Acao::listar($modulo->getId());
-                                                                                    foreach($acoes as $acao){
-                                                                    ?>
+                                                                <?php 
+                                                                        try {
+                                                                                $acoes = Acao::listar($modulo->getId());
+                                                                                foreach($acoes as $acao){
+                                                                ?>
                                                                     <ul>
-                                                                            <li>
-                                                                                    <label>
-                                                                                    <input type="checkbox" id="ch_<?php echo $modulo->getId()."_".$acao->getCodigo();?>" name="ch_<?php echo $modulo->getId()."_".$acao->getCodigo();?>" />
-                                                                                    <?php echo $acao->getNome();?>
-                                                                                    </label>
-                                                                            </li>
+                                                                        <li>
+                                                                            <label>
+                                                                                <input type="checkbox" id="ch_<?php echo $modulo->getId()."_".$acao->getCodigoAcao();?>" name="ch_<?php echo $modulo->getId()."_".$acao->getCodigoAcao();?>" />
+                                                                                <?php echo $acao->getNome();?>
+                                                                            </label>
+                                                                        </li>
                                                                     </ul>
                                                                     <?php 
                                                                                     }

@@ -4,7 +4,6 @@
  * Camada de acesso a dados da entidade Modulo
  * @package model
  * @subpackage DAO
- * @author Idealizza
  */
 	class ModuloDAO {
 

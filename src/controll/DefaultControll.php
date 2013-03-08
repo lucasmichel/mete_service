@@ -3,7 +3,6 @@
  * Classe DefaultControll
  * Controlador default da aplicação
  * @package controll
- * @author Idealizza
  */
 	class DefaultControll extends Controll {
 		

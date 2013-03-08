@@ -2,7 +2,6 @@
 /**
  * Classe Modulo
  * @package model
- * @author Idealizza
  */
 	class Modulo {
 

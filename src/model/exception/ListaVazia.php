@@ -3,7 +3,6 @@
  * Classe ListaVazia
  * @package model
  * @subpackage exception
- * @author Idealizza
  */
 	class ListaVazia extends Exception {
 		

@@ -1,7 +1,6 @@
 ﻿<?php
 /**
  * Classe Paginacao
- * @author Idealizza
  */
 	class Paginacao {
 		

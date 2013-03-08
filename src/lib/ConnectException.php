@@ -3,7 +3,6 @@
  * Classe ConectException
  * Classe de excessão da conexão com a base de dados
  * @package lib
- * @author Idealizza
  */
 	class ConnectException extends Exception {
 

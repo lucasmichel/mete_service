@@ -4,7 +4,6 @@
  * Camada de acesso a dados da entidade Usuario
  * @package model
  * @subpackage DAO
- * @author Idealizza
  */
 	class UsuarioDAO {
 		
@@ -38,12 +37,12 @@
 		 */
 		public function inserir(Usuario $obj){
 			// INSTRUCAO SQL //
-			$sql = "INSERT INTO " . self::TABELA . "(id_perfil,login,senha,email,dataUltimoLogin,excluido) 
+			$sql = "INSERT INTO " . self::TABELA . "(id_perfil,login,senha,email,excluido) 
                         VALUES('".$obj->getPerfil()->getId()."',
 			'".$obj->getLogin()."',
                         '".md5($obj->getSenha())."',
-                        '".$obj->getEmail()."'
-                        'CURRENT_TIMESTAMP()', 0)";
+                        '".$obj->getEmail()."',
+                        0)";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->exec($sql);
 			// TRATANDO O RESULTADO //
@@ -93,11 +92,11 @@
 		public function logar($login,$senha){
 			// INSTRUCAO SQL //
 			$sql = "SELECT u.* FROM " . self::TABELA . " u 
-                        WHERE u.login = '".$login."' AND 
+                        WHERE u.email = '".$login."' AND 
                         u.senha = '".md5($senha)."'";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
-			// RETORNANDO O RESULTADO //
+			// RETORNANDO O RESULTADO //                        
 			return $resultado;
 		}
 		
@@ -153,8 +152,6 @@
 		 * @param $id
 		 */
 		public function gravarDataHoraLogin($id){
-			
-			
 			// instrução sql //
 			$sql = "UPDATE " . self::TABELA . " SET dataUltimoLogin = CURRENT_TIMESTAMP() WHERE id = '".$id."'";
 			// executando a sql //

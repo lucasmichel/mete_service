@@ -5,10 +5,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Idealizza Sistemas</title>
+	<title>SoftLuc Sistemas</title>
 	<style type="text/css">
 		body {
-			background-color: #8BA23C
+			/*background-color: #8BA23C*/
+			background-color: teal;
 		}
 		div#aviso {
 			margin-top: 80px;
@@ -19,7 +20,8 @@
 		}
 		div#mensagem {
 			padding-top: 50px;
-			background-color: #8BA23C;
+			/*background-color: #8BA23C;*/
+			background-color: teal;
 			color: #fff;
 			text-align: center;
 			font-family: sans-serif;
@@ -29,7 +31,7 @@
 </head>
 <body>
 	<div id="aviso">
-		<img src="img/logo_idealizza.png" title="Idealizza"/>
+		<img src="img/images.jpg" title="SoftLuc"/>
 	</div>
 	<div id="mensagem">
 		<?php 

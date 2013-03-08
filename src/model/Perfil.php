@@ -2,7 +2,6 @@
 /**
  * Classe Perfil
  * @package model
- * @author Idealizza
  */
 class Perfil {
 
@@ -90,10 +89,14 @@ class Perfil {
         private static function _setAcoes($perfil){
                 $instancia = PerfilDAO::getInstancia();
                 $acoes = $instancia->setAcoes($perfil);
-                foreach($acoes as $acao){
+                if($acoes != null){
+                    foreach($acoes as $acao){
                         $objetos[] = Acao::buscar($acao['codigo_acao'],$acao['id_modulo']);
+                    }
+                    return $objetos;
                 }
-                return $objetos;
+                
+                
         }
 
         public function getModulos(){

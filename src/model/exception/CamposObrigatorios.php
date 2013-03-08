@@ -3,7 +3,6 @@
  * Classe CamposObrigatorios
  * @package model
  * @subpackage exception
- * @author Idealizza
  */
 	class CamposObrigatorios extends Exception {
 

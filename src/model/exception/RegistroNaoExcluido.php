@@ -1,10 +1,8 @@
 <?php
-
 /**
  * Classe ListaVazia
  * @package model
  * @subpackage exception
- * @author Idealizza
  */
 class RegistroNaoExcluido extends Exception {
     /**

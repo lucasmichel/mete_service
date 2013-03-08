@@ -5,7 +5,6 @@
  * Camada de acesso a dados da entidade Perfil
  * @package model
  * @subpackage DAO
- * @author Idealizza
  */
 class PerfilDAO {
 
@@ -47,9 +46,10 @@ class PerfilDAO {
         // PERCORRENDO AS ACOES //
         foreach ($obj->getAcoes() as $acao) {
             // INSTRUCAO SQL 2 //
-            $sql2 = "INSERT INTO acoes_modulos_perfis(codigo,id_modulo,id_perfil) VALUES('" . $acao->getCodigo() . "',
-																							 '" . $acao->getModulo()->getId() . "',
-																							 '" . $obj->getId() . "')";
+            $sql2 = "INSERT INTO acoes_modulos_perfis(codigo_acao,id_modulo,id_perfil) 
+                VALUES('" . $acao->getCodigoAcao() . "',
+            '" . $acao->getModulo()->getId() . "',
+            '" . $obj->getId() . "')";
             // EXECUTANDO A SQL 2 //
             $this->conexao->exec($sql2);
         }
@@ -64,16 +64,21 @@ class PerfilDAO {
      */
     public function editar($obj) {
         // INSTRUCAO SQL //
-        $sql = "UPDATE " . self::TABELA . " SET nome = '" . $obj->getNome() . "' WHERE id = '" . $obj->getId() . "'";
+        
+        $sql = "UPDATE " . self::TABELA . " SET nome = '" . $obj->getNome() . "' 
+        WHERE id = '" . $obj->getId() . "'";
         $this->conexao->exec($sql);
+        
         // INSTRUCAO SQL 2 //
         $sql2 = "DELETE FROM acoes_modulos_perfis WHERE id_perfil = '" . $obj->getId() . "'";
         $this->conexao->exec($sql2);
+        
         foreach ($obj->getAcoes() as $acao) {
             // INSTRUCAO SQL 3 //
-            $sql3 = "INSERT INTO acoes_modulos_perfis(codigo,id_modulo,id_perfil) VALUES('" . $acao->getCodigo() . "',
-																							 '" . $acao->getModulo()->getId() . "',
-																							 '" . $obj->getId() . "')";
+            $sql3 = "INSERT INTO acoes_modulos_perfis
+            (codigo,id_modulo,id_perfil) VALUES('" . $acao->getCodigoAcao() . "',
+            '" . $acao->getModulo()->getId() . "',
+            '" . $obj->getId() . "')";
             $this->conexao->exec($sql3);
         }
     }

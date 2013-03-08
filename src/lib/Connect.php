@@ -3,7 +3,6 @@
  * Classe Connect
  * Classe de conexao com MySQL usando o padrao Singleton
  * @package lib
- * @author Idealizza
  */
 	class Connect {
 

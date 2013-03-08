@@ -3,7 +3,6 @@
  * Classe Controll
  * Controlador principal do framework seguindo o padrao Singleton
  * @package controll
- * @author Idealizza
  */
 	class Controll {
 		
@@ -125,7 +124,7 @@
 				foreach(self::$metodo->getStaticVariables() as $diretiva => $valor){
 					if($diretiva == 'acao'){
 						foreach($usuario->getPerfil()->getAcoes() as $acao){
-							if(($acao->getCodigo() == $valor)&&($acao->getModulo()->getId() == $constante))
+							if(($acao->getCodigoAcao() == $valor)&&($acao->getModulo()->getId() == $constante))
 								return;
 						}
 						throw new ControllException(ControllException::PERMISSAO_INVALIDA);

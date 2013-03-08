@@ -1,12 +1,12 @@
 <?php 
     header('Content-Type: text/html; charset=utf-8', true);
 ?>
-﻿<script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function($){
     $('#login').focus();
     $('form').validate({
         messages: {
-            login: { required: 'Digite seu login.' },
+            login: { required: 'Digite seu email.' },
             senha: { required: 'Digite sua senha.' }
         }
     });
@@ -16,7 +16,7 @@ $(document).ready(function($){
     <form method="post" action="logar">
         <ul>
             <li>
-                <label for="login">Login</label>
+                <label for="login">Email:</label>
                 <input type="text" id="login" name="login" value="" class="required" />
             </li>
             <li>
