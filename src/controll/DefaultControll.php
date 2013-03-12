@@ -10,7 +10,8 @@
 		 * Acao index()
 		 */
 		public function index(){
-			$this->setTela(($this->getUsuario()) ? 'home' : 'login');
+			//$this->setTela(($this->getUsuario()) ? 'home' : 'login');
+			$this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
 			$this->getPage();
 		}
 		
@@ -72,5 +73,87 @@
 		public function voltar(){
 			$this->setPage();
 		}
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                /*PARA ANDROID*/
+                public function logarAndroid(){
+                    if($this->getDados('POST')){
+                        $this->_logarAndroid($this->getDados('POST'));
+                    }
+                    
+			   		
+		}
+		
+				
+		private function _logarAndroid($dados){
+                        
+                    try {
+                        
+                        $arrayRetorno = Usuario::logarAndroid($dados['login'],$dados['senha']);
+
+                        $arrayRetorno["status"] = 0;
+                        $arrayRetorno["messagem"] = "OK";
+                        
+                        header('Cache-Control: no-cache, must-revalidate');
+                        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');                    
+                        header('Content-type: application/json');
+
+                        echo json_encode($arrayRetorno);
+                    }
+                    
+                    catch(CamposObrigatorios $e){
+                        
+                        $arrayRetorno["status"] = 1;
+                        $arrayRetorno["messagem"] = $e->getMessage();
+                        
+                        header('Cache-Control: no-cache, must-revalidate');
+                        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');                    
+                        header('Content-type: application/json');
+
+                        echo json_encode($arrayRetorno);
+                    }
+                    
+                    catch(LoginInvalido $e){
+                        $arrayRetorno["status"] = 1;
+                        $arrayRetorno["messagem"] = $e->getMessage();
+                        
+                        header('Cache-Control: no-cache, must-revalidate');
+                        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');                    
+                        header('Content-type: application/json');
+
+                        echo json_encode($arrayRetorno);
+                    }
+                    
+                    catch(Exception $e){
+                        $arrayRetorno["status"] = 1;
+                        $arrayRetorno["messagem"] = $e->getMessage();
+                        
+                        header('Cache-Control: no-cache, must-revalidate');
+                        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');                    
+                        header('Content-type: application/json');
+
+                        echo json_encode($arrayRetorno);
+                    }
+                    
+		}
+                /*PARA ANDROID*/
+                
 	}
 ?>

@@ -175,10 +175,6 @@ class Usuario {
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
             $usuario = $instancia->buscar($id);
-            
-          
-            
-            
             // checando se o resultado foi falso //
             if(!$usuario)
                     // levanto a excessao RegistroNaoEncontrado //
@@ -195,11 +191,6 @@ class Usuario {
                             $usuario['email'],
                             $usuario['dataUltimoLogin'],
                             $usuario['excluido']);    
-            
-            
-            
-            
-            
             return $a;
     }
 
@@ -210,6 +201,30 @@ class Usuario {
             $usuario = $instancia->trocarSenha($this->getId(),$senhaAtual,$novaSenha);
             return $usuario;
     }
+    
+    
+    public static function logarAndroid($login,$senha){
+        
+            if((empty($login))||(empty($senha)))
+                    
+                    throw new CamposObrigatorios();
+            
+            $instancia = UsuarioDAO::getInstancia();
+            
+            $usuario = $instancia->logar($login,$senha);
+            
+            if(!$usuario)
+            
+                    throw new LoginInvalido();
+            
+            /*grava a hora do login*/
+            $instancia->gravarDataHoraLogin($usuario['id']);
+            
+            
+            
+            return $usuario;
+    }
+    
 
     /**
      * Metodos getters() e setters()

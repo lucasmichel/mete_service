@@ -51,7 +51,10 @@ $perfil = $this->getDados('VIEW');
                                                 <?php
                                                 try {
                                                     $acoes = Acao::listar($modulo->getId());                                                    
-                                                    foreach ($acoes as $acao) {                                                        
+                                                    foreach ($acoes as $acao) {                
+                                                        
+                                                        
+                                                        
                                                         foreach ($perfil->getAcoes() as $act) {
                                                             if (($act->getModulo()->getId()) == ($modulo->getId()) && ($act->getCodigoAcao()) == ($acao->getCodigoAcao())) {
                                                                 $check = "checked='checked'";
