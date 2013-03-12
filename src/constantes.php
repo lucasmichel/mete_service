@@ -3,7 +3,6 @@
  * Arquivo de Constantes
  * Definição de constantes de acesso a pastas e estruturas do Framework
  * ATENÇÃO: só mexer se desejar alterar o funcionamento do framework
- * @author Idealizza
  */
 
 	/**
