@@ -123,10 +123,6 @@ class DefaultControll extends Controll {
             echo json_encode($arrayRetorno);
         }
     }
-    
-    
-    
-
 }
 
 ?>
