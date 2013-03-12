@@ -124,9 +124,9 @@ class DefaultControll extends Controll {
         }
     }
     
-    /*teste da goma*/
+    
+    
 
-    /* PARA ANDROID */
 }
 
 ?>
