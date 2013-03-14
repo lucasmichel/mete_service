@@ -20,6 +20,7 @@ class UsuarioDAO extends ClassDAO {
      * Metodo construtor()
      */
     protected function __construct() {
+        //passa pra a classe pai o nomeda tabelausada pela classe
         parent::__construct("usuarios");
         $this->conexao = Connect::getInstancia();
     }

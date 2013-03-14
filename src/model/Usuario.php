@@ -174,15 +174,12 @@ class Usuario {
             // recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
-            $usuario = $instancia->buscar($id);
+            $usuario = $instancia->buscarPorId($id);
             // checando se o resultado foi falso //
             if(!$usuario)
                     // levanto a excessao RegistroNaoEncontrado //
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::USUARIO);
             // instanciando e retornando o Usuario //
-            
-            
-            
             
             $a = new Usuario($usuario['id'],
                             Perfil::buscar($usuario['id_perfil']),

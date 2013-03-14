@@ -67,7 +67,7 @@ class Perfil {
 
         public static function buscar($id){
                 $instancia = PerfilDAO::getInstancia();
-                $perfil = $instancia->buscar($id);
+                $perfil = $instancia->buscarPorId($id);
                 if(!$perfil) {
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::PERFIL);
                 }
@@ -77,7 +77,7 @@ class Perfil {
 
         public static function listar(){
                 $instancia = PerfilDAO::getInstancia();
-                $perfis = $instancia->listar();
+                $perfis = $instancia->listar("nome");
                 if(!$perfis)
                         throw new ListaVazia(ListaVazia::PERFIS);
                 foreach($perfis as $perfil){

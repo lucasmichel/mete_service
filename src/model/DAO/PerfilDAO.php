@@ -6,19 +6,22 @@
  * @package model
  * @subpackage DAO
  */
-class PerfilDAO {
+class PerfilDAO extends ClassDAO {
 
     /**
      * Atributos
      */
     private static $instancia;
     private $conexao;
+
     const TABELA = 'perfis';
 
     /**
      * Metodo construtor()
      */
-    private function __construct() {
+    protected function __construct() {
+        //passa pra a classe pai o nomeda tabelausada pela classe
+        parent::__construct("perfis");
         $this->conexao = Connect::getInstancia();
     }
 
@@ -64,15 +67,15 @@ class PerfilDAO {
      */
     public function editar($obj) {
         // INSTRUCAO SQL //
-        
+
         $sql = "UPDATE " . self::TABELA . " SET nome = '" . $obj->getNome() . "' 
         WHERE id = '" . $obj->getId() . "'";
         $this->conexao->exec($sql);
-        
+
         // INSTRUCAO SQL 2 //
         $sql2 = "DELETE FROM acoes_modulos_perfis WHERE id_perfil = '" . $obj->getId() . "'";
         $this->conexao->exec($sql2);
-        
+
         foreach ($obj->getAcoes() as $acao) {
             // INSTRUCAO SQL 3 //
             $sql3 = "INSERT INTO acoes_modulos_perfis
@@ -110,27 +113,27 @@ class PerfilDAO {
      * @param $id
      * @return fetch_assoc
      */
-    public function buscar($id) {
+    /*public function buscar($id) {
         // INSTRUCAO SQL //
         $sql = "SELECT p.* FROM " . self::TABELA . " p WHERE p.id = '" . $id . "'";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetch($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }
+    }*/
 
     /**
      * Metodo listar()
      * @return fetch_assoc[]
      */
-    public function listar() {
+    /*public function listar() {
         // INSTRUCAO SQL //
         $sql = "SELECT p.* FROM " . self::TABELA . " p ORDER BY p.nome";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }
+    }*/
 
     /**
      * Metodo setAcoes($perfil)
