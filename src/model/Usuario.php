@@ -106,11 +106,11 @@ class Usuario {
      * Metodo listar()
      * @return Usuario[]
      */
-    public static function listar(){
+    public static function listar($ordenarPor){
             // recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
-            $usuarios = $instancia->listar();
+            $usuarios = $instancia->listar($ordenarPor);
             // checando se o retorno foi falso //
             if(!$usuarios)
                     // levantando a excessao ListaVazia //

@@ -76,7 +76,7 @@ class PerfilDAO {
         foreach ($obj->getAcoes() as $acao) {
             // INSTRUCAO SQL 3 //
             $sql3 = "INSERT INTO acoes_modulos_perfis
-            (codigo,id_modulo,id_perfil) VALUES('" . $acao->getCodigoAcao() . "',
+            (codigo_acao,id_modulo,id_perfil) VALUES('" . $acao->getCodigoAcao() . "',
             '" . $acao->getModulo()->getId() . "',
             '" . $obj->getId() . "')";
             $this->conexao->exec($sql3);
