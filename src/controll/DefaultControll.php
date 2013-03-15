@@ -11,8 +11,8 @@ class DefaultControll extends Controll {
      * Acao index()
      */
     public function index() {
-        $this->setTela(($this->getUsuario()) ? 'home' : 'login');
-        //$this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
+        //$this->setTela(($this->getUsuario()) ? 'home' : 'login');
+        $this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
         $this->getPage();
     }
 
@@ -76,6 +76,11 @@ class DefaultControll extends Controll {
     public function logarAndroid() {
         if ($this->getDados('POST')) {
             $this->_logarAndroid($this->getDados('POST'));
+        }
+        else{
+            
+            $this->setTela('loginTesteAndroid');
+            $this->getPage();
         }
     }
 
