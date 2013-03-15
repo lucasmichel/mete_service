@@ -92,7 +92,8 @@ class DefaultControll extends Controll {
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            echo json_encode($arrayRetorno);
+            $retorno = md5(serialize($arrayRetorno));
+            echo json_encode($retorno);
         } catch (CamposObrigatorios $e) {
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
@@ -113,6 +114,7 @@ class DefaultControll extends Controll {
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
+            //echo '"results":['.json_encode($arrayRetorno).']"'; ;
             echo json_encode($arrayRetorno);
         }
     }
