@@ -92,30 +92,39 @@ class DefaultControll extends Controll {
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            $retorno = md5(serialize($arrayRetorno));
-            echo json_encode($retorno);
+            
+            $retorno = md5(serialize('{"results":'.json_encode($arrayRetorno).'}'));
+            
+            echo $retorno;
+            
         } catch (CamposObrigatorios $e) {
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            echo json_encode($arrayRetorno);
+            echo '{"results":'.json_encode($arrayRetorno).'}'; ;
+            
         } catch (LoginInvalido $e) {
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            echo json_encode($arrayRetorno);
+            echo '{"results":'.json_encode($arrayRetorno).'}'; ;
         } catch (Exception $e) {
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            //echo '"results":['.json_encode($arrayRetorno).']"'; ;
-            echo json_encode($arrayRetorno);
+            echo '{"results":'.json_encode($arrayRetorno).'}'; ;
+            
+            
+            //{"results":{"status":1,"messagem":"Login e\/ou senha inv\u00e1lidos."}}
+            
+            
+            //echo json_encode($arrayRetorno);
         }
     }
 }
