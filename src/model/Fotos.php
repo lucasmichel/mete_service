@@ -10,7 +10,7 @@
  *
  * @author kaykylopes
  */
-class Acao_modulos_perfis {
+class Fotos {
     private $id;
     private $nome;
     private $acompanhante_id;
@@ -103,7 +103,7 @@ class Acao_modulos_perfis {
     
      public static function buscar($id){
             // recuperando a instancia da classe de acesso a dados //
-            $instancia = UsuarioDAO::getInstancia();
+            $instancia = FotosDAO::getInstancia();
             // executando o metodo //
             $fotos = $instancia->buscarPorId($id);
             // checando se o resultado foi falso //
