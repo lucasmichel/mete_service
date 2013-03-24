@@ -101,14 +101,13 @@ class AcompanhanteDAO extends ClassDAO {
      * @param $id
      * @return boolean
      */
-    /*public function excluir($id) {
+    public function excluir($id) {
         // checando se existe algum vinculo desse registro com outros //
-        $validacao = "SELECT u.id FROM usuarios u WHERE id_perfil = '" . $id . "'";
+        $validacao = "SELECT id FROM acompanhante WHERE id = '" . $id . "'";
         if ($this->conexao->fetch($validacao))
-            throw new RegistroNaoExcluido(RegistroNaoExcluido::PERFIL);
+            throw new RegistroNaoExcluido(RegistroNaoExcluido::ACOMPANHANTE);
         // INSTRUCOES SQL //
         $sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
-        $sql[] = "DELETE FROM acoes_modulos_perfis WHERE id_perfil = '" . $id . "'";
         // PERCORRENDO AS SQL //
         foreach ($sql as $item) {
             // EXECUTANDO A SQL //
@@ -116,34 +115,34 @@ class AcompanhanteDAO extends ClassDAO {
         }
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }*/
+    }
 
     /**
      * Metodo buscar($id)
      * @param $id
      * @return fetch_assoc
      */
-    /*public function buscar($id) {
+    public function buscar($id) {
         // INSTRUCAO SQL //
-        $sql = "SELECT p.* FROM " . self::TABELA . " p WHERE p.id = '" . $id . "'";
+        $sql = "SELECT a.* FROM " . self::TABELA . " a WHERE a.id = '" . $id . "'";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetch($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }*/
+    }
 
     /**
      * Metodo listar()
      * @return fetch_assoc[]
      */
-    /*public function listar() {
+    public function listar() {
         // INSTRUCAO SQL //
-        $sql = "SELECT p.* FROM " . self::TABELA . " p ORDER BY p.nome";
+        $sql = "SELECT a.* FROM " . self::TABELA . " a ORDER BY a.nome";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }*/
+    }
 
     /**
      * Metodo setAcoes($perfil)

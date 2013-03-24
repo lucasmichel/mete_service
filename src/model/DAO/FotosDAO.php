@@ -69,6 +69,44 @@ class FotosDAO  extends ClassDAO{
         return $resultado;
     }
 
+    public function excluir($id) {
+    	// checando se existe algum vinculo desse registro com outros //
+    	$validacao = "SELECT u.id FROM fotos u WHERE id = '" . $id . "'";
+    	if ($this->conexao->fetch($validacao))
+    		throw new RegistroNaoExcluido(RegistroNaoExcluido::PERFIL);
+    	// INSTRUCOES SQL //
+    	$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
+    	// PERCORRENDO AS SQL //
+    	foreach ($sql as $item) {
+    		// EXECUTANDO A SQL //
+    		$resultado = $this->conexao->exec($item);
+    	}
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
+    public function buscar($id) {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT f.* FROM " . self::TABELA . " f WHERE f.id = '" . $id . "'";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetch($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
+    /**
+     * Metodo listar()
+     * @return fetch_assoc[]
+     */
+    public function listar() {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT f.* FROM " . self::TABELA . " f ORDER BY f.nome";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetchAll($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
 }
 
 ?>

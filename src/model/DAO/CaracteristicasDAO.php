@@ -55,6 +55,28 @@ class CaracteristicasDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}
+	
+	public function buscar($id) {
+		// INSTRUCAO SQL //
+		$sql = "SELECT c.* FROM " . self::TABELA . " c WHERE c.id = '" . $id . "'";
+		// EXECUTANDO A SQL //
+		$resultado = $this->conexao->fetch($sql);
+		// RETORNANDO O RESULTADO //
+		return $resultado;
+	}
+	
+	/**
+	 * Metodo listar()
+	 * @return fetch_assoc[]
+	 */
+	public function listar() {
+		// INSTRUCAO SQL //
+		$sql = "SELECT c.* FROM " . self::TABELA . " c ORDER BY c.nome";
+		// EXECUTANDO A SQL //
+		$resultado = $this->conexao->fetchAll($sql);
+		// RETORNANDO O RESULTADO //
+		return $resultado;
+	}
 }
 
 ?>
