@@ -11,6 +11,10 @@
  * @author softluc
  */
 class ClassDAO {
+    
+    /*COLOCAR COMO GENERICO, MACTAR O CONSTRUTOR E CRIAR GET SET PRA CONEXAO E TABELA*/
+    
+    
     //put your code here
     
     private $conexao;	

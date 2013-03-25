@@ -57,7 +57,7 @@ class AcompanhanteDAO extends ClassDAO {
             '" . $obj->getQuadril() . "',
             '" . $obj->getOlhos() . "',
             '" . $obj->getHorarioAtendimento() . "',
-                0,
+			'0',
             '" . $obj->getUsuarioId() . "',
             '" . $obj->getUsuarioIdPerfil() . "')";
         
@@ -96,69 +96,11 @@ class AcompanhanteDAO extends ClassDAO {
         return $resultado;
     }
 
-    /**
-     * Metodo excluir($id)
-     * @param $id
-     * @return boolean
-     */
-    public function excluir($id) {
-        // checando se existe algum vinculo desse registro com outros //
-        $validacao = "SELECT id FROM acompanhante WHERE id = '" . $id . "'";
-        if ($this->conexao->fetch($validacao))
-            throw new RegistroNaoExcluido(RegistroNaoExcluido::ACOMPANHANTE);
-        // INSTRUCOES SQL //
-        $sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
-        // PERCORRENDO AS SQL //
-        foreach ($sql as $item) {
-            // EXECUTANDO A SQL //
-            $resultado = $this->conexao->exec($item);
-        }
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }
+    
 
-    /**
-     * Metodo buscar($id)
-     * @param $id
-     * @return fetch_assoc
-     */
-    public function buscar($id) {
-        // INSTRUCAO SQL //
-        $sql = "SELECT a.* FROM " . self::TABELA . " a WHERE a.id = '" . $id . "'";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetch($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }
+    
 
-    /**
-     * Metodo listar()
-     * @return fetch_assoc[]
-     */
-    public function listar() {
-        // INSTRUCAO SQL //
-        $sql = "SELECT a.* FROM " . self::TABELA . " a ORDER BY a.nome";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetchAll($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }
-
-    /**
-     * Metodo setAcoes($perfil)
-     * @param $perfil
-     * @return fetch_assoc[]
-     */
-    /*public function setAcoes($perfil) {
-        // INSTRUCAO SQL //
-        $sql = "SELECT amp.codigo_acao,amp.id_modulo FROM acoes_modulos_perfis amp
-					WHERE amp.id_perfil = '" . $perfil . "'
-					ORDER BY amp.codigo_acao";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetchAll($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }*/
+    
 
 }
 

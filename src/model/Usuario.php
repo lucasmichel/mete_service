@@ -62,8 +62,13 @@ class Usuario {
     public function inserir(){
             // validando os campos //
             if(!$this->_validarCampos())
-                    // levantando a excessao CamposObrigatorios //
-                    throw new CamposObrigatorios();
+				// levantando a excessao CamposObrigatorios //
+                throw new CamposObrigatorios();            
+            
+            if($this->_testarEmailExiste($this->getEmail()))
+	            // levanto a excessao//
+	            throw new Exception("Email já cadastrado en nossa base de dados");
+            
             // recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
@@ -81,6 +86,11 @@ class Usuario {
             if(!$this->_validarCampos())
                     // levantando a excessao CamposObrigatorios //
                     throw new CamposObrigatorios();
+            
+            if($this->_testarEmailExisteEdicao($this->getId(), $this->getEmail()))
+            	// levanto a excessao//
+            	throw new Exception("Email já cadastrado en nossa base de dados");
+            
             // recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
@@ -200,29 +210,60 @@ class Usuario {
     }
     
     
-    public static function logarAndroid($login,$senha){
-        
-            if((empty($login))||(empty($senha)))
-                    
-                    throw new CamposObrigatorios();
-            
-            $instancia = UsuarioDAO::getInstancia();
-            
-            $usuario = $instancia->logar($login,$senha);
-            
-            if(!$usuario)
-            
-                    throw new LoginInvalido();
-            
+    public static function logarAndroid($login,$senha){        
+            if((empty($login))||(empty($senha)))                    
+                    throw new CamposObrigatorios();            
+            $instancia = UsuarioDAO::getInstancia();            
+            $usuario = $instancia->logar($login,$senha);            
+            if(!$usuario)            
+                    throw new LoginInvalido();            
             /*grava a hora do login*/
-            $instancia->gravarDataHoraLogin($usuario['id']);
-            
-            
-            
+            $instancia->gravarDataHoraLogin($usuario['id']);            
             return $usuario;
     }
     
-
+    
+    
+    
+    
+    /**
+     * Metodo testarEmailExiste($email)
+     * @param $email
+     * @return Usuario
+     */
+    private static function _testarEmailExiste($email){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = UsuarioDAO::getInstancia();
+    	// executando o metodo //
+    	$usuario = $instancia->testarEmailExiste($email);
+    	// checando se o resultado foi falso //
+    	if($usuario)
+	    	return true;
+    	// instanciando e retornando o bollean//
+    	else
+			return false;
+    }
+    
+    
+    /**
+     * Metodo testarEmailExiste($email)
+     * @param $email
+     * @return Usuario
+     */
+    private static function _testarEmailExisteEdicao($id, $email){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = UsuarioDAO::getInstancia();
+    	// executando o metodo //
+    	$usuario = $instancia->testarEmailExisteEdicao($id, $email);
+    	// checando se o resultado foi falso //
+    	if($usuario)
+    		return true;
+    	// instanciando e retornando o bollean//
+    	else
+    		return false;
+    }
+    
+    
     /**
      * Metodos getters() e setters()
      */

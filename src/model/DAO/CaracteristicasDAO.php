@@ -5,9 +5,9 @@ class CaracteristicasDAO extends ClassDAO{
 	 */
 	private static $instancia;
 	private $conexao;
-	
+
 	const TABELA = 'caracteristicas';
-	
+
 	/**
 	 * Metodo construtor()
 	 */
@@ -16,14 +16,14 @@ class CaracteristicasDAO extends ClassDAO{
 		parent::__construct("caracteristicas");
 		$this->conexao = Connect::getInstancia();
 	}
-	
+
 	public static function getInstancia() {
 		if (!isset(self::$instancia))
 			self::$instancia = new CaracteristicasDAO();
 		return self::$instancia;
 	}
-	
-	
+
+
 	public function inserir(Fotos $obj) {
 		// INSTRUCAO SQL //
 		$sql = "INSERT INTO " . self::TABELA . "
@@ -33,7 +33,7 @@ class CaracteristicasDAO extends ClassDAO{
 		$resultado = $this->conexao->exec($sql);
 		// TRATANDO O RESULTADO //
 	}
-	 
+
 	public function editar(Fotos $obj) {
 		// INSTRUCAO SQL //
 		$sql = "UPDATE " . self::TABELA . " SET
@@ -44,7 +44,7 @@ class CaracteristicasDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO /////
 		return $resultado;
 	}
-	
+
 	public function setAcoes($caracteristicas) {
 		// INSTRUCAO SQL //
 		$sql = "SELECT c.nome FROM caracteristicas c
@@ -55,7 +55,7 @@ class CaracteristicasDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}
-	
+
 	public function buscar($id) {
 		// INSTRUCAO SQL //
 		$sql = "SELECT c.* FROM " . self::TABELA . " c WHERE c.id = '" . $id . "'";
@@ -64,7 +64,7 @@ class CaracteristicasDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}
-	
+
 	/**
 	 * Metodo listar()
 	 * @return fetch_assoc[]

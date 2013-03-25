@@ -25,16 +25,14 @@ $usuario = $this->getDados('VIEW');
                             <li>
                                 <h4>DADOS</h4>
                                 <ul>
-                                    <!-- <li>
+                                    <li>
                                         <strong>Login</strong><br />
                                         <?php echo $usuario->getLogin(); ?>
-                                    </li>-->
+                                    </li>
                                     <li style="background:#f5f5f5;">
                                         <strong>Data/Hora ultimo login:</strong><br />
-                                        <?php                 
-                                        if($usuario->getDataUltimoLogin() != null)                           
-                                        	echo formataData($usuario->getDataUltimoLogin()); 
-                                        ?>
+                                        <?php                                            
+                                        echo formataData($usuario->getDataUltimoLogin()); ?>
                                     </li>
                                     <li>
                                         <strong>Perfil</strong><br />

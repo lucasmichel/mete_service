@@ -108,14 +108,14 @@ class UsuarioDAO extends ClassDAO {
      * Metodo listar()
      * @return fetch_assoc[]
      */
-    /*public function listar() {
+    public function listar() {
         // INSTRUCAO SQL //
-        $sql = "SELECT u.* FROM " . self::TABELA . " u ORDER BY u.login";
+        $sql = "SELECT u.* FROM " . self::TABELA . " u where excluido = 0 ORDER BY u.login";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }*/
+    }
 
     /**
      * Metodo trocarSenha($id,$senhaAtual,$novaSenha)
@@ -148,7 +148,43 @@ class UsuarioDAO extends ClassDAO {
         // retornando o resultado //
         return $resultado;
     }
-
+    
+    
+    
+    
+    
+    /**
+     * Metodo testarEmailExiste($email)
+     * @param $email
+     * @return fetch_assoc
+     */
+    public function testarEmailExiste($email) {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.email = '" . $email . "'";
+    	// EXECUTANDO A SQL //    	
+    	$resultado = $this->conexao->fetch($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
+    
+    /**
+     * Metodo testarEmailExisteEdicao($email, $id)
+     * @param $email
+     * @return fetch_assoc
+     */
+    public function testarEmailExisteEdicao($id, $email) {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT u.* FROM " . self::TABELA . " u 
+                        WHERE u.email = '" . $email . "' AND 
+                        u.id <> " . $id . "";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetch($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
 }
 
 ?>

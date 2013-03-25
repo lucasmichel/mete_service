@@ -3,37 +3,52 @@
     $usuario = $this->getDados('usuario');
 ?>
 <script type="text/javascript">
+
     $(document).ready(function($){
-        $('#login').focus();
-        /*$('form').validate( {
-            messages: {
-                login: { required: 'Digite um nome' },
-                senha: { required: 'Digite uma senha' },
-                perfil: { required: 'Selecione um perfil' }
-            }
-        });*/
+
+    	function validaEmail (email)
+    	{
+    		er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
+    		if(er.exec(email))
+    			return true;
+    		else
+    			return false;
+    	};
+        
+        $('#email').focus();
+       
                 
         $("#ok").click(function() {
-            if($("#login").val()==""){
-                alert('é necessário definir o login');
-                $("#login").focus();
+        	
+        	var senha = $.trim($("#senha").val());
+        	var email = $.trim($("#email").val());
+
+        	
+        	if(email.length <= 0){
+            	alert('é necessário um email');
+                $("#email").focus();
                 return false;
-            }
-            else if($("#senha").val()==""){
+			}
+        	            
+            else if(!validaEmail(email)){
+            	alert('email invalido');
+                $("#email").focus();
+                return false;
+			}
+
+            
+            else if(senha.length <= 0){
                 alert('é necessário definir a senha');
                 $("#senha").focus();
                 return false;
             }
-            else if($("#email").val()==""){
-                alert('é necessário definir o email');
-                $("#email").focus();
-                return false;
-            }
+            
             else if($("#perfil").val()==""){
                 alert('é necessário definir o perfil');
                 $("#perfil").focus();
                 return false;
             }
+            
             else{
                 $("#cadastro").submit();
             }
@@ -62,18 +77,17 @@
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
-                                    <li>
-                                        <label for="login">Login</label>
-                                        <input type="text" id="login" name="login" value="<?php if($usuario != null) echo $usuario->getLogin();  ?>" class="required" />
-                                    </li>
-                                    <li>
-                                        <label for="senha">Senha</label>
-                                        <input type="password" id="senha" name="senha" value="" class="required" />
-                                    </li>
+                                    
                                     <li>
                                         <label for="email">Email</label>
                                         <input type="text" id="email" name="email" value="<?php if($usuario != null) echo $usuario->getEmail();  ?>" class="required" />
                                     </li>
+                                    
+                                    <li>
+                                        <label for="senha">Senha</label>
+                                        <input type="password" id="senha" name="senha" value="" class="required" />
+                                    </li>
+                                    
                                     <li>
                                         <label for="perfil">Perfil</label>
                                         <select id="perfil" name="perfil" class="required">

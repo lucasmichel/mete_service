@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "usuario.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -37,8 +37,8 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $usuarios = Usuario::listar("email");
-                    $paginacao = new Paginacao($usuarios, 20);
+                    $objetos = Acompanhante::listar("nome");
+                    $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
                         <table id="lista" class="widefat fixed">
@@ -46,36 +46,30 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
+                                    <th width="28%" align="left">Nome</th>
                                     <th width="28%" align="left">Email</th>
-                                    <th width="28%" align="left">último login</th>
-                                    <th width="28%" align="left">Perfil</th>
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($paginacao->getDados() as $usuario) {
+                                foreach ($paginacao->getDados() as $objeto) {
                                     ?>
                                     <tr>
                                         <th width="1%">
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $usuario->getEmail(); ?></td>
-                                        <td width="28%" align="left"><?php
-                                        if($usuario->getDataUltimoLogin() != null) 
+                                        <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getEmail(); ?></td>
                                         
-                                        	echo formataDataTime($usuario->getDataUltimoLogin()); 
-                                        
-                                        ?></td>
-                                        <td width="28%" align="left"><?php echo $usuario->getPerfil()->getNome(); ?></td>
                                         <td width="20%">						
-                                            <a href="usuario/ver/<?php echo $usuario->getId(); ?>">Ver</a> 
+                                            <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(2, UsuarioControll::MODULO)) {
+                                            if (Acao::checarPermissao(2, AcompanhenteControll::MODULO)) {
                                                 ?>
-                                                <a href="usuario/editar/<?php echo $usuario->getId(); ?>">Editar</a> 
-                                                <a href="usuario/excluir/<?php echo $usuario->getId(); ?>">Excluir</a>
+                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a> 
+                                                <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                                 <?php
                                             }
                                             ?>
@@ -91,7 +85,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                         <span class="page"><?php echo $paginacao->getLinks(); ?></span>
                     </div>
                     <?php
-                } catch (ListaVazia $e) {
+                } catch (Exception $e) {
                     ?>
                     <div class="exception">
                         <?php echo $e->getMessage(); ?>

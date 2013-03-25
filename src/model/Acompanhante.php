@@ -24,13 +24,13 @@ class Acompanhante {
     private $atendo;
     private $especialidade;
     private $horario_atendimento;
-    private $sexo;
+    private $excluido;
     private $usuario_id;
     private $usuario_id_perfil;
     
-    function __construct($id = 0, $nome = '', $idade = 0, $altura = 0, $peso = 0, 
-    		$busto = '', $cintura = '', $quadril = 0, $olhos = '', $pernoite = '',
-    	    $atendo = true, $especialidade = '' , $horario_atendimento = null, $sexo = '', 
+    function __construct($id = 0, $nome = '', $idade = '', $altura = '', $peso = '', 
+    		$busto = '', $cintura = '', $quadril = '', $olhos = '', $pernoite = '',
+    	    $atendo = true, $especialidade = '' , $horario_atendimento = null, $excluido = 0, 
     		$usuario_id = null, $usuario_id_perfil = null) {
     	
         $this->id = $id;
@@ -46,7 +46,7 @@ class Acompanhante {
         $this->atendo = $atendo;
         $this->especialidade = $especialidade;
         $this->horario_atendimento = $horario_atendimento;
-        $this->sexo = $sexo;
+        $this->excluido = $excluido;
         $this->usuario_id = $usuario_id;
         $this->usuario_id_perfil = $usuario_id_perfil;
     }
@@ -98,19 +98,19 @@ class Acompanhante {
         return $this->especialidade;
     }
 
-    public function getHorario_atendimento() {
+    public function getHorarioAtendimento() {
         return $this->horario_atendimento;
     }
 
-    public function getSexo() {
-        return $this->sexo;
+    public function getExcluido() {
+    	return $this->excluido;
     }
-
-    public function getUsuario_id() {
+    
+    public function getUsuarioId() {
         return $this->usuario_id;
     }
 
-    public function getUsuario_id_perfil() {
+    public function getUsuarioIdPerfil() {
         return $this->usuario_id_perfil;
     }
 
@@ -162,23 +162,33 @@ class Acompanhante {
         $this->especialidade = $especialidade;
     }
 
-    public function setHorario_atendimento($horario_atendimento) {
+    public function setHorarioAtendimento($horario_atendimento) {
         $this->horario_atendimento = $horario_atendimento;
     }
 
-    public function setSexo($sexo) {
-        $this->sexo = $sexo;
+    public function setExcluido($excluido) {
+    	$this->excluido = $excluido;
     }
-
-    public function setUsuario_id($usuario_id) {
+    
+    public function setUsuarioId($usuario_id) {
         $this->usuario_id = $usuario_id;
     }
 
-    public function setUsuario_id_perfil($usuario_id_perfil) {
+    public function setUsuarioIdPerfil($usuario_id_perfil) {
         $this->usuario_id_perfil = $usuario_id_perfil;
     }
 
 
+    /**
+     * Metodo _validarCampos()
+     * @return boolean
+     */
+    private function _validarCampos(){
+    	if(($this->getNome() == null)||($this->getUsuarioId() == 0))
+    		return false;
+    	return true;
+    }
+    
     public function inserir(){
     	// validando os campos //
     	if(!$this->_validarCampos())
@@ -222,13 +232,12 @@ class Acompanhante {
     	// checando se o retorno foi falso //
     	if(!$acompanhante)
     		// levantando a excessao ListaVazia //
-    		throw new ListaVazia(ListaVazia::FOTOS);
+    		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
     	// percorrendo os usuarios //
     	foreach($acompanhante as $acompanhante){
     		// instanciando e jogando dentro da colecao $objetos o Usuario //
-    		$objetos[] = new Acompanhante($acompanhante['id'],
-    				$acompanhante['nome']
-    		);
+    		$objetos[] = contruirObjeto($acompanhante);
+    		
     	}
     	// retornando a colecao $objetos //
     	return $objetos;
@@ -244,13 +253,31 @@ class Acompanhante {
     		// levanto a excessao RegistroNaoEncontrado //
     		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
     	// instanciando e retornando o Usuario //
+    	
+    	return new  contruirObjeto($acompanhante);
+    }
     
-    	$a = new  Acompanhante($acompanhante['id'],
-    			$acompanhante['nome']);
-    	return $a;
+    
+    private function contruirObjeto($dados){
+    $acompanhante =	new Acompanhante($dados['id'],
+    			$dados['nome'],
+    			$dados['idade'],
+    			$dados['altura'],
+	    		$dados['peso'],
+	    		$dados['cintura'],
+	    		$dados['quadril'],
+	    		$dados['olhos'],
+	    		$dados['pernoite'],
+	    		$dados['atendo'],
+	    		$dados['especialidade'],
+	    		$dados['horario_atendimento'],
+	    		$dados['excluido'],
+	    		$dados['usuario_id'],
+	    		$dados['usuario_id_perfil']);
+    		
+	return $acompanhante; 
     }
     
 }
 
 ?>
-
