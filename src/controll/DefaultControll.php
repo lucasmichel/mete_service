@@ -75,7 +75,7 @@ class DefaultControll extends Controll {
     
     public function inserirUsuario() {
         if ($this->getDados('POST')) {
-            $this->_cadastrarUsuario($this->getDados('POST'));
+            $this->_inserirUsuario($this->getDados('POST'));
         }
         else{
             
