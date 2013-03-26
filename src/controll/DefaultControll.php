@@ -73,19 +73,18 @@ class DefaultControll extends Controll {
 
     /* PARA ANDROID */
     
-    public function inserirUsuario() {
+     public function cadastrarUsuario() {
         if ($this->getDados('POST')) {
-            $this->_inserirUsuario($this->getDados('POST'));
+            $this->_cadastrarUsuario($this->getDados('POST'));
         }
         else{
-            
-            $this->setTela('cadastrarUsuario');
+	    $this->setTela('cadastrarUsuario');
             $this->getPage();
         }
     }
     
     
-    private function _inserirUsuario($dados) {
+    private function _cadastrarUsuario($dados) {
         
         // O Curl irá fazer uma requisição para a API do Vimeo
         // e irá receber o JSON com as informações do vídeo.
@@ -93,29 +92,74 @@ class DefaultControll extends Controll {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $jsonCriptografado = curl_exec($curl);
         curl_close($curl);
-        $encoded = json_decode($jsonCriptografado);*/
-        
-        $jsonCriptografado = $dados['texto'];
+        $encoded = json_decode(base64_decode( $jsonCriptografado));
+
+	echo '<pre>';
+	var_dump($encoded);
+	die();*/
+	
+	/*
+        $jsonCriptografado = $dados['textoCriptografado'];
         
         $jsonDescriptografado = base64_decode($jsonCriptografado);
-        $encoded = json_decode($jsonDescriptografado);
+        $encoded = json_decode($jsonDescriptografado);*/
+
+
+
+	/*echo '<pre>';
+	var_dump($encoded);
+	die();*/
+
 
         // As informações pode ser recuperadas da seguinte forma.
         // Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
         //echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
-        
-        /*ATENÇÂO O LOGIN DOS PARTICIPANTES É O EMAIL*/
         try {
-            $perfil = Perfil::buscar(3);
-            $usuario = new Usuario(0,$perfil,$encoded->{'email'}, $encoded->{'senha'},$encoded->{'email'});
-            $usuario = $usuario->inserir();
-            $arrayRetorno["status"] = 0;
-            $arrayRetorno["messagem"] = "Usuário Cadastrado com suceso";
-            header('Cache-Control: no-cache, must-revalidate');
-            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-            header('Content-type: application/json');
-            $retorno = base64_encode(json_encode($arrayRetorno));
-            echo $retorno;
+
+	    /*$jsonCriptografado = $dados['textoCriptografado'];        
+            $jsonDescriptografado = base64_decode($jsonCriptografado);
+            $encoded = json_decode($jsonDescriptografado);*/
+            
+            $encoded = $this->descriptografarTexto($dados);            
+            $tipoUsuario = $encoded->{'tipo'};
+            
+            if(($tipoUsuario != 1)&&($tipoUsuario != 2)){
+                throw new Exception ('tipo de usuario não definido ou definido errado');
+            }            
+            
+            /*identifica o tipo 1 é cliente e 2 é prostituta*/
+            if($tipoUsuario == 1){                
+                
+                $perfil = Perfil::buscar($tipoUsuario);
+                $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
+                $usuario = $usuario->inserir();
+                $arrayRetorno["status"] = 0;
+                $arrayRetorno["messagem"] = "Usuário Cadastrado com suceso";
+                header('Cache-Control: no-cache, must-revalidate');
+                header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                header('Content-type: application/json');
+                $retorno = base64_encode(json_encode($arrayRetorno));
+                echo $retorno;
+                
+            }
+            /*identifica o tipo 1 é cliente e 2 é prostituta*/
+            else if($tipoUsuario == 2){
+                
+                $perfil = Perfil::buscar($tipoUsuario);
+                $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
+                $usuario = $usuario->inserir();
+                $arrayRetorno["status"] = 0;
+                $arrayRetorno["messagem"] = "Usuário Cadastrado com suceso";
+                header('Cache-Control: no-cache, must-revalidate');
+                header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                header('Content-type: application/json');
+                $retorno = base64_encode(json_encode($arrayRetorno));
+                echo $retorno;
+                
+            }
+            
+            
+            
             
             
         } catch (Exception $e) {

@@ -456,5 +456,14 @@
 			return (isset($retorno)) ? $retorno : false;
 		}
 		
+                
+                protected function descriptografarTexto($dados){
+                    $jsonCriptografado = $dados['textoCriptografado'];
+                    $jsonDescriptografado = base64_decode($jsonCriptografado);
+                    $encoded = json_decode($jsonDescriptografado);
+                    return $encoded;
+                }
+                
+                
 	}
 ?>
