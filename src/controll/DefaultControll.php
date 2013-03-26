@@ -130,7 +130,7 @@ class DefaultControll extends Controll {
             /*identifica o tipo 1 é cliente e 2 é prostituta*/
             if($tipoUsuario == 1){                
                 
-                $perfil = Perfil::buscar($tipoUsuario);
+                $perfil = Perfil::buscar(2);
                 $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
                 $usuario = $usuario->inserir();
                 $arrayRetorno["status"] = 0;
@@ -145,7 +145,7 @@ class DefaultControll extends Controll {
             /*identifica o tipo 1 é cliente e 2 é prostituta*/
             else if($tipoUsuario == 2){
                 
-                $perfil = Perfil::buscar($tipoUsuario);
+                $perfil = Perfil::buscar(3);
                 $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
                 $usuario = $usuario->inserir();
                 $arrayRetorno["status"] = 0;
