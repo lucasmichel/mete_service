@@ -3,7 +3,6 @@
     $acompanhante = $this->getDados('acompanhante');
     $usuario = $this->getDados('usuario');
 ?>
-TESTE DA GOMA
 <script type="text/javascript">
     $(document).ready(function($){
     	function validaEmail (email)

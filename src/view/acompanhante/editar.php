@@ -1,6 +1,7 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
     $acompanhante = $this->getDados('acompanhante');
+    $usuario = Usuario::buscar($acompanhante->getUsuarioId());
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
@@ -89,11 +90,6 @@
                                     
                                     <li>
                                         <label for="idade">Idade</label>
-                                        <input type="text" id="idade" name="nome" value="<?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="nome">Idade</label>
                                         <input type="text" id="idade" name="idade" value="<?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>" />
                                     </li>
 
@@ -128,9 +124,9 @@
                                     </li>
                                     
                                     <li>
-                                        <label for="olhos">Pernoite</label>
-                                        <input type="radio" name="pernoite" id="pernoite" value="1" <?php if($acompanhante->getPernoite == 1) echo'checked';  ?>  >Sim<br>
-										<input type="radio" name="pernoite" id="pernoite" value="0" <?php if($acompanhante->getPernoite == 0) echo'checked';  ?> >Não
+                                        <label for="pernoite">Pernoite</label>
+                                        <input type="radio" name="pernoite" id="pernoite" value="1" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) echo'checked';  ?>  >Sim<br>
+										<input type="radio" name="pernoite" id="pernoite" value="0" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 0)) echo'checked';  ?> >Não
                                         
                                     </li>
                                     

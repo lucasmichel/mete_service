@@ -1,9 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
-?>
-<?php
-$usuario = new Usuario();
-$usuario = $this->getDados('VIEW');
+
+$acompanhante = $this->getDados('acompanhante');
+$usuario = Usuario::buscar($acompanhante->getUsuarioId()); 
 
 ?>
 <div class="wrap">
@@ -26,23 +25,71 @@ $usuario = $this->getDados('VIEW');
                                 <h4>DADOS</h4>
                                 <ul>
                                     <li>
-                                        <strong>Login</strong><br />
-                                        <?php echo $usuario->getLogin(); ?>
+                                        <strong>Email</strong><br />
+                                        <?php if($usuario != null) echo $usuario->getEmail(); ?>
                                     </li>
                                     <li style="background:#f5f5f5;">
-                                        <strong>Data/Hora ultimo login:</strong><br />
-                                        <?php                                            
-                                        echo formataData($usuario->getDataUltimoLogin()); ?>
+                                        <strong>Nome:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getNome();  ?>
                                     </li>
                                     <li>
-                                        <strong>Perfil</strong><br />
-                                        <?php echo $usuario->getPerfil()->getNome(); ?>
+                                        <strong>Idade</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>
                                     </li>
                                     <li style="background:#f5f5f5;">
-                                        <strong>Email:</strong><br />
-                                        <?php                                            
-                                        echo $usuario->getEmail(); ?>
+                                        <strong>Altura:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>
                                     </li>
+                                    
+                                    <li >
+                                        <strong>Peso:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>
+                                    </li>
+
+                                    <li style="background:#f5f5f5;">
+                                        <strong>Busto:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getBusto();  ?>
+                                    </li>
+                                    
+                                    <li>
+                                        <strong>Cintura:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getCintura();  ?>
+                                    </li>
+                                    
+                                    <li style="background:#f5f5f5;">
+                                        <strong>Quadril:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getQuadril();  ?>
+                                    </li>
+                                    
+                                    <li>
+                                        <strong>Olhos:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getOlhos();  ?>
+                                    </li>
+                                    
+                                    <li style="background:#f5f5f5;">
+                                        <strong>Pernoite:</strong><br />
+                                        <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) 
+                                        	echo'Sim';
+                                        else
+											echo 'Não';  
+                                        ?>
+                                    </li>
+                                    
+                                    <li>
+                                        <strong>Atendo a:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getAtendo();  ?>
+                                    </li>
+                                    
+                                    <li style="background:#f5f5f5;">
+                                        <strong>Especialidade:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getEspecialidade();  ?>
+                                    </li>
+                                     
+                                    <li>
+                                        <strong>Horario de atendimento:</strong><br />
+                                        <?php if($acompanhante != null) echo $acompanhante->getHorarioAtendimento();  ?>
+                                    </li>
+                                     
                                 </ul>
                             </li>
                         </ul>
