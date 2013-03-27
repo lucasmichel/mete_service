@@ -73,7 +73,7 @@ class FotosDAO  extends ClassDAO{
     	// checando se existe algum vinculo desse registro com outros //
     	$validacao = "SELECT u.id FROM fotos u WHERE id = '" . $id . "'";
     	if ($this->conexao->fetch($validacao))
-    		throw new RegistroNaoExcluido(RegistroNaoExcluido::PERFIL);
+    		throw new RegistroNaoExcluido(RegistroNaoExcluido::FOTOS);
     	// INSTRUCOES SQL //
     	$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
     	// PERCORRENDO AS SQL //
