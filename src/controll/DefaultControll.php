@@ -92,23 +92,8 @@ class DefaultControll extends Controll {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $jsonCriptografado = curl_exec($curl);
         curl_close($curl);
-        $encoded = json_decode(base64_decode( $jsonCriptografado));
+        $encoded = json_decode(base64_decode( $jsonCriptografado));*/
 
-	echo '<pre>';
-	var_dump($encoded);
-	die();*/
-	
-	/*
-        $jsonCriptografado = $dados['textoCriptografado'];
-        
-        $jsonDescriptografado = base64_decode($jsonCriptografado);
-        $encoded = json_decode($jsonDescriptografado);*/
-
-
-
-	/*echo '<pre>';
-	var_dump($encoded);
-	die();*/
 
 
         // As informações pode ser recuperadas da seguinte forma.
@@ -116,25 +101,30 @@ class DefaultControll extends Controll {
         //echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
         try {
 
-	    /*$jsonCriptografado = $dados['textoCriptografado'];        
-            $jsonDescriptografado = base64_decode($jsonCriptografado);
-            $encoded = json_decode($jsonDescriptografado);*/
+	    
             
             $encoded = $this->descriptografarTexto($dados);            
             $tipoUsuario = $encoded->{'tipo'};
             
-            if(($tipoUsuario != 1)&&($tipoUsuario != 2)){
-                throw new Exception ('tipo de usuario não definido ou definido errado');
+            if(($tipoUsuario != 1)&&($tipoUsuario != 2)){                
+                $arrayRetorno["status"] = 1;
+                $arrayRetorno["messagem"] = 'tipo de usuario não definido ou definido errado';
+                header('Cache-Control: no-cache, must-revalidate');
+                header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                header('Content-type: application/json');
+                $retorno = base64_encode(json_encode($arrayRetorno));
+                echo $retorno;
             }            
             
             /*identifica o tipo 1 é cliente e 2 é prostituta*/
             if($tipoUsuario == 1){                
                 
                 $perfil = Perfil::buscar(2);
-                $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
+                $usuario = new Usuario(0,$perfil, $encoded->{'email'}, $encoded->{'senha'},$encoded->{'email'});
                 $usuario = $usuario->inserir();
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Usuário Cadastrado com suceso";
+                $arrayRetorno["id"] = $usuario->getiId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');
@@ -146,10 +136,11 @@ class DefaultControll extends Controll {
             else if($tipoUsuario == 2){
                 
                 $perfil = Perfil::buscar(3);
-                $usuario = new Usuario(0,$perfil,$encoded->{'login'}, $encoded->{'senha'},$encoded->{'login'});
+                $usuario = new Usuario(0,$perfil,$encoded->{'email'}, $encoded->{'senha'},$encoded->{'email'});
                 $usuario = $usuario->inserir();
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Usuário Cadastrado com suceso";
+                $arrayRetorno["id"] = $usuario->getiId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');
@@ -157,9 +148,6 @@ class DefaultControll extends Controll {
                 echo $retorno;
                 
             }
-            
-            
-            
             
             
         } catch (Exception $e) {

@@ -391,6 +391,12 @@ function retornaNomeArquivo($caminho)
 }
 
 
+function meuVarDump($dados){
+	echo'<pre>';
+	var_dump($dados);
+	die();
+}
+
 
 
 	

@@ -236,7 +236,7 @@ class Acompanhante {
     	// percorrendo os usuarios //
     	foreach($acompanhante as $acompanhante){
     		// instanciando e jogando dentro da colecao $objetos o Usuario //
-    		$objetos[] = contruirObjeto($acompanhante);
+    		$objetos[] = self::construirObjeto($acompanhante);
     		
     	}
     	// retornando a colecao $objetos //
@@ -254,11 +254,11 @@ class Acompanhante {
     		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
     	// instanciando e retornando o Usuario //
     	
-    	return new  contruirObjeto($acompanhante);
+    	return self::construirObjeto($acompanhante);
     }
     
     
-    private function contruirObjeto($dados){
+    private function construirObjeto($dados){
     $acompanhante =	new Acompanhante($dados['id'],
     			$dados['nome'],
     			$dados['idade'],
@@ -272,8 +272,8 @@ class Acompanhante {
 	    		$dados['especialidade'],
 	    		$dados['horario_atendimento'],
 	    		$dados['excluido'],
-	    		$dados['usuario_id'],
-	    		$dados['usuario_id_perfil']);
+	    		$dados['usuarios_id'],
+	    		$dados['usuarios_id_perfil']);
     		
 	return $acompanhante; 
     }

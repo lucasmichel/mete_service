@@ -62,6 +62,10 @@ class AcompanhanteControll extends Controll {
      */
     private function _add($dados){
     	
+    	/*echo '<pre>';
+    	var_dump($dados);
+    	die();*/
+    	
     	// persistindo em inserir o usuário //
     	try {
     		
@@ -74,7 +78,7 @@ class AcompanhanteControll extends Controll {
         		trim($dados['email']));
         
 	        
-	        $acompanhante = new Acompanhante(
+	        $acompanhante = new Acompanhante(0,
 	        		trim($dados['nome']),
 	        		trim($dados['idade']),
 	        		trim($dados['altura']),
@@ -89,7 +93,7 @@ class AcompanhanteControll extends Controll {
 	        		trim($dados['horarioAtendimento']),
 	        		null,
 	        		null,
-	        		null);
+	        		null);	        
 	        /*echo '<pre>';
 	        var_dump($acompanhante);
 	        die();*/

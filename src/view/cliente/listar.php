@@ -61,16 +61,12 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         </th>
                                         <td width="1%"></td>
                                         <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
-                                        <td width="28%" align="left">
-                                        <?php 
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId());
-                                        	echo $usuario->getEmail(); 
-                                        ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getEmail(); ?></td>
                                         
                                         <td width="20%">						
                                             <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(2, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(2, AcompanhenteControll::MODULO)) {
                                                 ?>
                                                 <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a> 
                                                 <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>

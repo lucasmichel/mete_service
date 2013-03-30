@@ -42,10 +42,11 @@ class AcompanhanteDAO extends ClassDAO {
     public function inserir(Acompanhante $obj) {
         // INSTRUCAO SQL //
         $sql = "INSERT INTO " . self::TABELA . "
-            (nome,
-            idade,altura,peso,busto,cintura,quadril,
-            olhos,pernoite,atendo,especialidade, 
-            horario_atendimento, excluido, usuario_id, usuario_id_perfil
+            (nome, idade, altura,
+        	peso, busto, cintura,
+			quadril, olhos, pernoite,
+			atendo, especialidade, horario_atendimento, 
+			excluido, usuarios_id, usuarios_id_perfil
             ) 
             
             VALUES('" . $obj->getNome() . "',
@@ -56,10 +57,16 @@ class AcompanhanteDAO extends ClassDAO {
             '" . $obj->getCintura() . "',
             '" . $obj->getQuadril() . "',
             '" . $obj->getOlhos() . "',
+            '" . $obj->getPernoite() . "',		
+            '" . $obj->getAtendo() . "',
+            '" . $obj->getEspecialidade() . "',
             '" . $obj->getHorarioAtendimento() . "',
 			'0',
             '" . $obj->getUsuarioId() . "',
             '" . $obj->getUsuarioIdPerfil() . "')";
+        
+        
+        
         
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
