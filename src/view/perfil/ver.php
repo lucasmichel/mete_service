@@ -2,10 +2,12 @@
     header('Content-Type: text/html; charset=utf-8', true);
     $perfil = $this->getDados('VIEW');
     $modulos = array();
-    foreach($perfil->getAcoes() as $acao){
-            if(!in_array($acao->getModulo(),$modulos))
-                    $modulos[] = $acao->getModulo();
-            $acoes[$acao->getModulo()->getId()][] = $acao;
+    if($perfil->getAcoes()!=null){
+	    foreach($perfil->getAcoes() as $acao){
+	            if(!in_array($acao->getModulo(),$modulos))
+	                    $modulos[] = $acao->getModulo();
+	            $acoes[$acao->getModulo()->getId()][] = $acao;
+	    }
     }
 ?>
 <div class="wrap">

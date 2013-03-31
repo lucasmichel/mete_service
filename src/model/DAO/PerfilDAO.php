@@ -126,14 +126,14 @@ class PerfilDAO extends ClassDAO {
      * Metodo listar()
      * @return fetch_assoc[]
      */
-    /*public function listar() {
+    public function listar() {
         // INSTRUCAO SQL //
         $sql = "SELECT p.* FROM " . self::TABELA . " p ORDER BY p.nome";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
-    }*/
+    }
 
     /**
      * Metodo setAcoes($perfil)
