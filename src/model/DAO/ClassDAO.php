@@ -81,7 +81,8 @@ class ClassDAO {
      */    
     public function listar($ordenarPor) {
         // INSTRUCAO SQL //
-        $sql = "SELECT u.* FROM " . $this->tabela . " u ORDER BY u.".$ordenarPor."";
+        $sql = "SELECT u.* FROM " . $this->tabela . " u where u.excluido = 0 ORDER BY u.".$ordenarPor."";
+        //meuVarDump($sql);
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //

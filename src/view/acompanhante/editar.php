@@ -68,10 +68,15 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Acompanhante</span>
+                        <span>Editar Acompanhante</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
+                        
+                        <input type="hidden" id="idUsuario" name="idUsuario" value="<?php if($usuario != null) echo $usuario->getId();  ?>" />
+                        <input type="hidden" id="idAcompanhante" name="idAcompanhante" value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
+                        
+                        
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
@@ -97,8 +102,8 @@
                                         <label for="altura">Altura</label>
                                         <input type="text" id="altura" name="altura" value="<?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>" />
                                     </li>
-                                    
-                                    <li>
+
+									<li>
                                         <label for="peso">Peso</label>
                                         <input type="text" id="peso" name="peso" value="<?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>" />
                                     </li>

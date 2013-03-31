@@ -28,7 +28,11 @@ class Acompanhante {
     private $usuario_id;
     private $usuario_id_perfil;
     
-    function __construct($id = 0, $nome = '', $idade = '', $altura = '', $peso = '', 
+    function __construct($id = 0, 
+    		$nome = '', 
+    		$idade = '', 
+    		$altura = '', 
+    		$peso = '', 
     		$busto = '', $cintura = '', $quadril = '', $olhos = '', $pernoite = '',
     	    $atendo = true, $especialidade = '' , $horario_atendimento = null, $excluido = 0, 
     		$usuario_id = null, $usuario_id_perfil = null) {
@@ -196,8 +200,6 @@ class Acompanhante {
     		throw new CamposObrigatorios();
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = AcompanhanteDAO::getInstancia();
-    	// executando o metodo //
-    	$acompanhante = $instancia->inserir($this);
     	// retornando o Usuario //
     	return  $acompanhante = $instancia->inserir($this);
     }
@@ -252,30 +254,31 @@ class Acompanhante {
     	if(!$acompanhante)
     		// levanto a excessao RegistroNaoEncontrado //
     		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
-    	// instanciando e retornando o Usuario //
-    	
+    	// instanciando e retornando o Usuario //    	
     	return self::construirObjeto($acompanhante);
     }
     
     
     private function construirObjeto($dados){
-    $acompanhante =	new Acompanhante($dados['id'],
-    			$dados['nome'],
-    			$dados['idade'],
-    			$dados['altura'],
-	    		$dados['peso'],
-	    		$dados['cintura'],
-	    		$dados['quadril'],
-	    		$dados['olhos'],
-	    		$dados['pernoite'],
-	    		$dados['atendo'],
-	    		$dados['especialidade'],
-	    		$dados['horario_atendimento'],
-	    		$dados['excluido'],
-	    		$dados['usuarios_id'],
-	    		$dados['usuarios_id_perfil']);
+		$acompanhante =	new Acompanhante();
+		$acompanhante->setId(trim($dados['id']));
+    	$acompanhante->setNome(trim($dados['nome']));
+    	$acompanhante->setIdade(trim($dados['idade']));
+    	$acompanhante->setAltura(trim($dados['altura']));
+    	$acompanhante->setPeso(trim($dados['peso']));
+    	$acompanhante->setBusto(trim($dados['busto']));
+    	$acompanhante->setCintura(trim($dados['cintura']));
+    	$acompanhante->setQuadril(trim($dados['quadril']));
+    	$acompanhante->setOlhos(trim($dados['olhos']));
+    	$acompanhante->setPernoite(trim($dados['pernoite']));
+    	$acompanhante->setAtendo(trim($dados['atendo']));
+    	$acompanhante->setEspecialidade(trim($dados['especialidade']));
+    	$acompanhante->setHorarioAtendimento(trim($dados['horario_atendimento']));
+    	$acompanhante->setExcluido(trim($dados['excluido']));
+    	$acompanhante->setUsuarioId(trim($dados['usuarios_id']));
+    	$acompanhante->setUsuarioIdPerfil(trim($dados['usuarios_id_perfil']));  	
     		
-	return $acompanhante; 
+		return $acompanhante; 
     }
     
 }

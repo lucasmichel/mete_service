@@ -31,9 +31,9 @@ class AcompanhanteControll extends Controll {
         // código da ação serve para o controle de acesso//
         static $acao = 1;
         // buscando o usuário //
-        $objeto = Acompanhente::buscar($id);
+        $objeto = Acompanhante::buscar($id);
         // jogando o usuário no atributo $dados do controlador //
-        $this->setDados($objeto,'VIEW');
+        $this->setDados($objeto,'acompanhante');
         // definindo a tela //
         $this->setTela('ver',array('acompanhante'));
     }
@@ -60,12 +60,7 @@ class AcompanhanteControll extends Controll {
      * @param $dados
      * @return Usuario
      */
-    private function _add($dados){
-    	
-    	/*echo '<pre>';
-    	var_dump($dados);
-    	die();*/
-    	
+    private function _add($dados){	
     	// persistindo em inserir o usuário //
     	try {
     		
@@ -94,16 +89,13 @@ class AcompanhanteControll extends Controll {
 	        		null,
 	        		null,
 	        		null);	        
-	        /*echo '<pre>';
-	        var_dump($acompanhante);
-	        die();*/
 	        
-            $usuario->inserir();
-            
+	        
+            $usuario->inserir();            
             /*agora set o id du usuario na acompanhante*/
             $acompanhante->setUsuarioId($usuario->getId());
             $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-            
+                        
             $acompanhante->inserir();
             
             // setando a mensagem de sucesso //
@@ -137,7 +129,7 @@ class AcompanhanteControll extends Controll {
         // checando se o formulário nao foi passado //
         if(!$this->getDados('POST')){
             // Jogando perfil no atributo $dados do controlador //
-            $this->setDados($objeto,'VIEW');
+            $this->setDados($objeto,'acompanhante');
             // Definindo a tela //
             $this->setTela('editar',array('acompanhante'));
         }
@@ -153,26 +145,56 @@ class AcompanhanteControll extends Controll {
      * @return Usuario
      */
     private function _editar($dados){
-        $usuario = new Acompanhante(
-                $dados['id'],
-                (!empty($dados['perfil'])) ? Perfil::buscar($dados['perfil']) : null,
-                $dados['login'],
-                $dados['senha'],
-                $dados['email'],
-                null, 0                                
-                );
-        try {
-                $usuario->editar();
-                $this->setFlash('Usuário editado com sucesso');
-                $this->setPage();
-        }
+	
+    	
+    	// persistindo em inserir o usuário //
+    	try {
+    		
+	        // instanciando o novo Usuário //
+	        
+    		$usuario = Usuario::buscar($dados['idUsuario']);    		
+    		$usuario->setLogin(trim($dados['email']));
+    		$usuario->setSenha(trim($dados['senha']));
+    		$usuario->setEmail(trim($dados['email']));
+    		
+	        
+    		$acompanhante = Acompanhante::buscar($dados['idAcompanhante']);
+    		$acompanhante->setNome(trim($dados['nome']));
+    		$acompanhante->setIdade(trim($dados['idade']));
+    		$acompanhante->setAltura(trim($dados['altura']));    		
+    		$acompanhante->setPeso(trim($dados['peso']));
+    		$acompanhante->setBusto(trim($dados['busto']));
+    		$acompanhante->setCintura(trim($dados['cintura']));
+    		$acompanhante->setQuadril(trim($dados['quadril']));
+    		$acompanhante->setOlhos(trim($dados['olhos']));
+    		$acompanhante->setPernoite(trim($dados['pernoite']));
+    		$acompanhante->setAtendo(trim($dados['atendo']));
+    		$acompanhante->setEspecialidade(trim($dados['especialidade']));
+    		$acompanhante->setHorarioAtendimento(trim($dados['horarioAtendimento']));
+            
+    		//meuVarDump($acompanhante);
+    		
+    		
+    		$usuario->editar();
+    		
+    		$acompanhante->editar();
+            
+            // setando a mensagem de sucesso //
+            $this->setFlash('Acompanhante editada com sucesso.');
+            // setando a url //
+            $this->setPage();
+        }        
         catch (Exception $e) {
             //retorna os campos prar serem preenchidos novamente
-            $this->setDados($usuario,'usuario');
+            if(isset($acompanhante))
+            	$this->setDados($acompanhante,'acompanhante');
+            
+            if(isset($usuario))
+            	$this->setDados($usuario,'usuario');
             // setando a mensagem de excessão //
             $this->setFlash($e->getMessage());
             // definindo a tela //
-            $this->setTela('add',array('acompanhante'));
+            $this->setTela('editar',array('acompanhante'));
         }
     }
 
@@ -185,16 +207,13 @@ class AcompanhanteControll extends Controll {
         static $acao = 2;
         // buscando o usuário //			
         $objeto = Acompanhante::buscar($id);
-        // checando se o usuário a ser excluído é diferente do logado //
-        if($objeto->getId() != parent::getUsuario()->getId()){
-                // excluíndo ele //
-                $objeto->excluir();
-                // setando mensagem de sucesso //
-                $this->setFlash('Acompanhante excluída com sucesso.');
-        }
-        else
-                $this->setFlash('Você não pode se auto-excluir.');
-        // setando a url //
+        
+        // excluíndo ele //
+        $objeto->excluir();
+        // setando mensagem de sucesso //
+		$this->setFlash('Acompanhante excluída com sucesso.');
+        
+        
         $this->setPage();
     }
 }

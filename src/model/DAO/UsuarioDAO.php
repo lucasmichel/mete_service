@@ -62,11 +62,12 @@ class UsuarioDAO extends ClassDAO {
      */
     public function editar(Usuario $obj) {
         // INSTRUCAO SQL //
-        $sql = "UPDATE " . self::TABELA . " SET id_perfil = '" . $obj->getPerfil()->getId() . "',
-                                login =	'" . $obj->getLogin() . "',
+        $sql = "UPDATE " . self::TABELA . " SET 
+        		id_perfil = '" . $obj->getPerfil()->getId() . "',
+                login =	'" . $obj->getLogin() . "',
 				senha = '" . md5($obj->getSenha()) . "',
 				email = '" . $obj->getEmail() . "'
-                                WHERE id = '" . $obj->getId() . "'";
+                WHERE id = '" . $obj->getId() . "'";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
         // RETORNANDO O RESULTADO //
