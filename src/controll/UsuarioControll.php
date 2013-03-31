@@ -100,7 +100,7 @@ class UsuarioControll extends Controll {
      */
     public function editar($id) {
         // código da ação //
-        static $acao = 2;
+        static $acao = 3;
         // Buscando o usuário //
         $usuario = Usuario::buscar($id);
         // checando se o formulário nao foi passado //
@@ -151,7 +151,7 @@ class UsuarioControll extends Controll {
      */
     public function excluir($id) {
         // código da ação //
-        static $acao = 2;
+        static $acao = 4;
         // buscando o usuário //			
         $usuario = Usuario::buscar($id);
         // checando se o usuário a ser excluído é diferente do logado //

@@ -123,7 +123,7 @@ class AcompanhanteControll extends Controll {
      */
     public function editar($id){
         // código da ação //
-        static $acao = 2;
+        static $acao = 3;
         // Buscando o usuário //
         $objeto = Acompanhante::buscar($id);
         // checando se o formulário nao foi passado //
@@ -204,7 +204,7 @@ class AcompanhanteControll extends Controll {
      */
     public function excluir($id){
         // código da ação //
-        static $acao = 2;
+        static $acao = 4;
         // buscando o usuário //			
         $objeto = Acompanhante::buscar($id);
         

@@ -101,7 +101,7 @@ class PerfilControll extends Controll {
      */
     public function editar($id) {
         // Código da ação //
-        static $acao = 2;
+        static $acao = 3;
         // Buscando o perfil //
         $perfil = Perfil::buscar($id);
         // checando se o formulário nao foi passado //
@@ -169,7 +169,7 @@ class PerfilControll extends Controll {
      */
     public function excluir($id) {
         // Código da ação //
-        static $acao = 2;
+        static $acao = 4;
         // Buscando o perfil //			
         $perfil = Perfil::buscar($id);
         // persistindo em excluir o perfil //

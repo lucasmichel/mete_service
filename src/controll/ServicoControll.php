@@ -2,14 +2,14 @@
 
 
 class  ServicoControll extends Controll{
-	const MODULO = 1;
+	const MODULO = 5;
 	
 	/**
 	 * Acao index()
 	 */
 	public function index(){
 		// código da ação serve para o controle de acesso//
-		static $acao = 3;
+		static $acao = 1;
 		// definindo a tela //
 		$this->setTela('listar',array('servico'));
 		// guardando a url //
@@ -93,7 +93,7 @@ class  ServicoControll extends Controll{
 	 */
 	public function editar($id){
 		// código da ação //
-		static $acao = 2;
+		static $acao = 3;
 		// Buscando o usuário //
 		$objeto = Servico::buscar($id);
 		// checando se o formulário nao foi passado //
@@ -139,7 +139,7 @@ class  ServicoControll extends Controll{
 	 */
 	public function excluir($id){
 		// código da ação //
-		static $acao = 2;
+		static $acao = 4;
 		// buscando o usuário //
 		$objeto = Servico::buscar($id);
 		// checando se o usuário a ser excluído é diferente do logado //
@@ -150,7 +150,7 @@ class  ServicoControll extends Controll{
 			$this->setFlash('servico excluido com sucesso.');
 		}
 		else
-			$this->setFlash('Voce n�oo pode se auto-excluir.');
+			$this->setFlash('Voce n�oo pode se auto-excluir.');
 		// setando a url //
 		$this->setPage();
 	}
