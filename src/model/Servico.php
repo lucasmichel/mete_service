@@ -1,14 +1,16 @@
 <?php
-class  Servico{
+class Servico {
 	/**
 	 * @kayky lopes
 	 */
 	private $id;
 	private $nome;
+	private $excluido;
 
-	function __construct($id = 0, $nome = '') {
+	function __construct($id = 0, $nome = '', $excluido = 0) {
 		$this->id = $id;
 		$this->nome = $nome;
+		$this->excluido = $excluido;
 		
 	}
 	public function getId() {
@@ -19,6 +21,10 @@ class  Servico{
 		return $this->nome;
 	}
 	
+	public function getExcluido() {
+		return $this->excluido;
+	}
+	
 	public function setId($id) {
 		$this->id = $id;
 	}
@@ -27,15 +33,32 @@ class  Servico{
 		$this->nome = $nome;
 	}
 	
+	public function setExcluido($excluido) {
+		$this->excluido = $excluido;
+	}
+	
+	/**
+	 * Metodo _validarCampos()
+	 * @return boolean
+	 */
+	private function _validarCampos(){
+		if($this->getNome() == null)
+			return false;
+		return true;
+	}
+	
 	public function inserir(){
 		// validando os campos //
 		if(!$this->_validarCampos())
 			// levantando a excessao CamposObrigatorios //
 			throw new CamposObrigatorios();
+		
+		if($this->_testarServicoExiste($this->getNome()))
+			// levanto a excessao//
+			throw new Exception("Serviço já cadastrado en nossa base de dados");
+		
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ServicoDAO::getInstancia();
-		// executando o metodo //
-		$servico = $instancia->inserir($this);
 		// retornando o Usuario //
 		return  $servico = $instancia->inserir($this);
 	}
@@ -45,10 +68,13 @@ class  Servico{
 		if(!$this->_validarCampos())
 			// levantando a excessao CamposObrigatorios //
 			throw new CamposObrigatorios();
+		
+		if($this->_testarServicoExisteEdicao($this->getId(), $this->getNome()))
+			// levanto a excessao//
+			throw new Exception("Servico já cadastrado en nossa base de dados");
+		
 		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ServicoDAO::getInstancia();
-		// executando o metodo //
-		$servico = $instancia->editar($this);
+		$instancia = ServicoDAO::getInstancia(); 
 		// retornando o Usuario //
 		return  $servico = $instancia->editar($this);
 	}
@@ -70,12 +96,13 @@ class  Servico{
 		// checando se o retorno foi falso //
 		if(!$servico)
 			// levantando a excessao ListaVazia //
-			throw new ListaVazia(ListaVazia::FOTOS);
+			throw new ListaVazia(ListaVazia::SERVICOS);
 		// percorrendo os usuarios //
 		foreach($servico as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
 			$objetos[] = new Servico($servico['id'],					
-					$servico['nome']
+					$servico['nome'],
+					$servico['excluido']
 			);
 		}
 		// retornando a colecao $objetos //
@@ -93,11 +120,49 @@ class  Servico{
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::SERVICO);
 		// instanciando e retornando o Usuario //
 	
-		$a = new  Servico($servico['id'],				
-				$servico['nome']);
+		$a = new  Servico($servico['id'],					
+					$servico['nome'],
+					$servico['excluido']
+			);
 		return $a;
 	}
 	
+	/**
+	 * Metodo testarEmailExiste($email)
+	 * @param $email
+	 * @return Usuario
+	 */
+	private static function _testarServicoExiste($nome){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicoDAO::getInstancia();
+		// executando o metodo //
+		$objeto = $instancia->testarServicoExiste($nome);
+		// checando se o resultado foi falso //
+		if($objeto)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
+	}
+	
+	
+	/**
+	 * Metodo testarEmailExiste($email)
+	 * @param $email
+	 * @return Usuario
+	 */
+	private static function _testarServicoExisteEdicao($id, $nome){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicoDAO::getInstancia();
+		// executando o metodo //
+		$objeto = $instancia->testarServicoExisteEdicao($id, $nome);
+		// checando se o resultado foi falso //
+		if($objeto)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
+	}
 }
 
 ?>

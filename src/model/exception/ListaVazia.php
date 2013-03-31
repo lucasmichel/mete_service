@@ -15,6 +15,7 @@ class ListaVazia extends Exception {
     const PERFIS = 3;
     const USUARIOS = 4;
     const ACOMPANHANTES = 5;
+    const SERVICOS = 6;
 
     public function __construct($tipo) {
         switch ($tipo) {
@@ -32,6 +33,9 @@ class ListaVazia extends Exception {
                 break;
             case self::ACOMPANHANTES:
                 $msg = 'Nenhuma acompanhante encontrada.';
+                break;
+			case self::SERVICOS:
+            	$msg = 'Nenhum serviço encontrado.';
                 break;
         }
         parent::__construct($msg);

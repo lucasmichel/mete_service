@@ -5,6 +5,7 @@ class RegistroNaoEncontrado extends Exception {
     const PERFIL = 3;
     const USUARIO = 4;
     const ACOMPANHANTE = 5;
+    const SERVICO = 6;
 
     public function __construct($tipo){
         switch($tipo){
@@ -22,6 +23,9 @@ class RegistroNaoEncontrado extends Exception {
                         break;
                 case self::ACOMPANHANTE:
                         $msg = 'Acompanhante não encontrada.';
+                        break;
+				case self::SERVICO:
+                		$msg = 'Serviço não encontrada.';
                         break;
         }
         parent::__construct($msg);

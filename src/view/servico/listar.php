@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "servico.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Acompanhante::listar("nome");
+                    $objetos = Servico::listar("nome");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -46,8 +46,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
+                                    <th width="28%" align="left">Nome</th>                                    
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
@@ -61,19 +60,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         </th>
                                         <td width="1%"></td>
                                         <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
-                                        <td width="28%" align="left">
-                                        <?php 
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId());
-                                        	echo $usuario->getEmail(); 
-                                        ?></td>
                                         
                                         <td width="20%">						
-                                            <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                            <a href="servico/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(2, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(2, ServicoControll::MODULO)) {
                                                 ?>
-                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a> 
-                                                <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="servico/editar/<?php echo $objeto->getId(); ?>">Editar</a> 
+                                                <a href="servico/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                                 <?php
                                             }
                                             ?>
