@@ -281,6 +281,23 @@ class Acompanhante {
 		return $acompanhante; 
     }
     
+    
+    /*PARA WEBSERVICE*/
+    
+    public static function listarParaWebService(){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = AcompanhanteDAO::getInstancia();
+    	// executando o metodo //
+    	$acompanhante = $instancia->listar("nome");
+    	// checando se o retorno foi falso //
+    	if(!$acompanhante)
+    		// levantando a excessao ListaVazia //
+    		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
+    	
+    	return $acompanhante;
+    }
+
+    /*PARA WEBSERVICE*/
 }
 
 ?>

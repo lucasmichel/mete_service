@@ -306,5 +306,25 @@ class Usuario {
      public function setDataUltimoLogin($dataUltimoLogin){
             $this->dataUltimoLogin = $dataUltimoLogin;
     }*/
+    
+    
+    
+    
+    /*PARA WEBSERVICE*/
+    
+    public static function listarParaWebService(){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = UsuarioDAO::getInstancia();
+    	// executando o metodo //
+    	$usuarios = $instancia->listar("email");
+    	// checando se o retorno foi falso //
+    	if(!$usuarios)
+    		// levantando a excessao ListaVazia //
+    		throw new ListaVazia(ListaVazia::USUARIOS);
+    	
+    	return $usuarios;
+    }
+    
+    /*PARA WEBSERVICE*/
 }
 ?>
