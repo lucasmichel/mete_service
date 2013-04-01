@@ -229,7 +229,7 @@ class DefaultControll extends Controll {
             $jsonDescriptografado = base64_decode($jsonCriptografado);
             $encoded = json_decode($jsonDescriptografado);
             
-            $arrayRetorno = Usuario::logarAndroid($dados['email'], $dados['senha']);
+            $arrayRetorno = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
             $arrayRetorno["status"] = 0;
             $arrayRetorno["messagem"] = "OK";
             header('Cache-Control: no-cache, must-revalidate');
