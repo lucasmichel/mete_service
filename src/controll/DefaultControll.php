@@ -183,7 +183,9 @@ class DefaultControll extends Controll {
                 
                 $acompanhante->setUsuarioId($usuario->getId());
                 $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-                                
+
+                $acompanhante->inserir();
+                
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
                 $arrayRetorno["id"] = $usuario->getId();
