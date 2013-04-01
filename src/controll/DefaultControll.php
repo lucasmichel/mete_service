@@ -73,7 +73,121 @@ class DefaultControll extends Controll {
 
     /* PARA ANDROID */
     
-     public function cadastrarUsuario() {
+    public function editarAcompanhante() {
+    	if ($this->getDados('POST')) {
+    		$this->_editarAcompanhante($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('editarAcompanhante');
+    		$this->getPage();
+    	}
+    }
+    
+    
+    private function _editarAcompanhante($dados) {
+    	
+    	try {
+    
+    		$encoded = $this->descriptografarTexto($dados);
+    
+    		$usuario = new Usuario();
+    		$acompanhante = new Acompanhante();
+    		
+    		$usuario->setLogin(trim($encoded->{'email'}));
+    		$usuario->setSenha(trim($encoded->{'senha'}));
+    		$usuario->setEmail(trim($encoded->{'email'}));
+    
+    		$acompanhante->setNome(trim($encoded->{'nome'}));
+    		$acompanhante->setIdade(trim($encoded->{'idade'}));
+    		$acompanhante->setAltura(trim($encoded->{'altura'}));
+    		$acompanhante->setPeso(trim($encoded->{'peso'}));
+    		$acompanhante->setBusto(trim($encoded->{'busto'}));
+    		$acompanhante->setCintura(trim($encoded->{'cintura'}));
+    		$acompanhante->setQuadril(trim($encoded->{'quadril'}));
+    		$acompanhante->setOlhos(trim($encoded->{'olhos'}));
+    		$acompanhante->setPernoite(trim($encoded->{'pernoite'}));
+    		$acompanhante->setAtendo(trim($encoded->{'atendo'}));
+    		$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
+    		$acompanhante->setHorarioAtendimento(trim($encoded->{'horario_atendimento'}));
+    
+    		$usuario = $usuario->editar();
+			$acompanhante = $acompanhante->editar();
+    
+    		$arrayRetorno["status"] = 0;
+    		$arrayRetorno["messagem"] = "Acompanhante editada com suceso";
+    		$arrayRetorno["id"] = $usuario->getId();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;		
+    
+    
+    	} catch (Exception $e) {
+    		$arrayRetorno["status"] = 1;
+    		$arrayRetorno["messagem"] = $e->getMessage();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    	}
+    }
+    
+    
+    
+    public function editarCliente() {
+    	if ($this->getDados('POST')) {
+    		$this->_editarCliente($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('editarCliente');
+    		$this->getPage();
+    	}
+    }
+    
+    private function _editarCliente($dados) {
+    	
+    	try {
+    
+    		$encoded = $this->descriptografarTexto($dados);
+    
+    		$perfil = Perfil::buscar(2);
+			$usuario = new Usuario();
+    		$cliente = new Cliente();
+    			
+    		$usuario->setLogin(trim($encoded->{'email'}));
+    		$usuario->setSenha(trim($encoded->{'senha'}));
+    		$usuario->setEmail(trim($encoded->{'email'}));
+    
+    		$cliente->setCpf(trim($encoded->{'cpf'}));
+    		$cliente->setNome(trim($encoded->{'nome'}));
+    			
+    		$usuario = $usuario->editar();
+    		$cliente = $cliente->editar();
+    
+			$arrayRetorno["status"] = 0;
+    		$arrayRetorno["messagem"] = "Cliente editado com suceso";
+    		$arrayRetorno["id"] = $usuario->getId();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    
+    	} catch (Exception $e) {
+    		$arrayRetorno["status"] = 1;
+    		$arrayRetorno["messagem"] = $e->getMessage();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    	}
+    }
+    
+    
+    public function cadastrarUsuario() {
         if ($this->getDados('POST')) {
             $this->_cadastrarUsuario($this->getDados('POST'));
         }
@@ -99,9 +213,7 @@ class DefaultControll extends Controll {
         // As informações pode ser recuperadas da seguinte forma.
         // Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
         //echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
-        try {
-
-	    
+        try {	    
             
             $encoded = $this->descriptografarTexto($dados);            
             $tipoUsuario = $encoded->{'tipo'};
