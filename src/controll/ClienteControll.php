@@ -9,7 +9,7 @@ class ClienteControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 3;
+    const MODULO = 4;
 
     /**
      * Acao index()
@@ -18,7 +18,7 @@ class ClienteControll extends Controll {
         // código da ação serve para o controle de acesso//
         static $acao = 1;
         // definindo a tela //
-        $this->setTela('listar',array('acompanhante'));
+        $this->setTela('listar',array('cliente'));
         // guardando a url //
         $this->getPage();
     }
@@ -31,11 +31,11 @@ class ClienteControll extends Controll {
         // código da ação serve para o controle de acesso//
         static $acao = 1;
         // buscando o usuário //
-        $objeto = Acompanhente::buscar($id);
+        $objeto = Cliente::buscar($id);
         // jogando o usuário no atributo $dados do controlador //
-        $this->setDados($objeto,'VIEW');
+        $this->setDados($objeto,'cliente');
         // definindo a tela //
-        $this->setTela('ver',array('acompanhante'));
+        $this->setTela('ver',array('cliente'));
     }
 
     /**
@@ -47,7 +47,7 @@ class ClienteControll extends Controll {
         // checando se o formulário nao foi passado //
         if(!$this->getDados('POST')) {
             //  definindo a  tela //
-            $this->setTela('add',array('acompanhante'));
+            $this->setTela('add',array('cliente'));
         } else {
             // caso passar o formulário //
             // chamando o metodo privado _add() passando os dados do post por parametro //
@@ -65,59 +65,45 @@ class ClienteControll extends Controll {
     	// persistindo em inserir o usuário //
     	try {
     		
-	        // instanciando o novo Usuário //
-	        $usuario = new Usuario(0,
-        		/*2 por padrão é o perfil da garota*/
-        		Perfil::buscar(2),
-        		trim($dados['email']),
-        		trim($dados['senha']),
-        		trim($dados['email']));
-        
 	        
-	        $acompanhante = new Acompanhante(
-	        		trim($dados['nome']),
-	        		trim($dados['idade']),
-	        		trim($dados['altura']),
-	        		trim($dados['peso']),
-	        		trim($dados['busto']),
-	        		trim($dados['cintura']),
-	        		trim($dados['quadril']),
-	        		trim($dados['olhos']),
-	        		trim($dados['pernoite']),
-	        		trim($dados['atendo']),
-	        		trim($dados['especialidade']),
-	        		trim($dados['horarioAtendimento']),
-	        		null,
-	        		null,
-	        		null);
-	        /*echo '<pre>';
-	        var_dump($acompanhante);
-	        die();*/
-	        
-            $usuario->inserir();
-            
-            /*agora set o id du usuario na acompanhante*/
-            $acompanhante->setUsuarioId($usuario->getId());
-            $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-            
-            $acompanhante->inserir();
-            
+    		$perfil = Perfil::buscar(2);
+    		$usuario = new Usuario();
+    		$cliente = new Cliente();
+    		
+    		
+    		$usuario->setPerfil($perfil);
+    		$usuario->setLogin(trim($dados['email']));
+    		$usuario->setSenha(trim($dados['senha']));
+    		$usuario->setEmail(trim($dados['email']));
+    		
+    		
+    		$cliente->setCpf(trim($dados['cpf']));
+    		$cliente->setNome(trim($dados['nome']));
+    		
+    		
+    		$usuario = $usuario->inserir();
+    		
+    		$cliente->setUsuarioId($usuario->getId());
+    		$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+    		
+    		$cliente = $cliente->inserir();
+    		
             // setando a mensagem de sucesso //
-            $this->setFlash('Acompanhante cadastrada com sucesso.');
+            $this->setFlash('Cliente cadastrado com sucesso.');
             // setando a url //
             $this->setPage();
         }        
         catch (Exception $e) {
             //retorna os campos prar serem preenchidos novamente
-            if(isset($acompanhante))
-            	$this->setDados($acompanhante,'acompanhante');
+            if(isset($cliente))
+            	$this->setDados($cliente,'cliente');
             
             if(isset($usuario))
             	$this->setDados($usuario,'usuario');
             // setando a mensagem de excessão //
             $this->setFlash($e->getMessage());
             // definindo a tela //
-            $this->setTela('add',array('acompanhante'));
+            $this->setTela('add',array('cliente'));
         }
     }
 
@@ -127,15 +113,15 @@ class ClienteControll extends Controll {
      */
     public function editar($id){
         // código da ação //
-        static $acao = 2;
+        static $acao = 3;
         // Buscando o usuário //
-        $objeto = Acompanhante::buscar($id);
+        $objeto = Cliente::buscar($id);
         // checando se o formulário nao foi passado //
         if(!$this->getDados('POST')){
             // Jogando perfil no atributo $dados do controlador //
-            $this->setDados($objeto,'VIEW');
+            $this->setDados($objeto,'cliente');
             // Definindo a tela //
-            $this->setTela('editar',array('acompanhante'));
+            $this->setTela('editar',array('cliente'));
         }
         // caso passar o formulario //
         else
@@ -148,27 +134,38 @@ class ClienteControll extends Controll {
      * @param $dados
      * @return Usuario
      */
-    private function _editar($dados){
-        $usuario = new Acompanhante(
-                $dados['id'],
-                (!empty($dados['perfil'])) ? Perfil::buscar($dados['perfil']) : null,
-                $dados['login'],
-                $dados['senha'],
-                $dados['email'],
-                null, 0                                
-                );
+    private function _editar($dados){    	
         try {
-                $usuario->editar();
-                $this->setFlash('Usuário editado com sucesso');
-                $this->setPage();
+        	
+        	$usuario = Usuario::buscar(trim($dados['idUsuario'])); 
+        	$cliente = Cliente::buscar(trim($dados['idCliente']));
+        	
+        	$usuario->setId(trim($dados['idUsuario']));
+        	$usuario->setLogin(trim($dados['email']));
+        	$usuario->setSenha(trim($dados['senha']));
+        	$usuario->setEmail(trim($dados['email']));
+        	
+        	$cliente->setId(trim($dados['idCliente']));
+        	$cliente->setCpf(trim($dados['cpf']));
+        	$cliente->setNome(trim($dados['nome']));
+        	
+        	$usuario = $usuario->editar();        	
+        	$cliente = $cliente->editar();
+        	    
+            $this->setFlash('Cliente editado com sucesso');
+			$this->setPage();
         }
         catch (Exception $e) {
             //retorna os campos prar serem preenchidos novamente
-            $this->setDados($usuario,'usuario');
+            if(isset($cliente))
+            	$this->setDados($cliente,'cliente');
+            
+            if(isset($usuario))
+            	$this->setDados($usuario,'usuario');
             // setando a mensagem de excessão //
             $this->setFlash($e->getMessage());
             // definindo a tela //
-            $this->setTela('add',array('acompanhante'));
+            $this->setTela('editar',array('cliente'));
         }
     }
 
@@ -178,18 +175,16 @@ class ClienteControll extends Controll {
      */
     public function excluir($id){
         // código da ação //
-        static $acao = 2;
+        static $acao = 4;
         // buscando o usuário //			
-        $objeto = Acompanhante::buscar($id);
+        $objeto = Cliente::buscar($id);
         // checando se o usuário a ser excluído é diferente do logado //
-        if($objeto->getId() != parent::getUsuario()->getId()){
-                // excluíndo ele //
-                $objeto->excluir();
-                // setando mensagem de sucesso //
-                $this->setFlash('Acompanhante excluída com sucesso.');
-        }
-        else
-                $this->setFlash('Você não pode se auto-excluir.');
+        
+        // excluíndo ele //
+        $objeto->excluir();
+        // setando mensagem de sucesso //
+        $this->setFlash('Cliente excluído com sucesso.');
+        
         // setando a url //
         $this->setPage();
     }

@@ -1,7 +1,7 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $acompanhante = $this->getDados('acompanhante');
-    $usuario = Usuario::buscar($acompanhante->getUsuarioId());
+    $cliente = $this->getDados('cliente'); 
+    $usuario = Usuario::buscar($cliente->getUsuarioId());
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
@@ -21,7 +21,8 @@
         	var senha = $.trim($("#senha").val());
         	var email = $.trim($("#email").val());
         	var nome = $.trim($("#nome").val());
-        	
+        	var cpf = $.trim($("#cpf").val());
+        	        	
         	if(email.length <= 0){
             	alert('é necessário um email');
                 $("#email").focus();
@@ -33,7 +34,6 @@
                 $("#email").focus();
                 return false;
 			}
-
             
             else if(senha.length <= 0){
                 alert('é necessário definir a senha');
@@ -46,14 +46,24 @@
                 $("#nome").focus();
                 return false;
             }
+
+            else if(cpf.length <= 0){
+                alert('é necessário definir o CPF');
+                $("#cpf").focus();
+                return false;
+            }
+
+            else if(!$('#cpf').validateCPF()){
+                alert('CPF inválido!');
+                $("#cpf").focus();
+                return false;
+            }
             
             else{
                 $("#cadastro").submit();
             }
-            
-          
+
         });                
-                
                 
     });
 </script>
@@ -68,10 +78,14 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Acompanhante</span>
+                        <span>Cadastrar Cliente</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
+                        
+                        	<input type="hidden" id="idUsuario" name="idUsuario" value="<?php if($usuario != null) echo $usuario->getId();  ?>" />
+                        	<input type="hidden" id="idCliente" name="idCliente" value="<?php if($cliente != null) echo $cliente->getId();  ?>" />
+                        
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
@@ -81,70 +95,17 @@
                                     </li>
                                     <li>
                                         <label for="senha">Senha</label>
-                                        <input type="password" id="senha" name="senha" value="" class="required" />
+                                        <input type="password" id="senha" name="senha" value=""  />
                                     </li>
                                     <li>
                                         <label for="nome">Nome</label>
-                                        <input type="text" id="nome" name="nome" value="<?php if($acompanhante != null) echo $acompanhante->getNome();  ?>"  />
+                                        <input type="text" id="nome" name="nome" value="<?php if($cliente != null) echo $cliente->getNome();  ?>"  />
                                     </li>
                                     
                                     <li>
-                                        <label for="idade">Idade</label>
-                                        <input type="text" id="idade" name="idade" value="<?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>" />
-                                    </li>
-
-                                    <li>
-                                        <label for="altura">Altura</label>
-                                        <input type="text" id="altura" name="altura" value="<?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="peso">Peso</label>
-                                        <input type="text" id="peso" name="peso" value="<?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="busto">Busto</label>
-                                        <input type="text" id="busto" name="busto" value="<?php if($acompanhante != null) echo $acompanhante->getBusto();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="Cintura">Cintura</label>
-                                        <input type="text" id="cintura" name="cintura" value="<?php if($acompanhante != null) echo $acompanhante->getCintura();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="quadril">Quadril</label>
-                                        <input type="text" id="quadril" name="quadril" value="<?php if($acompanhante != null) echo $acompanhante->getQuadril();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="olhos">Olhos</label>
-                                        <input type="text" id="olhos" name="olhos" value="<?php if($acompanhante != null) echo $acompanhante->getOlhos();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="pernoite">Pernoite</label>
-                                        <input type="radio" name="pernoite" id="pernoite" value="1" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) echo'checked';  ?>  >Sim<br>
-										<input type="radio" name="pernoite" id="pernoite" value="0" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 0)) echo'checked';  ?> >Não
-                                        
-                                    </li>
-                                    
-                                     <li>
-                                        <label for="atendo">Atendo a:</label>
-                                        <input type="text" id="atendo" name="atendo" value="<?php if($acompanhante != null) echo $acompanhante->getAtendo();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="especialidade">Especialidade:</label>
-                                        <input type="text" id="especialidade" name="especialidade" value="<?php if($acompanhante != null) echo $acompanhante->getEspecialidade();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="horarioAtendimento">Horario de atendimento:</label>
-                                        <input type="text" id="horarioAtendimento" name="horarioAtendimento" value="<?php if($acompanhante != null) echo $acompanhante->getHorarioAtendimento();  ?>" />
-                                    </li>
-                                    
+                                        <label for="cpf">CPF</label>
+                                        <input type="text" alt="cpf" id="cpf" name="cpf" value="<?php if($cliente != null) echo $cliente->getCpf();  ?>" />
+                                    </li>                                    
                                 </ul>
                             </fieldset>
                             <ul id="bts">

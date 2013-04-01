@@ -1,13 +1,11 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
-
-$acompanhante = $this->getDados('acompanhante');
-$usuario = Usuario::buscar($acompanhante->getUsuarioId()); 
-
+$cliente = $this->getDados('cliente');
+$usuario = Usuario::buscar($cliente->getUsuarioId()); 
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "usuario.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox">
@@ -30,66 +28,12 @@ $usuario = Usuario::buscar($acompanhante->getUsuarioId());
                                     </li>
                                     <li style="background:#f5f5f5;">
                                         <strong>Nome:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getNome();  ?>
+                                        <?php if($cliente != null) echo $cliente->getNome();  ?>
                                     </li>
                                     <li>
-                                        <strong>Idade</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>
-                                    </li>
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Altura:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>
-                                    </li>
-                                    
-                                    <li >
-                                        <strong>Peso:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>
-                                    </li>
-
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Busto:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getBusto();  ?>
-                                    </li>
-                                    
-                                    <li>
-                                        <strong>Cintura:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getCintura();  ?>
-                                    </li>
-                                    
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Quadril:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getQuadril();  ?>
-                                    </li>
-                                    
-                                    <li>
-                                        <strong>Olhos:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getOlhos();  ?>
-                                    </li>
-                                    
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Pernoite:</strong><br />
-                                        <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) 
-                                        	echo'Sim';
-                                        else
-											echo 'Não';  
-                                        ?>
-                                    </li>
-                                    
-                                    <li>
-                                        <strong>Atendo a:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getAtendo();  ?>
-                                    </li>
-                                    
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Especialidade:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getEspecialidade();  ?>
-                                    </li>
-                                     
-                                    <li>
-                                        <strong>Horario de atendimento:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getHorarioAtendimento();  ?>
-                                    </li>
-                                     
+                                        <strong>CPF</strong><br />
+                                        <?php if($cliente != null) echo $cliente->getCpf();  ?>
+                                    </li>                                     
                                 </ul>
                             </li>
                         </ul>

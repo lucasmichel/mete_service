@@ -16,6 +16,7 @@ class ListaVazia extends Exception {
     const USUARIOS = 4;
     const ACOMPANHANTES = 5;
     const SERVICOS = 6;
+    const CLIENTES = 7;
 
     public function __construct($tipo) {
         switch ($tipo) {
@@ -36,6 +37,9 @@ class ListaVazia extends Exception {
                 break;
 			case self::SERVICOS:
             	$msg = 'Nenhum serviço encontrado.';
+                break;
+			case self::CLIENTES:
+            	$msg = 'Nenhum cliente encontrado.';
                 break;
         }
         parent::__construct($msg);

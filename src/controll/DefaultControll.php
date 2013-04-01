@@ -143,7 +143,7 @@ class DefaultControll extends Controll {
                 
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
-                $arrayRetorno["id"] = $usuario->getiId();
+                $arrayRetorno["id"] = $usuario->getId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');
@@ -186,7 +186,7 @@ class DefaultControll extends Controll {
                                 
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
-                $arrayRetorno["id"] = $usuario->getiId();
+                $arrayRetorno["id"] = $usuario->getId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');

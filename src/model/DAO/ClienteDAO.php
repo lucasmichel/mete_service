@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Classe AcompanhanteDAO
- * Camada de acesso a dados da entidade Acompanhante
+ * Classe ClienteDAO
+ * Camada de acesso a dados da entidade Cliente
  * @package model
  * @subpackage DAO
  */
-class AcompanhanteDAO extends ClassDAO {
+class ClienteDAO extends ClassDAO {
 
     /**
      * Atributos
@@ -14,14 +14,14 @@ class AcompanhanteDAO extends ClassDAO {
     private static $instancia;
     private $conexao;
 
-    const TABELA = 'acompanhante';
+    const TABELA = 'cliente';
 
     /**
      * Metodo construtor()
      */
     protected function __construct() {
         //passa pra a classe pai o nomeda tabelausada pela classe
-        parent::__construct("acompanhante");
+        parent::__construct("cliente");
         $this->conexao = Connect::getInstancia();
     }
 
@@ -30,7 +30,7 @@ class AcompanhanteDAO extends ClassDAO {
      */
     public static function getInstancia() {
         if (!isset(self::$instancia))
-            self::$instancia = new AcompanhanteDAO();
+            self::$instancia = new ClienteDAO();
         return self::$instancia;
     }
 
@@ -39,34 +39,18 @@ class AcompanhanteDAO extends ClassDAO {
      * @param $obj
      * @return Perfil
      */
-    public function inserir(Acompanhante $obj) {
+    public function inserir(Cliente $obj) {
         // INSTRUCAO SQL //
         $sql = "INSERT INTO " . self::TABELA . "
-            (nome, idade, altura,
-        	peso, busto, cintura,
-			quadril, olhos, pernoite,
-			atendo, especialidade, horario_atendimento, 
+            (nome, cpf,  
 			excluido, usuarios_id, usuarios_id_perfil
             ) 
             
             VALUES('" . $obj->getNome() . "',
-            '" . $obj->getIdade() . "',
-            '" . $obj->getAltura() . "',
-            '" . $obj->getPeso() . "',
-            '" . $obj->getBusto() . "',
-            '" . $obj->getCintura() . "',
-            '" . $obj->getQuadril() . "',
-            '" . $obj->getOlhos() . "',
-            '" . $obj->getPernoite() . "',		
-            '" . $obj->getAtendo() . "',
-            '" . $obj->getEspecialidade() . "',
-            '" . $obj->getHorarioAtendimento() . "',
+            '" . $obj->getCpf() . "',            
 			'0',
             '" . $obj->getUsuarioId() . "',
             '" . $obj->getUsuarioIdPerfil() . "')";
-        
-        
-        
         
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
@@ -81,26 +65,51 @@ class AcompanhanteDAO extends ClassDAO {
      * @param $obj
      * @return Perfil
      */
-    public function editar(Acompanhante $obj) {
+    public function editar(Cliente $obj) {
         // INSTRUCAO SQL //
         $sql = "UPDATE " . self::TABELA . " SET 
             nome = '" . $obj->getNome() . "',
-            idade =	'" . $obj->getIdade() . "',
-            altura = '" . $obj->getAltura() . "',
-            peso = '" . $obj->getPeso() . "',
-            busto = '" . $obj->getBusto() . "',
-            cintura = '" . $obj->getCintura() . "',
-            quadril = '" . $obj->getQuadril() . "',
-            olhos = '" . $obj->getOlhos() . "',
-            pernoite = '" . $obj->getPernoite() . "',
-            atendo = '" . $obj->getAtendo() . "',
-            especialidade = '" . $obj->getEspecialidade() . "',
-            horario_atendimento = '" . $obj->getHorarioAtendimento() . "'
+            cpf =	'" . $obj->getCpf() . "'            
             WHERE id = '" . $obj->getId() . "'";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
+    }
+    
+    
+    
+    
+    /**
+     * Metodo testarCpfExiste($cpf)
+     * @param $email
+     * @return fetch_assoc
+     */
+    public function testarCpfExiste($cpf) {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.cpf = '" . $cpf . "'";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetch($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
+    
+    /**
+     * Metodo testarCpfExisteEdicao($id, $cpf)
+     * @param $email
+     * @return fetch_assoc
+     */
+    public function testarCpfExisteEdicao($id, $cpf) {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.cpf = '" . $cpf . "' AND
+                        u.id <> " . $id . "";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetch($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
     }
 
     
