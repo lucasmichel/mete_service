@@ -9,7 +9,7 @@ class ClienteControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 4;
+    const MODULO = 3;
 
     /**
      * Acao index()
@@ -127,7 +127,7 @@ class ClienteControll extends Controll {
      */
     public function editar($id){
         // código da ação //
-        static $acao = 3;
+        static $acao = 2;
         // Buscando o usuário //
         $objeto = Acompanhante::buscar($id);
         // checando se o formulário nao foi passado //
@@ -178,7 +178,7 @@ class ClienteControll extends Controll {
      */
     public function excluir($id){
         // código da ação //
-        static $acao = 4;
+        static $acao = 2;
         // buscando o usuário //			
         $objeto = Acompanhante::buscar($id);
         // checando se o usuário a ser excluído é diferente do logado //
