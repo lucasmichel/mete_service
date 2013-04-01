@@ -10,7 +10,7 @@
  *
  * @author kaykylopes
  */
-class FotosControll extends Controll{
+class FotoControll extends Controll{
      const MODULO = 1;
 
     /**
@@ -149,7 +149,7 @@ class FotosControll extends Controll{
     		$this->setFlash('Fotos excluida com sucesso.');
     	}
     	else
-    		$this->setFlash('Você não pode se auto-excluir.');
+    		$this->setFlash('Vocï¿½ nï¿½o pode se auto-excluir.');
     	// setando a url //
     	$this->setPage();
     }
