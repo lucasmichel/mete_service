@@ -15,11 +15,23 @@ class Fotos {
     private $nome;
     private $acompanhante_id;
     
-    function __construct($id = 0, $nome = '', $acompanhante_id= 0) {
+    function __construct($id = 0, $nome = '', $acompanhanteId= null) {
         $this->id = $id;
         $this->nome = $nome;
         $this->acompanhante_id = $acompanhante_id;
     }
+    
+
+    /**
+     * Metodo _validarCampos()
+     * @return boolean
+     */
+    private function _validarCampos(){
+    	if(($this->getNome() == null)||($this->getAcompanhanteId() == 0))
+    		return false;
+    	return true;
+    }
+    
     public function getId() {
         return $this->id;
     }
@@ -28,7 +40,7 @@ class Fotos {
         return $this->nome;
     }
 
-    public function getAcompanhante_id() {
+    public function getAcompanhanteId() {
         return $this->acompanhante_id;
     }
 
@@ -41,8 +53,8 @@ class Fotos {
         $this->nome = $nome;
     }
 
-    public function setAcompanhante_id($acompanhante_id) {
-        $this->acompanhante_id = $acompanhante_id;
+    public function setAcompanhanteId($acompanhante_id) {
+        $this->acompanhanteId = $acompanhante_id;
     }
 
         

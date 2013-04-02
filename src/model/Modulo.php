@@ -13,6 +13,12 @@ class Modulo {
     private $nome;
     private $link;
 
+    /**
+     * Description of Acompanhante
+     *
+     * @author kaykylopes
+     */
+    
     /** 		
      * Metodo construtor()
      * @param $id
@@ -24,6 +30,16 @@ class Modulo {
         $this->nome = $nome;
         $this->link = $link;
     }
+    
+    /**
+     * Metodo validar campos
+     * @return 
+     */
+    private function _validarCampos(){
+    	if(($this->getNome() == '')||($this->getId() == null)||($this->getLink() == ''))
+    		return false;
+    	return true;
+    }
 
     /**
      * Metodo listar()
@@ -33,7 +49,7 @@ class Modulo {
         $instancia = ModuloDAO::getInstancia();
         $modulos = $instancia->listar();
         if (!$modulos)
-            throw new ListaVazia(ListaVazia::MODULOS);
+            throw new ListaVazia(ListaVazia::MODULO);
         foreach ($modulos as $modulo) {
             $objetos[] = new Modulo($modulo['id'], $modulo['nome'], $modulo['link']);
         }
@@ -53,6 +69,40 @@ class Modulo {
         return new Modulo($modulo['id'], $modulo['nome'], $modulo['link']);
     }
 
+    public function inserir(){
+    	// validando os campos //
+    	if(!$this->_validarCampos())
+    		// levantando a excessao CamposObrigatorios //
+    		throw new CamposObrigatorios();
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = ModuloDAO::getInstancia();
+    	// executando o metodo //
+    	$modulo = $instancia->inserir($this);
+    	// retornando o Usuario //
+    	return  $modulo = $instancia->inserir($this);
+    }
+    
+    public function editar(){
+    	// validando os campos //
+    	if(!$this->_validarCampos())
+    		// levantando a excessao CamposObrigatorios //
+    		throw new CamposObrigatorios();
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = ModuloDAO::getInstancia();
+    	// executando o metodo //
+    	$modulo = $instancia->editar($this);
+    	// retornando o Usuario //
+    	return  $modulo = $instancia->editar($this);
+    }
+    
+    public function excluir(){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = ModuloDAO::getInstancia();
+    	// executando o metodo //
+    	$modulo = $instancia->excluir($this->getId());
+    	// retornando o resultado //
+    	return $modulo;
+    }
     /**
      * Metodos getters() e setters()
      */
