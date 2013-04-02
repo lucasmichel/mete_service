@@ -240,7 +240,7 @@ class AcompanhanteControll extends Controll {
      */
     public function foto($id){
     	// código da ação serve para o controle de acesso//
-    	static $acao = 5;
+    	static $acao = 6;
     	// buscando o usuário //
     	$objeto = Acompanhante::buscar($id);
     	// jogando o usuário no atributo $dados do controlador //

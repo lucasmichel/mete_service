@@ -64,14 +64,26 @@ class Acao {
 	 * @param $modulo
 	 * @return boolean
 	 */
-	public static function checarPermissao($codigoAcao = 0, $modulo = 0) {
+	public static function checarPermissao($codigoAcao = 0, $modulo = null) {
 	
 		$controll = Controll::getControll();
+		
+		
 		
 		if((empty($codigoAcao)) || (empty($modulo)))
 			return false;
 			
+		
+		//echo '<pre>';
 		foreach($controll->getUsuario()->getPerfil()->getAcoes() as $acao){
+
+			/*echo '<br />CodigoAcao<br />';
+			echo $acao->getCodigoAcao();
+			echo '<br />nome<br />';
+			echo $acao->getNome();
+			echo '<br />Modulo<br />';
+			var_dump($acao->getModulo());
+			echo '<br /><br />';*/
 
 			if(($acao->getCodigoAcao() == $codigoAcao)&&($acao->getModulo()->getId() == $modulo))
 			{
