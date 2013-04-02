@@ -1,6 +1,12 @@
 <?php
 class ServicoDAO extends ClassDAO{
 	/**
+	 * Description of Acompanhante
+	 *
+	 * @author kaykylopes
+	 */
+	
+	/**
 	 * Atributos
 	 */
 	private static $instancia;
