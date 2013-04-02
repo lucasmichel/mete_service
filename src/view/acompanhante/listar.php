@@ -70,11 +70,25 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         <td width="20%">						
                                             <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(2, AcompanhanteControll::MODULO)) {
-                                                ?>
-                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a> 
+                                            if (Acao::checarPermissao(3, AcompanhanteControll::MODULO)) {
+											?>
+                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(4, AcompanhanteControll::MODULO)) {
+											?>    
                                                 <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
-                                                <?php
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
+                                            ?>
+                                            	<a href="acompanhante/servico/<?php echo $objeto->getId(); ?>">Serviços</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
+                                            ?>
+                                            	<a href="acompanhante/foto/<?php echo $objeto->getId(); ?>">Fotos</a>
+                                            <?php
                                             }
                                             ?>
                                         </td>
