@@ -93,10 +93,12 @@ class DefaultControll extends Controll {
     		$usuario = new Usuario();
     		$acompanhante = new Acompanhante();
     		
+    		$usuario->setId(trim($encoded->{'idUsuario'}));
     		$usuario->setLogin(trim($encoded->{'email'}));
     		$usuario->setSenha(trim($encoded->{'senha'}));
     		$usuario->setEmail(trim($encoded->{'email'}));
     
+    		$acompanhante->setId(trim($encoded->{'id'}));
     		$acompanhante->setNome(trim($encoded->{'nome'}));
     		$acompanhante->setIdade(trim($encoded->{'idade'}));
     		$acompanhante->setAltura(trim($encoded->{'altura'}));
@@ -109,9 +111,23 @@ class DefaultControll extends Controll {
     		$acompanhante->setAtendo(trim($encoded->{'atendo'}));
     		$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
     		$acompanhante->setHorarioAtendimento(trim($encoded->{'horario_atendimento'}));
-    
-    		$usuario = $usuario->editar();
-			$acompanhante = $acompanhante->editar();
+    		
+    		if($usuario->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($acompanhante->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($insert == true){
+    			$usuario = $usuario->editar();
+    			$acompanhante = $acompanhante->editar();
+    		}
+    		
+			
     
     		$arrayRetorno["status"] = 0;
     		$arrayRetorno["messagem"] = "Acompanhante editada com suceso";
@@ -155,16 +171,30 @@ class DefaultControll extends Controll {
     		$perfil = Perfil::buscar(2);
 			$usuario = new Usuario();
     		$cliente = new Cliente();
-    			
+    		$usuario->setId(trim($encoded->{'idUsuario'}));
     		$usuario->setLogin(trim($encoded->{'email'}));
     		$usuario->setSenha(trim($encoded->{'senha'}));
     		$usuario->setEmail(trim($encoded->{'email'}));
     
+    		$cliente->setId(trim($encoded->{'id'}));
     		$cliente->setCpf(trim($encoded->{'cpf'}));
     		$cliente->setNome(trim($encoded->{'nome'}));
     			
-    		$usuario = $usuario->editar();
-    		$cliente = $cliente->editar();
+    		if($usuario->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($cliente->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($insert == true){
+    			$usuario = $usuario->editar();
+    			$cliente = $cliente->editar();
+    		}
+    		
     
 			$arrayRetorno["status"] = 0;
     		$arrayRetorno["messagem"] = "Cliente editado com suceso";
@@ -235,7 +265,6 @@ class DefaultControll extends Controll {
                 $usuario = new Usuario();
                 $cliente = new Cliente();
                 
-                
                 $usuario->setPerfil($perfil);
                 $usuario->setLogin(trim($encoded->{'email'}));
                 $usuario->setSenha(trim($encoded->{'senha'}));
@@ -246,12 +275,24 @@ class DefaultControll extends Controll {
                 $cliente->setNome(trim($encoded->{'nome'}));
                 $cliente->setExcluido(0);
                 
-                $usuario = $usuario->inserir();
                 
-                $cliente->setUsuarioId($usuario->getId());
-                $cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
                 
-                $cliente = $cliente->inserir();
+                if($usuario->_validarCampos())
+                	$insert = true;
+                else
+                	$insert = false;
+                
+                if($cliente->_validarCampos())
+                	$insert = true;
+                else
+                	$insert = false;
+                
+                if($insert == true){
+                	$usuario = $usuario->inserir();
+                	$cliente->setUsuarioId($usuario->getId());
+                	$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+                	$cliente = $cliente->inserir();
+                }
                 
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
@@ -291,12 +332,23 @@ class DefaultControll extends Controll {
                 $acompanhante->setHorarioAtendimento(trim($encoded->{'horario_atendimento'}));
                 $acompanhante->setExcluido(0);
                 
-                $usuario = $usuario->inserir();
                 
-                $acompanhante->setUsuarioId($usuario->getId());
-                $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-
-                $acompanhante->inserir();
+                if($usuario->_validarCampos())
+                	$insert = true;
+                else
+                	$insert = false;
+                
+                if($acompanhante->_validarCampos())
+                	$insert = true;
+                else
+                	$insert = false;
+                
+                if($insert == true){
+                	$usuario = $usuario->inserir();
+	                $acompanhante->setUsuarioId($usuario->getId());
+	                $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+	                $acompanhante->inserir();
+                }
                 
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
@@ -306,7 +358,6 @@ class DefaultControll extends Controll {
                 header('Content-type: application/json');
                 $retorno = base64_encode(json_encode($arrayRetorno));
                 echo $retorno;
-                
             }
             
             

@@ -19,9 +19,22 @@ class  Cliente{
 	}
 
 	private function _validarCampos(){
-		if(($this->getNome() == '')||($this->getCpf() == null))
-			return false;
-		return true;
+		if(($this->getNome() == '')||($this->getCpf() == null)){
+			throw new CamposObrigatorios();
+    		return false;
+		}
+		else if($this->_testarCpfExiste()){
+			throw new Exception("CPF já cadastrado en nossa base de dados");
+		}
+		else if($this->getId() != 0){
+			if($this->_testarCpfExisteEdicao())
+				throw new Exception("CPF já cadastrado en nossa base de dados");
+		}
+		else
+		{
+			return true;
+		}
+		
 	}
 
 	public static function listar($campo) {
@@ -46,39 +59,29 @@ class  Cliente{
 
 	public function inserir(){
 		// validando os campos //
-		if(!$this->_validarCampos())
-			// levantando a excessao CamposObrigatorios //
-			throw new CamposObrigatorios();
-		
-		
-		if($this->_testarCpfExiste())
-			// levanto a excessao//
-			throw new Exception("CPF já cadastrado en nossa base de dados");
-		
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ClienteDAO::getInstancia();
-		// executando o metodo //
-		$cliente = $instancia->inserir($this);
-		// retornando o Usuario //
-		return  $cliente;
+		if($this->_validarCampos()){
+			// recuperando a instancia da classe de acesso a dados //
+			$instancia = ClienteDAO::getInstancia();
+			// executando o metodo //
+			$cliente = $instancia->inserir($this);
+			// retornando o Usuario //
+			return  $cliente;
+		}
 	}
 
 	public function editar(){
 		// validando os campos //
-		if(!$this->_validarCampos())
-			// levantando a excessao CamposObrigatorios //
-			throw new CamposObrigatorios();
+		if($this->_validarCampos()){
+			//recuperando a instancia da classe de acesso a dados //
+			$instancia = ClienteDAO::getInstancia();
+			// executando o metodo //
+			$cliente = $instancia->editar($this);
+			// retornando o Usuario //
+			return  $cliente;
+		}
 		
-		if($this->_testarCpfExisteEdicao())
-			// levanto a excessao//
-			throw new Exception("CPF já cadastrado en nossa base de dados");
 		
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ClienteDAO::getInstancia();
-		// executando o metodo //
-		$cliente = $instancia->editar($this);
-		// retornando o Usuario //
-		return  $cliente;
+		
 	}
 
 	public function excluir(){

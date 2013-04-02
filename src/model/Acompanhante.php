@@ -187,10 +187,14 @@ class Acompanhante {
      * Metodo _validarCampos()
      * @return boolean
      */
-    private function _validarCampos(){
-    	if(($this->getNome() == null)||($this->getUsuarioId() == 0))
+    public static function _validarCampos(){
+    	if(($this->getNome() == null)||($this->getUsuarioId() == 0)){
+    		throw new CamposObrigatorios();
     		return false;
-    	return true;
+    	}
+    	else{
+    		return true;
+    	}
     }
     
     public function inserir(){

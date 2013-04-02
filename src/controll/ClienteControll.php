@@ -81,12 +81,22 @@ class ClienteControll extends Controll {
     		$cliente->setNome(trim($dados['nome']));
     		
     		
-    		$usuario = $usuario->inserir();
+    		if($usuario->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
     		
-    		$cliente->setUsuarioId($usuario->getId());
-    		$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+    		if($cliente->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
     		
-    		$cliente = $cliente->inserir();
+    		if($insert == true){
+    			$usuario = $usuario->inserir();
+    			$cliente->setUsuarioId($usuario->getId());
+    			$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+    			$cliente = $cliente->inserir();
+    		}
     		
             // setando a mensagem de sucesso //
             $this->setFlash('Cliente cadastrado com sucesso.');
@@ -149,8 +159,20 @@ class ClienteControll extends Controll {
         	$cliente->setCpf(trim($dados['cpf']));
         	$cliente->setNome(trim($dados['nome']));
         	
-        	$usuario = $usuario->editar();        	
-        	$cliente = $cliente->editar();
+        	if($usuario->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($cliente->_validarCampos())
+    			$insert = true;
+    		else
+    			$insert = false;
+    		
+    		if($insert == true){
+    			$usuario = $usuario->editar();
+    			$cliente = $cliente->editar();
+    		}
         	    
             $this->setFlash('Cliente editado com sucesso');
 			$this->setPage();

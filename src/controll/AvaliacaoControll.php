@@ -4,7 +4,7 @@
  * Controlador do modulo de usuários
  * @package controll
  */
-class AcompanhanteControll extends Controll {
+class AvaliacaoControll extends Controll {
 
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
@@ -91,22 +91,13 @@ class AcompanhanteControll extends Controll {
 	        		null);	        
 	        
 	        
-    		if($usuario->_validarCampos())
-            	$insert = true;
-			else
-           	$insert = false;
-                
-			if($acompanhante->_validarCampos())
-            	$insert = true;
-			else
-           $insert = false;
-           	if($insert == true){
-            	$usuario = $usuario->inserir();
-	            $acompanhante->setUsuarioId($usuario->getId());
-	            $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-	            $acompanhante->inserir();
-			}
-			
+            $usuario->inserir();            
+            /*agora set o id du usuario na acompanhante*/
+            $acompanhante->setUsuarioId($usuario->getId());
+            $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+                        
+            $acompanhante->inserir();
+            
             // setando a mensagem de sucesso //
             $this->setFlash('Acompanhante cadastrada com sucesso.');
             // setando a url //
@@ -154,8 +145,11 @@ class AcompanhanteControll extends Controll {
      * @return Usuario
      */
     private function _editar($dados){
+	
+    	
     	// persistindo em inserir o usuário //
     	try {
+    		
 	        // instanciando o novo Usuário //
 	        
     		$usuario = Usuario::buscar($dados['idUsuario']);    		
@@ -178,20 +172,12 @@ class AcompanhanteControll extends Controll {
     		$acompanhante->setEspecialidade(trim($dados['especialidade']));
     		$acompanhante->setHorarioAtendimento(trim($dados['horarioAtendimento']));
             
-    		if($usuario->_validarCampos())
-    			$insert = true;
-    		else
-    			$insert = false;
+    		//meuVarDump($acompanhante);
     		
-    		if($acompanhante->_validarCampos())
-    			$insert = true;
-    		else
-    			$insert = false;
     		
-    		if($insert == true){
-    			$usuario = $usuario->editar();
-    			$acompanhante = $acompanhante->editar();
-    		}
+    		$usuario->editar();
+    		
+    		$acompanhante->editar();
             
             // setando a mensagem de sucesso //
             $this->setFlash('Acompanhante editada com sucesso.');

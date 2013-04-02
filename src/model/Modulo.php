@@ -36,9 +36,13 @@ class Modulo {
      * @return 
      */
     private function _validarCampos(){
-    	if(($this->getNome() == '')||($this->getId() == null)||($this->getLink() == ''))
+    	if(($this->getNome() == '')||($this->getId() == null)||($this->getLink() == '')){
+    		throw new CamposObrigatorios();
     		return false;
-    	return true;
+    	}
+    	else{
+    		return true;
+    	}
     }
 
     /**
@@ -71,28 +75,26 @@ class Modulo {
 
     public function inserir(){
     	// validando os campos //
-    	if(!$this->_validarCampos())
-    		// levantando a excessao CamposObrigatorios //
-    		throw new CamposObrigatorios();
-    	// recuperando a instancia da classe de acesso a dados //
-    	$instancia = ModuloDAO::getInstancia();
-    	// executando o metodo //
-    	$modulo = $instancia->inserir($this);
-    	// retornando o Usuario //
-    	return  $modulo = $instancia->inserir($this);
+    	if($this->_validarCampos()){
+    		// recuperando a instancia da classe de acesso a dados //
+    		$instancia = ModuloDAO::getInstancia();
+    		// executando o metodo //
+    		$modulo = $instancia->inserir($this);
+    		// retornando o Usuario //
+    		return  $modulo = $instancia->inserir($this);
+    	}    	
     }
     
     public function editar(){
     	// validando os campos //
-    	if(!$this->_validarCampos())
-    		// levantando a excessao CamposObrigatorios //
-    		throw new CamposObrigatorios();
-    	// recuperando a instancia da classe de acesso a dados //
-    	$instancia = ModuloDAO::getInstancia();
-    	// executando o metodo //
-    	$modulo = $instancia->editar($this);
-    	// retornando o Usuario //
-    	return  $modulo = $instancia->editar($this);
+    	if($this->_validarCampos()){
+	    	// recuperando a instancia da classe de acesso a dados //
+	    	$instancia = ModuloDAO::getInstancia();
+	    	// executando o metodo //
+	    	$modulo = $instancia->editar($this);
+	    	// retornando o Usuario //
+	    	return  $modulo = $instancia->editar($this);
+    	}
     }
     
     public function excluir(){

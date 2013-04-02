@@ -30,9 +30,13 @@ class Perfil {
          * @return boolean
          */
         private function _validarCampos(){
-                if(($this->getNome() == '')||(is_null($this->getAcoes())))
-                        return false;
-                return true;
+        	if(($this->getNome() == '')||(is_null($this->getAcoes()))){
+	        	throw new CamposObrigatorios();
+	    		return false;
+    		}
+    		else{
+    			return true;
+    		}
         }
 
         /**
@@ -40,11 +44,11 @@ class Perfil {
          * @return Perfil
          */
         public function inserir(){
-                if(!$this->_validarCampos())
-                        throw new CamposObrigatorios();
-                $instancia = PerfilDAO::getInstancia();
+			if($this->_validarCampos()){
+            	$instancia = PerfilDAO::getInstancia();
                 $perfil = $instancia->inserir($this);
                 return $perfil;
+			}   
         }
 
         /**
@@ -52,11 +56,13 @@ class Perfil {
          * @return Perfil
          */
         public function editar(){
-                if(!$this->_validarCampos())
-                        throw new CamposObrigatorios();
-                $instancia = PerfilDAO::getInstancia();
-                $perfil = $instancia->editar($this);
-                return $perfil;
+	        if(!$this->_validarCampos()){
+	        	$instancia = PerfilDAO::getInstancia();
+	            $perfil = $instancia->editar($this);
+	        	return $perfil;
+			}
+                        
+                
         }
 
         public function excluir(){

@@ -46,13 +46,27 @@ class Usuario {
      * Metodo _validarCampos()
      * @return boolean
      */
-    private function _validarCampos(){
-            if(($this->getPerfil() == null)||
-                    ($this->getLogin() == '')||
-                    ($this->getEmail() == '')||
-                    ($this->getSenha() == null))
-                    return false;
-            return true;
+    public static function _validarCampos(){
+		if(($this->getPerfil() == null)||
+        	($this->getLogin() == '')||
+            ($this->getEmail() == '')||
+            ($this->getSenha() == null)){
+            throw new CamposObrigatorios();
+            return false;
+		}
+        else if($this->_testarEmailExiste($this->getEmail())){
+        	throw new Exception("Email já cadastrado en nossa base de dados");
+        }
+            
+        else if($this->getId() != 0){
+			if($this->_testarEmailExisteEdicao($this->getId(), $this->getEmail())){
+            	// levanto a excessao//
+            	throw new Exception("Email já cadastrado en nossa base de dados");
+			}
+		}
+		else{
+        	return true;
+        }
     }
 
     /**
@@ -60,21 +74,17 @@ class Usuario {
      * @return Usuario
      */
     public function inserir(){
-            // validando os campos //
-            if(!$this->_validarCampos())
-				// levantando a excessao CamposObrigatorios //
-                throw new CamposObrigatorios();            
-            
-            if($this->_testarEmailExiste($this->getEmail()))
-	            // levanto a excessao//
-	            throw new Exception("Email já cadastrado en nossa base de dados");
-            
-            // recuperando a instancia da classe de acesso a dados //
+        // validando os campos //
+        if($this->_validarCampos())
+        {
+        	// recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
             $usuario = $instancia->inserir($this);
             // retornando o Usuario //
             return $usuario;
+		}
+				            
     }
 
     /**
@@ -82,21 +92,15 @@ class Usuario {
      * @return Usuario
      */
     public function editar(){
-            // validando os campos //
-            if(!$this->_validarCampos())
-                    // levantando a excessao CamposObrigatorios //
-                    throw new CamposObrigatorios();
-            
-            if($this->_testarEmailExisteEdicao($this->getId(), $this->getEmail()))
-            	// levanto a excessao//
-            	throw new Exception("Email já cadastrado en nossa base de dados");
-            
-            // recuperando a instancia da classe de acesso a dados //
+		// validando os campos //
+        if($this->_validarCampos()){
+        	// recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
             $usuario = $instancia->editar($this);
             // retornando o Usuario //
             return $usuario;
+		}
     }
 
     /**
