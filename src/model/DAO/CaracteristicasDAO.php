@@ -27,7 +27,7 @@ class CaracteristicasDAO extends ClassDAO{
 	public function inserir(Fotos $obj) {
 		// INSTRUCAO SQL //
 		$sql = "INSERT INTO " . self::TABELA . "
-            (nome,)
+            (nome)
             VALUES('" . $obj->getNome() . "')";	
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->exec($sql);
