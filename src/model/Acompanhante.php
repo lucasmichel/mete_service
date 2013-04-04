@@ -187,8 +187,8 @@ class Acompanhante {
      * Metodo _validarCampos()
      * @return boolean
      */
-    public static function _validarCampos(){
-    	if(($this->getNome() == null)||($this->getUsuarioId() == 0)){
+    public function _validarCampos(){
+    	if($this->getNome() == null){
     		throw new CamposObrigatorios();
     		return false;
     	}
@@ -199,26 +199,25 @@ class Acompanhante {
     
     public function inserir(){
     	// validando os campos //
-    	if(!$this->_validarCampos())
-    		// levantando a excessao CamposObrigatorios //
-    		throw new CamposObrigatorios();
-    	// recuperando a instancia da classe de acesso a dados //
-    	$instancia = AcompanhanteDAO::getInstancia();
-    	// retornando o Usuario //
-    	return  $acompanhante = $instancia->inserir($this);
+    	if(!$this->_validarCampos()){
+    		// recuperando a instancia da classe de acesso a dados //
+    		$instancia = AcompanhanteDAO::getInstancia();
+    		// retornando o Usuario //
+    		return  self::construirObjeto($instancia->inserir($this));
+    	}
+    	
     }
     
     public function editar(){
     	// validando os campos //
-    	if(!$this->_validarCampos())
-    		// levantando a excessao CamposObrigatorios //
-    		throw new CamposObrigatorios();
-    	// recuperando a instancia da classe de acesso a dados //
-    	$instancia = AcompanhanteDAO::getInstancia();
-    	// executando o metodo //
-    	$acompanhante = $instancia->editar($this);
-    	// retornando o Usuario //
-    	return  $acompanhante = $instancia->editar($this);
+    	if(!$this->_validarCampos()){
+    		// recuperando a instancia da classe de acesso a dados //
+    		$instancia = AcompanhanteDAO::getInstancia();
+    		// executando o metodo //
+    		return self::construirObjeto($instancia->editar($this));
+    	}
+    		
+    	
     }
     
     public function excluir(){
@@ -287,21 +286,33 @@ class Acompanhante {
     
     
     /*PARA WEBSERVICE*/
-    
     public static function listarParaWebService(){
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = AcompanhanteDAO::getInstancia();
     	// executando o metodo //
-    	$acompanhante = $instancia->listar("nome");
+    	$acompanhantes = $instancia->listar("nome");
     	// checando se o retorno foi falso //
-    	if(!$acompanhante)
+    	if(!$acompanhantes)
     		// levantando a excessao ListaVazia //
     		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
-    	
+    	return $acompanhantes;
+    }
+    
+    public static function buscarParaWebService($id){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = AcompanhanteDAO::getInstancia();
+    	// executando o metodo //
+    	$acompanhante = $instancia->buscarPorId($id);
+    	// checando se o resultado foi falso //
+    	if(!$acompanhante)
+    		// levanto a excessao RegistroNaoEncontrado //
+    		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
+    	// instanciando e retornando o Usuario //
     	return $acompanhante;
     }
-
     /*PARA WEBSERVICE*/
+    
+    
 }
 
 ?>

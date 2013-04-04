@@ -44,7 +44,6 @@ class Fotos {
         return $this->acompanhante_id;
     }
 
-        
     public function setId($id) {
         $this->id = $id;
     }

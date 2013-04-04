@@ -128,10 +128,9 @@ class DefaultControll extends Controll {
     		}
     		
 			
-    
+    		$arrayRetorno["dados"] = $usuario;
     		$arrayRetorno["status"] = 0;
     		$arrayRetorno["messagem"] = "Acompanhante editada com suceso";
-    		$arrayRetorno["id"] = $usuario->getId();
     		header('Cache-Control: no-cache, must-revalidate');
     		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     		header('Content-type: application/json');
@@ -140,6 +139,7 @@ class DefaultControll extends Controll {
     
     
     	} catch (Exception $e) {
+    		$arrayRetorno["dados"] = null;
     		$arrayRetorno["status"] = 1;
     		$arrayRetorno["messagem"] = $e->getMessage();
     		header('Cache-Control: no-cache, must-revalidate');
@@ -195,10 +195,9 @@ class DefaultControll extends Controll {
     			$cliente = $cliente->editar();
     		}
     		
-    
+    		$arrayRetorno["dados"] = $usuario;
 			$arrayRetorno["status"] = 0;
     		$arrayRetorno["messagem"] = "Cliente editado com suceso";
-    		$arrayRetorno["id"] = $usuario->getId();
     		header('Cache-Control: no-cache, must-revalidate');
     		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     		header('Content-type: application/json');
@@ -206,6 +205,7 @@ class DefaultControll extends Controll {
     		echo $retorno;
     
     	} catch (Exception $e) {
+    		$arrayRetorno["dados"] = null;
     		$arrayRetorno["status"] = 1;
     		$arrayRetorno["messagem"] = $e->getMessage();
     		header('Cache-Control: no-cache, must-revalidate');
@@ -248,7 +248,8 @@ class DefaultControll extends Controll {
             $encoded = $this->descriptografarTexto($dados);            
             $tipoUsuario = $encoded->{'tipo'};
             
-            if(($tipoUsuario != 1)&&($tipoUsuario != 2)){                
+            if(($tipoUsuario != 1)&&($tipoUsuario != 2)){
+            	$arrayRetorno["dados"] = null;
                 $arrayRetorno["status"] = 1;
                 $arrayRetorno["messagem"] = 'tipo de usuario não definido ou definido errado';
                 header('Cache-Control: no-cache, must-revalidate');
@@ -293,10 +294,9 @@ class DefaultControll extends Controll {
                 	$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
                 	$cliente = $cliente->inserir();
                 }
-                
+                $arrayRetorno["dados"] = $usuario;
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
-                $arrayRetorno["id"] = $usuario->getId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');
@@ -349,10 +349,9 @@ class DefaultControll extends Controll {
 	                $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
 	                $acompanhante->inserir();
                 }
-                
+                $arrayRetorno["dados"] = $usuario;
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
-                $arrayRetorno["id"] = $usuario->getId();
                 header('Cache-Control: no-cache, must-revalidate');
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Content-type: application/json');
@@ -362,6 +361,7 @@ class DefaultControll extends Controll {
             
             
         } catch (Exception $e) {
+        	$arrayRetorno["dados"] = null;
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
@@ -392,7 +392,7 @@ class DefaultControll extends Controll {
             $jsonDescriptografado = base64_decode($jsonCriptografado);
             $encoded = json_decode($jsonDescriptografado);
             
-            $arrayRetorno = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
+            $arrayRetorno["dados"] = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
             $arrayRetorno["status"] = 0;
             $arrayRetorno["messagem"] = "OK";
             header('Cache-Control: no-cache, must-revalidate');
@@ -401,6 +401,7 @@ class DefaultControll extends Controll {
             $retorno = base64_encode(json_encode($arrayRetorno));
             echo $retorno;
         } catch (Exception $e) {
+        	$arrayRetorno["dados"] = null;
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
@@ -413,23 +414,28 @@ class DefaultControll extends Controll {
     
     public function listarAcompanhante() {
      try {
-            $arrayRetorno = Acompanhante::listarParaWebService();
+            $arrayRetorno["dados"] = Acompanhante::listarParaWebService();
             $arrayRetorno["status"] = 0;
             $arrayRetorno["messagem"] = "OK";
-            
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            $retorno = base64_encode(json_encode($arrayRetorno));
+            $retorno = json_encode($arrayRetorno);
             echo $retorno;
+            
+            /*$retorno = base64_encode(json_encode($arrayRetorno));
+            echo $retorno;*/
         } catch (Exception $e) {
+        	$arrayRetorno["dados"] = null;
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            $retorno = base64_encode(json_encode($arrayRetorno));
-	    echo $retorno;
+            $retorno = json_encode($arrayRetorno);
+            echo $retorno;
+            /*$retorno = base64_encode(json_encode($arrayRetorno));
+	    	echo $retorno;*/
         }
     }
     

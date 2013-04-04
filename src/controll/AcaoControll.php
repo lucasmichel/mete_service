@@ -1,7 +1,7 @@
 <?php
-class  ModuloControll extends controll{
+class  AcaoControll extends controll{
 	
-	const MODULO = 8;
+	const MODULO = 9;
 	/**
 	 * Acao index()
 	 */
@@ -9,7 +9,7 @@ class  ModuloControll extends controll{
 		// código da ação serve para o controle de acesso//
 		static $acao = 1;
 		// definindo a tela //
-		$this->setTela('listar',array('modulo'));
+		$this->setTela('listar',array('acao'));
 		// guardando a url //
 		$this->getPage();
 	}
@@ -22,11 +22,11 @@ class  ModuloControll extends controll{
 		// código da ação serve para o controle de acesso//
 		static $acao = 1;
 		// buscando o usuário //
-		$modulo = Modulo::buscar($id);
+		$ac = Acao::buscar($id);
 		// jogando o usuário no atributo $dados do controlador //
-		$this->setDados($modulo,'modulo');
+		$this->setDados($ac,'acao');
 		// definindo a tela //
-		$this->setTela('ver',array('modulo'));
+		$this->setTela('ver',array('acao'));
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class  ModuloControll extends controll{
 		// checando se o formulário nao foi passado //
 		if(!$this->getDados('POST')) {
 			//  definindo a  tela //
-			$this->setTela('add',array('modulo'));
+			$this->setTela('add',array('acao'));
 		} else {
 			// caso passar o formulário //
 			// chamando o metodo privado _add() passando os dados do post por parametro //
@@ -55,13 +55,13 @@ class  ModuloControll extends controll{
 		// código da ação //
 		static $acao = 3;
 		// Buscando o usuário //
-		$objeto = Modulo::buscar($id);
+		$objeto = Acao::buscar($id);
 		// checando se o formulário nao foi passado //
 		if(!$this->getDados('POST')){
 			// Jogando perfil no atributo $dados do controlador //
-			$this->setDados($objeto,'modulo');
+			$this->setDados($objeto,'acao');
 			// Definindo a tela //
-			$this->setTela('editar',array('modulo'));
+			$this->setTela('editar',array('acao'));
 		}
 		// caso passar o formulario //
 		else
@@ -77,16 +77,16 @@ class  ModuloControll extends controll{
 		// código da ação //
 		static $acao = 4;
 		// buscando o usuário //
-		$objeto = modulo::buscar($id);
+		$objeto = Acao::buscar($id);
 		// checando se o usuário a ser excluído é diferente do logado //
-	
+		
 		//ATENÇÃO
-		//checar se o modulo esta sendo utilizada
+		//checar se a ação esta sendo utilizada
 		
 		// excluíndo ele //
 		$objeto->excluir();
 		// setando mensagem de sucesso //
-		$this->setFlash('Modulo excluído com sucesso.');
+		$this->setFlash('Acao excluído com sucesso.');
 	
 		// setando a url //
 		$this->setPage();

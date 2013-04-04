@@ -136,7 +136,7 @@ class AcompanhanteDAO extends ClassDAO {
      */
     public function listar() {
     	// INSTRUCAO SQL //
-    	$sql = "SELECT a.* FROM " . self::TABELA . " a ORDER BY f.nome";
+    	$sql = "SELECT a.* FROM " . self::TABELA . " a ORDER BY a.nome";
     	// EXECUTANDO A SQL //
     	$resultado = $this->conexao->fetchAll($sql);
     	// RETORNANDO O RESULTADO //

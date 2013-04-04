@@ -12,7 +12,6 @@ class Acao {
 	private $nome;
 	private $modulo;
 
-
 	/**
 	 * Metodo construtor()
 	 * @param $codigoAcao
@@ -33,13 +32,63 @@ class Acao {
 	 * @param $filtroPerfil
 	 * @return Acao[]
 	 */
+ 	public function _validarCampos(){
+    	if($this->getNome() == null){
+    		throw new Exception("é necessário um nome para a ação");
+    		return false;
+    	}
+    	elseif ($this->getModulo() == null){
+    		throw new Exception("é necessário definir a que módulo esta ação pertence");
+    		return false;
+    	}
+    	elseif ($this->getCodigoAcao() == 0){
+    		throw new Exception("é necessário definir o código da ação");
+    		return false;
+    	}
+    	else{
+    		return true;
+    	}
+    }
+	
+    
+    
+    
+    public function inserir(){
+    	// validando os campos //
+    	if(!$this->_validarCampos()){
+    		// recuperando a instancia da classe de acesso a dados //
+    		$instancia = AcaoDAO::getInstancia();
+    		// retornando o Usuario //
+    		return self::construirObjeto($instancia->adicionar($this));
+    	}
+    }
+    
+    public function editar(){
+    	// validando os campos //
+    	if(!$this->_validarCampos()){
+    		// recuperando a instancia da classe de acesso a dados //
+    		$instancia = AcaoDAO::getInstancia();
+    		// executando o metodo //
+    		return self::construirObjeto($instancia->editar($this));
+    	}
+    }    
+    
+    private function construirObjeto($dados){
+    	$acao =	new Acao();
+    	$acao->setCodigoAcao(trim($dados['codigo_acao']));
+    	$acao->setNome(trim($dados['nome']));
+    	$acao->setModulo(Modulo::buscar(trim($dados['nome'])));
+    	return $acao;
+    }
+    
+    
 	public static function listar($filtroModulo = 0,$filtroPerfil = 0){
 		$instancia = AcaoDAO::getInstancia();
 		$acoes = $instancia->listar($filtroModulo,$filtroPerfil);
 		if(!$acoes)
 			throw new ListaVazia(ListaVazia::ACOES);
 		foreach($acoes as $acao){
-			$objetos[] = new Acao($acao['codigo_acao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
+			$objetos[] = self::construirObjeto($acao);
 		}
 		return $objetos;
 	}
@@ -55,7 +104,7 @@ class Acao {
 		$acao = $instancia->buscar($codigoAcao,$modulo);
 		if(!$acao)
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACAO);
-		return new Acao($acao['codigo_acao'],$acao['nome'],Modulo::buscar($acao['id_modulo']));
+		return self::construirObjeto($acao);
 	}
 	
 	/**
@@ -65,14 +114,9 @@ class Acao {
 	 * @return boolean
 	 */
 	public static function checarPermissao($codigoAcao = 0, $modulo = null) {
-	
 		$controll = Controll::getControll();
-		
-		
-		
 		if((empty($codigoAcao)) || (empty($modulo)))
 			return false;
-			
 		
 		//echo '<pre>';
 		foreach($controll->getUsuario()->getPerfil()->getAcoes() as $acao){

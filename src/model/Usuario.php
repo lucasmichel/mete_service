@@ -46,11 +46,12 @@ class Usuario {
      * Metodo _validarCampos()
      * @return boolean
      */
-    public static function _validarCampos(){
+    public function _validarCampos(){
 		if(($this->getPerfil() == null)||
         	($this->getLogin() == '')||
             ($this->getEmail() == '')||
             ($this->getSenha() == null)){
+			meuVarDump($this);
             throw new CamposObrigatorios();
             return false;
 		}

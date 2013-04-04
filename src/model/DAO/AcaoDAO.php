@@ -31,6 +31,46 @@
 		}
 		
 		/**
+		 * Metodo inserir($obj)
+		 * @param $obj
+		 * @return Perfil
+		 */
+		public function inserir(Acao $obj) {
+			// INSTRUCAO SQL //
+			$sql = "INSERT INTO " . self::TABELA . "
+            (id_modulo, codigo_acao, nome)
+		
+            VALUES('" . $obj->getModulo()->getId() . "',
+            '" . $obj->getCodigoAcao() . "',
+            '" . $obj->getNome(). "')";
+			
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->exec($sql);
+			// TRATANDO O RESULTADO //
+			($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+			// RETORNANDO O RESULTADO //
+			return $obj;
+		}
+		
+		
+		/**
+		 * Metodo editar($obj)
+		 * @param $obj
+		 * @return Perfil
+		 */
+		public function editar(Acao $obj) {
+			// INSTRUCAO SQL //
+			$sql = "UPDATE " . self::TABELA . " SET
+            nome = '" . $obj->getNome() . "'
+            WHERE id_modulo = '" . $obj->getModulo()->getId() . "' and codigo_acao = '".$obj->getCodigoAcao()."' ";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->exec($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		
+		/**
 		 * Metodo buscar($codigo,$modulo)
 		 * @param $codigo
 		 * @param $modulo
