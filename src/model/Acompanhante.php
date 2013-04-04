@@ -295,8 +295,42 @@ class Acompanhante {
     	if(!$acompanhantes)
     		// levantando a excessao ListaVazia //
     		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
-    	return $acompanhantes;
+    	
+    	foreach($acompanhantes as $acompanhante){
+    		// instanciando e jogando dentro da colecao $objetos o Usuario //
+    		
+    		//$obj = self::construirObjeto($acompanhante);
+    		$objetos[] = $acompanhante; 
+    	
+	}
+    	return $objetos;
     }
+    
+    
+    public static function listarParaWebServiceSerializado(){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = AcompanhanteDAO::getInstancia();
+    	// executando o metodo //
+    	$acompanhantes = $instancia->listar("nome");
+    	 
+    	// checando se o retorno foi falso //
+    	if(!$acompanhantes)
+    		// levantando a excessao ListaVazia //
+    		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
+    	 
+    	foreach($acompanhantes as $acompanhante){
+    		// instanciando e jogando dentro da colecao $objetos o Usuario //
+    
+    		$obj = self::construirObjeto($acompanhante);
+    
+    		$a = serialize($obj);
+    		//$b = unserialize($str);
+    		$objetos[] = $a;
+    		 
+    	}
+    	return $objetos;
+    }
+    
     
     public static function buscarParaWebService($id){
     	// recuperando a instancia da classe de acesso a dados //
@@ -308,7 +342,10 @@ class Acompanhante {
     		// levanto a excessao RegistroNaoEncontrado //
     		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
     	// instanciando e retornando o Usuario //
-    	return $acompanhante;
+    	
+    	
+    	
+    	return  $acompanhante;
     }
     /*PARA WEBSERVICE*/
     

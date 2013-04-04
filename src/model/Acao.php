@@ -77,7 +77,7 @@ class Acao {
     	$acao =	new Acao();
     	$acao->setCodigoAcao(trim($dados['codigo_acao']));
     	$acao->setNome(trim($dados['nome']));
-    	$acao->setModulo(Modulo::buscar(trim($dados['nome'])));
+    	$acao->setModulo(Modulo::buscar(trim($dados['id_modulo'])));
     	return $acao;
     }
     
@@ -101,7 +101,7 @@ class Acao {
 	 */
 	public static function buscar($codigoAcao = 0,$modulo = 0){
 		$instancia = AcaoDAO::getInstancia();
-		$acao = $instancia->buscar($codigoAcao,$modulo);
+		$acao = $instancia->buscar($codigoAcao,$modulo);		
 		if(!$acao)
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACAO);
 		return self::construirObjeto($acao);

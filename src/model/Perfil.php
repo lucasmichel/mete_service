@@ -73,11 +73,13 @@ class Perfil {
 
         public static function buscar($id){
                 $instancia = PerfilDAO::getInstancia();
-                $perfil = $instancia->buscarPorId($id);
+                $perfil = $instancia->buscarPorId($id);                
                 if(!$perfil) {
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::PERFIL);
                 }
-                return new Perfil($perfil['id'],$perfil['nome'],self::_setAcoes($perfil['id']));
+                
+                $a = new Perfil($perfil['id'],$perfil['nome'],self::_setAcoes($perfil['id']));
+                return $a; 
         }
 
 
@@ -93,12 +95,13 @@ class Perfil {
         }
 
         private static function _setAcoes($perfil){
-                $instancia = PerfilDAO::getInstancia();
-                $acoes = $instancia->setAcoes($perfil);
+        	
+        	$instancia = PerfilDAO::getInstancia();        	
+                $acoes = $instancia->setAcoes($perfil);                
                 if($acoes != null){
                     foreach($acoes as $acao){
                         $objetos[] = Acao::buscar($acao['codigo_acao'],$acao['id_modulo']);
-                    }
+                    }                    
                     return $objetos;
                 }
                 

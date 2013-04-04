@@ -50,8 +50,7 @@ class Usuario {
 		if(($this->getPerfil() == null)||
         	($this->getLogin() == '')||
             ($this->getEmail() == '')||
-            ($this->getSenha() == null)){
-			meuVarDump($this);
+            ($this->getSenha() == null)){			
             throw new CamposObrigatorios();
             return false;
 		}
@@ -160,7 +159,7 @@ class Usuario {
             // recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
-            $usuario = $instancia->logar($login,$senha);
+            $usuario = $instancia->logar($login,$senha);            
             // checando se o retorno foi falso //
             if(!$usuario)
                     // levantando a excessao LoginInvalido //

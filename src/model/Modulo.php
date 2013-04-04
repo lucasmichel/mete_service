@@ -67,7 +67,7 @@ class Modulo {
      */
     public static function buscar($id) {
         $instancia = ModuloDAO::getInstancia();
-        $modulo = $instancia->buscar($id);
+        $modulo = $instancia->buscar($id);        
         if (!$modulo)
             throw new RegistroNaoEncontrado(RegistroNaoEncontrado::MODULO);
         return new Modulo($modulo['id'], $modulo['nome'], $modulo['link']);

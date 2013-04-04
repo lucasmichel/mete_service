@@ -33,9 +33,10 @@ class DefaultControll extends Controll {
         /**
          * Persistindo em logar
          */
-        try {
-            $usuario = Usuario::logar($dados['login'], $dados['senha']);
-            //guardando o usuário no controlador
+        try {        	
+            $usuario = Usuario::logar($dados['login'], $dados['senha']);   
+            
+            //guardando o usuário no controlador            
             $this->setUsuario($usuario);
             //recuperando se houver alguma url guardada
             $urlRecover = $this->getUrlRecover();
@@ -412,39 +413,141 @@ class DefaultControll extends Controll {
         }
     }
     
-    public function listarAcompanhante() {
-     try {
-            $arrayRetorno["dados"] = Acompanhante::listarParaWebService();
-            $arrayRetorno["status"] = 0;
-            $arrayRetorno["messagem"] = "OK";
+public function listarAcompanhanteErroTeste() {
+try {
+
+
+	  $listaMeninas = Acompanhante::listar();
+
+        
+          foreach ($listaMeninas as $menina) {
+            $meni = array(
+                "id"=>$menina->getId(),
+                "nome"=>$menina->getNome(),
+                "idade"=>$menina->getIdade()
+            );
+            $listaJson[] = $meni;
+          }
+
+	    $listaJson["status"] = 0;
+	    $listaJson["messagem"] = "OK";	
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            $retorno = json_encode($arrayRetorno);
+	    $retorno = json_encode($listaJson);
             echo $retorno;
             
-            /*$retorno = base64_encode(json_encode($arrayRetorno));
-            echo $retorno;*/
+	    
         } catch (Exception $e) {
-        	$arrayRetorno["dados"] = null;
             $arrayRetorno["status"] = 1;
             $arrayRetorno["messagem"] = $e->getMessage();
             header('Cache-Control: no-cache, must-revalidate');
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
             header('Content-type: application/json');
-            $retorno = json_encode($arrayRetorno);
+	    $retorno = json_encode($arrayRetorno);
             echo $retorno;
-            /*$retorno = base64_encode(json_encode($arrayRetorno));
-	    	echo $retorno;*/
+            
         }
-    }
+
+}
+
+public function listarAcompanhanteAcertoTeste() {
+
+try {
+
+
+            $arrayRetorno = Acompanhante::listarParaWebService();
+            
+	    $retorno = json_encode($arrayRetorno);
+	    header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+            echo $retorno;
+
+        } catch (Exception $e) {
+            $arrayRetorno["status"] = 1;
+            $arrayRetorno["messagem"] = $e->getMessage();
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+	    $retorno = json_encode($arrayRetorno);
+            echo $retorno;
+            
+
+        }
+
+
+}
+
+
+
+public function listarAcompanhanteMeu() {
+
+try {
+
+
+        $listaMeninas = Acompanhante::listarParaWebServiceSerializado();
+            
+	
+
+	    $arrayRetorno["dados"] = $listaMeninas;
+        $arrayRetorno["status"] = 0;
+        $arrayRetorno["messagem"] = "OK";
+
+        
+
+	    	header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+	    	$retorno = json_encode($arrayRetorno);
+	    	
+	    	
+	    	
+	    	
+            echo $retorno;
+
+        } catch (Exception $e) {
+            $arrayRetorno["dados"] = null;
+            $arrayRetorno["status"] = 1;
+            $arrayRetorno["messagem"] = $e->getMessage();
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+            header('Content-type: application/json');
+	    $retorno = json_encode($arrayRetorno);
+            echo $retorno;
+            
+
+        }
+
+
+}
+
+
+
+
+	public function listarAcompanhante() {
+		try {
+			$arrayRetorno = Acompanhante::listarParaWebService();
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		} catch (Exception $e) {
+			$arrayRetorno["status"] = 1;
+			$arrayRetorno["messagem"] = $e->getMessage();
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+	}
+
     
     public function listarUsuarios() {
     	try {
     		$arrayRetorno = Usuario::listarParaWebService();
-    		$arrayRetorno["status"] = 0;
-    		$arrayRetorno["messagem"] = "OK";
-    
     		header('Cache-Control: no-cache, must-revalidate');
     		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     		header('Content-type: application/json');
@@ -464,10 +567,7 @@ class DefaultControll extends Controll {
     public function listarServicos() {
     	try {
     		$arrayRetorno = Servico::listarParaWebService();
-    		$arrayRetorno["status"] = 0;
-    		$arrayRetorno["messagem"] = "OK";
-    
-    		header('Cache-Control: no-cache, must-revalidate');
+    				header('Cache-Control: no-cache, must-revalidate');
     		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     		header('Content-type: application/json');
     		$retorno = base64_encode(json_encode($arrayRetorno));
