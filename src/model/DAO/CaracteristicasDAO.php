@@ -64,6 +64,22 @@ class CaracteristicasDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}
+	
+	public function excluir($id) {
+		// checando se existe algum vinculo desse registro com outros //
+		$validacao = "SELECT c.id FROM caracteristica c WHERE c.id = '" . $id . "'";
+		if ($this->conexao->fetch($validacao))
+			throw new RegistroNaoExcluido(RegistroNaoExcluido::CARACTERISTICA);
+		// INSTRUCOES SQL //
+		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
+		// PERCORRENDO AS SQL //
+		foreach ($sql as $item) {
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->exec($item);
+		}
+		// RETORNANDO O RESULTADO //
+		return $resultado;
+	}
 
 	/**
 	 * Metodo listar()

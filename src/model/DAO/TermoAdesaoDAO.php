@@ -1,38 +1,49 @@
 <?php
-class EncontroDAO extends ClasseDAO{
+/**
+ * Classe TermoAdesaoDAO - criada por kayky lopes
+ * Camada de acesso a dados da entidade TermoAdesao
+ * @package model
+ * @subpackage DAO
+ */
+class TermoAdesaoDAO extends ClassDAO{
 	/**
 	 * Atributos
 	 */
 	private static $instancia;
 	private $conexao;
 	
-	const TABELA = 'encontro';
+	const TABELA = 'termoAdesao';
 	
 	/**
 	 * Metodo construtor()
 	 */
 	protected function __construct() {
 		//passa pra a classe pai o nomeda tabelausada pela classe
-		parent::__construct("encontro");
+		parent::__construct("termoAdesao");
 		$this->conexao = Connect::getInstancia();
 	}
 	
+
 	/**
 	 * Metodo getInstancia()
 	 */
 	public static function getInstancia() {
 		if (!isset(self::$instancia))
-			self::$instancia = new EncontroDAO();
+			self::$instancia = new TermoAdesaoDAO();
 		return self::$instancia;
 	}
 	
-	public function inserir(Encontro $obj) {
+	public function inserir(Avaliacao $obj) {
 		// INSTRUCAO SQL //
 		$sql = "INSERT INTO " . self::TABELA . "
-            (cliente_id,data_horario ,aprovado)
-            VALUES('" . $obj->getClienteId() . "',
-            '" . $obj->getData_horario() . "',
-            '" . $obj->getAprovado() . "')";
+            (ip, browser, data,usuario_id,usuario_id_perfil
+            )
+	
+            VALUES('" . $obj->getIp() . "',
+            '" . $obj->getBrowser() . "',
+             '" . $obj->getData() . "',
+            '" . $obj->getUsuarioId() . "',
+             '" . $obj->getUsuarioIdPerfil() . "',)";
 	
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->exec($sql);
@@ -47,12 +58,14 @@ class EncontroDAO extends ClasseDAO{
 	 * @param $obj
 	 * @return Perfil
 	 */
-	public function editar(Encontro $obj) {
+	public function editar(Avaliacao $obj) {
 		// INSTRUCAO SQL //
 		$sql = "UPDATE " . self::TABELA . " SET
-            cliente_id = '" . $obj->getClienteId() . "',
-            data_horario =	'" . $obj->getData_horario() . "',
-            aprovado = '" . $obj->getAprovado() . "'
+            ip = '" . $obj->getIp() . "',
+            browser =	'" . $obj->getBrowser() . "',
+            data = '" . $obj->getData() . "'
+            usuario_id = '" . $obj->getUsuarioId() . "'
+            usuario_id_perfil = '" . $obj->getUsuarioIdPerfil() . "'
             WHERE id = '" . $obj->getId() . "'";
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->exec($sql);
@@ -62,9 +75,9 @@ class EncontroDAO extends ClasseDAO{
 	
 	public function excluir($id) {
 		// checando se existe algum vinculo desse registro com outros //
-		$validacao = "SELECT e.id FROM encontro e WHERE e.id = '" . $id . "'";
+		$validacao = "SELECT t.id FROM termoAdesao t WHERE t.id = '" . $id . "'";
 		if ($this->conexao->fetch($validacao))
-			throw new RegistroNaoExcluido(RegistroNaoExcluido::ENCONTRO);
+			throw new RegistroNaoExcluido(RegistroNaoExcluido::TERMOADESAO);
 		// INSTRUCOES SQL //
 		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
 		// PERCORRENDO AS SQL //
@@ -78,7 +91,7 @@ class EncontroDAO extends ClasseDAO{
 	
 	public function buscar($id) {
 		// INSTRUCAO SQL //
-		$sql = "SELECT e.* FROM " . self::TABELA . " e WHERE e.id = '" . $id . "'";
+		$sql = "SELECT t.* FROM " . self::TABELA . " t WHERE t.id = '" . $id . "'";
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->fetch($sql);
 		// RETORNANDO O RESULTADO //
@@ -91,14 +104,12 @@ class EncontroDAO extends ClasseDAO{
 	 */
 	public function listar() {
 		// INSTRUCAO SQL //
-		$sql = "SELECT e.* FROM " . self::TABELA . " e ORDER BY e.aprovado";
+		$sql = "SELECT t.* FROM " . self::TABELA . " t ORDER BY t.browser";
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->fetchAll($sql);
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}
-	
-	
 }
 
 ?>

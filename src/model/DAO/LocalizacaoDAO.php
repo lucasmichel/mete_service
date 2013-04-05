@@ -1,49 +1,70 @@
 <?php
- class ComentarioDAO extends classDAO{
+/**
+ * Classe LocalizacaoDAO - criada por kayky lopes
+ * Camada de acesso a dados da entidade Localizacao
+ * @package model
+ * @subpackage DAO
+ */
+ class LocalizacaoDAO extends ClasseDAO{
  	/**
  	 * Atributos
  	 */
  	private static $instancia;
  	private $conexao;
  	
- 	const TABELA = 'comentario';
+ 	const TABELA = 'localizacao';
  	
  	/**
  	 * Metodo construtor()
  	 */
  	protected function __construct() {
  		//passa pra a classe pai o nomeda tabelausada pela classe
- 		parent::__construct("comentario");
+ 		parent::__construct("localizacao");
  		$this->conexao = Connect::getInstancia();
  	}
  	
+ 	/**
+ 	 * Metodo getInstancia()
+ 	 */
  	public static function getInstancia() {
  		if (!isset(self::$instancia))
- 			self::$instancia = new CaracteristicasDAO();
+ 			self::$instancia = new LocalizacaoDAO();
  		return self::$instancia;
  	}
  	
- 	
- 	public function inserir(Fotos $obj) {
+ 	public function inserir(Avaliacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "INSERT INTO " . self::TABELA . "
-            (comentario,comentario_id,cliente_id,acompanhante_id)
-            VALUES('" . $obj->getComentario() . "' ,
-            '" . $obj->getComentario_id() . "' ,
-            '" . $obj->getCliente_id() . "' ,
-            '" . $obj->getAcompanhante_id() . "')";
+            (latitude, longitude,bairro,cidade,servico_acompanhante_id
+            )
+ 	
+            VALUES('" . $obj->getLatitude() . "',
+            '" . $obj->getLongitude() . "',
+            '" . $obj->getBairro() . "',
+            '" . $obj->getCidade() . "',
+            '" . $obj->getgetBairro() . "',
+            		'" . $obj->getServicoAcompanhanteId() . "',)";	
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
  		// TRATANDO O RESULTADO //
+ 		($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+ 		// RETORNANDO O RESULTADO //
+ 		return $obj;
  	}
  	
- 	public function editar(Acompanhante $obj) {
+ 	/**
+ 	 * Metodo editar($obj)
+ 	 * @param $obj
+ 	 * @return Perfil
+ 	 */
+ 	public function editar(Avaliacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "UPDATE " . self::TABELA . " SET
-            comentario = '" . $obj->getComentario() . "',
-            comentario_id =	'" . $obj->getComentario_id() . "',
-            cliente_id = '" .  $obj->getCliente_id() . "',
-            acompanhante_id = '" .$obj->getAcompanhante_id() . "'
+            latitude = '" . $obj->getLatitude() . "',
+            longitude =	'" . $obj->getLongitude() . "',
+            bairro = '" . $obj->getBairro() . "'
+            cidade = '" . $obj->getCidade() . "'
+            servico_acompanhante_id = '" . $obj->getServicoAcompanhanteId() . "'
             WHERE id = '" . $obj->getId() . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
@@ -53,9 +74,9 @@
  	
  	public function excluir($id) {
  		// checando se existe algum vinculo desse registro com outros //
- 		$validacao = "SELECT c.id FROM comentario c WHERE c.id = '" . $id . "'";
+ 		$validacao = "SELECT l.id FROM localizacao l WHERE l.id = '" . $id . "'";
  		if ($this->conexao->fetch($validacao))
- 			throw new RegistroNaoExcluido(RegistroNaoExcluido::COMENTARIO);
+ 			throw new RegistroNaoExcluido(RegistroNaoExcluido::LOCALIZACAO);
  		// INSTRUCOES SQL //
  		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
  		// PERCORRENDO AS SQL //
@@ -70,7 +91,7 @@
 
  	public function buscar($id) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT c.* FROM " . self::TABELA . " c WHERE c.id = '" . $id . "'";
+ 		$sql = "SELECT l.* FROM " . self::TABELA . " l WHERE l.id = '" . $id . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetch($sql);
  		// RETORNANDO O RESULTADO //
@@ -83,12 +104,13 @@
  	 */
  	public function listar() {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT c.* FROM " . self::TABELA . " c ORDER BY a.comentario";
+ 		$sql = "SELECT l.* FROM " . self::TABELA . " l ORDER BY l.cidade";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
+ 	
  }
 
 ?>

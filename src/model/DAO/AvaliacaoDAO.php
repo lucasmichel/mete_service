@@ -1,7 +1,7 @@
 <?php
 /**
- * Classe AcompanhanteDAO - criada por kayky lopes
- * Camada de acesso a dados da entidade Acompanhante
+ * Classe AvaliacaoDAO - criada por kayky lopes
+ * Camada de acesso a dados da entidade Avaliacao
  * @package model
  * @subpackage DAO
  */
@@ -72,7 +72,7 @@
  		// checando se existe algum vinculo desse registro com outros //
  		$validacao = "SELECT a.id FROM avaliacao a WHERE a.id = '" . $id . "'";
  		if ($this->conexao->fetch($validacao))
- 			throw new RegistroNaoExcluido(RegistroNaoExcluido::FOTOS);
+ 			throw new RegistroNaoExcluido(RegistroNaoExcluido::AVALIACAO);
  		// INSTRUCOES SQL //
  		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
  		// PERCORRENDO AS SQL //
