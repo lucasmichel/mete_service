@@ -1,5 +1,5 @@
 <?php
-class  ModuloControll extends controll{
+class  ModuloControll extends Controll{
 	
 	const MODULO = 8;
 	/**
@@ -43,6 +43,40 @@ class  ModuloControll extends controll{
 			// caso passar o formulário //
 			// chamando o metodo privado _add() passando os dados do post por parametro //
 			$this->_add($this->getDados('POST'));
+		}
+	}
+	
+	/**
+	 * Metodo _add($dados)
+	 * @param $dados
+	 * @return modulo
+	 */
+	private function _add($dados){
+		 
+		// persistindo em inserir o usuário //
+		try {
+			$modulo = new Servico();
+			$modulo->setNome($dados['nome']);
+			$modulo->setLink($dados['link']);
+			$modulo->inserir();
+			// setando a mensagem de sucesso //
+			$this->setFlash('Modulo cadastrado com sucesso.');
+			// setando a url //
+			$this->setPage();
+			}
+	
+		
+		catch (Exception $e) {
+			//retorna os campos prar serem preenchidos novamente
+			if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+	
+			if(isset($usuario))
+				$this->setDados($modulo,'modulo');
+			// setando a mensagem de excessão //
+			$this->setFlash($e->getMessage());
+			// definindo a tela //
+			$this->setTela('add',array('modulo'));
 		}
 	}
 	
