@@ -188,18 +188,20 @@ class Acompanhante {
      * @return boolean
      */
     public function _validarCampos(){
+    	$retorno = true;
     	if($this->getNome() == null){
     		throw new CamposObrigatorios();
-    		return false;
+    		$retorno = false;
     	}
     	else{
-    		return true;
+    		$retorno = true;
     	}
+    	return $retorno;
     }
     
     public function inserir(){
     	// validando os campos //
-    	if($this->_validarCampos()){
+    	if(self::_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = AcompanhanteDAO::getInstancia();
     		// retornando o Usuario //
@@ -210,7 +212,7 @@ class Acompanhante {
     
     public function editar(){
     	// validando os campos //
-    	if($this->_validarCampos()){
+    	if(self::_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = AcompanhanteDAO::getInstancia();
     		// executando o metodo //
@@ -224,7 +226,11 @@ class Acompanhante {
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = AcompanhanteDAO::getInstancia();
     	// executando o metodo //
+    	
+    	$usuario = Usuario::buscar($this->getUsuarioId());    	
+    	$usuario = $usuario->excluir();    	
     	$acompanhante = $instancia->excluir($this->getId());
+    	
     	// retornando o resultado //
     	return $acompanhante;
     }

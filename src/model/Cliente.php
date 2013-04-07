@@ -18,23 +18,26 @@ class  Cliente{
 		$this->usuarioIdPerfil = $usuarioIdPerfil;
 	}
 
-	private function _validarCampos(){
+	public function _validarCampos(){
+		$retorno = true;
+		
 		if(($this->getNome() == '')||($this->getCpf() == null)){
 			throw new CamposObrigatorios();
-    		return false;
+    		$retorno = false;
 		}
-		else if($this->_testarCpfExiste()){
-			throw new Exception("CPF já cadastrado en nossa base de dados");
+		else if($this->getId() == 0){
+			if($this->_testarCpfExiste())
+				throw new Exception("CPF já cadastrado em nossa base de dados");
 		}
 		else if($this->getId() != 0){
 			if($this->_testarCpfExisteEdicao())
-				throw new Exception("CPF já cadastrado en nossa base de dados");
+				throw new Exception("Email já utilizado por outro cliente");
 		}
 		else
 		{
-			return true;
+			$retorno = true;
 		}
-		
+		return $retorno;
 	}
 
 	public static function listar($campo) {
@@ -88,6 +91,11 @@ class  Cliente{
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ClienteDAO::getInstancia();
 		// executando o metodo //
+		
+		$usuario = Usuario::buscar($this->getUsuarioId());
+		
+		$usuario = $usuario->excluir();
+		
 		$cliente = $instancia->excluir($this->getId());
 		// retornando o resultado //
 		return $cliente;
