@@ -14,6 +14,19 @@ class  ModuloControll extends Controll{
 		$this->getPage();
 	}
 	
+	
+	public function acoes($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 5;
+		// definindo a tela //
+		
+		$this->setDados($id,'idModulo');
+		
+		$this->setTela('listar',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
 	/**
 	 * Acao ver($id)
 	 * @param $id
@@ -55,7 +68,7 @@ class  ModuloControll extends Controll{
 		 
 		// persistindo em inserir o usuário //
 		try {
-			$modulo = new Servico();
+			$modulo = new Modulo();
 			$modulo->setNome($dados['nome']);
 			$modulo->setLink($dados['link']);
 			$modulo->inserir();
@@ -102,6 +115,41 @@ class  ModuloControll extends Controll{
 			// chamando o metodo privado _editar() passando os dados do post por parametro //
 			$this->_editar($this->getDados('POST'));
 	}
+	
+	
+	private function _editar($dados){
+			
+		// persistindo em inserir o usuário //
+		try {
+			$modulo = new Modulo();
+			$modulo->setNome($dados['nome']);
+			$modulo->setLink($dados['link']);
+			$modulo->editar();
+			// setando a mensagem de sucesso //
+			$this->setFlash('Modulo editado com sucesso.');
+			// setando a url //
+			$this->setPage();
+		}
+	
+	
+		catch (Exception $e) {
+			//retorna os campos prar serem preenchidos novamente
+			if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+	
+			if(isset($usuario))
+				$this->setDados($modulo,'modulo');
+			// setando a mensagem de excessão //
+			$this->setFlash($e->getMessage());
+			// definindo a tela //
+			$this->setTela('add',array('modulo'));
+		}
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * Acao excluir($id)

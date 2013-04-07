@@ -66,12 +66,17 @@ class AcompanhanteControll extends Controll {
     		
 	        // instanciando o novo Usuário //
 	        $usuario = new Usuario(0,
-        		/*2 por padrão é o perfil da garota*/
-        		Perfil::buscar(2),
+        		/*3 por padrão é o perfil da garota*/
+        		Perfil::buscar(3),
         		trim($dados['email']),
         		trim($dados['senha']),
         		trim($dados['email']));
         
+	        
+	        if(!isset($dados['pernoite']))
+	        	$pernoite = null;
+	        else 
+	        	$pernoite = trim($dados['pernoite']);
 	        
 	        $acompanhante = new Acompanhante(0,
 	        		trim($dados['nome']),
@@ -82,7 +87,7 @@ class AcompanhanteControll extends Controll {
 	        		trim($dados['cintura']),
 	        		trim($dados['quadril']),
 	        		trim($dados['olhos']),
-	        		trim($dados['pernoite']),
+	        		$pernoite,
 	        		trim($dados['atendo']),
 	        		trim($dados['especialidade']),
 	        		trim($dados['horarioAtendimento']),

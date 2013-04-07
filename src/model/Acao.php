@@ -120,6 +120,9 @@ class Acao {
 		
 		//echo '<pre>';
 		foreach($controll->getUsuario()->getPerfil()->getAcoes() as $acao){
+			
+			$usuarioAcao = (int) $acao->getCodigoAcao();
+			$moduloId = (int) $acao->getModulo()->getId();
 
 			/*echo '<br />CodigoAcao<br />';
 			echo $acao->getCodigoAcao();
@@ -129,7 +132,7 @@ class Acao {
 			var_dump($acao->getModulo());
 			echo '<br /><br />';*/
 
-			if(($acao->getCodigoAcao() == $codigoAcao)&&($acao->getModulo()->getId() == $modulo))
+			if(($usuarioAcao == $codigoAcao)&&($moduloId == $modulo))
 			{
 				return true;
 			}

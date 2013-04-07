@@ -199,22 +199,22 @@ class Acompanhante {
     
     public function inserir(){
     	// validando os campos //
-    	if(!$this->_validarCampos()){
+    	if($this->_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = AcompanhanteDAO::getInstancia();
     		// retornando o Usuario //
-    		return  self::construirObjeto($instancia->inserir($this));
+    		return $instancia->inserir($this);
     	}
     	
     }
     
     public function editar(){
     	// validando os campos //
-    	if(!$this->_validarCampos()){
+    	if($this->_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = AcompanhanteDAO::getInstancia();
     		// executando o metodo //
-    		return self::construirObjeto($instancia->editar($this));
+    		return $instancia->editar($this);
     	}
     		
     	

@@ -47,26 +47,30 @@ class Usuario {
      * @return boolean
      */
     public function _validarCampos(){
+
+    	$retorno = true;
+    	
 		if(($this->getPerfil() == null)||
         	($this->getLogin() == '')||
             ($this->getEmail() == '')||
             ($this->getSenha() == null)){			
             throw new CamposObrigatorios();
-            return false;
+            $retorno = false;
 		}
-        else if($this->_testarEmailExiste($this->getEmail())){
-        	throw new Exception("Email já cadastrado en nossa base de dados");
+		else if($this->getId() == 0){
+        	if($this->_testarEmailExiste($this->getEmail()))
+        		throw new Exception("Email já cadastrado em nossa base de dados");
         }
             
         else if($this->getId() != 0){
-			if($this->_testarEmailExisteEdicao($this->getId(), $this->getEmail())){
-            	// levanto a excessao//
-            	throw new Exception("Email já cadastrado en nossa base de dados");
+			if($this->_testarEmailExisteEdicao($this->getId(), $this->getEmail())){            	
+            	throw new Exception("Email já utilizado por outro usuário");
 			}
 		}
 		else{
-        	return true;
+        	$retorno = true;
         }
+        return $retorno; 
     }
 
     /**
@@ -74,8 +78,8 @@ class Usuario {
      * @return Usuario
      */
     public function inserir(){
-        // validando os campos //
-        if($this->_validarCampos())
+		
+        if(self::_validarCampos())
         {
         	// recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
@@ -92,11 +96,15 @@ class Usuario {
      * @return Usuario
      */
     public function editar(){
-		// validando os campos //
-        if($this->_validarCampos()){
+		// validando os campos //	
+
+    	
+    	
+        if(self::_validarCampos()){
         	// recuperando a instancia da classe de acesso a dados //
             $instancia = UsuarioDAO::getInstancia();
             // executando o metodo //
+            
             $usuario = $instancia->editar($this);
             // retornando o Usuario //
             return $usuario;

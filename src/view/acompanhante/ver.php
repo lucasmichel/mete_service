@@ -2,8 +2,7 @@
 header('Content-Type: text/html; charset=utf-8', true);
 
 $acompanhante = $this->getDados('acompanhante');
-
-$usuario = Usuario::buscar($acompanhante->getId()); 
+$usuario = Usuario::buscar($acompanhante->getUsuarioId()); 
 
 ?>
 <div class="wrap">

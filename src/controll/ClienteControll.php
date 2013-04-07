@@ -65,7 +65,7 @@ class ClienteControll extends Controll {
     	// persistindo em inserir o usuário //
     	try {
     		
-	        
+    		/*2 por padrão é o perfil do cliente*/
     		$perfil = Perfil::buscar(2);
     		$usuario = new Usuario();
     		$cliente = new Cliente();

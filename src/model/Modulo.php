@@ -53,7 +53,7 @@ class Modulo {
         $instancia = ModuloDAO::getInstancia();
         $modulos = $instancia->listar();
         if (!$modulos)
-            throw new ListaVazia(ListaVazia::MODULO);
+            throw new ListaVazia(ListaVazia::MODULOS);
         foreach ($modulos as $modulo) {
             $objetos[] = new Modulo($modulo['id'], $modulo['nome'], $modulo['link']);
         }
@@ -81,7 +81,7 @@ class Modulo {
     		// executando o metodo //
     		$modulo = $instancia->inserir($this);
     		// retornando o Usuario //
-    		return  $modulo = $instancia->inserir($this);
+    		return  $modulo;
     	}    	
     }
     
@@ -93,7 +93,7 @@ class Modulo {
 	    	// executando o metodo //
 	    	$modulo = $instancia->editar($this);
 	    	// retornando o Usuario //
-	    	return  $modulo = $instancia->editar($this);
+	    	return  $modulo;
     	}
     }
     
