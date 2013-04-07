@@ -1,9 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
 
-$acompanhante = $this->getDados('acompanhante');
-
-$usuario = Usuario::buscar($acompanhante->getId()); 
+$modulo = $this->getDados('modulo');
+$acoes = Acao::listarPorModulo($modulo); 
 
 ?>
 <div class="wrap">
@@ -26,70 +25,31 @@ $usuario = Usuario::buscar($acompanhante->getId());
                                 <h4>DADOS</h4>
                                 <ul>
                                     <li>
-                                        <strong>Email</strong><br />
-                                        <?php if($usuario != null) echo $usuario->getEmail(); ?>
+                                        <strong>Nome do módulo</strong><br />
+                                        <?php if($modulo != null) echo $modulo->getNome(); ?>
                                     </li>
+                                    <?php if($acoes != null){ ?>
+                                    <li><br /></li>                                    
                                     <li style="background:#f5f5f5;">
-                                        <strong>Nome:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getNome();  ?>
-                                    </li>
-                                    <li>
-                                        <strong>Idade</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>
-                                    </li>
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Altura:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>
-                                    </li>
-                                    
-                                    <li >
-                                        <strong>Peso:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>
-                                    </li>
+                                        <strong>Ações deste módulo:</strong><br />
+									</li>
+                                        <?php 
+                                        
+                                        	foreach ($acoes as $acao) {
+                                        
+											?>
+												<li>
+                                        			<strong>Nome / código da ação</strong><br />
+                                        			<?php echo $acao->getNome()." / ".$acao->getCodigoAcao(); ?>
+                                    			</li>
+                                    			
+											<?php 
 
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Busto:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getBusto();  ?>
-                                    </li>
+                                        	}
+										}?>
                                     
-                                    <li>
-                                        <strong>Cintura:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getCintura();  ?>
-                                    </li>
                                     
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Quadril:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getQuadril();  ?>
-                                    </li>
                                     
-                                    <li>
-                                        <strong>Olhos:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getOlhos();  ?>
-                                    </li>
-                                    
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Pernoite:</strong><br />
-                                        <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) 
-                                        	echo'Sim';
-                                        else
-											echo 'Não';  
-                                        ?>
-                                    </li>
-                                    
-                                    <li>
-                                        <strong>Atendo a:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getAtendo();  ?>
-                                    </li>
-                                    
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Especialidade:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getEspecialidade();  ?>
-                                    </li>
-                                     
-                                    <li>
-                                        <strong>Horario de atendimento:</strong><br />
-                                        <?php if($acompanhante != null) echo $acompanhante->getHorarioAtendimento();  ?>
-                                    </li>
                                      
                                 </ul>
                             </li>

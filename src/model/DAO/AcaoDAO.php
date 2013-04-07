@@ -113,5 +113,22 @@
 			return $resultado;
 		}
 		
+		
+		
+		
+		public function listarPorModulo($idModulo){
+			// FILTRO //
+			
+			// INSTRUCAO SQL //
+			$sql = "SELECT a.* FROM " . self::TABELA . " a "
+					.
+					"where a.id_modulo = '$idModulo' ORDER BY a.codigo_acao";
+			
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetchAll($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
 	}
 ?>

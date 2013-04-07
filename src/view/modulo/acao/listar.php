@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
+$modulo = $this->getDados('modulo');
 ?>
 <div class="wrap">
     <?php
@@ -37,17 +38,18 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Acompanhante::listar("nome");
+                    $objetos = Acao::listarPorModulo($modulo);
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
+                    <span>Ações do Módulo: <?php echo $modulo->getNome();?></span>
                         <table id="lista" class="widefat fixed">
                             <thead>
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
+                                    <th width="28%" align="left">Nome da ação</th>
+                                    <th width="28%" align="left">Código da ação</th>
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
@@ -61,35 +63,31 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         </th>
                                         <td width="1%"></td>
                                         <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
-                                        <td width="28%" align="left">
-                                        <?php 
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId());
-                                        	echo $usuario->getEmail(); 
-                                        ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getCodigoAcao(); ?></td>
                                         
-                                        <td width="20%">						
-                                            <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
-                                            <?php
-                                            if (Acao::checarPermissao(3, AcompanhanteControll::MODULO)) {
+                                        
+                                        <td width="20%">
+                                        	<?php                                        	
+                                            if (Acao::checarPermissao(5, ModuloControll::MODULO)) {
 											?>
-                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                            	<a href="modulo/acaoVer/<?php echo $objeto->getCodigoAcao(); ?>">Ver</a> 
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(6, ModuloControll::MODULO)) {
+											?>
+                                                <a href="modulo/acaoAdd/<?php echo $objeto->getCodigoAcao(); ?>">Editar</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
 											?>    
-                                                <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
-                                            ?>
-                                            	<a href="acompanhante/servico/<?php echo $objeto->getId(); ?>">Serviços</a>
+                                            if (Acao::checarPermissao(8, ModuloControll::MODULO)) {
+											?>    
+                                                <a href="modulo/acaoExcluir/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
                                             <?php
-                                            }
-                                            if (Acao::checarPermissao(6, AcompanhanteControll::MODULO)) {
-                                            ?>
-                                            	<a href="acompanhante/foto/<?php echo $objeto->getId(); ?>">Fotos</a>
-                                            <?php
-                                            }
+                                            }                                            
                                             ?>
                                         </td>
                                     </tr>

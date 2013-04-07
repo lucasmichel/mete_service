@@ -1,51 +1,32 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $acompanhante = $this->getDados('acompanhante');
-    $usuario = $this->getDados('usuario');
+    $acoes = $this->getDados('acoes');
+    $modulo = $this->getDados('modulo');
+    
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-    	function validaEmail (email)
-    	{
-    		er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
-    		if(er.exec(email))
-    			return true;
-    		else
-    			return false;
-    	};
+    	
         
-        $('#email').focus();
+        $('#nome').focus();
        
                 
         $("#ok").click(function() {
-        	var senha = $.trim($("#senha").val());
-        	var email = $.trim($("#email").val());
         	var nome = $.trim($("#nome").val());
+        	var codigoAcao = $.trim($("#codigoAcao").val());
         	
-        	if(email.length <= 0){
-            	alert('é necessário um email');
-                $("#email").focus();
+        	
+        	if(nome.length <= 0){
+            	alert('é necessário o nome da ação');
+                $("#nome").focus();
                 return false;
 			}
         	            
-            else if(!validaEmail(email)){
-            	alert('email invalido');
-                $("#email").focus();
+            else if(codigoAcao.length <= 0){
+                alert('é necessário definir o código da ação');
+                $("#codigoAcao").focus();
                 return false;
-			}
-
-            
-            else if(senha.length <= 0){
-                alert('é necessário definir a senha');
-                $("#senha").focus();
-                return false;
-            }
-
-            else if(nome.length <= 0){
-                alert('é necessário definir o nome');
-                $("#nome").focus();
-                return false;
-            }
+            }            
             
             else{
                 $("#cadastro").submit();
@@ -68,7 +49,7 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Módulo</span>
+                        <span>Cadastrar Ações do Módulo: <?php echo $modulo->getNome();?></span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
@@ -76,74 +57,14 @@
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
                                     <li>
-                                        <label for="email">Email</label>
-                                        <input type="text" id="email" name="email" value="<?php if($usuario != null) echo $usuario->getEmail();  ?>" />
+                                        <label for="email">Nome da ação</label>
+                                        <input type="text" id="nome" name="nome" value="<?php if($acao != null) echo $acao->getNome();  ?>" />
                                     </li>
                                     <li>
-                                        <label for="senha">Senha</label>
-                                        <input type="password" id="senha" name="senha" value="" class="required" />
+                                        <label for="senha">Código da ação</label>
+                                        <input alt="int" type="text" id="codigoAcao" name="codigoAcao" value="<?php if($acao != null) echo $acao->getCodigoAcao();  ?>" class="required" />
                                     </li>
-                                    <li>
-                                        <label for="nome">Nome</label>
-                                        <input type="text" id="nome" name="nome" value="<?php if($acompanhante != null) echo $acompanhante->getNome();  ?>"  />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="idade">Idade</label>
-                                        <input type="text" id="idade" name="idade" value="<?php if($acompanhante != null) echo $acompanhante->getIdade();  ?>" />
-                                    </li>
-
-                                    <li>
-                                        <label for="altura">Altura</label>
-                                        <input type="text" id="altura" name="altura" value="<?php if($acompanhante != null) echo $acompanhante->getAltura();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="peso">Peso</label>
-                                        <input type="text" id="peso" name="peso" value="<?php if($acompanhante != null) echo $acompanhante->getPeso();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="busto">Busto</label>
-                                        <input type="text" id="busto" name="busto" value="<?php if($acompanhante != null) echo $acompanhante->getBusto();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="Cintura">Cintura</label>
-                                        <input type="text" id="cintura" name="cintura" value="<?php if($acompanhante != null) echo $acompanhante->getCintura();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="quadril">Quadril</label>
-                                        <input type="text" id="quadril" name="quadril" value="<?php if($acompanhante != null) echo $acompanhante->getQuadril();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="olhos">Olhos</label>
-                                        <input type="text" id="olhos" name="olhos" value="<?php if($acompanhante != null) echo $acompanhante->getOlhos();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="pernoite">Pernoite</label>
-                                        <input type="radio" name="pernoite" id="pernoite" value="1" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 1)) echo'checked';  ?>  >Sim<br>
-										<input type="radio" name="pernoite" id="pernoite" value="0" <?php if(($acompanhante != null)&&($acompanhante->getPernoite() == 0)) echo'checked';  ?> >Não
-                                        
-                                    </li>
-                                    
-                                     <li>
-                                        <label for="atendo">Atendo a:</label>
-                                        <input type="text" id="atendo" name="atendo" value="<?php if($acompanhante != null) echo $acompanhante->getAtendo();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="especialidade">Especialidade:</label>
-                                        <input type="text" id="especialidade" name="especialidade" value="<?php if($acompanhante != null) echo $acompanhante->getEspecialidade();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="horarioAtendimento">Horario de atendimento:</label>
-                                        <input type="text" id="horarioAtendimento" name="horarioAtendimento" value="<?php if($acompanhante != null) echo $acompanhante->getHorarioAtendimento();  ?>" />
-                                    </li>
+                                   
                                     
                                 </ul>
                             </fieldset>

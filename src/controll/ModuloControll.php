@@ -2,6 +2,79 @@
 class  ModuloControll extends Controll{
 	
 	const MODULO = 8;
+	
+	public function acaoListar($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 5;
+		// definindo a tela //
+	
+		$modulo = Modulo::buscar($id);
+		$this->setDados($modulo,'modulo');
+		$this->setTela('listar',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
+	
+	public function acaoVer($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 5;
+		// definindo a tela //
+	
+		$modulo = Modulo::buscar($id);
+		$this->setDados($modulo,'modulo');
+		$this->setTela('ver',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
+	public function acaoAdd($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 6;
+		// definindo a tela //	
+		$modulo = Modulo::buscar($id);
+		$this->setDados($modulo,'modulo');
+		$this->setTela('add',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
+	public function acaoEditar($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 7;
+		// definindo a tela //
+		$modulo = Modulo::buscar($id);
+		$this->setDados($modulo,'modulo');
+		$this->setTela('editar',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
+	public function acaoExcluir($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 8;
+		// definindo a tela //
+		$modulo = Modulo::buscar($id);
+		$this->setDados($modulo,'modulo');
+		$this->setTela('editar',array('modulo/acao'));
+		// guardando a url //
+		$this->getPage();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Acao index()
 	 */
@@ -15,17 +88,9 @@ class  ModuloControll extends Controll{
 	}
 	
 	
-	public function acoes($id){
-		// código da ação serve para o controle de acesso//
-		static $acao = 5;
-		// definindo a tela //
-		
-		$this->setDados($id,'idModulo');
-		
-		$this->setTela('listar',array('modulo/acao'));
-		// guardando a url //
-		$this->getPage();
-	}
+	
+	
+	
 	
 	/**
 	 * Acao ver($id)

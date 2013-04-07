@@ -93,6 +93,19 @@ class Acao {
 		return $objetos;
 	}
 	
+	
+	
+	public static function listarPorModulo($modulo){
+		$instancia = AcaoDAO::getInstancia();
+		$acoes = $instancia->listarPorModulo($modulo->getId());
+		if(!$acoes)
+			throw new ListaVazia(ListaVazia::ACOES);
+		foreach($acoes as $acao){
+			$objetos[] = self::construirObjeto($acao);
+		}
+		return $objetos;
+	}
+	
 	/**
 	 * Metodo buscar($codigoAcao,$modulo)
 	 * @param $codigoAcao
@@ -115,11 +128,18 @@ class Acao {
 	 */
 	public static function checarPermissao($codigoAcao = 0, $modulo = null) {
 		$controll = Controll::getControll();
-		if((empty($codigoAcao)) || (empty($modulo)))
+		
+		$usuarioLogado = $controll->getUsuario();
+		$perfilUsuarioLogado = $usuarioLogado->getPerfil();
+		$acoesPerfilUsuarioLogado = $perfilUsuarioLogado->getAcoes();
+		
+		if((empty($codigoAcao)) || (empty($modulo))){
 			return false;
+		}
+			
 		
 		//echo '<pre>';
-		foreach($controll->getUsuario()->getPerfil()->getAcoes() as $acao){
+		foreach($acoesPerfilUsuarioLogado as $acao){
 			
 			$usuarioAcao = (int) $acao->getCodigoAcao();
 			$moduloId = (int) $acao->getModulo()->getId();
@@ -131,6 +151,11 @@ class Acao {
 			echo '<br />Modulo<br />';
 			var_dump($acao->getModulo());
 			echo '<br /><br />';*/
+			
+			/*echo '<pre>Usuario acao <br />';
+			var_dump($usuarioAcao);
+			echo '<br />modulo ID ';
+			var_dump($moduloId);*/
 
 			if(($usuarioAcao == $codigoAcao)&&($moduloId == $modulo))
 			{

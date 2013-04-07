@@ -80,7 +80,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             }
                                             if (Acao::checarPermissao(5, ModuloControll::MODULO)) {
                                             ?>
-                                            	<a href="modulo/acoes/<?php echo $objeto->getId(); ?>">Ações do módulo</a>
+                                            	<a href="modulo/acaoListar/<?php echo $objeto->getId(); ?>">Ações do módulo</a>
                                             <?php
                                             }                                            
                                             ?>
