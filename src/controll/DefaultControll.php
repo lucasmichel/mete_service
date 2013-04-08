@@ -524,6 +524,38 @@ try {
 
 
 
+public function listarAcompanhanteMeuCrip() {
+
+	try {
+
+
+		$listaMeninas = Acompanhante::listarParaWebServiceSerializado();
+		$arrayRetorno["dados"] = $listaMeninas;
+		$arrayRetorno["status"] = 0;
+		$arrayRetorno["messagem"] = "OK";
+
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+		$retorno = base64_encode(json_encode($arrayRetorno));
+		echo $retorno;
+
+	} catch (Exception $e) {
+		$arrayRetorno["dados"] = null;
+		$arrayRetorno["status"] = 1;
+		$arrayRetorno["messagem"] = $e->getMessage();
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+		$retorno = base64_encode(json_encode($arrayRetorno));
+		echo $retorno;
+
+	}
+
+
+}
+
+
 
 	public function listarAcompanhante() {
 		try {

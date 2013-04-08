@@ -28,16 +28,62 @@ class  ModuloControll extends Controll{
 		$this->getPage();
 	}
 	
-	public function acaoAdd($id){
+	public function acaoAdd($id){		
 		// código da ação serve para o controle de acesso//
 		static $acao = 6;
-		// definindo a tela //	
-		$modulo = Modulo::buscar($id);
-		$this->setDados($modulo,'modulo');
-		$this->setTela('add',array('modulo/acao'));
-		// guardando a url //
-		$this->getPage();
+		// checando se o formulário nao foi passado //
+		
+		
+		if(!$this->getDados('POST')) {
+			//  definindo a  tela //
+			$modulo = Modulo::buscar($id);
+			$this->setDados($modulo,'modulo');
+			$this->setTela('add',array('modulo/acao'));
+		} else {
+			// caso passar o formulário //
+			// chamando o metodo privado _add() passando os dados do post por parametro //
+			$this->_acaoAdd($this->getDados('POST'));
+		}
+		
 	}
+	
+	
+	private function _acaoAdd($dados){
+			
+		// persistindo em inserir o usuário //
+		try {
+			
+			$modulo = Modulo::buscar($dados['idModulo']);
+			
+			$acao = new Acao();
+			$acao->setCodigoAcao(trim($dados['codigoAcao']));
+			$acao->setNome($dados['nome']);
+			$acao->setModulo($modulo);
+			
+			
+			$acao->inserir();
+			// setando a mensagem de sucesso //
+			$this->setFlash('Ação do módulo '.$modulo->getNome().' cadastrada com sucesso.');
+			// setando a url //
+			$this->setPage();
+		}
+	
+	
+		catch (Exception $e) {
+			//retorna os campos prar serem preenchidos novamente
+			if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+	
+			if(isset($acao))
+				$this->setDados($acao,'acao');
+			// setando a mensagem de excessão //
+			$this->setFlash($e->getMessage());
+			// definindo a tela //
+			$this->setTela('add',array('modulo/acao'));
+		}
+	}
+	
+	
 	
 	public function acaoEditar($id){
 		// código da ação serve para o controle de acesso//

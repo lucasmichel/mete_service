@@ -42,12 +42,11 @@
 		
             VALUES('" . $obj->getModulo()->getId() . "',
             '" . $obj->getCodigoAcao() . "',
-            '" . $obj->getNome(). "')";
-			
+            '" . $obj->getNome(). "')";			
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->exec($sql);
 			// TRATANDO O RESULTADO //
-			($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+			//($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
 			// RETORNANDO O RESULTADO //
 			return $obj;
 		}
@@ -76,7 +75,7 @@
 		 * @param $modulo
 		 * @return fetch_assoc
 		 */
-		public function buscar($codigo,$modulo){
+		public function buscar($codigo = 0,$modulo = 0){
 			// FILTRO //
 			$where = array();
 			if(!empty($codigo))
@@ -86,7 +85,7 @@
 			$where = (count($where) ? ' WHERE ' . implode(' AND ',$where) : '');	
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a " . @$where;                        
-			// EXECUTANDO A SQL //
+			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
 			return $resultado;

@@ -40,9 +40,17 @@ $modulo = $this->getDados('modulo');
                 try {
                     $objetos = Acao::listarPorModulo($modulo);
                     $paginacao = new Paginacao($objetos, 20);
+                    
+
+                    
+                    
+                    
                     ?>
+                    
+                    <span>Ações do Módulo: <?php echo $modulo->getNome();?>
+                    <a id="bts" href=modulo/acaoAdd/<?php echo $modulo->getId() ?> >
+	                        &nbsp;&nbsp;|&nbsp;&nbsp;Adicionar ação</a></span>
                     <div class="table">
-                    <span>Ações do Módulo: <?php echo $modulo->getNome();?></span>
                         <table id="lista" class="widefat fixed">
                             <thead>
                                 <tr>
@@ -73,21 +81,16 @@ $modulo = $this->getDados('modulo');
                                             	<a href="modulo/acaoVer/<?php echo $objeto->getCodigoAcao(); ?>">Ver</a> 
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(6, ModuloControll::MODULO)) {
-											?>
-                                                <a href="modulo/acaoAdd/<?php echo $objeto->getCodigoAcao(); ?>">Editar</a>
-                                            <?php
-                                            }
                                             if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
-											?>    
-                                                <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
+											?>
+                                                <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao(); ?>">Editar</a>
                                             <?php
                                             }
                                             if (Acao::checarPermissao(8, ModuloControll::MODULO)) {
 											?>    
                                                 <a href="modulo/acaoExcluir/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
                                             <?php
-                                            }                                            
+                                            }
                                             ?>
                                         </td>
                                     </tr>

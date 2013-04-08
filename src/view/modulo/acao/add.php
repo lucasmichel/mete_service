@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $acoes = $this->getDados('acoes');
+    $acao = $this->getDados('acao');
     $modulo = $this->getDados('modulo');
     
 ?>
@@ -52,17 +52,18 @@
                         <span>Cadastrar Ações do Módulo: <?php echo $modulo->getNome();?></span>
                     </h3>
                     <div class="inside">
-                        <form method="post" id="cadastro">
+                        <form method="post" id="cadastro" action=modulo/acaoAdd/<?php echo $modulo->getId() ?>>
+                        	<input type="hidden" id="idModulo" name="idModulo" value="<?php if($modulo != null) echo $modulo->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
                                     <li>
-                                        <label for="email">Nome da ação</label>
+                                        <label for="nome">Nome da ação</label>
                                         <input type="text" id="nome" name="nome" value="<?php if($acao != null) echo $acao->getNome();  ?>" />
                                     </li>
                                     <li>
-                                        <label for="senha">Código da ação</label>
-                                        <input alt="int" type="text" id="codigoAcao" name="codigoAcao" value="<?php if($acao != null) echo $acao->getCodigoAcao();  ?>" class="required" />
+                                        <label for="Acao">Código da ação</label>
+                                        <input alt="integer" type="text" id="codigoAcao" name="codigoAcao" value="<?php if($acao != null) echo $acao->getCodigoAcao();  ?>"/>
                                     </li>
                                    
                                     

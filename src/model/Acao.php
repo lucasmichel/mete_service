@@ -45,6 +45,7 @@ class Acao {
     		throw new Exception("é necessário definir o código da ação");
     		return false;
     	}
+    	//validar se ja não existe o mesmo codigo junto com o mesmo nome no mesmo modulo...
     	else{
     		return true;
     	}
@@ -55,11 +56,11 @@ class Acao {
     
     public function inserir(){
     	// validando os campos //
-    	if(!$this->_validarCampos()){
+    	if($this->_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = AcaoDAO::getInstancia();
     		// retornando o Usuario //
-    		return self::construirObjeto($instancia->adicionar($this));
+    		return $instancia->inserir($this);
     	}
     }
     
@@ -75,9 +76,9 @@ class Acao {
     
     private function construirObjeto($dados){
     	$acao =	new Acao();
-    	$acao->setCodigoAcao(trim($dados['codigo_acao']));
-    	$acao->setNome(trim($dados['nome']));
-    	$acao->setModulo(Modulo::buscar(trim($dados['id_modulo'])));
+    	$acao->setCodigoAcao($dados['codigo_acao']);
+    	$acao->setNome($dados['nome']);
+    	$acao->setModulo(Modulo::buscar($dados['id_modulo']));
     	return $acao;
     }
     

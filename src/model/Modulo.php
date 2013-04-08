@@ -78,7 +78,7 @@ class Modulo {
     	if($this->_validarCampos()){
     		// recuperando a instancia da classe de acesso a dados //
     		$instancia = ModuloDAO::getInstancia();
-    		// executando o metodo //
+    		// executando o metodo //    		
     		$modulo = $instancia->inserir($this);
     		// retornando o Usuario //
     		return  $modulo;
