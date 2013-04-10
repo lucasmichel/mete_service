@@ -48,8 +48,9 @@ $modulo = $this->getDados('modulo');
                     ?>
                     
                     <span>Ações do Módulo: <?php echo $modulo->getNome();?>
-                    <a id="bts" href=modulo/acaoAdd/<?php echo $modulo->getId() ?> >
-	                        &nbsp;&nbsp;|&nbsp;&nbsp;Adicionar ação</a></span>
+                    <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId() ?> >
+                    	Adicionar ação
+                    </a></span>
                     <div class="table">
                         <table id="lista" class="widefat fixed">
                             <thead>

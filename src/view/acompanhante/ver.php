@@ -96,7 +96,7 @@ $usuario = Usuario::buscar($acompanhante->getUsuarioId());
                         <hr> </hr>
                         <ul id="bts">
                             <li>
-                                <input type="button" class="bts border" value="Voltar" onclick="location.href='voltar'" />
+                                <input type="button" class="classBt" value="Voltar" onclick="location.href='voltar'" />
                             </li>
                         </ul>
                     </div> <!--fim div inside-->

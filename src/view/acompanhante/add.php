@@ -149,7 +149,7 @@
                             </fieldset>
                             <ul id="bts">
                                 <li>
-                                    <input type="button" class="bt-cadastro border" value=" OK " id="ok"/>
+                                    <input type="button" class="classBt" value=" OK " id="ok"/>
                                 </li>
                             </ul>
                         </form>

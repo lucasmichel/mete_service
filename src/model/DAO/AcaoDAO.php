@@ -129,5 +129,34 @@
 			return $resultado;
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		public function buscarNomeAcao($nome, $modulo){			
+			// INSTRUCAO SQL //
+			$sql = "SELECT a.* FROM " . self::TABELA . " a 
+					where a.nome = ".$nome." and a.id_modulo = ".$modulo."";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		
+		public function buscarCodigoAcao($codigoAcao, $modulo){
+			// INSTRUCAO SQL //
+			$sql = "SELECT a.* FROM " . self::TABELA . " a
+					where a.codigo_acao = ".$codigoAcao." and a.id_modulo = ".$modulo."";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
 	}
 ?>

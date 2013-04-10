@@ -45,6 +45,17 @@ class Acao {
     		throw new Exception("é necessário definir o código da ação");
     		return false;
     	}
+    	
+    	
+    	elseif ($this->_validarNomeAcao){
+    		throw new Exception("nome da ação já existente para este módulo");
+    		return false;
+    	}
+    	
+    	elseif ($this->_validarCodigoAcao){
+    		throw new Exception("código da ação já existente para este módulo");
+    		return false;
+    	}
     	//validar se ja não existe o mesmo codigo junto com o mesmo nome no mesmo modulo...
     	else{
     		return true;
@@ -165,6 +176,29 @@ class Acao {
 				
 		}
 		return false;
+	}
+	
+	private function _validarNomeAcao(Acao $dados){
+		//buscarNomeAcao
+		$instancia = AcaoDAO::getInstancia();
+		$acoe = $instancia->buscarNomeAcao($dados->getNome(), $dados->getModulo()->getId());
+		if($acoe)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
+	}
+	
+	
+	private function _validarCodigoAcao(Acao $dados){
+		//buscarNomeAcao
+		$instancia = AcaoDAO::getInstancia();
+		$acoe = $instancia->buscarCodigoAcao($dados->getCodigoAcao(), $dados->getModulo()->getId());
+		if($acoe)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
 	}
 	
 	/**

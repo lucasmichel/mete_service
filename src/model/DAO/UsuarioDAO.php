@@ -151,9 +151,6 @@ class UsuarioDAO extends ClassDAO {
     }
     
     
-    
-    
-    
     /**
      * Metodo testarEmailExiste($email)
      * @param $email
