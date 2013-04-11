@@ -33,6 +33,11 @@ header('Content-Type: text/html; charset=utf-8', true);
         <div class="box-content">
             <div class="box">
                 <?php
+                $url = '';
+				$get_ip = gethostbyname($url);
+				//$remote_ip=gethostbyname($REMOTE_ADDR);
+				echo "ip - ".$get_ip."<br>";
+				
                 /**
                  * Persistindo em listar os usuários
                  */
