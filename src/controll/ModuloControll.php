@@ -23,7 +23,7 @@ class  ModuloControll extends Controll{
 	
 		$modulo = Modulo::buscar($id);
 		$this->setDados($modulo,'modulo');
-		$this->setTela('ver',array('modulo/acao'));
+		$this->setTela('ver',array('modulo'));
 		// guardando a url //
 		$this->getPage();
 	}
@@ -38,7 +38,7 @@ class  ModuloControll extends Controll{
 			//  definindo a  tela //
 			$modulo = Modulo::buscar($id);
 			$this->setDados($modulo,'modulo');
-			$this->setTela('add',array('modulo/acao'));
+			$this->setTela('add',array('modulo'));
 		} else {
 			// caso passar o formulário //
 			// chamando o metodo privado _add() passando os dados do post por parametro //
