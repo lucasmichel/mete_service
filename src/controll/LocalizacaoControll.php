@@ -1,6 +1,6 @@
 <?php
 class LocalizacaoControll extends Controll{
-	const MODULO = 11;
+	const MODULO = 7;
 	/**
 	 * Acao index()
 	 */

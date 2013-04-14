@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
 ?>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <div class="wrap">
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
@@ -37,6 +38,17 @@ header('Content-Type: text/html; charset=utf-8', true);
 				$get_ip = gethostbyname($url);
 				//$remote_ip=gethostbyname($REMOTE_ADDR);
 				echo "ip - ".$get_ip."<br>";
+				
+
+				
+				
+				
+			
+				
+				
+				
+				
+				
 				
                 /**
                  * Persistindo em listar os usuários
