@@ -249,7 +249,7 @@ class AcompanhanteControll extends Controll {
     	// jogando o usuário no atributo $dados do controlador //
     	$this->setDados($objeto,'acompanhante');
     	// definindo a tela //
-    	$this->setTela('servico',array('acompanhante'));
+    	$this->setTela('listar',array('acompanhante/servicos'));
     }
     
     
@@ -265,7 +265,11 @@ class AcompanhanteControll extends Controll {
     	// jogando o usuário no atributo $dados do controlador //
     	$this->setDados($objeto,'acompanhante');
     	// definindo a tela //
-    	$this->setTela('foto',array('acompanhante'));
+    	$this->setTela('listar',array('acompanhante/foto'));
     }
+    
+    
+    
+    
 }
 ?>
