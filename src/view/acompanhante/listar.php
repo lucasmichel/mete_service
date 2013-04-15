@@ -41,15 +41,6 @@ header('Content-Type: text/html; charset=utf-8', true);
 				
 
 				
-				
-				
-			
-				
-				
-				
-				
-				
-				
                 /**
                  * Persistindo em listar os usuários
                  */
