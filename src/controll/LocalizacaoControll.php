@@ -128,6 +128,27 @@ class LocalizacaoControll extends Controll{
 		$this->setPage();
 	}
 	
+	/**
+	 * Acao foto($id)
+	 * @param $id
+	 */
+	public function servico($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 5;
+		// buscando o usuário //
+		$objeto = Acompanhante::buscar($id);
+		// jogando o usuário no atributo $dados do controlador //
+		$this->setDados($objeto,'localizacao');
+		// definindo a tela //
+		$this->setTela('listar',array('localizacao'));
+	}
+	
+	
+	/**
+	 * Acao foto($id)
+	 * @param $id
+	 */
+	
 }
 
 ?>

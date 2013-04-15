@@ -172,9 +172,9 @@ class  Localizacao{
         		// levanto a excessao RegistroNaoEncontrado //
         		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::LOCALIZACAO);
         	// instanciando e retornando o Usuario //
-        	$a = new  Localizacao($caracteristicas['id'],$caracteristicas['latitude'],
-					$caracteristicas['longitude'],$caracteristicas['bairro'],$caracteristicas['cidade'],
-					$caracteristicas['servico_acompanhante_id']);
+        	$a = new  Localizacao($localizacao['id'],$localizacao['latitude'],
+					$localizacao['longitude'],$localizacao['bairro'],$localizacao['cidade'],
+					$localizacao['servico_acompanhante_id']);
         	return $a;
         }
 }

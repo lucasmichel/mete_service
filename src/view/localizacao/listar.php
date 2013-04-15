@@ -1,9 +1,12 @@
 <?php
+
+
+
 function mostaMapa($endereco){
 	echo ("</pre><div id=\"ResultDiv\" style=\"text-align: center;\"></div><pre>");
 	$key = "AIzaSyA8LxxiqPBU5Ypvk8O7raIibE6tCZbG70U";
 	echo "<script src=\"http://maps.googleapis.com/maps/api/js?key=" . $key . "&sensor=true\" type=\"text/javascript\"></script>";
-	?>
+?>
  
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markermanager/src/markermanager.js"></script>
 <script type="text/javascript">
@@ -36,5 +39,6 @@ alert('Geocode não funcionou corretamente : ' + status);
 });
 </script>
 <?php
+mostaMapa("Rua Pedro Ivo 744,Curitiba");
 }
 ?>
