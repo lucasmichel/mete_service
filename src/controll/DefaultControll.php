@@ -246,7 +246,67 @@ class DefaultControll extends Controll {
         //echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
         try {	    
             
-            $encoded = $this->descriptografarTexto($dados);            
+            $encoded = $this->descriptografarTextoTeste($dados);
+
+            /*
+            meuVarDump($encoded["dados"][0]);
+            
+            $encoded["dados"][0]["nome"];
+            $encoded["status"];
+            $encoded["messagem"];*/
+            
+            
+            $encoded = $encoded["dados"][0];
+            /*
+            
+            array(3) {
+            	["dados"]=>
+            	array(1) {
+            		[0]=>
+            		object(stdClass)#5 (17) {
+            		["atendo"]=>
+            		string(6) "Homens"
+					["fotoPerfil"]=>
+            		string(0) ""
+            		["idade"]=>
+					string(2) "23"
+					["busto"]=>
+            		string(2) "23"
+            		["olhos"]=>
+            		string(7) "verdes"
+					["senha"]=>
+            		string(3) "ddd"
+            		["altura"]=>
+            		string(3) "2.3"
+            		["cintura"]=>
+            		string(2) "23"
+            		["horarioAtendimento"]=>
+            		string(5) "14:00"
+            		["peso"]=>
+            		string(2) "23"
+            		["email"]=>
+            		string(11) "ddd@ddd.com"
+            		["tipo"]=>
+            		string(1) "2"
+            		["pernoite"]=>
+            		int(1)
+            		["nome"]=>
+            		string(3) "ddd"
+            		["quadril"]=>
+            		string(2) "23"
+            		["statusAtendimento"]=>
+            		string(11) "Disponível"
+            		["especialidade"]=>
+            		string(3) "ddd"
+            	}
+            }
+            ["status"]=>
+            int(0)
+            ["messagem"]=>
+            string(0) ""
+            }
+            */
+            
             $tipoUsuario = $encoded->{'tipo'};
             
             if(($tipoUsuario != 1)&&($tipoUsuario != 2)){
@@ -295,7 +355,7 @@ class DefaultControll extends Controll {
                 	$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
                 	$cliente = $cliente->inserir();
                 }
-                $arrayRetorno["dados"] = $usuario;
+                $arrayRetorno["dados"] = $cliente;
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
                 header('Cache-Control: no-cache, must-revalidate');
@@ -330,7 +390,7 @@ class DefaultControll extends Controll {
                 $acompanhante->setPernoite(trim($encoded->{'pernoite'}));
                 $acompanhante->setAtendo(trim($encoded->{'atendo'}));
                 $acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
-                $acompanhante->setHorarioAtendimento(trim($encoded->{'horario_atendimento'}));
+                $acompanhante->setHorarioAtendimento(trim($encoded->{'horarioAtendimento'}));
                 $acompanhante->setExcluido(0);
                 
                 
@@ -350,7 +410,7 @@ class DefaultControll extends Controll {
 	                $acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
 	                $acompanhante->inserir();
                 }
-                $arrayRetorno["dados"] = $usuario;
+                $arrayRetorno["dados"] = $acompanhante;
                 $arrayRetorno["status"] = 0;
                 $arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
                 header('Cache-Control: no-cache, must-revalidate');
@@ -643,6 +703,59 @@ public function listarAcompanhanteMeuCrip() {
     		echo $retorno;
     	}
     }
+    
+    /*APAGAR DEPOIS*/
+    public function testeNovaEstruturaDados() {
+    	try {
+    
+    
+    		//$this->getDados('POST')
+    
+    		// O Curl irá fazer uma requisição para a API do Vimeo
+    		// e irá receber o JSON com as informações do vídeo.
+    		$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
+    		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    		$jsonCriptografado = curl_exec($curl);
+    		curl_close($curl);
+    		
+    		//$encoded = json_decode(base64_decode( $jsonCriptografado));
+    		$encoded = json_decode($jsonCriptografado);
+    		
+    		meuVarDump($encoded);
+    		
+    		
+    		//$encoded = base64_decode($jsonCriptografado);
+    
+    		meuVarDump($encoded);
+    
+    		// As informações pode ser recuperadas da seguinte forma.
+    		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
+    		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+    
+    		$jsonCriptografado = $dados['textoCriptografado'];
+    		$jsonDescriptografado = base64_decode($jsonCriptografado);
+    		$encoded = json_decode($jsonDescriptografado);
+    
+    		$arrayRetorno["dados"] = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
+    		$arrayRetorno["status"] = 0;
+    		$arrayRetorno["messagem"] = "OK";
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    	} catch (Exception $e) {
+    		$arrayRetorno["dados"] = null;
+    		$arrayRetorno["status"] = 1;
+    		$arrayRetorno["messagem"] = $e->getMessage();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    	}
+    }
+    /*APAGAR DEPOIS*/
     
 }
 
