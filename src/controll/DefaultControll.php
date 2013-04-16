@@ -218,6 +218,60 @@ class DefaultControll extends Controll {
     }
     
     
+    
+    
+    public function cadastrarFoto() {
+    	
+    	
+    	if ($this->getDados('POST')) {
+    		$this->_cadastrarFoto($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('cadastrarFoto');
+    		$this->getPage();
+    	}
+    	
+    }
+    
+   private function _cadastrarFoto($dados) {
+    	try {
+    	
+    		$encoded = $this->descriptografarTextoTeste($dados);
+    		 
+    		$fotoDados = $encoded["dados"][0];
+    		
+    		$foto = new Fotos( );
+    		$foto->setNome($fotoDados->{'photo'});
+    		$foto->setAcompanhanteId($fotoDados->{'id'});
+    		
+    		$arrayRetorno["dados"] = $foto->inserir();
+    		$arrayRetorno["status"] = 0;
+    		$arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+    		
+    	
+    	
+    	} catch (Exception $e) {
+    		$arrayRetorno["dados"] = null;
+    		$arrayRetorno["status"] = 1;
+    		$arrayRetorno["messagem"] = $e->getMessage();
+    		header('Cache-Control: no-cache, must-revalidate');
+    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    		header('Content-type: application/json');
+    		$retorno = base64_encode(json_encode($arrayRetorno));
+    		echo $retorno;
+    	}
+    	
+    	
+    }
+    
+    
+    
+    
     public function cadastrarUsuario() {
         if ($this->getDados('POST')) {
             $this->_cadastrarUsuario($this->getDados('POST'));
