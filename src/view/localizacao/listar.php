@@ -61,7 +61,7 @@ print_r($dados);
 
 if (GBrowserIsCompatible()) {
     var map = new GMap2(document.getElementById("googleMap"));
-var lat = {LATITUDE}; // Latitude do marcador
+    var lat = {LATITUDE}; // Latitude do marcador
     var lon = {LONGITUDE}; // Longitude do marcador
     var zoom = {ZOOM}; // Zoom
  
