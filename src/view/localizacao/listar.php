@@ -55,3 +55,31 @@ $dados = $gmaps->geolocal($endereco);
 // Exibe os dados encontrados:
 print_r($dados);
 ?>
+
+<head>
+<script src="http://maps.google.com/maps?file=api&v=2&key={GMAK}" type="text/javascript">
+
+if (GBrowserIsCompatible()) {
+    var map = new GMap2(document.getElementById("googleMap"));
+var lat = {LATITUDE}; // Latitude do marcador
+    var lon = {LONGITUDE}; // Longitude do marcador
+    var zoom = {ZOOM}; // Zoom
+ 
+    map.addControl(new GMapTypeControl());
+    map.addControl(new GLargeMapControl());
+    map.setCenter(new GLatLng(lat, lon), zoom);
+ 
+    var marker = new GMarker(new GLatLng(lat,lon));
+ 
+    GEvent.addListener(marker, "click", function() {
+        marker.openInfoWindowHtml("<h2>Minha marca</h2><p>Meu texto!</p>");
+    });
+ 
+    map.addOverlay(marker);
+    map.setCenter(point, zoom);
+}
+</script>
+
+<div id="googleMap"></div>
+
+</head>

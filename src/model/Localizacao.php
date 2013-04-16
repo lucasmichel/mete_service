@@ -1,38 +1,4 @@
-<?php
-header('Content-Type: text/html; charset=utf-8', true);
-?>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<div class="wrap">
-    <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "localizacao.php");
-    ?>
-    <div id="dashboard-wrap">
-        <div class="metabox"></div>
-        <!-- 
-        <div class="filtros">
-                <span class="select-all">
-                        <SELECT NAME="function">
-                                <OPTION VALUE="excluir">excluir todos</OPTION>
-                                <OPTION VALUE="movimentar">movimentar todos</OPTION>
-                        </SELECT>
-                        <br/>
-                </span>
-                <span class="select-all">
-                        <SELECT NAME="function">
-                                <OPTION VALUE="excluir">excluir todos</OPTION>
-                                <OPTION VALUE="movimentar">movimentar todos</OPTION>
-                        </SELECT>
-                        <br/>
-                </span>
-                <span class="select-all busca">
-                        <input type="text" value="Buscar..." />
-                        <input type="button" value="ir"/>
-                        <br/>
-                </span>
-        </div> fim div filtro-->
-        <div class="clear"> </div>
-        <div class="box-content">
-            <div class="box">
+
 <?php
 class  Localizacao{
 	private $id;
@@ -180,10 +146,7 @@ class  Localizacao{
 }
 
 ?>
-            </div> <!--fim div box-->
-        </div> <!--fim div box-content-->
-    </div><!--fim div dashboard-wrap-->
-</div><!--fim div wrap-->
+        
 
 
 
