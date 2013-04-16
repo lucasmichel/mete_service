@@ -1,44 +1,57 @@
 <?php
+class listar2 {
+	// Host do GoogleMaps
+	private $mapsHost = 'maps.google.com';
+	// Sua Google Maps API Key
+	public $mapsKey = 'AIzaSyA8LxxiqPBU5Ypvk8O7raIibE6tCZbG70U';
 
+	function __construct($key = null) {
+		if (!is_null($key)) {
+			$this->mapsKey = $key;
+		}
+	}
 
+	function carregaUrl($url) {
+		if (function_exists('curl_init')) {
+			$cURL = curl_init($url);
+			curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($cURL, CURLOPT_FOLLOWLOCATION, true);
+			$resultado = curl_exec($cURL);
+			curl_close($cURL);
+		} else {
+			$resultado = file_get_contents($url);
+		}
 
-function mostaMapa($endereco){
-	echo ("</pre><div id=\"ResultDiv\" style=\"text-align: center;\"></div><pre>");
-	$key = "AIzaSyA8LxxiqPBU5Ypvk8O7raIibE6tCZbG70U";
-	echo "<script src=\"http://maps.googleapis.com/maps/api/js?key=" . $key . "&sensor=true\" type=\"text/javascript\"></script>";
+		if (!$resultado) {
+			return false;
+			//trigger_error('Não foi possível carregar o endereço: <strong>' . $url . '</strong>');
+		} else {
+			return $resultado;
+		}
+	}
+
+	function geoLocal($endereco) {
+		$url = 'http://'. $this->mapsHost .'/maps/geo?output=csv&key='. $this->mapsKey .'&q='. urlencode($endereco);
+		$dados = $this->carregaUrl($url);
+		list($status, $zoom, $latitude, $longitude) = explode(',', $dados);
+		if ($status != 200) {
+			return false;
+			//trigger_error('Não foi possível carregar o endereço <strong>"'.$endereco.'"</strong>, código de resposta: ' . $status);
+		}
+		return array('lat' => $latitude, 'lon' => $longitude, 'zoom' => $zoom, 'endereco' => $endereco);
+	}
+}
+
 ?>
- 
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markermanager/src/markermanager.js"></script>
-<script type="text/javascript">
-var myLatlng = new google.maps.LatLng(-25.4283563, -49.2732515);
-var myOptions = {
-zoom: 18,
-center: myLatlng,
-mapTypeId: google.maps.MapTypeId.ROADMAP,
-draggable: true,
-mapTypeControl: false,
-navigationControl : true
-}
-var address = <?php echo "'".$endereco."'"; ?>;
-map = new google.maps.Map(document.getElementById("ResultDiv"), myOptions);
-var addr = address+', Parana, Brasil';
-var geocoder = new google.maps.Geocoder();
- 
-geocoder.geocode( { 'address': addr}, function(results, status) {
-if (status == google.maps.GeocoderStatus.OK) {
-map.setCenter(results[0].geometry.location);
-var marker = new google.maps.Marker({
-map: map,
-position: results[0].geometry.location,
-title: 'Wagner Pro'
-});
- 
-} else {
-alert('Geocode não funcionou corretamente : ' + status);
-}
-});
-</script>
+
 <?php
-mostaMapa("Rua Pedro Ivo 744,Curitiba");
-}
+// Instancia a classe
+$gmaps = new gMaps('SUA GMAK AQUI');
+
+// Pega os dados (latitude, longitude e zoom) do endereço:
+$endereco = 'Av. Brasil, 1453, Rio de Janeiro, RJ';
+$dados = $gmaps->geolocal($endereco);
+
+// Exibe os dados encontrados:
+print_r($dados);
 ?>
