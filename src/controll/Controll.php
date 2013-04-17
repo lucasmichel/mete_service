@@ -457,30 +457,28 @@
 		}
 		
                 
-                protected function descriptografarTexto($dados){
-                    $jsonCriptografado = $dados['textoCriptografado'];
-                    $jsonDescriptografado = base64_decode($jsonCriptografado);
-                    $encoded = json_decode($jsonDescriptografado);
+			/*protected function descriptografarTexto($dados){
+                $jsonCriptografado = $dados['textoCriptografado'];
+                $jsonDescriptografado = base64_decode($jsonCriptografado);
+                $encoded = json_decode($jsonDescriptografado);
                     
-                    
-                    
-                    return $encoded;
-                }
+            	return $encoded;
+			}*/
                 
                 
                 
-                protected function descriptografarTextoTeste($dados){
-                	$jsonCriptografado = $dados['textoCriptografado'];
-                	$jsonDescriptografado = base64_decode($jsonCriptografado);
-                	$encoded = json_decode($jsonDescriptografado);
+            protected function descriptografarTexto($dados){
+	            $jsonCriptografado = $dados['textoCriptografado'];
+	            $jsonDescriptografado = base64_decode($jsonCriptografado);
+	            $encoded = json_decode($jsonDescriptografado);
+	                
+	            $retorno = array();
+	            $retorno["dados"] = $encoded->{'dados'};
+	            $retorno["status"] = $encoded->{'status'};
+	            $retorno["messagem"] = $encoded->{'mensagem'};
                 
-                	$retorno = array();
-                	$retorno["dados"] = $encoded->{'dados'};
-                	$retorno["status"] = $encoded->{'status'};
-                	$retorno["messagem"] = $encoded->{'mensagem'};
-                
-                	return $retorno;
-                }
+  			return $retorno;
+		}
                 
                 
 	}
