@@ -1,85 +1,48 @@
-<?php
-class listar2 {
-	// Host do GoogleMaps
-	private $mapsHost = 'maps.google.com';
-	// Sua Google Maps API Key
-	public $mapsKey = 'AIzaSyA8LxxiqPBU5Ypvk8O7raIibE6tCZbG70U';
 
-	function __construct($key = null) {
-		if (!is_null($key)) {
-			$this->mapsKey = $key;
-		}
-	}
-
-	function carregaUrl($url) {
-		if (function_exists('curl_init')) {
-			$cURL = curl_init($url);
-			curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($cURL, CURLOPT_FOLLOWLOCATION, true);
-			$resultado = curl_exec($cURL);
-			curl_close($cURL);
-		} else {
-			$resultado = file_get_contents($url);
-		}
-
-		if (!$resultado) {
-			return false;
-			//trigger_error('Não foi possível carregar o endereço: <strong>' . $url . '</strong>');
-		} else {
-			return $resultado;
-		}
-	}
-
-	function geoLocal($endereco) {
-		$url = 'http://'. $this->mapsHost .'/maps/geo?output=csv&key='. $this->mapsKey .'&q='. urlencode($endereco);
-		$dados = $this->carregaUrl($url);
-		list($status, $zoom, $latitude, $longitude) = explode(',', $dados);
-		if ($status != 200) {
-			return false;
-			//trigger_error('Não foi possível carregar o endereço <strong>"'.$endereco.'"</strong>, código de resposta: ' . $status);
-		}
-		return array('lat' => $latitude, 'lon' => $longitude, 'zoom' => $zoom, 'endereco' => $endereco);
-	}
-}
-
-?>
-
-<?php
-// Instancia a classe
-$gmaps = new gMaps('SUA GMAK AQUI');
-
-// Pega os dados (latitude, longitude e zoom) do endereço:
-$endereco = 'Av. Brasil, 1453, Rio de Janeiro, RJ';
-$dados = $gmaps->geolocal($endereco);
-
-// Exibe os dados encontrados:
-print_r($dados);
-?>
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-<script src="http://maps.google.com/maps?file=api&v=2&key={GMAK}" type="text/javascript">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+  <title>Localização do usuário via Geo IP</title>
+  <style type="text/css" media="screen">
 
-if (GBrowserIsCompatible()) {
-    var map = new GMap2(document.getElementById("googleMap"));
-    var lat = {LATITUDE}; // Latitude do marcador
-    var lon = {LONGITUDE}; // Longitude do marcador
-    var zoom = {ZOOM}; // Zoom
- 
-    map.addControl(new GMapTypeControl());
-    map.addControl(new GLargeMapControl());
-    map.setCenter(new GLatLng(lat, lon), zoom);
- 
-    var marker = new GMarker(new GLatLng(lat,lon));
- 
-    GEvent.addListener(marker, "click", function() {
-        marker.openInfoWindowHtml("<h2>Minha marca</h2><p>Meu texto!</p>");
-    });
- 
-    map.addOverlay(marker);
-    map.setCenter(point, zoom);
-}
-</script>
-
-<div id="googleMap"></div>
-
+  </style>
 </head>
+<body>
+<div id="doc">
+  <div id="map"></div>
+  <div  id="info"></div>
+</div>
+<script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
+<script>
+(function(){
+
+  var info = document.getElementById('info');
+  var lat = geoip_latitude();
+  var lon = geoip_longitude();
+  var city = geoip_city();
+  
+  var out = '<h3>Informacoes para seu IP</h3>'+ 
+            '<ul>'+
+            '<li>Latitude: ' + lat + '</li>'+
+            '<li>Longitude: ' + lon + '</li>'+
+            '<li>Cidade: ' + city + '</li>'+
+            '<li>Cod. Regiao: ' + geoip_region() + '</li>'+
+            '<li>Regiao: ' + geoip_region_name() + '</li>'+
+            '<li>Codigo do Pais: ' + geoip_country_code() + '</li>'+
+            '<li>Nome do Pais: ' + geoip_country_name() + '</li>'+
+            '</ul>';
+  info.innerHTML = out;
+  var url = 'http://maps.google.com/maps/api/staticmap?center='+
+            lat+','+lon+'&sensor=false&size=300x300&maptype=roadmap&key='+
+            'ABQIAAAAijZqBZcz-rowoXZC1tt9iRT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQQBCa'+
+            'F1R_k1GBJV5uDLhAKaTePyQ&markers=color:blue|label:I|'+lat+
+            ','+lon+'6&visible='+lat+','+lon+'|'+(+lat+1)+','+(+lon+1);
+  var map = document.getElementById('map');
+  map.innerHTML = '<img src="'+url+'" alt="'+city+'">';
+  
+})();
+</script>
+</body>
+</html>
