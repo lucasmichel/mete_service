@@ -105,18 +105,7 @@ class UsuarioDAO extends ClassDAO {
         return $resultado;
     }*/
 
-    /**
-     * Metodo listar()
-     * @return fetch_assoc[]
-     */
-    public function listar() {
-        // INSTRUCAO SQL //
-        $sql = "SELECT u.* FROM " . self::TABELA . " u where excluido = 0 ORDER BY u.login";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetchAll($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }
+    
 
     /**
      * Metodo trocarSenha($id,$senhaAtual,$novaSenha)

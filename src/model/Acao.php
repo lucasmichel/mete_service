@@ -85,7 +85,7 @@ class Acao {
     	}
     }    
     
-    private function construirObjeto($dados){
+    private static function construirObjeto($dados){
     	$acao =	new Acao();
     	$acao->setCodigoAcao($dados['codigo_acao']);
     	$acao->setNome($dados['nome']);

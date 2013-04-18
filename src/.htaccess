@@ -1,14 +1,10 @@
-options FollowSymLinks -Indexes
+<ifModule mod_rewrite.c>
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+   RewriteEngine On
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+ </ifModule>
 
-    
-    
 
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-    
-    
-</IfModule>
+

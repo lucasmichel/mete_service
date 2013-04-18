@@ -41,7 +41,7 @@ class PerfilDAO extends ClassDAO {
      */
     public function inserir($obj) {
         // INSTRUCAO SQL //
-        $sql = "INSERT INTO " . self::TABELA . "(nome) VALUES('" . $obj->getNome() . "')";
+        $sql = "INSERT INTO " . self::TABELA . "(nome, excluido) VALUES('" . $obj->getNome() . "', 0)";
         // EXECUTANDO A SQL //
         $perfil = $this->conexao->exec($sql);
         // RECUPERANDO O ID //
@@ -108,32 +108,9 @@ class PerfilDAO extends ClassDAO {
         return $resultado;
     }
 
-    /**
-     * Metodo buscar($id)
-     * @param $id
-     * @return fetch_assoc
-     */
-    /*public function buscar($id) {
-        // INSTRUCAO SQL //
-        $sql = "SELECT p.* FROM " . self::TABELA . " p WHERE p.id = '" . $id . "'";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetch($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }*/
+    
 
-    /**
-     * Metodo listar()
-     * @return fetch_assoc[]
-     */
-    public function listar() {
-        // INSTRUCAO SQL //
-        $sql = "SELECT p.* FROM " . self::TABELA . " p ORDER BY p.nome";
-        // EXECUTANDO A SQL //
-        $resultado = $this->conexao->fetchAll($sql);
-        // RETORNANDO O RESULTADO //
-        return $resultado;
-    }
+    
 
     /**
      * Metodo setAcoes($perfil)

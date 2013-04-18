@@ -11,6 +11,7 @@ class Perfil {
         private $id;
         private $nome;
         private $acoes;
+        private $excluido;
 
         /**
          * Metodo construtor()
@@ -23,6 +24,7 @@ class Perfil {
                 $this->id = $id;
                 $this->nome = $nome;
                 $this->acoes = $acoes;
+                $this->excluido = 0;
         }
 
         /**
