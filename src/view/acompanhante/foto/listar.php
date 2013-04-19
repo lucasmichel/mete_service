@@ -5,51 +5,13 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-    	function validaEmail (email)
-    	{
-    		er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
-    		if(er.exec(email))
-    			return true;
-    		else
-    			return false;
-    	};
-        
-        $('#email').focus();
+    	
        
                 
         $("#ok").click(function() {
-        	var senha = $.trim($("#senha").val());
-        	var email = $.trim($("#email").val());
-        	var nome = $.trim($("#nome").val());
         	
-        	if(email.length <= 0){
-            	alert('é necessário um email');
-                $("#email").focus();
-                return false;
-			}
-        	            
-            else if(!validaEmail(email)){
-            	alert('email invalido');
-                $("#email").focus();
-                return false;
-			}
-
-            
-            else if(senha.length <= 0){
-                alert('é necessário definir a senha');
-                $("#senha").focus();
-                return false;
-            }
-
-            else if(nome.length <= 0){
-                alert('é necessário definir o nome');
-                $("#nome").focus();
-                return false;
-            }
-            
-            else{
                 $("#cadastro").submit();
-            }
+            
             
           
         });                
@@ -71,16 +33,16 @@
                         <span>Cadastrar Fotos da Acompanhante</span>
                     </h3>
                     <div class="inside">
-                        <form method="post" id="cadastro" enctype="multipart/form-data">
+                        <form method="post" id="cadastro" enctype="multipart/form-data" action="acompanhante/fotoAdd">
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
                                                                     
                                     <li>
                                         <label for="email">Foto</label>
-                                        <input type="file" id="foto" name="foto" accept="image/*"/>
+                                        <!-- <input type="file" id="foto" name="foto" multiple accept="image/*"/>-->
+                                        <input type="file" id="foto" name="foto" multiple accept="image/*"/>
                                     </li>
-                                    
                                 </ul>
                             </fieldset>
                             <ul id="bts">

@@ -84,7 +84,7 @@ $modulo = $this->getDados('modulo');
                                             }
                                             if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
 											?>
-                                                <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao(); ?>">Editar</a>
+                                                <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Editar</a>
                                             <?php
                                             }
                                             if (Acao::checarPermissao(8, ModuloControll::MODULO)) {

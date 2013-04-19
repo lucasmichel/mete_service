@@ -33,12 +33,11 @@ class  ModuloControll extends Controll{
 		static $acao = 6;
 		// checando se o formulário nao foi passado //
 		
-		
 		if(!$this->getDados('POST')) {
 			//  definindo a  tela //
 			$modulo = Modulo::buscar($id);
 			$this->setDados($modulo,'modulo');
-			$this->setTela('add',array('modulo'));
+			$this->setTela('add',array('modulo/acao'));
 		} else {
 			// caso passar o formulário //
 			// chamando o metodo privado _add() passando os dados do post por parametro //
@@ -85,12 +84,16 @@ class  ModuloControll extends Controll{
 	
 	
 	
-	public function acaoEditar($id){
+	public function acaoEditar($codigoAcao,$idModulo){
 		// código da ação serve para o controle de acesso//
 		static $acao = 7;
 		// definindo a tela //
-		$modulo = Modulo::buscar($id);
+		$acao = Acao::buscar($codigoAcao,$idModulo);
+		$modulo = Modulo::buscar($idModulo);
+		
+		$this->setDados($acao,'acao');
 		$this->setDados($modulo,'modulo');
+		
 		$this->setTela('editar',array('modulo/acao'));
 		// guardando a url //
 		$this->getPage();

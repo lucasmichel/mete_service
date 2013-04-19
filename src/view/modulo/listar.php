@@ -45,7 +45,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                             <thead>
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
-                                    <th width="1%"></th>
+                                    <th width="10%" align="left">Id do módulo</th>
                                     <th width="28%" align="left">Nome</th>                                    
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
@@ -58,7 +58,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         <th width="1%">
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
-                                        <td width="1%"></td>
+                                        <td width="10%"><?php echo $objeto->getId(); ?></td>
                                         <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
                                         
                                         <td width="20%">				

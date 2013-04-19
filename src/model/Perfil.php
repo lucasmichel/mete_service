@@ -87,7 +87,7 @@ class Perfil {
 
         public static function listar(){
                 $instancia = PerfilDAO::getInstancia();
-                $perfis = $instancia->listar("nome");
+                $perfis = $instancia->listar("nome");                
                 if(!$perfis)
                         throw new ListaVazia(ListaVazia::PERFIS);
                 foreach($perfis as $perfil){

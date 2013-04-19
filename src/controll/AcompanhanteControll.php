@@ -268,7 +268,19 @@ class AcompanhanteControll extends Controll {
     	$this->setTela('listar',array('acompanhante/foto'));
     }
     
-    
+    /**
+     * Acao fotoAdd($id)
+     * @param $id
+     */
+    public function fotoAdd(){
+    	// código da ação //
+    	static $acao = 7;
+    	
+    	meuVarDump($_FILES);
+    	
+       
+       
+    }
     
     
 }
