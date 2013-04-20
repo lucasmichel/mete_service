@@ -17,18 +17,28 @@ class WebServiceControll extends Controll{
 		$arrayRetorno["status"] = $status;
 		$arrayRetorno["mensagem"] = $menssagem;
 		
-		return$arrayRetorno; 
+		return $arrayRetorno; 
 	}
 	
+	
+	private function lerArray($encoded){
+		$arrayRetorno["dados"] = $encoded["dados"];
+		$arrayRetorno["status"] = $encoded["status"];
+		$arrayRetorno["mensagem"] = $encoded["mensagem"];
+		
+		return $arrayRetorno;
+	}
 	
 	
 	public function _cadastrarAcompanhante($dados) {
 		try {	
 			$encoded = $this->descriptografarTexto($dados);
 			
-			$status = $encoded[$this->$this->$sts];
-			$menssagem = $encoded[$this->$msg];
-			$encoded = $encoded[$this->$dat][0];
+			meuVarDump($encoded);
+			
+			$status = $encoded["status"];
+			$menssagem = $encoded["mensagem"];			
+			$encoded = $encoded["dados"][0];
 	
 			$perfil = Perfil::buscar(3);
 	
@@ -79,7 +89,7 @@ class WebServiceControll extends Controll{
 		catch (Exception $e) {
 			$arrayRetorno["dados"] = null;
 			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
+			$arrayRetorno["mensagem"] = $e->getMessage();
 			
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			
