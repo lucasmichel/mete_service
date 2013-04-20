@@ -87,30 +87,28 @@ class DefaultControll extends Controll {
     
     
     
-    /* PARA ANDROID *//* PARA ANDROID */
-    /* PARA ANDROID *//* PARA ANDROID */
+    /* PARA ANDROID */
     
     
     
-    
-    
-    /******ACOMPANHANTE******/
-    /******ACOMPANHANTE******/
-    /******ACOMPANHANTE******/
-    public function cadastrarAcompanhante() {
+    public function excluirUsuario() {
     	if ($this->getDados('POST')) {
-    		$this->_cadastrarAcompanhante($this->getDados('POST'));
+    		$this->_editarAcompanhante($this->getDados('POST'));
     	}
     	else{
-    		$this->setTela('cadastrarUsuario');
+    		$this->setTela('excluirUsuario');
     		$this->getPage();
     	}
     }
     
-    private function _cadastrarAcompanhante($dados) {
+    
+    private function _excluirUsuario($dados) {
+    	 
     	$executa = new WebServiceControll();
-    	$executa->_cadastrarAcompanhante($dados);
+    	$executa->_excluirUsuario($dados);
+    	 
     }
+    
     
     public function editarAcompanhante() {
     	if ($this->getDados('POST')) {
@@ -122,55 +120,15 @@ class DefaultControll extends Controll {
     	}
     }
     
+    
     private function _editarAcompanhante($dados) {
+    	
     	$executa = new WebServiceControll();
     	$executa->_editarAcompanhante($dados);
-    }
-
-    public function excluirAcompanhante() {
-    	if ($this->getDados('POST')) {
-    		$this->excluirAcompanhante($this->getDados('POST'));
-    	}
-    	else{
-    		$this->setTela('editarAcompanhante');
-    		$this->getPage();
-    	}
+    	
     }
     
-    private function _excluirAcompanhante($dados) {
-    	$executa = new WebServiceControll();
-    	$executa->_excluirAcompanhante($dados);
-    }
-    /******ACOMPANHANTE******/
-    /******ACOMPANHANTE******/
-    /******ACOMPANHANTE******/
     
-    
-    
-    
-    
-    
-    
-    
-    /******CLIENTE******/
-    /******CLIENTE******/
-    /******CLIENTE******/
-    public function cadastrarCliente() {
-    	if ($this->getDados('POST')) {
-    		$this->_cadastrarCliente($this->getDados('POST'));
-    	}
-    	else{
-    		$this->setTela('cadastrarUsuario');
-    		$this->getPage();
-    	}
-    }
-    
-    private function _cadastrarCliente($dados) {
-    
-    	$executa = new WebServiceControll();
-    	$executa->_cadastrarCliente($dados);
-    	 
-    }
     
     public function editarCliente() {
     	if ($this->getDados('POST')) {
@@ -189,33 +147,7 @@ class DefaultControll extends Controll {
     	
     }
     
-    public function excluirCliente() {
-    	if ($this->getDados('POST')) {
-    		$this->_excluirCliente($this->getDados('POST'));
-    	}
-    	else{
-    		$this->setTela('excluirUsuario');
-    		$this->getPage();
-    	}
-    }
     
-    
-    private function _excluirCliente($dados) {
-    
-    	$executa = new WebServiceControll();
-    	$executa->_excluirCliente($dados);
-    
-    }
-    /******CLIENTE******/
-    /******CLIENTE******/
-    /******CLIENTE******/
-    
-    
-    
-    
-    /******FOTO******/
-    /******FOTO******/
-    /******FOTO******/
     public function cadastrarFoto() {    	
     	if ($this->getDados('POST')) {
     		$this->_cadastrarFoto($this->getDados('POST'));
@@ -233,13 +165,27 @@ class DefaultControll extends Controll {
    		$executa->_cadastrarFoto($dados);
     	
     }
-    /******FOTO******/
-    /******FOTO******/
-    /******FOTO******/
     
     
     
     
+    public function cadastrarUsuario() {
+        if ($this->getDados('POST')) {
+            $this->_cadastrarUsuario($this->getDados('POST'));
+        }
+        else{
+	    $this->setTela('cadastrarUsuario');
+            $this->getPage();
+        }
+    }
+    
+    
+    private function _cadastrarUsuario($dados) {
+        
+    	$executa = new WebServiceControll();
+    	$executa->_cadastrarUsuario($dados);
+    	
+    }
     
     
 
@@ -291,7 +237,11 @@ class DefaultControll extends Controll {
     
     
     
-    
+    public function listarServicosDesc() {
+    	
+    		$executa = new WebServiceControll();
+    		$executa->listarServicosDesc();
+    }
     
     /*APAGAR DEPOIS*/
     public function testeNovaEstruturaDados() {

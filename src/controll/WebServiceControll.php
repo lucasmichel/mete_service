@@ -77,6 +77,83 @@ class WebServiceControll extends Controll{
 	}
 	
 	
+	
+	
+	
+	public function _cadastrarAcompanhante($dados) {
+		try {
+	
+			$encoded = $this->descriptografarTexto($dados);
+				
+			meuVarDump($encoded);
+			$status = $encoded["status"];
+			$menssagem = $encoded["menssagem"];
+			$encoded = $encoded["dados"][0];
+	
+	
+			$perfil = Perfil::buscar(3);
+	
+			$usuario = new Usuario();
+			$acompanhante = new Acompanhante();
+	
+			$usuario->setPerfil($perfil);
+			$usuario->setLogin(trim($encoded->{'email'}));
+			$usuario->setSenha(trim($encoded->{'senha'}));
+			$usuario->setEmail(trim($encoded->{'email'}));
+	
+			$acompanhante->setNome(trim($encoded->{'nome'}));
+			$acompanhante->setIdade(trim($encoded->{'idade'}));
+			$acompanhante->setAltura(trim($encoded->{'altura'}));
+			$acompanhante->setPeso(trim($encoded->{'peso'}));
+			$acompanhante->setBusto(trim($encoded->{'busto'}));
+			$acompanhante->setCintura(trim($encoded->{'cintura'}));
+			$acompanhante->setQuadril(trim($encoded->{'quadril'}));
+			$acompanhante->setOlhos(trim($encoded->{'olhos'}));
+			$acompanhante->setPernoite(trim($encoded->{'pernoite'}));
+			$acompanhante->setAtendo(trim($encoded->{'atendo'}));
+			$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
+			$acompanhante->setHorarioAtendimento(trim($encoded->{'horarioAtendimento'}));
+			$acompanhante->setExcluido(0);
+	
+	
+			if($usuario->_validarCampos())
+				$insert = true;
+			else
+				$insert = false;
+	
+			if($acompanhante->_validarCampos())
+				$insert = true;
+			else
+				$insert = false;
+	
+			if($insert == true){
+				$usuario = $usuario->inserir();
+				$acompanhante->setUsuarioId($usuario->getId());
+				$acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+				$acompanhante->inserir();
+			}
+			$arrayRetorno["dados"] = $acompanhante;
+			$arrayRetorno["status"] = 0;
+			$arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+		catch (Exception $e) {
+			$arrayRetorno["dados"] = null;
+			$arrayRetorno["status"] = 1;
+			$arrayRetorno["messagem"] = $e->getMessage();
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+	}
+	
+	
 	public function _editarAcompanhante($dados) {
 		 
 		try {
@@ -121,7 +198,7 @@ class WebServiceControll extends Controll{
 				$acompanhante = $acompanhante->editar();
 			}
 				
-			$arrayRetorno["dados"] = $usuario;
+			$arrayRetorno["dados"] = $acompanhante;
 			$arrayRetorno["status"] = 0;
 			$arrayRetorno["messagem"] = "Acompanhante editada com suceso";
 			header('Cache-Control: no-cache, must-revalidate');
@@ -142,6 +219,112 @@ class WebServiceControll extends Controll{
 			echo $retorno;
 		}
 	}
+	
+	public function _excluirAcompanhante($dados) {
+		try {
+			$encoded = $this->descriptografarTexto($dados);
+			$encoded = $encoded["dados"][0];
+				
+			$acompanhante = new Acompanhante();
+			$acompanhante = $acompanhante->buscar($encoded->{'id'});
+			$acompanhante = $acompanhante->excluir();
+				
+			$arrayRetorno["dados"] = null;
+			$arrayRetorno["status"] = 0;
+			$arrayRetorno["messagem"] = "Acompanhante excluída com sucesso!";
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+	
+		} catch (Exception $e) {
+			$arrayRetorno["dados"] = null;
+			$arrayRetorno["status"] = 1;
+			$arrayRetorno["messagem"] = $e->getMessage();
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+	}
+	
+	
+	
+	
+	
+	public function _cadastrarCliente($dados) {
+	
+		// O Curl irá fazer uma requisição para a API do Vimeo
+		// e irá receber o JSON com as informações do vídeo.
+		/*$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
+		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$jsonCriptografado = curl_exec($curl);
+		curl_close($curl);
+		$encoded = json_decode(base64_decode( $jsonCriptografado));*/
+	
+	
+	
+		// As informações pode ser recuperadas da seguinte forma.
+		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
+		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+		try {
+			$encoded = $this->descriptografarTexto($dados);			
+			$encoded = $encoded["dados"][0];
+			$perfil = Perfil::buscar(2);
+			$usuario = new Usuario();
+			$cliente = new Cliente();
+				
+			$usuario->setPerfil($perfil);
+			$usuario->setLogin(trim($encoded->{'email'}));
+			$usuario->setSenha(trim($encoded->{'senha'}));
+			$usuario->setEmail(trim($encoded->{'email'}));
+				
+			$cliente->setCpf(trim($encoded->{'cpf'}));
+			$cliente->setNome(trim($encoded->{'nome'}));
+			$cliente->setExcluido(0);
+				
+			if($usuario->_validarCampos())
+				$insert = true;
+			else
+				$insert = false;
+				
+			if($cliente->_validarCampos())
+				$insert = true;
+			else
+				$insert = false;
+				
+			if($insert == true){
+				$usuario = $usuario->inserir();
+				$cliente->setUsuarioId($usuario->getId());
+				$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
+				$cliente = $cliente->inserir();
+			}
+			$arrayRetorno["dados"] = $cliente;
+			$arrayRetorno["status"] = 0;
+			$arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+		catch (Exception $e) {
+			$arrayRetorno["dados"] = null;
+			$arrayRetorno["status"] = 1;
+			$arrayRetorno["messagem"] = $e->getMessage();
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
+		}
+	
+	}
+	
+	
+	
 	
 	public function _editarCliente($dados) {
 		 
@@ -177,7 +360,7 @@ class WebServiceControll extends Controll{
 				$cliente = $cliente->editar();
 			}
 	
-			$arrayRetorno["dados"] = $usuario;
+			$arrayRetorno["dados"] = $cliente;
 			$arrayRetorno["status"] = 0;
 			$arrayRetorno["messagem"] = "Cliente editado com suceso";
 			header('Cache-Control: no-cache, must-revalidate');
@@ -198,140 +381,24 @@ class WebServiceControll extends Controll{
 		}
 	}
 	
-	public function _cadastrarUsuario($dados) {
 	
-		// O Curl irá fazer uma requisição para a API do Vimeo
-		// e irá receber o JSON com as informações do vídeo.
-		/*$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
-		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		$jsonCriptografado = curl_exec($curl);
-		curl_close($curl);
-		$encoded = json_decode(base64_decode( $jsonCriptografado));*/
-	
-	
-	
-		// As informações pode ser recuperadas da seguinte forma.
-		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
-		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+	public function _excluirCliente($dados) {
 		try {
-	
-			$encoded = $this->descriptografarTextoTeste($dados);
-	
+			$encoded = $this->descriptografarTexto($dados);
 			$encoded = $encoded["dados"][0];
-	
-			$tipoUsuario = $encoded->{'tipo'};
-	
-			if(($tipoUsuario != 1)&&($tipoUsuario != 2)){
-				$arrayRetorno["dados"] = null;
-				$arrayRetorno["status"] = 1;
-				$arrayRetorno["messagem"] = 'tipo de usuario não definido ou definido errado';
-				header('Cache-Control: no-cache, must-revalidate');
-				header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-				header('Content-type: application/json');
-				$retorno = base64_encode(json_encode($arrayRetorno));
-				echo $retorno;
-			}
-	
-			/*identifica o tipo 1 é cliente e 2 é prostituta*/
-			if($tipoUsuario == 1){
-	
-				$perfil = Perfil::buscar(2);
-				$usuario = new Usuario();
-				$cliente = new Cliente();
-	
-				$usuario->setPerfil($perfil);
-				$usuario->setLogin(trim($encoded->{'email'}));
-				$usuario->setSenha(trim($encoded->{'senha'}));
-				$usuario->setEmail(trim($encoded->{'email'}));
-	
-	
-				$cliente->setCpf(trim($encoded->{'cpf'}));
-				$cliente->setNome(trim($encoded->{'nome'}));
-				$cliente->setExcluido(0);
-	
-	
-	
-				if($usuario->_validarCampos())
-					$insert = true;
-				else
-					$insert = false;
-	
-				if($cliente->_validarCampos())
-					$insert = true;
-				else
-					$insert = false;
-	
-				if($insert == true){
-					$usuario = $usuario->inserir();
-					$cliente->setUsuarioId($usuario->getId());
-					$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-					$cliente = $cliente->inserir();
-				}
-				$arrayRetorno["dados"] = $cliente;
-				$arrayRetorno["status"] = 0;
-				$arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
-				header('Cache-Control: no-cache, must-revalidate');
-				header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-				header('Content-type: application/json');
-				$retorno = base64_encode(json_encode($arrayRetorno));
-				echo $retorno;
-	
-			}
-			/*identifica o tipo 1 é cliente e 2 é prostituta*/
-			else if($tipoUsuario == 2){
-	
-				$perfil = Perfil::buscar(3);
-	
-				$usuario = new Usuario();
-				$acompanhante = new Acompanhante();
-	
-	
-				$usuario->setPerfil($perfil);
-				$usuario->setLogin(trim($encoded->{'email'}));
-				$usuario->setSenha(trim($encoded->{'senha'}));
-				$usuario->setEmail(trim($encoded->{'email'}));
-	
-				$acompanhante->setNome(trim($encoded->{'nome'}));
-				$acompanhante->setIdade(trim($encoded->{'idade'}));
-				$acompanhante->setAltura(trim($encoded->{'altura'}));
-				$acompanhante->setPeso(trim($encoded->{'peso'}));
-				$acompanhante->setBusto(trim($encoded->{'busto'}));
-				$acompanhante->setCintura(trim($encoded->{'cintura'}));
-				$acompanhante->setQuadril(trim($encoded->{'quadril'}));
-				$acompanhante->setOlhos(trim($encoded->{'olhos'}));
-				$acompanhante->setPernoite(trim($encoded->{'pernoite'}));
-				$acompanhante->setAtendo(trim($encoded->{'atendo'}));
-				$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
-				$acompanhante->setHorarioAtendimento(trim($encoded->{'horarioAtendimento'}));
-				$acompanhante->setExcluido(0);
-	
-	
-				if($usuario->_validarCampos())
-					$insert = true;
-				else
-					$insert = false;
-	
-				if($acompanhante->_validarCampos())
-					$insert = true;
-				else
-					$insert = false;
-	
-				if($insert == true){
-					$usuario = $usuario->inserir();
-					$acompanhante->setUsuarioId($usuario->getId());
-					$acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-					$acompanhante->inserir();
-				}
-				$arrayRetorno["dados"] = $acompanhante;
-				$arrayRetorno["status"] = 0;
-				$arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
-				header('Cache-Control: no-cache, must-revalidate');
-				header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-				header('Content-type: application/json');
-				$retorno = base64_encode(json_encode($arrayRetorno));
-				echo $retorno;
-			}
-	
+			
+			$cliente = new Cliente();
+			$cliente = $cliente->buscar($encoded->{'id'});			
+			$cliente = $cliente->excluir();
+			
+			$arrayRetorno["dados"] = null;
+			$arrayRetorno["status"] = 0;
+			$arrayRetorno["messagem"] = "Cliente excluído com sucesso!";
+			header('Cache-Control: no-cache, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+			header('Content-type: application/json');
+			$retorno = base64_encode(json_encode($arrayRetorno));
+			echo $retorno;
 	
 		} catch (Exception $e) {
 			$arrayRetorno["dados"] = null;
@@ -344,6 +411,10 @@ class WebServiceControll extends Controll{
 			echo $retorno;
 		}
 	}
+	
+	
+	
+	
 	
 	
 	public function _logarAndroid($dados) {
