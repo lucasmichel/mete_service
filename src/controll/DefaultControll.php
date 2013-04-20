@@ -129,7 +129,7 @@ class DefaultControll extends Controll {
 
     public function excluirAcompanhante() {
     	if ($this->getDados('POST')) {
-    		$this->excluirAcompanhante($this->getDados('POST'));
+    		$this->_excluirAcompanhante($this->getDados('POST'));
     	}
     	else{
     		$this->setTela('editarAcompanhante');
@@ -141,16 +141,29 @@ class DefaultControll extends Controll {
     	$executa = new WebServiceControll();
     	$executa->_excluirAcompanhante($dados);
     }
+    
+    public function buscarAcompanhantePorId() {
+    	if ($this->getDados('POST')) {
+    		$this->_buscarAcompanhantePorId($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('editarAcompanhante');
+    		$this->getPage();
+    	}
+    }
+    
+    private function _buscarAcompanhantePorId($dados) {
+    	$executa = new WebServiceControll();
+    	$executa->_buscarAcompanhantePorId($dados);
+    }
+    
+    public function listarAcompanhante() {
+    	$executa = new WebServiceControll();
+    	$executa->listarAcompanhante();
+    }    
     /******ACOMPANHANTE******/
     /******ACOMPANHANTE******/
     /******ACOMPANHANTE******/
-    
-    
-    
-    
-    
-    
-    
     
     /******CLIENTE******/
     /******CLIENTE******/
@@ -160,8 +173,9 @@ class DefaultControll extends Controll {
     		$this->_cadastrarCliente($this->getDados('POST'));
     	}
     	else{
-    		$this->setTela('cadastrarUsuario');
-    		$this->getPage();
+    		meuVarDump($this->getDados('POST'));
+    		//$this->setTela('cadastrarUsuario');
+    		//
     	}
     }
     
@@ -210,9 +224,6 @@ class DefaultControll extends Controll {
     /******CLIENTE******/
     /******CLIENTE******/
     
-    
-    
-    
     /******FOTO******/
     /******FOTO******/
     /******FOTO******/
@@ -238,7 +249,16 @@ class DefaultControll extends Controll {
     /******FOTO******/
     
     
-    
+    /******SERVIÇO******/
+    /******SERVIÇO******/
+    /******SERVIÇO******/ 
+    public function listarServicos() {
+    	$executa = new WebServiceControll();
+    	$executa->listarServicos();
+    }
+    /******SERVIÇO******/
+    /******SERVIÇO******/
+    /******SERVIÇO******/
     
     
     
@@ -272,22 +292,9 @@ class DefaultControll extends Controll {
 
 
 
-	public function listarAcompanhante() {
-		
-		$executa = new WebServiceControll();
-		$executa->listarAcompanhante();
-	}
-
+	
     
-    public function listarUsuarios() {
-    	$executa = new WebServiceControll();
-    	$executa->listarUsuarios();
-    }
     
-    public function listarServicos() {
-    	$executa = new WebServiceControll();
-    	$executa->listarServicos();
-    }
     
     
     

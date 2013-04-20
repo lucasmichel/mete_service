@@ -3,93 +3,32 @@ class WebServiceControll extends Controll{
 	
 	public function WebServiceControll(){}
 	
-	
-	
-	
-	public function _excluirUsuario($dados) {
-		try {
-	
-			$encoded = $this->descriptografarTextoTeste($dados);
-			$dados = $encoded["dados"][0];
-				
-			$usuario = new Usuario( );
-			$usuario->buscar($dados->{'id'});
-	
-			$arrayRetorno["dados"] = $usuario->excluir();
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Usuario excluído com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-	
-	
-	
-		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-		}
-			
-			
+	private function retorno($arrayRetorno){
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+		$retorno = base64_encode(json_encode($arrayRetorno));
+		echo $retorno;
 	}
 	
 	
-	public function _cadastrarFoto($dados) {
-		try {
-			 
-			$encoded = $this->descriptografarTextoTeste($dados);
-			$fotoDados = $encoded["dados"][0];
-			
-			$foto = new Fotos( );
-			$foto->setNome($fotoDados->{'photo'});
-			$foto->setAcompanhanteId($fotoDados->{'id'});
-	
-			$arrayRetorno["dados"] = $foto->inserir();
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-	
-			 
-			 
-		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-		}
-		 
-		 
+	private function preencherArray($dados, $status, $menssagem){
+		$arrayRetorno["dados"] = $dados;
+		$arrayRetorno["status"] = $status;
+		$arrayRetorno["mensagem"] = $menssagem;
+		
+		return$arrayRetorno; 
 	}
-	
-	
 	
 	
 	
 	public function _cadastrarAcompanhante($dados) {
-		try {
-	
+		try {	
 			$encoded = $this->descriptografarTexto($dados);
-				
-			meuVarDump($encoded);
-			$status = $encoded["status"];
-			$menssagem = $encoded["menssagem"];
-			$encoded = $encoded["dados"][0];
-	
+			
+			$status = $encoded[$this->$this->$sts];
+			$menssagem = $encoded[$this->$msg];
+			$encoded = $encoded[$this->$dat][0];
 	
 			$perfil = Perfil::buscar(3);
 	
@@ -132,24 +71,19 @@ class WebServiceControll extends Controll{
 				$acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
 				$acompanhante->inserir();
 			}
-			$arrayRetorno["dados"] = $acompanhante;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Acompanhante cadastrada com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray($acompanhante, 0, "Acompanhante cadastrada com suceso");
+			
+			$this->retorno($arrayRetorno);
 		}
 		catch (Exception $e) {
 			$arrayRetorno["dados"] = null;
 			$arrayRetorno["status"] = 1;
 			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
@@ -158,8 +92,9 @@ class WebServiceControll extends Controll{
 		 
 		try {
 	
-			$encoded = $this->descriptografarTexto($dados);	
-			$encoded = $encoded["dados"][0];
+			$encoded = $this->descriptografarTexto($dados);
+			
+			$encoded = $encoded[$this->$dat][0];
 	
 			$usuario = new Usuario();
 			$acompanhante = new Acompanhante();
@@ -197,26 +132,16 @@ class WebServiceControll extends Controll{
 				$usuario = $usuario->editar();
 				$acompanhante = $acompanhante->editar();
 			}
-				
-			$arrayRetorno["dados"] = $acompanhante;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Acompanhante editada com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-	
-	
+			
+			$arrayRetorno = $this->preencherArray($acompanhante, 0, "Acompanhante editada com suceso");
+			
+			$this->retorno($arrayRetorno);
+			
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
@@ -228,28 +153,54 @@ class WebServiceControll extends Controll{
 			$acompanhante = new Acompanhante();
 			$acompanhante = $acompanhante->buscar($encoded->{'id'});
 			$acompanhante = $acompanhante->excluir();
-				
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Acompanhante excluída com sucesso!";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno[$this->$dat] = null;
+			$arrayRetorno[$this->$sts] = 0;
+			$arrayRetorno[$this->$msg] = "Acompanhante excluída com sucesso!";
+			
+			$arrayRetorno = $this->preencherArray(null, 0, "Acompanhante excluída com sucesso!");
+			
+			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
+	public function _buscarAcompanhantePorId($dados) {
+		try {
+			$encoded = $this->descriptografarTexto($dados);
+			$encoded = $encoded["dados"][0];
+				
+			$acompanhante = new Acompanhante();
+			
+			$arrayRetorno = $this->preencherArray($acompanhante->buscar($encoded->{'id'}), 0, "Acompanhante localizada!");
+			
+			$this->retorno($arrayRetorno);
+	
+		} catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	}
+	
+	public function listarAcompanhante() {
+		try {
+			$arrayRetornoLista = Acompanhante::listarParaWebService();			
+			
+			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "OK");
+			
+			$this->retorno($arrayRetorno);
+		} catch (Exception $e) {
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+	}
 	
 	
 	
@@ -301,24 +252,16 @@ class WebServiceControll extends Controll{
 				$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
 				$cliente = $cliente->inserir();
 			}
-			$arrayRetorno["dados"] = $cliente;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Cliente cadastrado com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray($cliente, 0, "Cliente cadastrado com suceso");
+			
+			$this->retorno($arrayRetorno);
 		}
 		catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
 		}
 	
 	}
@@ -359,60 +302,54 @@ class WebServiceControll extends Controll{
 				$usuario = $usuario->editar();
 				$cliente = $cliente->editar();
 			}
-	
-			$arrayRetorno["dados"] = $cliente;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Cliente editado com suceso";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			
+			$arrayRetorno = $this->preencherArray($cliente, 0, "Cliente editado com suceso");
+			
+			
+			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
 		}
 	}
-	
 	
 	public function _excluirCliente($dados) {
 		try {
 			$encoded = $this->descriptografarTexto($dados);
 			$encoded = $encoded["dados"][0];
-			
+						
 			$cliente = new Cliente();
 			$cliente = $cliente->buscar($encoded->{'id'});			
 			$cliente = $cliente->excluir();
 			
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "Cliente excluído com sucesso!";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			$arrayRetorno = $this->preencherArray(null, 0, "Cliente excluído com sucesso!");
+			
+			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+						
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
+	public function _buscarClientePorId($dados) {
+		try {
+			$encoded = $this->descriptografarTexto($dados);
+			$encoded = $encoded["dados"][0];
 	
+			$cliente = new Cliente();
+			
+			$arrayRetorno = $this->preencherArray($cliente->buscar($encoded->{'id'}), 0, "cliente localizado!");
+			$this->retorno($arrayRetorno);
+	
+		} catch (Exception $e) {
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+	}
 	
 	
 	
@@ -423,112 +360,56 @@ class WebServiceControll extends Controll{
 			$jsonCriptografado = $dados['textoCriptografado'];
 			$jsonDescriptografado = base64_decode($jsonCriptografado);
 			$encoded = json_decode($jsonDescriptografado);
-	
-			$arrayRetorno["dados"] = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "OK";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray(Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'})), 0, "OK");
+			$this->retorno($arrayRetorno);
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
 	
 	
-	public function listarAcompanhante() {	
-		try {
-			$arrayRetorno = Acompanhante::listarParaWebService();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-		} catch (Exception $e) {
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-		}
-	}
 	
-	public function listarServicosDesc() {
-		try {
-			$arrayRetornoLista = Servico::listarParaWebService();
-			$arrayRetorno["dados"] = $arrayRetornoLista;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "OK";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = json_encode($arrayRetorno);
-			echo $retorno;
-		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = json_encode($arrayRetorno);
-			echo $retorno;
-		}
-	}
 	
 	public function listarServicos() {
 		try {
+			
 			$arrayRetornoLista = Servico::listarParaWebService();
-			$arrayRetorno["dados"] = $arrayRetornoLista;
-			$arrayRetorno["status"] = 0;
-			$arrayRetorno["messagem"] = "OK";
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			
+			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "OK");
+			
+			$this->retorno($arrayRetorno);
 		} catch (Exception $e) {
-			$arrayRetorno["dados"] = null;
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
 		}
 	}
 	
-	public function listarUsuarios() {
+	
+	public function _cadastrarFoto($dados) {
 		try {
-			$arrayRetorno = Usuario::listarParaWebService();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
-		} catch (Exception $e) {
-			$arrayRetorno["status"] = 1;
-			$arrayRetorno["messagem"] = $e->getMessage();
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-			header('Content-type: application/json');
-			$retorno = base64_encode(json_encode($arrayRetorno));
-			echo $retorno;
+	
+			$encoded = $this->descriptografarTextoTeste($dados);
+			$fotoDados = $encoded["dados"][0];
+				
+			$foto = new Fotos( );
+			$foto->setNome($fotoDados->{'photo'});
+			$foto->setAcompanhanteId($fotoDados->{'id'});
+			
+			$arrayRetorno = $this->preencherArray($foto->inserir(), 0, "Foto cadastrada com suceso");
+			
+			$this->retorno($arrayRetorno);
+				
+		} catch (Exception $e) {			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
 		}
 	}
+	
+	
+	
 	
 }
 ?>
