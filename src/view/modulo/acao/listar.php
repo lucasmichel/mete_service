@@ -43,14 +43,18 @@ $modulo = $this->getDados('modulo');
                     
 
                     
-                    
-                    
+                    if(Acao::checarPermissao(6, ModuloControll::MODULO))
+                    {
                     ?>
                     
                     <span>Ações do Módulo: <?php echo $modulo->getNome();?>
-                    <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId() ?> >
+                    <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId(); ?> >
                     	Adicionar ação
                     </a></span>
+                   <?php 
+                   }
+                   ?>
+                    
                     <div class="table">
                         <table id="lista" class="widefat fixed">
                             <thead>
