@@ -11,6 +11,7 @@ class listar2 {
 		}
 	}
 
+	//teste
 	function carregaUrl($url) {
 		if (function_exists('curl_init')) {
 			$cURL = curl_init($url);
