@@ -5,7 +5,7 @@
  * @package model
  * @subpackage DAO
  */
-	class ModuloDAO {
+	class ModuloDAO extends ClassDAO {
 
 		/**
 		 * Atributos
@@ -17,7 +17,8 @@
 		/**
 		 * Metodo construtor()
 		 */
-		private function __construct(){	
+		protected function __construct(){	
+			parent::__construct("modulos");
 			$this->conexao = Connect::getInstancia();
 		}
 		
@@ -30,12 +31,12 @@
 			return self::$instancia;
 		}
 		
-		public function inserir(Avaliacao $obj) {
+		public function inserir(Modulo $obj) {
 			// INSTRUCAO SQL //
 			$sql = "INSERT INTO " . self::TABELA . "
-            (nome, link)
+            (nome, link, excluido)
             VALUES('" . $obj->getNome() . "',
-            '" . $obj->getLink() . "')";
+            '" . $obj->getLink() . "', 0)";
 		
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->exec($sql);
@@ -104,6 +105,76 @@
 			// RETORNANDO O RESULTADO //
 			return $resultado;
 		}
+		
+		
+		
+		
+		
+		/**
+		 * Metodo testarNomeExiste($nome)
+		 * @param $nome
+		 * @return fetch_assoc
+		 */
+		public function testarNomeExiste($nome) {
+			// INSTRUCAO SQL //
+			$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.nome = '" . $nome . "'";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		/**
+		 * Metodo testarLinkExiste($link)
+		 * @param $link
+		 * @return fetch_assoc
+		 */
+		public function testarLinkExiste($link) {
+			// INSTRUCAO SQL //
+			$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.link = '" . $link . "'";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		
+		/**
+		 * Metodo testarNomeExisteEdicao($id, $nome)
+		 * @param $id 
+		 * @param $nome
+		 * @return fetch_assoc
+		 */
+		public function testarNomeExisteEdicao($id, $nome) {
+			// INSTRUCAO SQL //
+			$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.nome = '" . $nome . "' AND
+                        u.id <> " . $id . "";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		/**
+		 * Metodo testarLinkExisteEdicao($id, $link)
+		 * @param $id 
+		 * @param $link
+		 * @return fetch_assoc
+		 */
+		public function testarLinkExisteEdicao($id, $link) {
+			// INSTRUCAO SQL //
+			$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.link = '" . $link . "' AND
+                        u.id <> " . $id . "";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
 
 	}
 ?>

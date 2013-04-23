@@ -75,11 +75,11 @@ class ClassDAO {
     
     
     /**
-     * Metodo listar($ordenarPor)
+     * Metodo listarComOrdenacao($ordenarPor)
      * @param $ordenarPor - variavel que indica qual culuna utilizada no ordenamento
      * @return fetch_assoc[]
      */    
-    public function listar($ordenarPor) {
+    public function listarComOrdenacao($ordenarPor) {
         // INSTRUCAO SQL //
         $sql = "SELECT u.* FROM " . $this->tabela . " u where u.excluido = 0 ORDER BY u.".$ordenarPor."";
         //meuVarDump($sql);
@@ -87,6 +87,20 @@ class ClassDAO {
         $resultado = $this->conexao->fetchAll($sql);
         // RETORNANDO O RESULTADO //
         return $resultado;
+    }
+    
+    /**
+     * Metodo listar($ordenarPor)     
+     * @return fetch_assoc[]
+     */
+    public function listar() {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT u.* FROM " . $this->tabela . " u where u.excluido = 0 ";
+    	//meuVarDump($sql);
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetchAll($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
     }
 }
 

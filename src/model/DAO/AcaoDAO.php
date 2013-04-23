@@ -5,7 +5,7 @@
  * @package model
  * @subpackage DAO
  */
-	class AcaoDAO {
+	class AcaoDAO extends ClassDAO {
 		
 		/**
 		 * Atributos
@@ -13,11 +13,12 @@
 		private static $instancia;
 		private $conexao;	
 		const TABELA = 'acoes';
-
+		
 		/**
 		 * Metodo construtor()
 		 */
-		private function __construct(){	
+		protected function __construct(){	
+			parent::__construct("acoes");
 			$this->conexao = Connect::getInstancia();
 		}
 		
@@ -30,6 +31,7 @@
 			return self::$instancia;
 		}
 		
+		
 		/**
 		 * Metodo inserir($obj)
 		 * @param $obj
@@ -38,15 +40,15 @@
 		public function inserir(Acao $obj) {
 			// INSTRUCAO SQL //
 			$sql = "INSERT INTO " . self::TABELA . "
-            (id_modulo, codigo_acao, nome)
+            (id_modulo, codigo_acao, nome, excluido)
 		
             VALUES('" . $obj->getModulo()->getId() . "',
             '" . $obj->getCodigoAcao() . "',
-            '" . $obj->getNome(). "')";			
-			// EXECUTANDO A SQL //
+            '" . $obj->getNome(). "', 0)";			
+			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// TRATANDO O RESULTADO //
-			//($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+			($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
 			// RETORNANDO O RESULTADO //
 			return $obj;
 		}
@@ -65,7 +67,7 @@
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// RETORNANDO O RESULTADO //
-			return $resultado;
+			return $obj;
 		}
 		
 		
@@ -96,7 +98,7 @@
 		 * @param $filtroModulo
 		 * @return fetch_assoc[]
 		 */
-		public function listar($filtroModulo){
+		public function listarComFiltro($filtroModulo){
 			// FILTRO //
 			$where = array();
 			if(!empty($filtroModulo))
@@ -128,10 +130,6 @@
 			// RETORNANDO O RESULTADO //
 			return $resultado;
 		}
-		
-		
-		
-		
 		
 		
 		
@@ -176,6 +174,7 @@
 			$sql = "SELECT a.* FROM " . self::TABELA . " a
 					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."' and
 							a.id <>'".$id."' ";
+			
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //

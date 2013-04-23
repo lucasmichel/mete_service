@@ -65,7 +65,7 @@ class PerfilDAO extends ClassDAO {
      * @param $obj
      * @return Perfil
      */
-    public function editar($obj) {
+    public function editar(Perfil $obj) {
         // INSTRUCAO SQL //
 
         $sql = "UPDATE " . self::TABELA . " SET nome = '" . $obj->getNome() . "' 
@@ -76,6 +76,9 @@ class PerfilDAO extends ClassDAO {
         $sql2 = "DELETE FROM acoes_modulos_perfis WHERE id_perfil = '" . $obj->getId() . "'";
         $this->conexao->exec($sql2);
 
+        
+     
+        
         foreach ($obj->getAcoes() as $acao) {
             // INSTRUCAO SQL 3 //
             $sql3 = "INSERT INTO acoes_modulos_perfis

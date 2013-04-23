@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function validarCamposObrigatorios(){
         if(($.trim($("#nome").val()) == '')||($("input:checked").size() == 0)){
-            jAlert('Preencha os campos obrigatórios.','Alerta');
+            alert('Preencha os campos obrigatórios.','Alerta');
             return false;
         }
         return true;
@@ -50,7 +50,7 @@ $perfil = $this->getDados('VIEW');
                                             <li>
                                                 <?php
                                                 try {
-                                                    $acoes = Acao::listar($modulo->getId());                                                    
+                                                    $acoes = Acao::listarPorModulo($modulo->getId());                                                    
                                                     foreach ($acoes as $acao) {                
                                                         
                                                         

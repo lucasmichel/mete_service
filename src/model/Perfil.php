@@ -58,8 +58,9 @@ class Perfil {
          * @return Perfil
          */
         public function editar(){
-	        if(!$this->_validarCampos()){
+	        if($this->_validarCampos()){
 	        	$instancia = PerfilDAO::getInstancia();
+	        	
 	            $perfil = $instancia->editar($this);
 	        	return $perfil;
 			}
@@ -99,7 +100,8 @@ class Perfil {
         private static function _setAcoes($perfil){
         	
         	$instancia = PerfilDAO::getInstancia();        	
-                $acoes = $instancia->setAcoes($perfil);                
+                $acoes = $instancia->setAcoes($perfil);
+                  
                 if($acoes != null){
                     foreach($acoes as $acao){
                         $objetos[] = Acao::buscar($acao['codigo_acao'],$acao['id_modulo']);

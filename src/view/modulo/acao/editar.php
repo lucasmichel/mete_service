@@ -54,6 +54,7 @@
                     <div class="inside">
                         <form method="post" id="cadastro" action=modulo/acaoEditar/<?php echo $modulo->getId()."/".$acao->getId(); ?>>
                         	<input type="hidden" id="idModulo" name="idModulo" value="<?php if($modulo != null) echo $modulo->getId();  ?>" />
+                        	<input type="hidden" id="idAcao" name="idAcao" value="<?php if($acao != null) echo $acao->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
@@ -65,7 +66,25 @@
                                         <label for="Acao">Código da ação</label>
                                         <input alt="integer" type="text" id="codigoAcao" name="codigoAcao" value="<?php if($acao != null) echo $acao->getCodigoAcao();  ?>"/>
                                     </li>
-                                   
+                                    
+                                     <li>
+										<label for="button1">Esta ação será um sub menu?</label>
+										
+										<input id="subMenu" type="radio" value="sim" name="subMenu" 
+											<?php if(($acao != null)&&($acao->getSubMenu() == 1))
+												echo 'checked="checked"';  
+											?>
+										>Sim</input>
+										  
+										<input id="subMenu" type="radio" value="não" name="subMenu"  
+											<?php if(($acao != null)&&($acao->getSubMenu() == 0))
+												echo 'checked="checked"';
+											if($acao == null)
+												echo 'checked="checked"';
+											?>
+										>Não</input>
+										
+                                    </li>
                                     
                                 </ul>
                             </fieldset>

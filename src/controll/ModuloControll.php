@@ -59,7 +59,6 @@ class  ModuloControll extends Controll{
 			$acao->setNome($dados['nome']);
 			$acao->setModulo($modulo);
 			
-			
 			$acao->inserir();
 			// setando a mensagem de sucesso //
 			$this->setFlash('Ação do módulo '.$modulo->getNome().' cadastrada com sucesso.');
@@ -87,27 +86,74 @@ class  ModuloControll extends Controll{
 	public function acaoEditar($codigoAcao,$idModulo){
 		// código da ação serve para o controle de acesso//
 		static $acao = 7;
-		// definindo a tela //
-		$acao = Acao::buscar($codigoAcao,$idModulo);
-		$modulo = Modulo::buscar($idModulo);
 		
-		$this->setDados($acao,'acao');
-		$this->setDados($modulo,'modulo');
+		if(!$this->getDados('POST')) {
 		
-		$this->setTela('editar',array('modulo/acao'));
-		// guardando a url //
-		$this->getPage();
+			// definindo a tela //
+			$acao = Acao::buscar($codigoAcao,$idModulo);
+			$modulo = Modulo::buscar($idModulo);
+			
+			$this->setDados($acao,'acao');
+			$this->setDados($modulo,'modulo');
+			
+			$this->setTela('editar',array('modulo/acao'));
+			// guardando a url //
+			$this->getPage();
+		}
+		else{
+			// caso passar o formulário //
+			// chamando o metodo privado _add() passando os dados do post por parametro //
+			$this->_acaoEditar($this->getDados('POST'));
+		}
+		
 	}
+	
+	
+	
+	private function _acaoEditar($dados){
+		// persistindo em inserir o usuário //
+		try {
+			
+			$modulo = Modulo::buscar($dados['idModulo']);
+			
+			$acao = new Acao();
+			$acao->setId(trim($dados['idAcao']));
+			$acao->setCodigoAcao(trim($dados['codigoAcao']));
+			$acao->setNome(trim($dados['nome']));
+			$acao->setModulo($modulo);
+			$acao->editar();
+			
+			// setando a mensagem de sucesso //
+			$this->setFlash('Ação do módulo '.$modulo->getNome().' editada com sucesso.');
+			// setando a url //
+			$this->setPage();
+		}
+	
+		catch (Exception $e) {
+			//retorna os campos prar serem preenchidos novamente
+			if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+	
+			if(isset($acao))
+				$this->setDados($acao,'acao');
+			// setando a mensagem de excessão //
+			$this->setFlash($e->getMessage());
+			// definindo a tela //
+			$this->setTela('editar',array('modulo/acao'));
+		}
+	}
+	
 	
 	public function acaoExcluir($id){
 		// código da ação serve para o controle de acesso//
-		static $acao = 8;
-		// definindo a tela //
-		$modulo = Modulo::buscar($id);
-		$this->setDados($modulo,'modulo');
-		$this->setTela('editar',array('modulo/acao'));
-		// guardando a url //
-		$this->getPage();
+		static $acao = 8;		
+		// buscando o usuário //
+		$acao = Acao::buscar($id);		
+		$acao->excluir();
+		// setando mensagem de sucesso //
+		$this->setFlash('Usuário excluído com sucesso.');
+		// setando a url //
+		$this->setPage();		
 	}
 	
 	

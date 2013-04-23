@@ -116,12 +116,12 @@ class Usuario {
      * @return boolean
      */
     public function excluir(){
-            // recuperando a instancia da classe de acesso a dados //
-            $instancia = UsuarioDAO::getInstancia();
-            // executando o metodo //
-            $usuario = $instancia->excluir($this->getId());
-            // retornando o resultado //
-            return $usuario;
+		// recuperando a instancia da classe de acesso a dados //
+        $instancia = UsuarioDAO::getInstancia();
+        // executando o metodo //
+        $usuario = $instancia->excluir($this->getId());
+        // retornando o resultado //
+		return $usuario;
     }
 
     /**

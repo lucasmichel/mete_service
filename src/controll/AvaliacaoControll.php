@@ -9,7 +9,7 @@ class AvaliacaoControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 3;
+    const MODULO = 6;
 
     /**
      * Acao index()

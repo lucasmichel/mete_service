@@ -138,6 +138,7 @@ class PerfilControll extends Controll {
                 $acoes[] = Acao::buscar($acao['acao'], $acao['modulo']);
             }
         }
+         
         // instanciando o perfil antigo, com os novos dados //
         $perfil = new Perfil($dados['id'], $dados['nome'], (isset($acoes)) ? $acoes : null);
         // persistindo em editar o objeto //

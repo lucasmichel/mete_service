@@ -38,23 +38,21 @@ $modulo = $this->getDados('modulo');
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Acao::listarPorModulo($modulo);
-                    $paginacao = new Paginacao($objetos, 20);
-                    
 
-                    
-                    if(Acao::checarPermissao(6, ModuloControll::MODULO))
-                    {
-                    ?>
+					if(Acao::checarPermissao(6, ModuloControll::MODULO))
+					{
+					?>
                     
                     <span>Ações do Módulo: <?php echo $modulo->getNome();?>
                     <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId(); ?> >
                     	Adicionar ação
                     </a></span>
-                   <?php 
-                   }
-                   ?>
-                    
+                   	<?php 
+                   	}
+                   	$objetos = Acao::listarPorModulo($modulo);
+                   	$paginacao = new Paginacao($objetos, 20);
+                   	?>
+                   	
                     <div class="table">
                         <table id="lista" class="widefat fixed">
                             <thead>
