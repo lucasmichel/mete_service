@@ -1,7 +1,7 @@
 <?php
 class  ModuloControll extends Controll{
 	
-	const MODULO = 8;
+	const MODULO = 3;
 	
 	public function acaoListar($id){
 		// código da ação serve para o controle de acesso//

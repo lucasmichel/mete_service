@@ -98,7 +98,7 @@
 		 */
 		public function listar(){
 			// INSTRUCAO SQL //
-			$sql = "SELECT m.* FROM " . self::TABELA . " m ORDER BY m.nome";
+			$sql = "SELECT m.* FROM " . self::TABELA . " m ORDER BY m.id";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetchAll($sql);
 			// RETORNANDO O RESULTADO //

@@ -3,6 +3,29 @@ class WebServiceControll extends Controll{
 	
 	public function WebServiceControll(){}
 	
+	
+	private function objectToArray ($object) {
+		if ( count($object) > 1 ) {
+			$arr = array();
+			for ( $i = 0; $i < count($object); $i++ ) {
+				$arr[] = get_object_vars($object[$i]);
+			}
+	
+			meuVarDump('AQUI 1 ' . $arr);
+			
+			return $arr;
+	
+		} else {
+			echo '<pre>';
+			var_dump($object);
+			echo '<br />';
+			echo '<br />';
+			meuVarDump(get_object_vars($object));
+			
+			return get_object_vars($object);
+		}
+	}
+	
 	private function retorno($arrayRetorno){
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
@@ -13,9 +36,14 @@ class WebServiceControll extends Controll{
 	
 	
 	private function preencherArray($dados, $status, $menssagem){
-		$arrayRetorno["dados"] = $dados;
+		
+		$arrayDados = $this->objectToArray($dados);
+		
+		$arrayRetorno["dados"] = $arrayDados;
 		$arrayRetorno["status"] = $status;
 		$arrayRetorno["mensagem"] = $menssagem;
+		
+		
 		
 		return $arrayRetorno; 
 	}
@@ -33,11 +61,9 @@ class WebServiceControll extends Controll{
 	public function _cadastrarAcompanhante($dados) {
 		try {	
 			$encoded = $this->descriptografarTexto($dados);
-			
-			meuVarDump($encoded);
-			
+						
 			$status = $encoded["status"];
-			$menssagem = $encoded["mensagem"];			
+			//$menssagem = $encoded["mensagem"];			
 			$encoded = $encoded["dados"][0];
 	
 			$perfil = Perfil::buscar(3);
@@ -79,7 +105,7 @@ class WebServiceControll extends Controll{
 				$usuario = $usuario->inserir();
 				$acompanhante->setUsuarioId($usuario->getId());
 				$acompanhante->setUsuarioIdPerfil($usuario->getPerfil()->getId());
-				$acompanhante->inserir();
+				$acompanhante = $acompanhante->inserir();
 			}
 			
 			$arrayRetorno = $this->preencherArray($acompanhante, 0, "Acompanhante cadastrada com suceso");

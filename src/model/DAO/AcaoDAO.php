@@ -62,7 +62,7 @@
 			$sql = "UPDATE " . self::TABELA . " SET
             nome = '" . $obj->getNome() . "'
             WHERE id_modulo = '" . $obj->getModulo()->getId() . "' and codigo_acao = '".$obj->getCodigoAcao()."' ";
-			// EXECUTANDO A SQL //
+			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// RETORNANDO O RESULTADO //
 			return $resultado;
@@ -140,8 +140,8 @@
 		public function buscarNomeAcao($nome, $modulo){			
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a 
-					where a.nome = ".$nome." and a.id_modulo = ".$modulo."";
-			// EXECUTANDO A SQL //
+					where a.nome = '".$nome."' and a.id_modulo = '".$modulo."'";
+			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
 			return $resultado;
@@ -151,7 +151,31 @@
 		public function buscarCodigoAcao($codigoAcao, $modulo){
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a
-					where a.codigo_acao = ".$codigoAcao." and a.id_modulo = ".$modulo."";
+					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."'";
+			// EXECUTANDO A SQL //			
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		
+		public function buscarNomeAcaoEdicao($id, $nome, $modulo){
+			// INSTRUCAO SQL //
+			$sql = "SELECT a.* FROM " . self::TABELA . " a
+					where a.nome = '".$nome."' and a.id_modulo = '".$modulo."' and
+							a.id <>'".$id."' ";
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->fetch($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+		}
+		
+		
+		public function buscarCodigoAcaoEdicao($id, $codigoAcao, $modulo){
+			// INSTRUCAO SQL //
+			$sql = "SELECT a.* FROM " . self::TABELA . " a
+					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."' and
+							a.id <>'".$id."' ";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //

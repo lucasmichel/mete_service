@@ -52,7 +52,7 @@
                         <span>Editar Ações do Módulo: <?php echo $modulo->getNome();?></span>
                     </h3>
                     <div class="inside">
-                        <form method="post" id="cadastro" action=modulo/acaoAdd/<?php echo $modulo->getId() ?>>
+                        <form method="post" id="cadastro" action=modulo/acaoEditar/<?php echo $modulo->getId()."/".$acao->getId(); ?>>
                         	<input type="hidden" id="idModulo" name="idModulo" value="<?php if($modulo != null) echo $modulo->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>

@@ -161,6 +161,7 @@ class Usuario {
      */
     public static function logar($login,$senha){
             // verificando se $login ou $senha estao vazios //
+            
             if((empty($login))||(empty($senha)))
                     // levantando a excessao CamposObrigatorios //
                     throw new CamposObrigatorios();

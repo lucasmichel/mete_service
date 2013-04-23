@@ -8,22 +8,29 @@ class Acao {
 	/**
 	 * Atributos
 	 */
+	
+	private $id;
 	private $codigoAcao;
 	private $nome;
 	private $modulo;
+	private $subMenu;
 
 	/**
 	 * Metodo construtor()
+	 * @param $id
 	 * @param $codigoAcao
 	 * @param $nome
 	 * @param $modulo
 	 * @param $subMenu
 	 * @return Acao
 	 */
-	public function __construct($codigoAcao = 0,$nome = '',Modulo $modulo = null){
+	public function __construct($id = 0, $codigoAcao = 0,$nome = '',Modulo $modulo = null, $subMenu = 0){
+		$this->id = $id;
 		$this->codigoAcao = $codigoAcao;
 		$this->nome = $nome;
-		$this->modulo = $modulo;		
+		$this->modulo = $modulo;
+		$this->subMenu = $subMenu;
+		
 	}
 	
 	/**
@@ -46,15 +53,30 @@ class Acao {
     		return false;
     	}
     	
+    	else if($this->getId() == 0){
     	
-    	elseif ($this->_validarNomeAcao){
-    		throw new Exception("nome da ação já existente para este módulo");
-    		return false;
+	    	if ($this->_validarNomeAcaoAdd($this)){
+	    		throw new Exception("nome da ação já existente para este módulo");
+	    		return false;
+	    	}
+	    	
+	    	if ($this->_validarCodigoAcaoAdd($this)){
+	    		throw new Exception("código da ação já existente para este módulo");
+	    		return false;
+	    	}
     	}
     	
-    	elseif ($this->_validarCodigoAcao){
-    		throw new Exception("código da ação já existente para este módulo");
-    		return false;
+    	elseif ($this->getId() != 0){
+    		
+    		if ($this->_validarNomeAcaoEdit($this)){
+    			throw new Exception("nome da ação já existente para este módulo");
+    			return false;
+    		}    		
+    		
+	    	if ($this->_validarCodigoAcaoEdit($this)){
+	    		throw new Exception("código da ação já existente para este módulo");
+	    		return false;
+	    	}
     	}
     	//validar se ja não existe o mesmo codigo junto com o mesmo nome no mesmo modulo...
     	else{
@@ -87,9 +109,14 @@ class Acao {
     
     private static function construirObjeto($dados){
     	$acao =	new Acao();
+    	
+    	
+    	
+    	$acao->setId($dados['id']);
     	$acao->setCodigoAcao($dados['codigo_acao']);
     	$acao->setNome($dados['nome']);
     	$acao->setModulo(Modulo::buscar($dados['id_modulo']));
+    	$acao->setSubMenu($dados['sub_menu']);
     	return $acao;
     }
     
@@ -139,8 +166,7 @@ class Acao {
 	 * @return boolean
 	 */
 	public static function checarPermissao($codigoAcao = 0, $modulo = null) {
-		$controll = Controll::getControll();
-		
+		$controll = Controll::getControll();		
 		$usuarioLogado = $controll->getUsuario();
 		$perfilUsuarioLogado = $usuarioLogado->getPerfil();
 		$acoesPerfilUsuarioLogado = $perfilUsuarioLogado->getAcoes();
@@ -151,6 +177,7 @@ class Acao {
 			
 		
 		//echo '<pre>';
+		
 		foreach($acoesPerfilUsuarioLogado as $acao){
 			
 			$usuarioAcao = (int) $acao->getCodigoAcao();
@@ -178,7 +205,7 @@ class Acao {
 		return false;
 	}
 	
-	private function _validarNomeAcao(Acao $dados){
+	private static function _validarNomeAcaoAdd(Acao $dados){
 		//buscarNomeAcao
 		$instancia = AcaoDAO::getInstancia();
 		$acoe = $instancia->buscarNomeAcao($dados->getNome(), $dados->getModulo()->getId());
@@ -190,7 +217,7 @@ class Acao {
 	}
 	
 	
-	private function _validarCodigoAcao(Acao $dados){
+	private static function _validarCodigoAcaoAdd(Acao $dados){
 		//buscarNomeAcao
 		$instancia = AcaoDAO::getInstancia();
 		$acoe = $instancia->buscarCodigoAcao($dados->getCodigoAcao(), $dados->getModulo()->getId());
@@ -201,9 +228,45 @@ class Acao {
 			return false;
 	}
 	
+	
+	
+
+	private static function _validarNomeAcaoEdit(Acao $dados){
+		//buscarNomeAcao
+		$instancia = AcaoDAO::getInstancia();
+		$acoe = $instancia->buscarNomeAcaoEdicao($dados->getId(), $dados->getNome(), $dados->getModulo()->getId());
+		if($acoe)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
+	}
+	
+	
+	private static function _validarCodigoAcaoEdit(Acao $dados){
+		//buscarNomeAcao
+		$instancia = AcaoDAO::getInstancia();
+		$acoe = $instancia->buscarCodigoAcaoEditcao($dados->getId(), $dados->getNome(), $dados->getModulo()->getId());
+		if($acoe)
+			return true;
+		// instanciando e retornando o bollean//
+		else
+			return false;
+	}
+	
+	
 	/**
 	 * Metodos getters() e setters()
 	 */
+	
+	
+	public function getId(){
+		return $this->id;
+	}
+	public function setId($id){
+		$this->id = $id;
+	}
+	
 	public function getCodigoAcao(){
 		return $this->codigoAcao;
 	}
@@ -222,5 +285,13 @@ class Acao {
 	public function setModulo(Modulo $modulo){
 		$this->modulo = $modulo;
 	}
+	
+	public function getSubMenu(){
+		return $this->subMenu;
+	}
+	public function setSubMenu($subMenu){
+		$this->subMenu = $subMenu;
+	}
+	
 }
 ?>
