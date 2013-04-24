@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Modulo::listar("nome");
+                    $objetos = Modulo::listar();
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">

@@ -34,6 +34,7 @@ class ClassDAO {
     public function excluir($id) {
         // INSTRUCAO SQL //
         $sql = "UPDATE " . $this->tabela . " SET excluido = 1 WHERE id = '" . $id . "'";
+        
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
         // RETORNANDO O RESULTADO //

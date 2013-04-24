@@ -51,7 +51,7 @@ class Modulo {
         		throw new Exception("Nome do módulo já cadastrado em nossa base de dados");
         	
         	if($this->_testarLinkExiste($this->getLink()))
-        		throw new Exception("Nome do link já cadastrado em nossa base de dados");
+        		throw new Exception("Nome do link já cadastrado em nossa base de dados CADASTRO");
         	
         }
             
@@ -59,7 +59,7 @@ class Modulo {
 			if($this->_testarNomeExisteEdicao($this->getId(), $this->getNome()))            	
             	throw new Exception("Nome do módulo já cadastrado em nossa base de dados");
 			if($this->_testarLinkExisteEdicao($this->getId(), $this->getLink()))
-				throw new Exception("Nome do link já cadastrado em nossa base de dados");
+				throw new Exception("Nome do link já cadastrado em nossa base de dados EDITAR");
 			
 		}
 		else{
@@ -124,7 +124,7 @@ class Modulo {
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = ModuloDAO::getInstancia();
     	// executando o metodo //
-    	$modulo = $instancia->excluir($this->getId());
+    	$modulo = $instancia->excluir($this->getId());    	
     	// retornando o resultado //
     	return $modulo;
     }

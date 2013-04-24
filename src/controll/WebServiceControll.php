@@ -38,12 +38,9 @@ class WebServiceControll extends Controll{
 	private function preencherArray($dados, $status, $menssagem){
 		
 		$arrayDados = $this->objectToArray($dados);
-		
 		$arrayRetorno["dados"] = $arrayDados;
 		$arrayRetorno["status"] = $status;
 		$arrayRetorno["mensagem"] = $menssagem;
-		
-		
 		
 		return $arrayRetorno; 
 	}
@@ -399,6 +396,7 @@ class WebServiceControll extends Controll{
 			
 			$arrayRetorno = $this->preencherArray(Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'})), 0, "OK");
 			$this->retorno($arrayRetorno);
+			
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);

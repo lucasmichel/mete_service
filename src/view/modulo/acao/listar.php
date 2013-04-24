@@ -49,7 +49,7 @@ $modulo = $this->getDados('modulo');
                     </a></span>
                    	<?php 
                    	}
-                   	$objetos = Acao::listarPorModulo($modulo);
+                   	$objetos = Acao::listarPorModulo($modulo->getId());
                    	$paginacao = new Paginacao($objetos, 20);
                    	?>
                    	
@@ -81,7 +81,7 @@ $modulo = $this->getDados('modulo');
                                         	<?php                                        	
                                             if (Acao::checarPermissao(5, ModuloControll::MODULO)) {
 											?>
-                                            	<a href="modulo/acaoVer/<?php echo $objeto->getCodigoAcao(); ?>">Ver</a> 
+                                            	<a href="modulo/acaoVer/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Ver</a> 
                                             <?php
                                             }
                                             if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
@@ -91,7 +91,7 @@ $modulo = $this->getDados('modulo');
                                             }
                                             if (Acao::checarPermissao(8, ModuloControll::MODULO)) {
 											?>    
-                                                <a href="modulo/acaoExcluir/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
+                                                <a href="modulo/acaoExcluir/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>

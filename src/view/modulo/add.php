@@ -1,7 +1,6 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
     $modulo = $this->getDados('modulo');
-    
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
@@ -10,26 +9,16 @@
                 
         $("#ok").click(function() {
         	var nome = $.trim($("#nome").val());
-        	var link = $.trim($("#link").val());
-        	
         	
         	if(nome.length <= 0){
             	alert('é necessário um nome para o módulo');
-                $("#email").focus();
-                return false;
-        	}
-
-            else if(link.length <= 0){
-                alert('é necessário definir o link do módulo');
                 $("#nome").focus();
                 return false;
-            }
-            
+        	}
             else{
                 $("#cadastro").submit();
             }
             
-          
         });                
                 
                 
@@ -56,14 +45,9 @@
                                     <li>
                                         <label for="nome">Nome do módulo</label>
                                         <input type="text" id="nome" name="nome" value="<?php if($modulo != null) echo $modulo->getNome();  ?>" />
-                                    </li>
-                                    
-                                    <li>
-                                        <label for="link">Link do módulo </label>
-                                        <input type="text" id="link" name="link" value="<?php if($modulo != null) echo $modulo->getLink();  ?>" />
-                                        <label>*(nome do controlador sem o controll ex:
-                                        <br />se o modulo for de Foto o link vai ficar foto e o o controlador
-                                        <br/>vai ficar FotoControll )</label>
+                                        <label>*Este nome será utilizado para salvar o arquivo controll referente ao módulo.
+                                        <br /> EX: se cadastrar o nome do módulo como Usuário o nome do<br />arquivo do controlador será: <strong> UsuarioControll </strong> 
+										</label>
                                     </li>
                                 </ul>
                             </fieldset>

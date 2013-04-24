@@ -333,6 +333,9 @@
 				return $this->dados['POST'];
 			if(($metodo == $metodo)&&(isset($this->dados[$metodo])))
 				return $this->dados[$metodo];
+			
+			
+			
 			return false;
 		}
 		

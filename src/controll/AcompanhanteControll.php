@@ -9,7 +9,7 @@ class AcompanhanteControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 3;
+    const MODULO = 4;
 
     /**
      * Acao index()

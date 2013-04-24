@@ -18,8 +18,7 @@ try{
         
         if(($modulo->getLink() != "acao")&&
 			($modulo->getLink() != "modulo")&&
-			($modulo->getLink() != "usuario")&&
-			($modulo->getLink() != "foto")&& 
+			($modulo->getLink() != "usuario")&&			 
 			($modulo->getLink() != "perfil")){
         
 

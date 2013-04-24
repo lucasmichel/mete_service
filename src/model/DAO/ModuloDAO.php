@@ -51,7 +51,7 @@
 		 * @param $obj
 		 * @return Perfil
 		 */
-		public function editar(Avaliacao $obj) {
+		public function editar(Modulo $obj) {
 			// INSTRUCAO SQL //
 			$sql = "UPDATE " . self::TABELA . " SET
             nome = '" . $obj->getNome() . "',
@@ -65,7 +65,13 @@
 		
 		public function excluir($id) {
 			// checando se existe algum vinculo desse registro com outros //
-			$validacao = "SELECT m.id FROM modulo m WHERE m.id = '" . $id . "'";
+			$sql = "UPDATE " . self::TABELA . " 
+					SET excluido = '1'
+					WHERE id = '" . $id . "'";			
+			$resultado = $this->conexao->exec($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
+			/*
 			if ($this->conexao->fetch($validacao))
 				throw new RegistroNaoExcluido(RegistroNaoExcluido::MODULO);
 			// INSTRUCOES SQL //
@@ -76,7 +82,7 @@
 				$resultado = $this->conexao->exec($item);
 			}
 			// RETORNANDO O RESULTADO //
-			return $resultado;
+			return $resultado;*/
 		}
 		
 		/**
@@ -97,14 +103,14 @@
 		 * Metodo listar()
 		 * @return fetch_assoc[]
 		 */
-		public function listar(){
+		/*public function listar(){
 			// INSTRUCAO SQL //
 			$sql = "SELECT m.* FROM " . self::TABELA . " m ORDER BY m.id";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetchAll($sql);
 			// RETORNANDO O RESULTADO //
 			return $resultado;
-		}
+		}*/
 		
 		
 		

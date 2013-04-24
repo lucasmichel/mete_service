@@ -16,12 +16,12 @@ class  ModuloControll extends Controll{
 	}
 	
 	
-	public function acaoVer($id){
+	public function acaoVer($codigoAcao,$idModulo){
 		// código da ação serve para o controle de acesso//
 		static $acao = 5;
 		// definindo a tela //
 	
-		$modulo = Modulo::buscar($id);
+		$modulo = Modulo::buscar($codigoAcao,$idModulo);
 		$this->setDados($modulo,'modulo');
 		$this->setTela('ver',array('modulo'));
 		// guardando a url //
@@ -144,14 +144,14 @@ class  ModuloControll extends Controll{
 	}
 	
 	
-	public function acaoExcluir($id){
+	public function acaoExcluir($codigoAcao,$idModulo){
 		// código da ação serve para o controle de acesso//
 		static $acao = 8;		
 		// buscando o usuário //
-		$acao = Acao::buscar($id);		
+		$acao = Acao::buscar($codigoAcao,$idModulo);		
 		$acao->excluir();
 		// setando mensagem de sucesso //
-		$this->setFlash('Usuário excluído com sucesso.');
+		$this->setFlash('Ação excluída com sucesso.');
 		// setando a url //
 		$this->setPage();		
 	}
@@ -228,9 +228,12 @@ class  ModuloControll extends Controll{
 		 
 		// persistindo em inserir o usuário //
 		try {
+			
+			
+			
 			$modulo = new Modulo();
 			$modulo->setNome($dados['nome']);
-			$modulo->setLink($dados['link']);
+			$modulo->setLink(retiraAcentos(mb_strtolower( $dados['nome'], 'UTF-8' )));
 			$modulo->inserir();
 			// setando a mensagem de sucesso //
 			$this->setFlash('Modulo cadastrado com sucesso.');
@@ -282,8 +285,9 @@ class  ModuloControll extends Controll{
 		// persistindo em inserir o usuário //
 		try {
 			$modulo = new Modulo();
+			$modulo->setId($dados['id']);
 			$modulo->setNome($dados['nome']);
-			$modulo->setLink($dados['link']);
+			$modulo->setLink(retiraAcentos(mb_strtolower( $dados['nome'], 'UTF-8' )));
 			$modulo->editar();
 			// setando a mensagem de sucesso //
 			$this->setFlash('Modulo editado com sucesso.');
@@ -307,10 +311,6 @@ class  ModuloControll extends Controll{
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * Acao excluir($id)
 	 * @param $id
@@ -318,20 +318,40 @@ class  ModuloControll extends Controll{
 	public function excluir($id){
 		// código da ação //
 		static $acao = 4;
-		// buscando o usuário //
-		$objeto = modulo::buscar($id);
-		// checando se o usuário a ser excluído é diferente do logado //
-	
-		//ATENÇÃO
-		//checar se o modulo esta sendo utilizada
 		
-		// excluíndo ele //
-		$objeto->excluir();
-		// setando mensagem de sucesso //
-		$this->setFlash('Modulo excluído com sucesso.');
-	
-		// setando a url //
-		$this->setPage();
+		
+		// persistindo em inserir o usuário //
+		try {
+			// buscando o usuário //
+			$objeto = modulo::buscar($id);
+			// checando se o usuário a ser excluído é diferente do logado //
+		
+			//ATENÇÃO
+			//checar se o modulo esta sendo utilizada
+			
+			// excluíndo ele //
+			$objeto->excluir();
+			// setando mensagem de sucesso //
+			$this->setFlash('Modulo excluído com sucesso.');
+		
+			// setando a url //
+			$this->setPage();
+		}
+		
+		
+		catch (Exception $e) {
+			//retorna os campos prar serem preenchidos novamente
+			if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+		
+			if(isset($usuario))
+				$this->setDados($modulo,'modulo');
+			// setando a mensagem de excessão //
+			$this->setFlash($e->getMessage());
+			// definindo a tela //
+			$this->setPage();
+		}
+		
 	}
 	
 }

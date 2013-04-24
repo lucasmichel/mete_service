@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8', true);
 
 $modulo = $this->getDados('modulo');
-$acoes = Acao::listarPorModulo($modulo); 
+$acoes = Acao::listarPorModulo($modulo->getId()); 
 
 ?>
 <div class="wrap">
@@ -33,13 +33,15 @@ $acoes = Acao::listarPorModulo($modulo);
                                     <li style="background:#f5f5f5;">
                                         <strong>Ações deste módulo:</strong><br />
 									</li>
+									<li>
+									<strong>Nome / código da ação</strong><br />
+									</li>
                                         <?php 
                                         
                                         	foreach ($acoes as $acao) {
                                         
 											?>
-												<li>
-                                        			<strong>Nome / código da ação</strong><br />
+												<li>                                        			
                                         			<?php echo $acao->getNome()." / ".$acao->getCodigoAcao(); ?>
                                     			</li>
                                     			

@@ -9,7 +9,7 @@ class ClienteControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 4;
+    const MODULO = 5;
 
     /**
      * Acao index()

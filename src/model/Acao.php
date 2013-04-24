@@ -125,6 +125,7 @@ class Acao {
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = AcaoDAO::getInstancia();
     	// executando o metodo //
+    	
     	$obj = $instancia->excluir($this->getId());
     	// retornando o resultado //
     	return $obj;
@@ -201,6 +202,10 @@ class Acao {
 			return false;
 		}
 			
+		
+		if(($modulo == 5)&&($codigoAcao==1)){
+			$acoesPerfilUsuarioLogado;
+		}
 		
 		//echo '<pre>';
 		

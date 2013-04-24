@@ -86,7 +86,7 @@
 				$where[] = " a.id_modulo = '".$modulo."' ";
 			$where = (count($where) ? ' WHERE ' . implode(' AND ',$where) : '');	
 			// INSTRUCAO SQL //
-			$sql = "SELECT a.* FROM " . self::TABELA . " a " . @$where;                        
+			$sql = "SELECT a.* FROM " . self::TABELA . " a " . @$where. "and a.excluido = '0' ";                        
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
@@ -107,7 +107,7 @@
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a "
 							   . @$where .
-							   " ORDER BY a.nome";
+							   " and a.excluido = '0' ORDER BY a.nome";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetchAll($sql);
 			// RETORNANDO O RESULTADO //
@@ -117,28 +117,23 @@
 		
 		
 		
-		public function listarPorModulo($idModulo){
+		public function listarPorModulo ($idModulo){
 			// FILTRO //
 			
 			// INSTRUCAO SQL //
-			$sql = "SELECT a.* FROM " . self::TABELA . " a "
-					.
-					"where a.id_modulo = '$idModulo' ORDER BY a.codigo_acao";
+			$sql = "SELECT a.* FROM " . self::TABELA . " a 
+					where a.id_modulo = '".$idModulo."' and a.excluido = '0' ORDER BY a.codigo_acao";
 			
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetchAll($sql);
 			// RETORNANDO O RESULTADO //
 			return $resultado;
 		}
-		
-		
-		
-		
 		
 		public function buscarNomeAcao($nome, $modulo){			
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a 
-					where a.nome = '".$nome."' and a.id_modulo = '".$modulo."'";
+					where a.nome = '".$nome."' and a.id_modulo = '".$modulo."' and a.excluido = '0'";
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
@@ -149,7 +144,7 @@
 		public function buscarCodigoAcao($codigoAcao, $modulo){
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a
-					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."'";
+					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."' and a.excluido = '0'";
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
@@ -161,7 +156,7 @@
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a
 					where a.nome = '".$nome."' and a.id_modulo = '".$modulo."' and
-							a.id <>'".$id."' ";
+							a.id <>'".$id."' and a.excluido = '0' ";
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
 			// RETORNANDO O RESULTADO //
@@ -173,7 +168,7 @@
 			// INSTRUCAO SQL //
 			$sql = "SELECT a.* FROM " . self::TABELA . " a
 					where a.codigo_acao = '".$codigoAcao."' and a.id_modulo = '".$modulo."' and
-							a.id <>'".$id."' ";
+							a.id <>'".$id."' and a.excluido = '0' ";
 			
 			// EXECUTANDO A SQL //
 			$resultado = $this->conexao->fetch($sql);
