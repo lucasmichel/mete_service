@@ -33,6 +33,7 @@ $modulo = $this->getDados('modulo');
         <div class="clear"> </div>
         <div class="box-content">
             <div class="box">
+            <span>Ações do Módulo: <?php echo $modulo->getNome();?></span>
                 <?php
                 /**
                  * Persistindo em listar os usuários
@@ -43,10 +44,10 @@ $modulo = $this->getDados('modulo');
 					{
 					?>
                     
-                    <span>Ações do Módulo: <?php echo $modulo->getNome();?>
+                    
                     <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId(); ?> >
                     	Adicionar ação
-                    </a></span>
+                    </a>
                    	<?php 
                    	}
                    	$objetos = Acao::listarPorModulo($modulo->getId());
@@ -85,14 +86,18 @@ $modulo = $this->getDados('modulo');
                                             <?php
                                             }
                                             if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
+												if($modulo->getId() > 3 ){
 											?>
                                                 <a href="modulo/acaoEditar/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Editar</a>
                                             <?php
+                                            	}
                                             }
                                             if (Acao::checarPermissao(8, ModuloControll::MODULO)) {
+												if($modulo->getId() > 3 ){
 											?>    
                                                 <a href="modulo/acaoExcluir/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Excluir</a>
                                             <?php
+                                            	}
                                             }
                                             ?>
                                         </td>
