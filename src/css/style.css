@@ -1,0 +1,471 @@
+﻿@charset "utf-8";
+/*
+Description: Casa de Farinha
+Version: 0.1 Microformats
+Author: Idealizza | contato AT idealizza.com.br
+Author URI: http://www.idealizza.com.br
+*/
+
+/* Reset browser defaults */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,a{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	font-style:none;
+	text-decoration:none;
+	border-collapse: collapse;
+}
+p, li, dl, dd, dt {
+line-height:140%;
+}
+
+body.admin {
+min-width:785px;
+}
+
+body, #wpbody, .form-table .pre {
+color:#333333;
+}
+
+body, textarea {
+line-height:1.4em;
+}
+
+body, td, textarea, input, select {
+font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+font-size:13px;
+color:#000;
+background:#FFF;
+}
+h1{
+color:#820c08;
+vertical-align:middle;
+padding:15px;
+}
+input[disabled] {
+	background-color: #ddd;
+}
+#wrap {
+	height:auto;
+	min-height:100%;
+	width:100%;
+	
+}
+#content {
+	height:100%;
+	padding-bottom:50px;
+}
+#head{
+	height:50px;
+	background:#FFF;
+	border-bottom:1px solid #f2ae03;
+}
+#head img{
+	float:left;
+	padding-left:20px;
+	vertical-align:middle;
+}
+#head h1 {
+	-x-system-font:none;
+	float:left;
+	font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font-size:22px;
+	margin:0;
+	padding:15px 8px 5px;
+}
+#head-info {
+	margin:0 0 0 15px;
+	padding-right:15px;
+	vertical-align:middle;
+}
+#user_info{
+	color:#999999;
+	float:right;
+	font-size:12px;
+	height:46px;
+	line-height:46px;
+}
+#user_info a{
+	color:#999999;
+}
+
+#user_info .profile {
+	color:#f2ae03;
+}
+#main{
+	clear:both;
+	margin-left:175px;
+}
+#popup{
+	width:100%;
+	min-height:20px;
+}
+#flash{
+	background:#FFFFCF;
+	margin:0 auto;
+	width:500px;
+	text-align:center;
+}
+#user-login{
+	float:right;
+	margin:20px;
+	background:#F1F1F1;
+	padding:10px;
+	font-weight:bold;
+	color:#333333;
+}
+#user-login li{
+	list-style:none;
+	clear:both;
+	
+}
+#user-login label{
+	display:block;
+	padding-left:5px;
+}
+
+.clear {
+	clear:both;
+	
+}
+#nav a.menu-top {
+-moz-border-radius-topleft:6px;
+-moz-border-radius-topright:6px;
+border-style:solid solid none;
+border-width:1px 1px 0;
+}
+
+#nav {
+	clear:left;
+	float:left;
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin:15px 5px 15px -160px;
+	padding:0;
+	position:relative;
+	width:145px;
+}
+#nav li.menu-top-first {
+	min-height:26px;
+}
+#nav li {
+	cursor:pointer;
+	margin:0;
+	padding:0;
+}
+
+#nav * {
+    border-color:#820c08;
+}
+#nav .menu-image{
+	background:#000;
+	width:20px;
+	height:20px;
+	margin:5px 3px 3px 3px;
+	float:left;
+}
+#nav .menu-toggle {
+clear:right;
+cursor:default;
+float:right;
+height:27px;
+margin:1px 0 0;
+padding:1px 2px 0 0;
+width:22px;
+}
+#nav a.menu-top-first  {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#F1F1F1 -379px;
+}
+
+#nav a.menu-top-first {
+border-style:solid solid none;
+border-width:1px 1px 0;
+line-height:18px;
+min-width:10em;
+padding:5px;
+}
+
+#nav a.menu-top-first{
+-x-system-font:none;
+font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+font-size:13px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:18px;
+}
+#nav  a.menu-botton {
+-moz-border-radius-bottomright:6px;
+border-style:solid;
+border-width:1px;
+}
+#nav .menu-top-first a.menu-top {
+-moz-border-radius-topleft:6px;
+-moz-border-radius-topright:6px;
+border-style:solid solid none;
+border-width:1px 1px 0;
+}
+#nav a {
+display:block;
+line-height:18px;
+padding:1px 5px 3px;
+color:#000;
+}
+#main-content{
+	float:left;
+	width:100%;
+}
+#main-content select{
+	padding:3px;
+}
+textarea, input, select {
+	margin:5px;
+	padding:3px;
+}
+input[type="button"]{
+	padding:3px;
+}
+input, select {
+	line-height:1em;
+}
+#icon-index {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+/* background:transparent url(../images/icons.png) no-repeat scroll -137px -5px; */
+background:#000;
+}
+.icon32 {
+float:left;
+height:36px;
+margin:0 6px 0 0;
+width:36px;
+}
+.wrap{
+margin:14px 15px 0 5px;
+}
+.wrap h2 {
+color:#464646;
+}
+
+.wrap h2 {
+-x-system-font:none;
+font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+font-size:24px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:italic;
+font-variant:normal;
+font-weight:normal;
+line-height:35px;
+margin:0;
+padding:0 15px 3px 0;
+text-shadow:0 1px 0 #FFFFFF;
+}
+
+h2 {
+display:block;
+font-size:1.5em;
+font-weight:bold;
+margin:0.83em 0;
+}
+box h3 {
+color:#464646;
+}
+.filtros{
+	clear:both;
+	float:left;
+	padding:2px 8px 10px 0;
+}
+.metabox{
+	height:2px;
+	background:#000;
+	margin:10px 0 10px 0;
+}
+.select-all{
+	float:left;
+}
+.box .hndle {
+	background:#DFDFDF;
+	height:23px;
+}
+
+.box h3, .stuffbox h3 {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#DFDFDF url(../images/top-box.png) repeat-x scroll left top;
+text-shadow:0 1px 0 #FFFFFF;
+padding:2px 2px 2px 5px ;
+}
+
+.box {
+	min-width:650px;
+	position:relative;
+	width:100%;
+}
+.inside{
+	background:#F1F1F1;
+	padding:5px;
+	
+}
+.table{
+
+}
+.table a{
+	color:#000;
+}
+table.fixed {
+table-layout:fixed;
+}
+.table{
+	-moz-border-radius-topleft:6px;
+	-moz-border-radius-topright:6px;
+	background-color:#FFFFFF;
+	border-color:#DFDFDF;
+	border-style:solid;
+	border-width:1px;
+	clear:both;
+	margin:0;
+	
+}
+table thead{
+	background:#DFDFDF url(../images/top-box.png) repeat-x scroll left top;
+	height:25px;
+}
+table tbody{
+	background:#F1F1F1;
+}
+textarea, input, select {
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+border-style:solid;
+border-width:1px;
+}
+.inside fieldset{
+	border-bottom: 1px solid #CFCFCF;
+	margin-top:5px;
+	padding-bottom:5px;
+}
+legend{
+	font-weight:bold;
+	padding-left:5px;
+}
+.list-cadastro li{
+	display:block;
+	list-style:none;
+	
+}
+
+.list-cadastro label{
+	display:block;
+	padding:0 0 0 5px;
+	
+}
+
+.list-cadastro-right li{
+	display:inline-block;
+	list-style:none;
+	
+	
+
+}
+
+.list-cadastro-right label{
+	display:block;
+	padding:0 0 0 5px;
+	
+}
+
+#bts{
+	
+}
+#bts li{
+	display:inline;
+	list-style:none;
+}
+.bts{
+	background:#000;
+	color:#EEEEEE;
+	border:#EEEEEE;
+	cursor:pointer;
+}
+.border{
+	-moz-border-radius-topright:6px;
+	-moz-border-radius-topleft:6px;
+	-moz-border-radius-bottomright:6px;
+	text-shadow:0 1px 0 #FFFFFF;
+	min-height:25px;
+}
+.table-footer{
+	-moz-border-radius-bottomright:6px;
+	background:#DFDFDF url(../images/top-box.png) repeat-x scroll left top;
+	text-shadow:0 1px 0 #FFFFFF;
+	height:25px;
+}
+.page{
+	margin:0 auto;
+	text-align:center;
+	width:400px;
+	display:block;
+	padding-top:4px;
+}
+.conteudo-refeicao p{
+	font-size:9px;
+}
+
+
+
+
+
+
+.classBt {
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
+	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
+	background-color:#b8e356;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #86ae47;
+	margin-bottom: 5px;
+}.classBt:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356) );
+	background:-moz-linear-gradient( center top, #a5cc52 5%, #b8e356 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356');
+	background-color:#a5cc52;
+}.classBt:active {
+	position:relative;
+	top:1px;
+}
+/* This imageless css button was generated by CSSButtonGenerator.com */
