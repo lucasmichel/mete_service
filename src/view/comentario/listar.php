@@ -1,10 +1,9 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
-$modulo = $this->getDados('comentario');
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -38,31 +37,17 @@ $modulo = $this->getDados('comentario');
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Acao::listarPorModulo($modulo);
+                    $objetos = Cliente::listar("nome");
                     $paginacao = new Paginacao($objetos, 20);
-                    
-
-                    
-                    if(Acao::checarPermissao(6, ComentarioControll::MODULO))
-                    {
                     ?>
-                    
-                    <span>Ações do Módulo: <?php echo $modulo->getNome();?>
-                    <a class="classBt" href=modulo/acaoAdd/<?php echo $modulo->getId(); ?> >
-                    	Adicionar ação
-                    </a></span>
-                   <?php 
-                   }
-                   ?>
-                    
                     <div class="table">
                         <table id="lista" class="widefat fixed">
                             <thead>
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome da ação</th>
-                                    <th width="28%" align="left">Código da ação</th>
+                                    <th width="28%" align="left">Nome</th>
+                                    <th width="28%" align="left">Email</th>
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
@@ -76,24 +61,24 @@ $modulo = $this->getDados('comentario');
                                         </th>
                                         <td width="1%"></td>
                                         <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getCodigoAcao(); ?></td>
+                                        <td width="28%" align="left">
+                                        <?php
+                                        $usuario = Usuario::buscar($objeto->getUsuarioId()); 
+                                        	echo $usuario->getEmail(); 
+                                        ?>
+                                        </td>
                                         
-                                        
-                                        <td width="20%">
-                                        	<?php                                        	
-                                            if (Acao::checarPermissao(5, ModuloControll::MODULO)) {
-											?>
-                                            	<a href="comentario/acaoVer/<?php echo $objeto->getCodigoAcao(); ?>">Ver</a> 
+                                        <td width="20%">						
+                                            <a href="cliente/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                            <?php
+                                            if (Acao::checarPermissao(3, ClienteControll::MODULO)) {
+                                            ?>
+                                                <a href="cliente/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(7, ModuloControll::MODULO)) {
-											?>
-                                                <a href="comentario/acaoEditar/<?php echo $objeto->getCodigoAcao();?>/<?php echo $modulo->getId(); ?>">Editar</a>
-                                            <?php
-                                            }
-                                            if (Acao::checarPermissao(8, ModuloControll::MODULO)) {
-											?>    
-                                                <a href="comentario/acaoExcluir/<?php echo $objeto->getCodigoAcao(); ?>">Excluir</a>
+                                            if (Acao::checarPermissao(4, ClienteControll::MODULO)) {
+                                            ?>    
+                                                <a href="cliente/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>
@@ -109,14 +94,14 @@ $modulo = $this->getDados('comentario');
                         <span class="page"><?php echo $paginacao->getLinks(); ?></span>
                     </div>
                     <?php
-                } catch (Exception $e) {
-                    ?>
-                    <div class="exception">
-                        <?php echo $e->getMessage(); ?>
-                    </div>
-                    <?php
-                }
-                ?>
+	                } catch (Exception $e) {
+	                    ?>
+	                    <div class="exception">
+	                        <?php echo $e->getMessage(); ?>
+	                    </div>
+	                    <?php
+	                }
+	                ?>
             </div> <!--fim div box-->
         </div> <!--fim div box-content-->
     </div><!--fim div dashboard-wrap-->
