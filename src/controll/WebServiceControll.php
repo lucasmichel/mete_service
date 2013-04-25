@@ -5,7 +5,10 @@ class WebServiceControll extends Controll{
 	
 	
 	private function objectToArray ($object) {
-		if ( count($object) > 1 ) {
+		
+		return (array) $object;
+		
+		/*if ( count($object) > 1 ) {
 			$arr = array();
 			for ( $i = 0; $i < count($object); $i++ ) {
 				$arr[] = get_object_vars($object[$i]);
@@ -23,7 +26,7 @@ class WebServiceControll extends Controll{
 			meuVarDump(get_object_vars($object));
 			
 			return get_object_vars($object);
-		}
+		}*/
 	}
 	
 	private function retorno($arrayRetorno){
@@ -31,6 +34,7 @@ class WebServiceControll extends Controll{
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
 		$retorno = base64_encode(json_encode($arrayRetorno));
+		//$retorno = json_encode($arrayRetorno);
 		echo $retorno;
 	}
 	
@@ -57,11 +61,12 @@ class WebServiceControll extends Controll{
 	
 	public function _cadastrarAcompanhante($dados) {
 		try {	
-			$encoded = $this->descriptografarTexto($dados);
-						
-			$status = $encoded["status"];
-			//$menssagem = $encoded["mensagem"];			
-			$encoded = $encoded["dados"][0];
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+				
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
 	
 			$perfil = Perfil::buscar(3);
 	
@@ -69,22 +74,23 @@ class WebServiceControll extends Controll{
 			$acompanhante = new Acompanhante();
 	
 			$usuario->setPerfil($perfil);
-			$usuario->setLogin(trim($encoded->{'email'}));
-			$usuario->setSenha(trim($encoded->{'senha'}));
-			$usuario->setEmail(trim($encoded->{'email'}));
+			$usuario->setLogin(trim($atributoDados['email']));
+			$usuario->setSenha(trim($atributoDados['senha']));
+			$usuario->setEmail(trim($atributoDados['email']));
 	
-			$acompanhante->setNome(trim($encoded->{'nome'}));
-			$acompanhante->setIdade(trim($encoded->{'idade'}));
-			$acompanhante->setAltura(trim($encoded->{'altura'}));
-			$acompanhante->setPeso(trim($encoded->{'peso'}));
-			$acompanhante->setBusto(trim($encoded->{'busto'}));
-			$acompanhante->setCintura(trim($encoded->{'cintura'}));
-			$acompanhante->setQuadril(trim($encoded->{'quadril'}));
-			$acompanhante->setOlhos(trim($encoded->{'olhos'}));
-			$acompanhante->setPernoite(trim($encoded->{'pernoite'}));
-			$acompanhante->setAtendo(trim($encoded->{'atendo'}));
-			$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
-			$acompanhante->setHorarioAtendimento(trim($encoded->{'horarioAtendimento'}));
+			$acompanhante->setNome(trim($atributoDados['nome']));
+			$acompanhante->setIdade(trim($atributoDados['idade']));
+			$acompanhante->setAltura(trim($atributoDados['altura']));
+			$acompanhante->setPeso(trim($atributoDados['peso']));
+			
+			$acompanhante->setBusto(trim($atributoDados['busto']));
+			$acompanhante->setCintura(trim($atributoDados['cintura']));
+			$acompanhante->setQuadril(trim($atributoDados['quadril']));
+			$acompanhante->setOlhos(trim($atributoDados['olhos']));
+			$acompanhante->setPernoite(trim($atributoDados['pernoite']));
+			$acompanhante->setAtendo(trim($atributoDados['atendo']));
+			$acompanhante->setEspecialidade(trim($atributoDados['especialidade']));
+			$acompanhante->setHorarioAtendimento(trim($atributoDados['horarioAtendimento']));
 			$acompanhante->setExcluido(0);
 	
 	
@@ -105,7 +111,10 @@ class WebServiceControll extends Controll{
 				$acompanhante = $acompanhante->inserir();
 			}
 			
-			$arrayRetorno = $this->preencherArray($acompanhante, 0, "Acompanhante cadastrada com suceso");
+			$retornoDados[] = $acompanhante;
+			$retornoDados[] = $usuario;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante cadastrada com suceso");
 			
 			$this->retorno($arrayRetorno);
 		}
@@ -125,31 +134,37 @@ class WebServiceControll extends Controll{
 		 
 		try {
 	
-			$encoded = $this->descriptografarTexto($dados);
 			
-			$encoded = $encoded[$this->$dat][0];
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+				
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
+			
 	
 			$usuario = new Usuario();
 			$acompanhante = new Acompanhante();
 	
-			$usuario->setId(trim($encoded->{'idUsuario'}));
-			$usuario->setLogin(trim($encoded->{'email'}));
-			$usuario->setSenha(trim($encoded->{'senha'}));
-			$usuario->setEmail(trim($encoded->{'email'}));
+			$usuario->setId(trim($atributoDados['idUsuario']));
+			$usuario->setLogin(trim($atributoDados['email']));
+			$usuario->setSenha(trim($atributoDados['senha']));
+			$usuario->setEmail(trim($atributoDados['email']));
 	
-			$acompanhante->setId(trim($encoded->{'id'}));
-			$acompanhante->setNome(trim($encoded->{'nome'}));
-			$acompanhante->setIdade(trim($encoded->{'idade'}));
-			$acompanhante->setAltura(trim($encoded->{'altura'}));
-			$acompanhante->setPeso(trim($encoded->{'peso'}));
-			$acompanhante->setBusto(trim($encoded->{'busto'}));
-			$acompanhante->setCintura(trim($encoded->{'cintura'}));
-			$acompanhante->setQuadril(trim($encoded->{'quadril'}));
-			$acompanhante->setOlhos(trim($encoded->{'olhos'}));
-			$acompanhante->setPernoite(trim($encoded->{'pernoite'}));
-			$acompanhante->setAtendo(trim($encoded->{'atendo'}));
-			$acompanhante->setEspecialidade(trim($encoded->{'especialidade'}));
-			$acompanhante->setHorarioAtendimento(trim($encoded->{'horario_atendimento'}));
+			$acompanhante->setId(trim($atributoDados['id']));
+			$acompanhante->setNome(trim($atributoDados['nome']));
+			$acompanhante->setIdade(trim($atributoDados['idade']));
+			$acompanhante->setAltura(trim($atributoDados['altura']));
+			$acompanhante->setPeso(trim($atributoDados['peso']));
+			$acompanhante->setBusto(trim($atributoDados['busto']));
+			$acompanhante->setCintura(trim($atributoDados['cintura']));
+			$acompanhante->setQuadril(trim($atributoDados['quadril']));
+			$acompanhante->setOlhos(trim($atributoDados['olhos']));
+			$acompanhante->setPernoite(trim($atributoDados['pernoite']));
+			$acompanhante->setAtendo(trim($atributoDados['atendo']));
+			$acompanhante->setEspecialidade(trim($atributoDados['especialidade']));
+			$acompanhante->setHorarioAtendimento(trim($atributoDados['horario_atendimento']));
 	
 			if($usuario->_validarCampos())
 				$insert = true;
@@ -165,8 +180,11 @@ class WebServiceControll extends Controll{
 				$usuario = $usuario->editar();
 				$acompanhante = $acompanhante->editar();
 			}
+
+			$retornoDados[] = $acompanhante;
+			$retornoDados[] = $usuario;
 			
-			$arrayRetorno = $this->preencherArray($acompanhante, 0, "Acompanhante editada com suceso");
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante editada com suceso");
 			
 			$this->retorno($arrayRetorno);
 			
@@ -180,18 +198,22 @@ class WebServiceControll extends Controll{
 	
 	public function _excluirAcompanhante($dados) {
 		try {
-			$encoded = $this->descriptografarTexto($dados);
-			$encoded = $encoded["dados"][0];
-				
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+			
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+
+
+			
 			$acompanhante = new Acompanhante();
-			$acompanhante = $acompanhante->buscar($encoded->{'id'});
+			$acompanhante = $acompanhante->buscar($atributoDados['id']);
 			$acompanhante = $acompanhante->excluir();
 			
-			$arrayRetorno[$this->$dat] = null;
-			$arrayRetorno[$this->$sts] = 0;
-			$arrayRetorno[$this->$msg] = "Acompanhante excluída com sucesso!";
+			$retornoDados[] = $acompanhante;
 			
-			$arrayRetorno = $this->preencherArray(null, 0, "Acompanhante excluída com sucesso!");
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante excluída com sucesso!");
 			
 			$this->retorno($arrayRetorno);
 	
@@ -205,12 +227,22 @@ class WebServiceControll extends Controll{
 	
 	public function _buscarAcompanhantePorId($dados) {
 		try {
-			$encoded = $this->descriptografarTexto($dados);
-			$encoded = $encoded["dados"][0];
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+			
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
 				
 			$acompanhante = new Acompanhante();
+			$acompanhante = $acompanhante->buscar($atributoDados['id']);
 			
-			$arrayRetorno = $this->preencherArray($acompanhante->buscar($encoded->{'id'}), 0, "Acompanhante localizada!");
+			$usuario = Usuario::buscar($acompanhante->getUsuarioId());
+			
+			$retornoDados[] = $cliente;
+			$retornoDados[] = $usuario;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
 			$this->retorno($arrayRetorno);
 	
@@ -254,19 +286,26 @@ class WebServiceControll extends Controll{
 		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
 		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
 		try {
-			$encoded = $this->descriptografarTexto($dados);			
-			$encoded = $encoded["dados"][0];
+			
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+			
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
 			$perfil = Perfil::buscar(2);
 			$usuario = new Usuario();
 			$cliente = new Cliente();
 				
 			$usuario->setPerfil($perfil);
-			$usuario->setLogin(trim($encoded->{'email'}));
-			$usuario->setSenha(trim($encoded->{'senha'}));
-			$usuario->setEmail(trim($encoded->{'email'}));
-				
-			$cliente->setCpf(trim($encoded->{'cpf'}));
-			$cliente->setNome(trim($encoded->{'nome'}));
+			$usuario->setLogin(trim($atributoDados['email']));
+			$usuario->setSenha(trim($atributoDados['senha']));
+			$usuario->setEmail(trim($atributoDados['email']));
+	
+			
+			$cliente->setCpf(trim($atributoDados['cpf']));
+			$cliente->setNome(trim($atributoDados['nome']));
 			$cliente->setExcluido(0);
 				
 			if($usuario->_validarCampos())
@@ -286,7 +325,10 @@ class WebServiceControll extends Controll{
 				$cliente = $cliente->inserir();
 			}
 			
-			$arrayRetorno = $this->preencherArray($cliente, 0, "Cliente cadastrado com suceso");
+			$retornoDados[] = $cliente;
+			$retornoDados[] = $usuario;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente cadastrado com suceso");
 			
 			$this->retorno($arrayRetorno);
 		}
@@ -306,20 +348,24 @@ class WebServiceControll extends Controll{
 		 
 		try {
 	
-			$encoded = $this->descriptografarTexto($dados);
-			$encoded = $encoded["dados"][0];
-	
-			$perfil = Perfil::buscar(2);
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+			
+			
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
 			$usuario = new Usuario();
 			$cliente = new Cliente();
-			$usuario->setId(trim($encoded->{'idUsuario'}));
-			$usuario->setLogin(trim($encoded->{'email'}));
-			$usuario->setSenha(trim($encoded->{'senha'}));
-			$usuario->setEmail(trim($encoded->{'email'}));
+			$usuario->setId(trim($atributoDados['idUsuario']));
+			$usuario->setLogin(trim($atributoDados['email']));
+			$usuario->setSenha(trim($atributoDados['senha']));
+			$usuario->setEmail(trim($atributoDados['email']));
 	
-			$cliente->setId(trim($encoded->{'id'}));
-			$cliente->setCpf(trim($encoded->{'cpf'}));
-			$cliente->setNome(trim($encoded->{'nome'}));
+			$cliente->setId(trim($atributoDados['id']));
+			$cliente->setCpf(trim($atributoDados['cpf']));
+			$cliente->setNome(trim($atributoDados['nome']));
 			 
 			if($usuario->_validarCampos())
 				$insert = true;
@@ -336,8 +382,9 @@ class WebServiceControll extends Controll{
 				$cliente = $cliente->editar();
 			}
 			
-			
-			$arrayRetorno = $this->preencherArray($cliente, 0, "Cliente editado com suceso");
+			$retornoDados[] = $cliente;
+			$retornoDados[] = $usuario;
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente editado com suceso");
 			
 			
 			$this->retorno($arrayRetorno);
@@ -350,16 +397,30 @@ class WebServiceControll extends Controll{
 	
 	public function _excluirCliente($dados) {
 		try {
-			$encoded = $this->descriptografarTexto($dados);
-			$encoded = $encoded["dados"][0];
-						
+			
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+			
+			//meuVarDump($encoded);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			//$to = count($encoded["dados"]);
+			//meuVarDump($to);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			
+			
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
 			$cliente = new Cliente();
-			$cliente = $cliente->buscar($encoded->{'id'});			
+			$cliente = $cliente->buscar($atributoDados['id']);
 			$cliente = $cliente->excluir();
 			
-			$arrayRetorno = $this->preencherArray(null, 0, "Cliente excluído com sucesso!");
-			
+			$retornoDados[] = $cliente;
+				
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
 			$this->retorno($arrayRetorno);
+			
 	
 		} catch (Exception $e) {
 						
@@ -370,12 +431,30 @@ class WebServiceControll extends Controll{
 	
 	public function _buscarClientePorId($dados) {
 		try {
-			$encoded = $this->descriptografarTexto($dados);
-			$encoded = $encoded["dados"][0];
-	
-			$cliente = new Cliente();
 			
-			$arrayRetorno = $this->preencherArray($cliente->buscar($encoded->{'id'}), 0, "cliente localizado!");
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
+				
+			//meuVarDump($encoded);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			//$to = count($encoded["dados"]);
+			//meuVarDump($to);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+				
+				
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+
+			$cliente = new Cliente();
+			$cliente = $cliente->buscar($atributoDados['id']);
+			
+			$usuario = Usuario::buscar($cliente->getUsuarioId());
+			
+			$retornoDados[] = $cliente;
+			$retornoDados[] = $usuario;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
 			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
@@ -390,11 +469,25 @@ class WebServiceControll extends Controll{
 	public function _logarAndroid($dados) {
 		try {
 	
-			$jsonCriptografado = $dados['textoCriptografado'];
-			$jsonDescriptografado = base64_decode($jsonCriptografado);
-			$encoded = json_decode($jsonDescriptografado);
+			//$jsonCriptografado = $dados['textoCriptografado'];
+			$jsonDescriptografado = base64_decode($dados);
+			$encoded = json_decode($jsonDescriptografado, true);
 			
-			$arrayRetorno = $this->preencherArray(Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'})), 0, "OK");
+			//meuVarDump($encoded);			
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			//$to = count($encoded["dados"]);
+			//meuVarDump($to);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			
+			
+			$atributoDados = $encoded["dados"][0];			
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
+			$usuario = Usuario::logarAndroid($atributoDados['login'], $atributoDados['senha']);
+			$retornoDados[] = $usuario; 
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso!");			
 			$this->retorno($arrayRetorno);
 			
 		} catch (Exception $e) {

@@ -11,8 +11,8 @@ class DefaultControll extends Controll {
      * Acao index()
      */
     public function index() {
-        $this->setTela(($this->getUsuario()) ? 'home' : 'login');
-        //$this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
+        //$this->setTela(($this->getUsuario()) ? 'home' : 'login');
+        $this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
         $this->getPage();
     }
 
@@ -276,9 +276,31 @@ class DefaultControll extends Controll {
 
     private function _logarAndroid($dados) {
     	
+    	/*
+    	PARA TESTE
+    	meuVarDump($dados);    	
+    	 
+    	$usuarioinsercao[] = $dados;   	
+    	 
+    	$arrayRetorno["dados"] = $usuarioinsercao;
+    	$arrayRetorno["status"] = 0;
+    	$arrayRetorno["mensagem"] = 'ok';
+    	 
+    	meuVarDump(json_encode($arrayRetorno));
+    	meuVarDump(base64_encode(json_encode($arrayRetorno)));
+    	 
+    	$dadosTransferir = base64_encode(json_encode($arrayRetorno));
+    	 
+    	$dadosenvio['textoCriptografado'] = $dadosTransferir;
+    	 
+    	meuVarDump($dadosTransferir);
+    	 
+    	$executa = new WebServiceControll();
+    	$executa->_logarAndroid($dadosenvio);
+    	PARA TESTE
+    	*/
     	$executa = new WebServiceControll();
     	$executa->_logarAndroid($dados);
-    	
     }
     
 
