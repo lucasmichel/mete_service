@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Cliente::listar("nome");
+                    $objetos = Comentario::listar("nome");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -71,12 +71,12 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         <td width="20%">						
                                             <a href="cliente/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, ClienteControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
                                                 <a href="cliente/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, ClienteControll::MODULO)) {
+                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
                                             ?>    
                                                 <a href="cliente/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
