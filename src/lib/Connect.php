@@ -61,10 +61,10 @@
 		 * @param $sql
 		 * @return boolean
 		 */
-		private function _execQuery($sql){
+		private function _execQuery($sql){			
 			/**
 			 * Executando a sql
-			 */
+			 */			
 			$retorno = mysql_query($sql);
 			/**
 			 * Checando se a sql levantou algum erro
@@ -88,7 +88,7 @@
 		 * @param $sql
 		 * @return boolean
 		 */
-	   	public function exec($sql){
+	   	public function exec($sql){	   		
 			return $this->_execQuery($sql);
 		}
 		
@@ -106,8 +106,10 @@
 		 * @param $sql
 		 * @return fetch_assoc[]
 		 */
-		public function fetchAll($sql){
+		public function fetchAll($sql){			
+			
 			$exec = $this->exec($sql);
+			
 			while($item = mysql_fetch_assoc( $exec )){
 				$retorno[] = $item;
 			}

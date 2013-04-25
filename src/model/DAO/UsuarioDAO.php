@@ -82,7 +82,7 @@ class UsuarioDAO extends ClassDAO {
      */
     public function logar($login, $senha) {
         // INSTRUCAO SQL //
-        $sql = "SELECT u.* FROM " . self::TABELA . " u 
+                $sql = "SELECT u.* FROM " . self::TABELA . " u 
                         WHERE u.email = '" . $login . "' AND 
                         u.senha = '" . md5($senha) . "'";
         // EXECUTANDO A SQL //

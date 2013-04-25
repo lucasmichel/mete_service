@@ -94,14 +94,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                         <span class="page"><?php echo $paginacao->getLinks(); ?></span>
                     </div>
                     <?php
-                } catch (Exception $e) {
-                    ?>
-                    <div class="exception">
-                        <?php echo $e->getMessage(); ?>
-                    </div>
-                    <?php
-                }
-                ?>
+	                } catch (Exception $e) {
+	                    ?>
+	                    <div class="exception">
+	                        <?php echo $e->getMessage(); ?>
+	                    </div>
+	                    <?php
+	                }
+	                ?>
             </div> <!--fim div box-->
         </div> <!--fim div box-content-->
     </div><!--fim div dashboard-wrap-->

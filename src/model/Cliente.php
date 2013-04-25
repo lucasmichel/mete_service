@@ -101,7 +101,7 @@ class  Cliente{
 		return $cliente;
 	}
 
-	private function construirObjeto($dados){
+	private static function construirObjeto($dados){
 			
 		$cliente = new Cliente();
 		$cliente->setId($dados['id']);

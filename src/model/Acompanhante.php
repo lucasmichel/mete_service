@@ -268,7 +268,7 @@ class Acompanhante {
     }
     
     
-    private function construirObjeto($dados){
+    private static function construirObjeto($dados){
 		$acompanhante =	new Acompanhante();
 		$acompanhante->setId(trim($dados['id']));
     	$acompanhante->setNome(trim($dados['nome']));
