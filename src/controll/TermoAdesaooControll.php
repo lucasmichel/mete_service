@@ -8,7 +8,7 @@
  		// código da ação serve para o controle de acesso//
  		static $acao = 1;
  		// definindo a tela //
- 		$this->setTela('listar',array('termoServico'));
+ 		$this->setTela('listar',array('termoAdesao'));
  		// guardando a url //
  		$this->getPage();
  	}
@@ -19,8 +19,8 @@
  		// definindo a tela //
  	
  		$modulo = Modulo::buscar($id);
- 		$this->setDados($modulo,'termoServico');
- 		$this->setTela('ver',array('termoServico'));
+ 		$this->setDados($modulo,'termoAdesaoo');
+ 		$this->setTela('ver',array('termoAdesaoo'));
  		// guardando a url //
  		$this->getPage();
  	}
