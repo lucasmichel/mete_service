@@ -11,8 +11,8 @@ class DefaultControll extends Controll {
      * Acao index()
      */
     public function index() {
-        //$this->setTela(($this->getUsuario()) ? 'home' : 'login');
-        $this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
+        $this->setTela(($this->getUsuario()) ? 'home' : 'login');
+        //$this->setTela(($this->getUsuario()) ? 'home' : 'loginTesteAndroid');
         $this->getPage();
     }
 
