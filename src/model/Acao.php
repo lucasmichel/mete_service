@@ -173,6 +173,24 @@ class Acao {
 		return $objetos;
 	}
 	
+        
+        public static function listarPorModuloExclusaoModulo($idModulo){
+		$instancia = AcaoDAO::getInstancia();
+		$listaAcoes = $instancia->listarPorModulo($idModulo);
+		if($listaAcoes){
+	
+                    foreach($acoes as $acao){
+                            $objetos[] = self::construirObjeto($acao);
+                    }                    
+                    return $objetos;
+                }
+                else {
+                    return null;
+                }
+                
+	}
+        
+        
 	/**
 	 * Metodo buscar($codigoAcao,$modulo)
 	 * @param $codigoAcao
