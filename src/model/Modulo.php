@@ -124,6 +124,14 @@ class Modulo {
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = ModuloDAO::getInstancia();
     	// executando o metodo //
+        
+        //antes exclui as acoes e dpois o modulo
+        $listaAcoes = Acao::listarPorModulo($this->getId());
+        foreach ($listaAcoes as $acao) {
+            $acao->excluir();
+        }
+        
+        
     	$modulo = $instancia->excluir($this->getId());    	
     	// retornando o resultado //
     	return $modulo;

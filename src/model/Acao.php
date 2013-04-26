@@ -126,6 +126,9 @@ class Acao {
     	$instancia = AcaoDAO::getInstancia();
     	// executando o metodo //
     	
+        //primeiro exclui o relacionamento das acoes
+        $obj1 = $instancia->excluirRelacionamentoAcaoModuloPerfil($this);
+        
     	$obj = $instancia->excluir($this->getId());
     	// retornando o resultado //
     	return $obj;

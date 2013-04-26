@@ -176,5 +176,20 @@
 			return $resultado;
 		}
 		
+                
+		public function excluirRelacionamentoAcaoModuloPerfil(Acao $obj){
+                    
+            $sql = "DELETE from acoes_modulos_perfis WHERE
+            		 
+            id_modulo = '" . $obj->getModulo()->getId() . "' 
+            and codigo_acao = '".$obj->getCodigoAcao()."' ";
+            
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->fetch($sql);
+            // RETORNANDO O RESULTADO //
+        	return $resultado;
+                    
+        }
+                
 	}
 ?>
