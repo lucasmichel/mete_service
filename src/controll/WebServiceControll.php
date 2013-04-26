@@ -61,12 +61,13 @@ class WebServiceControll extends Controll{
 	
 	public function _cadastrarAcompanhante($dados) {
 		try {	
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-				
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
+			$atributoMensagem = $encoded["mensagem"];	
 	
 			$perfil = Perfil::buscar(3);
 	
@@ -133,11 +134,9 @@ class WebServiceControll extends Controll{
 	public function _editarAcompanhante($dados) {
 		 
 		try {
-	
-			
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-				
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
@@ -198,12 +197,12 @@ class WebServiceControll extends Controll{
 	
 	public function _excluirAcompanhante($dados) {
 		try {
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
+			$atributoMensagem = $encoded["mensagem"];	
 
 
 			
@@ -227,9 +226,9 @@ class WebServiceControll extends Controll{
 	
 	public function _buscarAcompanhantePorId($dados) {
 		try {
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
@@ -287,12 +286,12 @@ class WebServiceControll extends Controll{
 		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
 		try {
 			
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
+			$atributoMensagem = $encoded["mensagem"];	
 			
 			$perfil = Perfil::buscar(2);
 			$usuario = new Usuario();
@@ -348,13 +347,12 @@ class WebServiceControll extends Controll{
 		 
 		try {
 	
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
-			
-			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
+			$atributoMensagem = $encoded["mensagem"];	
 			
 			$usuario = new Usuario();
 			$cliente = new Cliente();
@@ -398,19 +396,18 @@ class WebServiceControll extends Controll{
 	public function _excluirCliente($dados) {
 		try {
 			
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
 			
 			//meuVarDump($encoded);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
 			//meuVarDump($to);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
-			
-			
-			$atributoDados = $encoded["dados"][0];
-			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
 			
 			$cliente = new Cliente();
 			$cliente = $cliente->buscar($atributoDados['id']);
@@ -432,19 +429,19 @@ class WebServiceControll extends Controll{
 	public function _buscarClientePorId($dados) {
 		try {
 			
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
 				
 			//meuVarDump($encoded);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
 			//meuVarDump($to);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
-				
-				
-			$atributoDados = $encoded["dados"][0];
-			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
+
 
 			$cliente = new Cliente();
 			$cliente = $cliente->buscar($atributoDados['id']);
@@ -469,20 +466,18 @@ class WebServiceControll extends Controll{
 	public function _logarAndroid($dados) {
 		try {
 	
-			//$jsonCriptografado = $dados['textoCriptografado'];
-			$jsonDescriptografado = base64_decode($dados);
-			$encoded = json_decode($jsonDescriptografado, true);
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
 			
 			//meuVarDump($encoded);			
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
 			//meuVarDump($to);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
-			
-			
-			$atributoDados = $encoded["dados"][0];			
-			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];
 			
 			$usuario = Usuario::logarAndroid($atributoDados['login'], $atributoDados['senha']);
 			$retornoDados[] = $usuario; 
@@ -518,8 +513,12 @@ class WebServiceControll extends Controll{
 	public function _cadastrarFoto($dados) {
 		try {
 	
-			$encoded = $this->descriptografarTextoTeste($dados);
-			$fotoDados = $encoded["dados"][0];
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
 				
 			$foto = new Fotos( );
 			$foto->setNome($fotoDados->{'photo'});

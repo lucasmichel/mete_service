@@ -54,7 +54,7 @@ class Usuario {
         	($this->getLogin() == '')||
             ($this->getEmail() == '')||
             ($this->getSenha() == null)){			
-            throw new CamposObrigatorios();
+            throw new CamposObrigatorios("usuario");
             $retorno = false;
 		}
 		else if($this->getId() == 0){

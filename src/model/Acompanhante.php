@@ -190,7 +190,7 @@ class Acompanhante {
     public function _validarCampos(){
     	$retorno = true;
     	if($this->getNome() == null){
-    		throw new CamposObrigatorios();
+    		throw new CamposObrigatorios("usuario");
     		$retorno = false;
     	}
     	else{
