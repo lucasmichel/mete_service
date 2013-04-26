@@ -41,8 +41,9 @@ class WebServiceControll extends Controll{
 	
 	private function preencherArray($dados, $status, $menssagem){
 		
-		$arrayDados = $this->objectToArray($dados);
-		$arrayRetorno["dados"] = $arrayDados;
+		//$arrayDados = $this->objectToArray($dados);
+                
+		$arrayRetorno["dados"] = $dados;
 		$arrayRetorno["status"] = $status;
 		$arrayRetorno["mensagem"] = $menssagem;
 		
@@ -112,9 +113,14 @@ class WebServiceControll extends Controll{
 				$acompanhante = $acompanhante->inserir();
 			}
 			
-			$retornoDados[] = $acompanhante;
-			$retornoDados[] = $usuario;
 			
+                        
+                        $retorno1 = (array) $acompanhante;
+                        $retorno2 = (array) $usuario;
+			
+                        $retornoDados[] = $retorno1;
+			$retornoDados[] = $retorno2;
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante cadastrada com suceso");
 			
 			$this->retorno($arrayRetorno);
@@ -141,8 +147,6 @@ class WebServiceControll extends Controll{
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
 			
-			
-	
 			$usuario = new Usuario();
 			$acompanhante = new Acompanhante();
 	
@@ -180,12 +184,13 @@ class WebServiceControll extends Controll{
 				$acompanhante = $acompanhante->editar();
 			}
 
-			$retornoDados[] = $acompanhante;
-			$retornoDados[] = $usuario;
-			
+                        $retornoDados[] = (array) $acompanhante;
+			$retornoDados[] = (array) $usuario;
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante editada com suceso");
 			
 			$this->retorno($arrayRetorno);
+                        
 			
 		} catch (Exception $e) {
 			
@@ -207,14 +212,16 @@ class WebServiceControll extends Controll{
 
 			
 			$acompanhante = new Acompanhante();
-			$acompanhante = $acompanhante->buscar($atributoDados['id']);
-			$acompanhante = $acompanhante->excluir();
+			$acompanhante2 = $acompanhante->buscar($atributoDados['id']);
+			$acompanhante3 = $acompanhante2->excluir();
 			
-			$retornoDados[] = $acompanhante;
+                        
+                        $retornoDados[] = (array) $acompanhante3;
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante excluída com sucesso!");
 			
 			$this->retorno($arrayRetorno);
+                        
 	
 		} catch (Exception $e) {
 			
@@ -234,16 +241,18 @@ class WebServiceControll extends Controll{
 			$atributoMensagem = $encoded["mensagem"];
 				
 			$acompanhante = new Acompanhante();
-			$acompanhante = $acompanhante->buscar($atributoDados['id']);
+			$acompanhante2 = $acompanhante->buscar($atributoDados['id']);
 			
 			$usuario = Usuario::buscar($acompanhante->getUsuarioId());
 			
-			$retornoDados[] = $cliente;
-			$retornoDados[] = $usuario;
+                        $retornoDados[] = (array) $acompanhante2;
+                        $retornoDados[] = (array) $usuario;
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
 			$this->retorno($arrayRetorno);
+                        
+			
 	
 		} catch (Exception $e) {
 			
@@ -257,9 +266,11 @@ class WebServiceControll extends Controll{
 		try {
 			$arrayRetornoLista = Acompanhante::listarParaWebService();			
 			
-			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "OK");
+                        $retornoDados[] =(array) $arrayRetornoLista;
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
 			$this->retorno($arrayRetorno);
+                        
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);
@@ -323,13 +334,16 @@ class WebServiceControll extends Controll{
 				$cliente->setUsuarioIdPerfil($usuario->getPerfil()->getId());
 				$cliente = $cliente->inserir();
 			}
-			
-			$retornoDados[] = $cliente;
-			$retornoDados[] = $usuario;
+                        
+                        
+                        $retornoDados[] = (array) $cliente;
+                        $retornoDados[] = (array) $usuario;
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente cadastrado com suceso");
 			
 			$this->retorno($arrayRetorno);
+			
+			
 		}
 		catch (Exception $e) {
 			
@@ -380,13 +394,13 @@ class WebServiceControll extends Controll{
 				$cliente = $cliente->editar();
 			}
 			
-			$retornoDados[] = $cliente;
-			$retornoDados[] = $usuario;
+                        $retornoDados[] = (array) $cliente;
+                        $retornoDados[] = (array) $usuario;
+			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente editado com suceso");
 			
-			
 			$this->retorno($arrayRetorno);
-	
+                        
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);
@@ -413,11 +427,11 @@ class WebServiceControll extends Controll{
 			$cliente = $cliente->buscar($atributoDados['id']);
 			$cliente = $cliente->excluir();
 			
-			$retornoDados[] = $cliente;
-				
+                        $retornoDados[] = (array) $cliente;
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
-			$this->retorno($arrayRetorno);
 			
+			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
 						
@@ -448,11 +462,14 @@ class WebServiceControll extends Controll{
 			
 			$usuario = Usuario::buscar($cliente->getUsuarioId());
 			
-			$retornoDados[] = $cliente;
-			$retornoDados[] = $usuario;
+                        
+                        $retornoDados[] = (array) $cliente;
+                        $retornoDados[] = (array) $usuario;
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
+			
 			$this->retorno($arrayRetorno);
+                        
 	
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
@@ -480,10 +497,13 @@ class WebServiceControll extends Controll{
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			
 			$usuario = Usuario::logarAndroid($atributoDados['login'], $atributoDados['senha']);
-			$retornoDados[] = $usuario; 
 			
-			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso!");			
+                        $retornoDados[] = (array) $usuario;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
+			
 			$this->retorno($arrayRetorno);
+			
 			
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
@@ -500,7 +520,9 @@ class WebServiceControll extends Controll{
 			
 			$arrayRetornoLista = Servico::listarParaWebService();
 			
-			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "OK");
+			$retornoDados[] = (array) $arrayRetornoLista;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
 			
 			$this->retorno($arrayRetorno);
 		} catch (Exception $e) {
@@ -524,10 +546,12 @@ class WebServiceControll extends Controll{
 			$foto->setNome($fotoDados->{'photo'});
 			$foto->setAcompanhanteId($fotoDados->{'id'});
 			
-			$arrayRetorno = $this->preencherArray($foto->inserir(), 0, "Foto cadastrada com suceso");
+                        
+                        $retornoDados[] = (array) $foto;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Foto cadastrada com suceso");
 			
 			$this->retorno($arrayRetorno);
-				
 		} catch (Exception $e) {			
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);
