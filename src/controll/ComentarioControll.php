@@ -5,6 +5,7 @@
  	 * Acao index()
  	 */
  	public function index(){
+ 		//meuVarDump("euuuu");
  		// código da ação serve para o controle de acesso//
  		static $acao = 1;
  		// definindo a tela //
