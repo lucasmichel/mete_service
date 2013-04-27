@@ -179,7 +179,7 @@ class Acao {
 		$listaAcoes = $instancia->listarPorModulo($idModulo);
 		if($listaAcoes){
 	
-                    foreach($acoes as $acao){
+                    foreach($listaAcoes as $acao){
                             $objetos[] = self::construirObjeto($acao);
                     }                    
                     return $objetos;

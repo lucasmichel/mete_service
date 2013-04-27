@@ -464,8 +464,7 @@ class WebServiceControll extends Controll{
 			
                         
                         $retornoDados[] = (array) $cliente;
-                        $retornoDados[] = (array) $usuario;
-			
+                        $retornoDados[] = (array) $usuario;	
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
 			
 			$this->retorno($arrayRetorno);
@@ -485,11 +484,12 @@ class WebServiceControll extends Controll{
 	
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
 			
+                        meuVarDump($atributoDados);
 			//meuVarDump($encoded);			
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
