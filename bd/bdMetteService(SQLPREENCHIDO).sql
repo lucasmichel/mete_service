@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Abr 28, 2013 as 06:44 PM
+-- Tempo de Geração: Abr 28, 2013 as 06:53 PM
 -- Versão do Servidor: 5.5.8
 -- Versão do PHP: 5.3.5
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `acoes` (
   `sub_menu` tinyint(4) NOT NULL,
   `excluido` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`,`id_modulo`,`codigo_acao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=37 ;
 
 --
 -- Extraindo dados da tabela `acoes`
@@ -71,7 +71,11 @@ INSERT INTO `acoes` (`id`, `id_modulo`, `codigo_acao`, `nome`, `sub_menu`, `excl
 (29, 5, 1, 'Visualizar', 0, 0),
 (30, 5, 2, 'Adicionar', 0, 0),
 (31, 5, 3, 'Editar', 0, 0),
-(32, 5, 4, 'Excluir', 0, 0);
+(32, 5, 4, 'Excluir', 0, 0),
+(33, 6, 1, 'Visualizar', 0, 0),
+(34, 6, 2, 'Adicionar', 0, 0),
+(35, 6, 3, 'Editar', 0, 0),
+(36, 6, 4, 'Excluir', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -104,14 +108,29 @@ INSERT INTO `acoes_modulos_perfis` (`id_perfil`, `id_modulo`, `codigo_acao`) VAL
 (1, 3, 3),
 (1, 3, 4),
 (1, 3, 5),
+(1, 3, 6),
+(1, 3, 7),
+(1, 3, 8),
 (1, 4, 1),
 (1, 4, 2),
 (1, 4, 3),
 (1, 4, 4),
+(1, 4, 5),
+(1, 4, 6),
+(1, 4, 7),
+(1, 4, 8),
+(1, 4, 9),
+(1, 4, 10),
+(1, 4, 11),
+(1, 4, 12),
 (1, 5, 1),
 (1, 5, 2),
 (1, 5, 3),
 (1, 5, 4),
+(1, 6, 1),
+(1, 6, 2),
+(1, 6, 3),
+(1, 6, 4),
 (2, 3, 1),
 (2, 4, 1),
 (2, 4, 2),
