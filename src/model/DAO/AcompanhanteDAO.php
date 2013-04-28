@@ -103,7 +103,19 @@ class AcompanhanteDAO extends ClassDAO {
         return $resultado;
     }
 
-    
+    /**
+     * Metodo buscarPorId($id)
+     * @param $id
+     * @return fetch_assoc
+     */
+    public function buscarPorIdUsuario($id) {
+        // INSTRUCAO SQL //
+        $sql = "SELECT u.* FROM " . self::TABELA . " u WHERE u.usuarios_id = '" . $id . "'";
+        // EXECUTANDO A SQL //
+        $resultado = $this->conexao->fetch($sql);
+        // RETORNANDO O RESULTADO //
+        return $resultado;
+    }
 
 
 }

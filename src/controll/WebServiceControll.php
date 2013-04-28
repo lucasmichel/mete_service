@@ -243,11 +243,39 @@ class WebServiceControll extends Controll{
 			$acompanhante = new Acompanhante();
 			$acompanhante2 = $acompanhante->buscar($atributoDados['id']);
 			
+                        $retornoDados[] = (array) $acompanhante2;
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
+			
+			$this->retorno($arrayRetorno);
+                        
+			
+	
+		} catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	}
+        
+        
+	public function _buscarAcompanhantePorIdUsuario($dados) {
+		try {
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+				
+			$acompanhante = new Acompanhante();
+			$acompanhante2 = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
+			
 			$usuario = Usuario::buscar($acompanhante->getUsuarioId());
 			
                         $retornoDados[] = (array) $acompanhante2;
-                        $retornoDados[] = (array) $usuario;
-			
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
 			$this->retorno($arrayRetorno);
@@ -477,6 +505,48 @@ class WebServiceControll extends Controll{
 	}
 	
 	
+        
+        
+        public function _buscarClientePorIdUsuario($dados) {
+		try {
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+				
+			//meuVarDump($encoded);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			//$to = count($encoded["dados"]);
+			//meuVarDump($to);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+
+
+			$clienteBusca = new Cliente();
+			$cliente = $clienteBusca->buscarPorIdUsuario($atributoDados['id']);
+			
+			
+			
+                        
+                        $retornoDados[] = (array) $cliente;
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
+			
+			$this->retorno($arrayRetorno);
+                        
+	
+		} catch (Exception $e) {
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+	}
+        
+        
+        
+        
+        
 	
 	
 	public function _logarAndroid($dados) {

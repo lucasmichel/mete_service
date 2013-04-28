@@ -157,6 +157,26 @@ class DefaultControll extends Controll {
     	$executa->_buscarAcompanhantePorId($dados);
     }
     
+    
+    public function buscarAcompanhantePorIdUsuario() {
+    	if ($this->getDados('POST')) {
+    		$this->_buscarAcompanhantePorIdUsuario($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('editarAcompanhante');
+    		$this->getPage();
+    	}
+    }
+    
+    private function _buscarAcompanhantePorIdUsuario($dados) {
+    	$executa = new WebServiceControll();
+    	$executa->_buscarAcompanhantePorIdUsuario($dados);
+    }
+    
+    
+    
+    
+    
     public function listarAcompanhante() {
     	$executa = new WebServiceControll();
     	$executa->listarAcompanhante();
@@ -220,9 +240,61 @@ class DefaultControll extends Controll {
     	$executa->_excluirCliente($dados);
     
     }
+    
+    
+    
+    public function buscarClientePorId() {
+    	if ($this->getDados('POST')) {
+    		$this->_buscarClientePorId($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }
+    
+    private function _buscarClientePorId($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_buscarClientePorId($dados);
+    
+    }
+    
+    
+    public function buscarClientePorIdUsuario() {
+    	if ($this->getDados('POST')) {
+    		$this->_buscarClientePorIdUsuario($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    private function _buscarClientePorIdUsuario($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_buscarClientePorIdUsuario($dados);
+    
+    }
     /******CLIENTE******/
     /******CLIENTE******/
     /******CLIENTE******/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /******FOTO******/
     /******FOTO******/

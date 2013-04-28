@@ -59,6 +59,20 @@ class  Cliente{
 		
 		return self::construirObjeto($cliente);
 	}
+        
+        
+        
+        
+        public static function buscarPorIdUsuario($id) {
+		$instancia = ClienteDAO::getInstancia();
+		$cliente = $instancia->buscarPorIdUsuario($id);
+		if (!$cliente)
+			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::CLIENTE);
+		
+		return self::construirObjeto($cliente);
+	}
+        
+        
 
 	public function inserir(){
 		// validando os campos //

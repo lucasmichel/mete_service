@@ -268,6 +268,21 @@ class Acompanhante {
     }
     
     
+    
+    public static function buscarPorIdUsuario($id){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = AcompanhanteDAO::getInstancia();
+    	// executando o metodo //
+    	$acompanhante = $instancia->buscarPorIdUsuario($id);
+    	// checando se o resultado foi falso //
+    	if(!$acompanhante)
+    		// levanto a excessao RegistroNaoEncontrado //
+    		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
+    	// instanciando e retornando o Usuario //    	
+    	return self::construirObjeto($acompanhante);
+    }
+    
+    
     private static function construirObjeto($dados){
 		$acompanhante =	new Acompanhante();
 		$acompanhante->setId(trim($dados['id']));
