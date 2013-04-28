@@ -11,7 +11,7 @@
  * @author kaykylopes
  */
 class FotoControll extends Controll{
-     const MODULO = 6;
+     const MODULO = 7;
 
     /**
      * Acao index()
