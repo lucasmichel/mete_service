@@ -21,6 +21,12 @@ $(document).ready(function($){
     	var senha = $.trim($("#senha").val());
     	var email = $.trim($("#email").val());
 
+        var perfil = "";
+                
+        $("select option:selected").each(function () {
+            perfil = $(this).text();
+        });
+                
     	
     	if(email.length <= 0){
         	alert('é necessário um email');
@@ -41,7 +47,7 @@ $(document).ready(function($){
             return false;
         }
         
-        else if($("#perfil").val()==""){
+        else if(perfil == "Selecione"){
             alert('é necessário definir o perfil');
             $("#perfil").focus();
             return false;

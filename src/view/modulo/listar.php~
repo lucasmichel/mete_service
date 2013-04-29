@@ -69,18 +69,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <?php
                                             }
                                             if (Acao::checarPermissao(3, ModuloControll::MODULO)) {
-												if($objeto->getId() > 3 ){
 											?>
                                                 <a href="modulo/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
-                                            	}
-											}
+                                            }
                                             if (Acao::checarPermissao(4, ModuloControll::MODULO)) {
-												if($objeto->getId() > 3 ){
 											?>    
                                                 <a href="modulo/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
-                                            	}
                                             }
                                             if (Acao::checarPermissao(5, ModuloControll::MODULO)) {
                                             ?>

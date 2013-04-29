@@ -49,7 +49,7 @@ $(document).ready(function($){
                                                             <li>
                                                                 <?php 
                                                                         try {
-                                                                                $acoes = Acao::listar($modulo->getId());
+                                                                                $acoes = Acao::listarPorModulo($modulo->getId());
                                                                                 foreach($acoes as $acao){
                                                                 ?>
                                                                     <ul>
