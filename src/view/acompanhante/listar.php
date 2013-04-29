@@ -93,7 +93,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             	<a href="acompanhante/servico/<?php echo $objeto->getId(); ?>">Serviços</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(6, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(9, AcompanhanteControll::MODULO)) {
                                             ?>
                                             	<a href="acompanhante/foto/<?php echo $objeto->getId(); ?>">Fotos</a>
                                             <?php

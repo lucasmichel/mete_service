@@ -37,7 +37,7 @@
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
-                                                                    
+
                                     <li>
                                         <label for="email">Foto</label>
                                         <!-- <input type="file" id="foto" name="foto" multiple accept="image/*"/>-->
@@ -45,9 +45,54 @@
                                     </li>
                                 </ul>
                             </fieldset>
+                        
+                        <br />
+                        
+                        
+                            
+                            <fieldset>
+                                <legend>Fotos existentes na galeria:</legend>
+
+                                <table width="550" border="0" align="center" cellspacing="0">
+                                    <tr>
+                                        <?
+                                        $cont = 0;
+                                        $contaLinha = 0;
+                                        
+                                        $fotos = Fotos::listarPorIdAcompanhante($acompanhante->getId());
+                                        
+                                        foreach ($fotos as $foto) {
+                                        
+                                            $contaLinha++;
+                                        ?>
+
+
+                                    <td>        
+
+                                        <p align="center"> 
+
+                                            <img src="img/fotos/<?php $foto->getNome();?>" width="150" height="150" />
+                                            <br />
+                                            <input type="checkbox" name="idFoto[]" value="<?php $foto->getId();?>" >Excluir foto?
+
+                                        </p>
+                                    </td>
+
+                                        <? 
+                                            if($contaLinha == 3){
+                                                echo'</tr><tr>';
+                                                $contaLinha=0;
+                                            }    $cont++;    
+                                        } 
+                                        ?>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                            
+                            
                             <ul id="bts">
                                 <li>
-                                    <input type="button" class="classBt" value=" OK " id="ok"/>
+                                    <input type="button" class="classBt" value=" Salvar alteração " id="ok"/>
                                 </li>
                             </ul>
                         </form>

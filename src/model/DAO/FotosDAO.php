@@ -107,6 +107,20 @@ class FotosDAO  extends ClassDAO{
     	return $resultado;
     }
     
+    
+    /**
+     * Metodo listar()
+     * @return fetch_assoc[]
+     */
+    public function listarPorIdAcompanhante($id) {  
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT * FROM " . self::TABELA . " f WHERE acompanhante_id = '" . $id . "' ";
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetchAll($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
+    
 }
 
 ?>

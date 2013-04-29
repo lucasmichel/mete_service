@@ -103,8 +103,30 @@ class Fotos {
             foreach($fotos as $fotos){
                     // instanciando e jogando dentro da colecao $objetos o Usuario //
                     $objetos[] = new Fotos($fotos['id'],
-                            Perfil::buscar($fotos['id_acompanhante']),
-                            $fotos['nome']                      
+                            $fotos['nome'],
+                            $fotos['excluido'],
+                            $fotos['acompanhante_id']
+                           );
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+     }
+     public static function listarPorIdAcompanhante($id){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = FotosDAO::getInstancia();
+            // executando o metodo //
+            $fotos = $instancia->listarPorIdAcompanhante($id);
+            // checando se o retorno foi falso //
+            if(!$fotos)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::FOTOS);
+            // percorrendo os usuarios //
+            foreach($fotos as $fotos){
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $objetos[] = new Fotos($fotos['id'],
+                            $fotos['nome'],
+                            $fotos['excluido'],
+                            $fotos['acompanhante_id']
                            );
             }
             // retornando a colecao $objetos //
@@ -123,9 +145,11 @@ class Fotos {
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::USUARIO);
             // instanciando e retornando o Usuario //
             
-            $a = new  Fotos($fotos['id'],
-                            Perfil::buscar($fotos['id_acompanhante']),
-                            $fotos['nome']);  
+            $a = new Fotos($fotos['id'],
+                            $fotos['nome'],
+                            $fotos['excluido'],
+                            $fotos['acompanhante_id']
+                           ); 
             return $a;
     }
 }
