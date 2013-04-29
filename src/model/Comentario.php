@@ -8,7 +8,7 @@ class  Comentario{
 	
 	public function __construct($id = 0, $comentario = '', $comentario_id = null, $cliente_id = null, $acompanhante_id = null) {
 		$this->id = $id;
-		$this->comentarioomentario = $comentario;
+		$this->comentario = $comentario;
 		$this->comentario_id = $comentario_id;
 		$this->cliente_id = $cliente_id;
 		$this->acompanhante_id = $acompanhante_id;

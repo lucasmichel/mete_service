@@ -70,7 +70,7 @@
 
  	public function buscar($id) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT c.* FROM " . self::TABELA . " c WHERE c.id = '" . $id . "'";
+ 		$sql = "SELECT c. * FROM " . self::TABELA . " c  WHERE c.id = '" . $id . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetch($sql);
  		// RETORNANDO O RESULTADO //
