@@ -1,10 +1,10 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
+    
     $cliente = $this->getDados('cliente');    
     $acompanhante = $this->getDados('acompanhante');
     $comentario = $this->getDados('comentario');
 ?>
-
 <div class="wrap">
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
@@ -16,7 +16,7 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Comentario</span>
+                        <span>Cadastrar Módulo</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
@@ -24,10 +24,10 @@
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
                                     <li>
-                                        <label for="email">Email</label>
+                                        <label for="comentario">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
+                                       
                                     </li>
-                                                                 
                                 </ul>
                             </fieldset>
                             <ul id="bts">
