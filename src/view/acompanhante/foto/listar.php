@@ -54,7 +54,10 @@
 
                                 <table width="100%" border="0" align="center" cellspacing="0">
                                     <tr>
-                                            <?
+                                            
+                                        
+                                        
+                                        <?
                                             try {
                                                 
                                                 $cont = 0;
@@ -64,7 +67,7 @@
 
                                                 foreach ($fotos as $foto) {
                                                     
-                                                $contaLinha++;
+                                                    $contaLinha++;
                                             ?>
 
 
@@ -74,12 +77,12 @@
                                                         <?php
                                                         $pastas = explode("/", $foto->getNome());
                                                         
-                                                        $caminho = "/".$pastas[4]."/".$pastas[5]."/".$pastas[6]."/".$pastas[7]."/".$pastas[8]
+                                                        $caminho = "/".$pastas[4]."/".$pastas[5]."/".$pastas[6]."/".$pastas[7]."/".$pastas[8];
                                                         ?>
 
                                                         <img src="<?php echo $caminho;?>" width="150" height="150" />
                                                         <br />
-                                                        <input type="checkbox" name="idFoto[]" value="<?php $foto->getId();?>" >Excluir foto?
+                                                        <input type="checkbox" name="idFoto[]" value="<?php echo $foto->getId();?>" >Excluir foto?
 
                                                     </p>
                                                 </td>
@@ -87,7 +90,7 @@
                                              <? 
                                                     if($contaLinha == 5 ){
                                                         echo'</tr><tr>';
-                                                        $contaLinha=0;
+                                                        $contaLinha = 0;
                                                     }    $cont++;    
                                                 }
                                         }
@@ -102,6 +105,9 @@
                                         }
                                         
                                         ?>
+                                        
+                                        
+                                        
                                     </tr>
                                 </table>
                             </fieldset>

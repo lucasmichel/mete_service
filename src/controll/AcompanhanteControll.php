@@ -274,71 +274,51 @@ class AcompanhanteControll extends Controll {
      */
     public function adicionarFoto($idAcompanahante){
         // código da ação //
-        static $acao = 10;
-    	
-        $acompanhante = Acompanhante::buscar($idAcompanahante);
+        static $acao = 10;    	
         
-        //verifica se veio algum arquivo pra subir
-        $arquivos[] = (array) $_FILES;
-        
-        if($arquivos[0]['foto']['name'] != ""){
-        
-            $fotos = count($arquivos[0]['foto']['name']);
+        try {
             
-                if ($fotos != "") {
-                    $this->sobeFotosCampo($acompanhante, $arquivos);
-                }
-        
+            $acompanhante = Acompanhante::buscar($idAcompanahante);
+            
+            $objFoto = new Fotos();
+
+            //verifica se veio algum arquivo novo pra subir
+            $arquivos[] = (array) $_FILES;
+            if($arquivos[0]['foto']['name'] != ""){
+                $fotos = count($arquivos[0]['foto']['name']);
+                    if ($fotos != "") {
+                        $objFoto->sobeFotosCampo($acompanhante, $arquivos);
+                    }
+            }
+
+
+            $dados = $_POST;
+
+            if(count($dados) > 0){
+                $objFoto->excluirFotos($dados);
+            }
+
+            $this->setFlash('Galeria de fotos alterada com sucesso.');
+            $this->setDados($acompanhante,'acompanhante');
+            // definindo a tela //
+            $this->setTela('listar',array('acompanhante/foto'));
+            
         }
+        catch (Exception $e) {
+            $this->setFlash($e->getMessage());
+            
+            $this->setDados($acompanhante,'acompanhante');
+            // definindo a tela //
+            $this->setTela('listar',array('acompanhante/foto'));
+        }
+        
+        
+        
+        
+        
     }
     
-    private function sobeFotosCampo(Acompanhante $acompanhante, Array $arquivos){
-        $contFoto = 1;
-        $fotos = count($arquivos[0]['foto']['name']);
-            for($i = 0; $i < $fotos ; $i++){			
-
-                $foto_temp = $arquivos[0]['foto']['tmp_name'][$i]; 
-                $foto_name = $arquivos[0]['foto']['name'][$i];			
-                $foto_size = $arquivos[0]['foto']['size'][$i];
-                $foto_type = $arquivos[0]['foto']['type'][$i];
-
-                if($foto_size > 0){
-
-                    if (substr($foto_name,-4,1) == ".")
-                        $extensao = substr($foto_name, -4);
-                    else
-                        $extensao = substr($foto_name, -5);
-
-                    $dataHora = date("YmdHi");
-
-                    $nome_foto = $acompanhante->getId() . "_" . $dataHora ."_". $contFoto .$extensao;
-                    $contFoto++;
-
-
-                    $caminhoFoto = $_SERVER["DOCUMENT_ROOT"] . BASE . DS . "img/foto/".$nome_foto;
-
-                    /*SALVA FOTO*/
-                    $fotoAcao = new Fotos();
-                    $fotoCadastro = new Fotos();
-                    
-                    $fotoCadastro->setAcompanhanteId($acompanhante->getId());
-                    $fotoCadastro->setNome($caminhoFoto);
-                    
-                    
-                    /*SALVA FOTO*/
-                    
-                    if (move_uploaded_file($foto_temp, $caminhoFoto)){
-                        chmod ($caminhoFoto, 0777);
-                        $fotoAcao = $fotoCadastro->inserir();
-                        //$acaoFoto->cadastrarFoto($idGeradoGaleria, $nome_foto, " ");
-                    }
-                    else{
-                        meuVarDump("ERRO");
-                        exit();
-                    }
-                }
-            }
-    }
+    
     
 }
 ?>
