@@ -13,12 +13,12 @@
 class Fotos {
     private $id;
     private $nome;
-    private $acompanhante_id;
+    private $acompanhanteId;
     
-    function __construct($id = 0, $nome = '', $acompanhanteId= null) {
+    function __construct($id = 0, $nome = '', $acompanhanteId = 0) {
         $this->id = $id;
         $this->nome = $nome;
-        $this->acompanhante_id = $acompanhante_id;
+        $this->acompanhanteId = $acompanhanteId;
     }
     
 
@@ -27,7 +27,8 @@ class Fotos {
      * @return boolean
      */
     private function _validarCampos(){
-    	if(($this->getNome() == null)||($this->getAcompanhanteId() == 0))
+        
+    	if(($this->getNome() == '')||($this->getAcompanhanteId() == 0))
     		return false;
     	return true;
     }
@@ -41,7 +42,7 @@ class Fotos {
     }
 
     public function getAcompanhanteId() {
-        return $this->acompanhante_id;
+        return $this->acompanhanteId;
     }
 
     public function setId($id) {
@@ -59,15 +60,16 @@ class Fotos {
         
 	public function inserir(){
             // validando os campos //
+            
             if(!$this->_validarCampos())
                     // levantando a excessao CamposObrigatorios //
-                    throw new CamposObrigatorios();
+                    throw new CamposObrigatorios("Fotos");
             // recuperando a instancia da classe de acesso a dados //
             $instancia = FotosDAO::getInstancia();
             // executando o metodo //
             $fotos = $instancia->inserir($this);
             // retornando o Usuario //
-            return  $fotos = $instancia->inserir($this);
+            return  $fotos;
     }
      public function editar(){
             // validando os campos //
@@ -79,7 +81,7 @@ class Fotos {
             // executando o metodo //
             $fotos = $instancia->editar($this);
             // retornando o Usuario //
-            return  $fotos = $instancia->editar($this);
+            return  $fotos;
     }
     public function excluir(){
             // recuperando a instancia da classe de acesso a dados //

@@ -39,7 +39,7 @@ class FotosDAO  extends ClassDAO{
         $sql = "INSERT INTO " . self::TABELA . "
             (nome,acompanhante_id) 
             VALUES('" . $obj->getNome() . "',
-            '" . $obj->getAcompanhante_id() . "')";
+            '" . $obj->getAcompanhanteId() . "')";
         
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
@@ -50,7 +50,7 @@ class FotosDAO  extends ClassDAO{
         // INSTRUCAO SQL //
         $sql = "UPDATE " . self::TABELA . " SET 
             nome = '" . $obj->getNome() . "',
-            acompanhante_id = '" . $obj->getAcompanhante_id() . "'
+            acompanhante_id = '" . $obj->getAcompanhanteId() . "'
             WHERE id = '" . $obj->getId() . "'";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);

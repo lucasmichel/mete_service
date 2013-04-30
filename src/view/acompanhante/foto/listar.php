@@ -33,57 +33,74 @@
                         <span>Cadastrar Fotos da Acompanhante</span>
                     </h3>
                     <div class="inside">
-                        <form method="post" id="cadastro" enctype="multipart/form-data" action="acompanhante/fotoAdd">
+                        <form method="post" id="cadastro" enctype="multipart/form-data" action="acompanhante/adicionarFoto/<?php echo $acompanhante->getId();?>">
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
 
                                     <li>
-                                        <label for="email">Foto</label>
-                                        <!-- <input type="file" id="foto" name="foto" multiple accept="image/*"/>-->
-                                        <input type="file" id="foto" name="foto" multiple accept="image/*"/>
+                                        <label for="email">Subir fotos</label>                                                                                
+                                        <input type="file" class="frmCampoTexto" multiple="true" id="foto[]" name="foto[]" accept="image/x-png, image/gif, image/jpeg" > 
                                     </li>
                                 </ul>
                             </fieldset>
                         
+                            
                         <br />
-                        
-                        
+                                               
                             
                             <fieldset>
                                 <legend>Fotos existentes na galeria:</legend>
 
-                                <table width="550" border="0" align="center" cellspacing="0">
+                                <table width="100%" border="0" align="center" cellspacing="0">
                                     <tr>
-                                        <?
-                                        $cont = 0;
-                                        $contaLinha = 0;
+                                            <?
+                                            try {
+                                                
+                                                $cont = 0;
+                                                $contaLinha = 0;
+
+                                                $fotos = Fotos::listarPorIdAcompanhante($acompanhante->getId());
+
+                                                foreach ($fotos as $foto) {
+                                                    
+                                                $contaLinha++;
+                                            ?>
+
+
+                                                <td style="padding: 10px;">        
+
+                                                    <p align="center"> 
+                                                        <?php
+                                                        $pastas = explode("/", $foto->getNome());
+                                                        
+                                                        $caminho = "/".$pastas[4]."/".$pastas[5]."/".$pastas[6]."/".$pastas[7]."/".$pastas[8]
+                                                        ?>
+
+                                                        <img src="<?php echo $caminho;?>" width="150" height="150" />
+                                                        <br />
+                                                        <input type="checkbox" name="idFoto[]" value="<?php $foto->getId();?>" >Excluir foto?
+
+                                                    </p>
+                                                </td>
+
+                                             <? 
+                                                    if($contaLinha == 5 ){
+                                                        echo'</tr><tr>';
+                                                        $contaLinha=0;
+                                                    }    $cont++;    
+                                                }
+                                        }
                                         
-                                        $fotos = Fotos::listarPorIdAcompanhante($acompanhante->getId());
+                                        catch (Exception $e){
+                                            echo '
+                                            <div class="exception">
+                                                '.$e->getMessage().'
+                                            </div>
+                                            ';
+                                            
+                                        }
                                         
-                                        foreach ($fotos as $foto) {
-                                        
-                                            $contaLinha++;
-                                        ?>
-
-
-                                    <td>        
-
-                                        <p align="center"> 
-
-                                            <img src="img/fotos/<?php $foto->getNome();?>" width="150" height="150" />
-                                            <br />
-                                            <input type="checkbox" name="idFoto[]" value="<?php $foto->getId();?>" >Excluir foto?
-
-                                        </p>
-                                    </td>
-
-                                        <? 
-                                            if($contaLinha == 3){
-                                                echo'</tr><tr>';
-                                                $contaLinha=0;
-                                            }    $cont++;    
-                                        } 
                                         ?>
                                     </tr>
                                 </table>
