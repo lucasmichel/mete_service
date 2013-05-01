@@ -5,15 +5,8 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-    	
-       
-                
         $("#ok").click(function() {
-        	
-                $("#cadastro").submit();
-            
-            
-          
+            $("#cadastro").submit();
         });                
                 
                 

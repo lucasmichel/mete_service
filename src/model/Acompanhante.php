@@ -23,10 +23,10 @@ class Acompanhante {
     private $pernoite;
     private $atendo;
     private $especialidade;
-    private $horario_atendimento;
+    private $horarioAtendimento;
     private $excluido;
-    private $usuario_id;
-    private $usuario_id_perfil;
+    private $usuarioId;
+    private $usuarioIdPerfil;
     
     function __construct($id = 0, 
     		$nome = '', 
@@ -34,8 +34,8 @@ class Acompanhante {
     		$altura = '', 
     		$peso = '', 
     		$busto = '', $cintura = '', $quadril = '', $olhos = '', $pernoite = '',
-    	    $atendo = true, $especialidade = '' , $horario_atendimento = null, $excluido = 0, 
-    		$usuario_id = null, $usuario_id_perfil = null) {
+    	    $atendo = true, $especialidade = '' , $horarioAtendimento = null, $excluido = 0, 
+    		$usuario_id = null, $usuarioIdPerfil = null) {
     	
         $this->id = $id;
         $this->nome = $nome;
@@ -49,10 +49,10 @@ class Acompanhante {
         $this->pernoite = $pernoite;
         $this->atendo = $atendo;
         $this->especialidade = $especialidade;
-        $this->horario_atendimento = $horario_atendimento;
+        $this->horario_atendimento = $horarioAtendimento;
         $this->excluido = $excluido;
-        $this->usuario_id = $usuario_id;
-        $this->usuario_id_perfil = $usuario_id_perfil;
+        $this->usuario_id = $usuarioId;
+        $this->usuario_id_perfil = $usuarioIdPerfil;
     }
     public function getId() {
         return $this->id;
@@ -190,7 +190,7 @@ class Acompanhante {
     public function _validarCampos(){
     	$retorno = true;
     	if($this->getNome() == null){
-    		throw new CamposObrigatorios("usuario");
+    		throw new CamposObrigatorios("Acompanhante");
     		$retorno = false;
     	}
     	else{

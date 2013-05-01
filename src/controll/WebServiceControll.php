@@ -65,7 +65,11 @@ class WebServiceControll extends Controll{
 			
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+                        
+			$encoded = json_decode($jsonDescriptografado, true);
+                        
+                        
+                        
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -113,7 +117,7 @@ class WebServiceControll extends Controll{
 				$acompanhante = $acompanhante->inserir();
 			}
 			
-			
+                        	
                         
                         $retorno1 = (array) $acompanhante;
                         $retorno2 = (array) $usuario;
@@ -142,18 +146,20 @@ class WebServiceControll extends Controll{
 		try {
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
 			
 			$usuario = new Usuario();
 			$acompanhante = new Acompanhante();
-	
+                        $perfil = Perfil::buscar(3);
+                        
 			$usuario->setId(trim($atributoDados['idUsuario']));
 			$usuario->setLogin(trim($atributoDados['email']));
 			$usuario->setSenha(trim($atributoDados['senha']));
 			$usuario->setEmail(trim($atributoDados['email']));
+                        $usuario->setPerfil($perfil);
 	
 			$acompanhante->setId(trim($atributoDados['id']));
 			$acompanhante->setNome(trim($atributoDados['nome']));
@@ -167,7 +173,7 @@ class WebServiceControll extends Controll{
 			$acompanhante->setPernoite(trim($atributoDados['pernoite']));
 			$acompanhante->setAtendo(trim($atributoDados['atendo']));
 			$acompanhante->setEspecialidade(trim($atributoDados['especialidade']));
-			$acompanhante->setHorarioAtendimento(trim($atributoDados['horario_atendimento']));
+			$acompanhante->setHorarioAtendimento(trim($atributoDados['horarioAtendimento']));
 	
 			if($usuario->_validarCampos())
 				$insert = true;
@@ -204,7 +210,7 @@ class WebServiceControll extends Controll{
 		try {
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -235,7 +241,7 @@ class WebServiceControll extends Controll{
 		try {
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
@@ -264,7 +270,7 @@ class WebServiceControll extends Controll{
 		try {
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
@@ -327,7 +333,7 @@ class WebServiceControll extends Controll{
 			
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -391,7 +397,7 @@ class WebServiceControll extends Controll{
 	
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -440,7 +446,7 @@ class WebServiceControll extends Controll{
 			
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -473,7 +479,7 @@ class WebServiceControll extends Controll{
 			
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -512,7 +518,7 @@ class WebServiceControll extends Controll{
 			
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
@@ -607,7 +613,7 @@ class WebServiceControll extends Controll{
 	
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
-			$encoded = json_decode($jsonDescriptografado);
+			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
