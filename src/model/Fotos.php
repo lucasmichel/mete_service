@@ -13,11 +13,13 @@
 class Fotos {
     private $id;
     private $nome;
+    private $excluido;
     private $acompanhanteId;
     
-    function __construct($id = 0, $nome = '', $acompanhanteId = 0) {
+    function __construct($id = 0, $nome = '', $excluido = 0, $acompanhanteId = 0) {
         $this->id = $id;
         $this->nome = $nome;
+        $this->excluido = $excluido;
         $this->acompanhanteId = $acompanhanteId;
     }
     
@@ -40,6 +42,10 @@ class Fotos {
     public function getNome() {
         return $this->nome;
     }
+    
+    public function getExcluido() {
+        return $this->excluido;
+    }
 
     public function getAcompanhanteId() {
         return $this->acompanhanteId;
@@ -51,6 +57,10 @@ class Fotos {
 
     public function setNome($nome) {
         $this->nome = $nome;
+    }
+    
+    public function setExcluido($excluido) {
+        $this->excluido = $excluido;
     }
 
     public function setAcompanhanteId($acompanhante_id) {
@@ -102,12 +112,12 @@ class Fotos {
                     // levantando a excessao ListaVazia //
                     throw new ListaVazia(ListaVazia::FOTOS);
             // percorrendo os usuarios //
-            foreach($fotos as $fotos){
+            foreach($fotos as $foto){
                     // instanciando e jogando dentro da colecao $objetos o Usuario //
-                    $objetos[] = new Fotos($fotos['id'],
-                            $fotos['nome'],
-                            $fotos['excluido'],
-                            $fotos['acompanhante_id']
+                    $objetos[] = new Fotos($foto['id'],
+                            $foto['nome'],
+                            $foto['excluido'],
+                            $foto['acompanhante_id']
                            );
             }
             // retornando a colecao $objetos //
@@ -123,13 +133,16 @@ class Fotos {
                     // levantando a excessao ListaVazia //
                     throw new ListaVazia(ListaVazia::FOTOS);
             // percorrendo os usuarios //
-            foreach($fotos as $fotos){
+            foreach($fotos as $foto){
+                
                     // instanciando e jogando dentro da colecao $objetos o Usuario //
-                    $objetos[] = new Fotos($fotos['id'],
-                            $fotos['nome'],
-                            $fotos['excluido'],
-                            $fotos['acompanhante_id']
+                    $objetos[] = new Fotos($foto['id'],
+                            $foto['nome'],
+                            $foto['excluido'],
+                            $foto['acompanhante_id']
                            );
+                    
+                           
             }
             // retornando a colecao $objetos //
             return $objetos;
@@ -140,20 +153,100 @@ class Fotos {
             // recuperando a instancia da classe de acesso a dados //
             $instancia = FotosDAO::getInstancia();
             // executando o metodo //
-            $fotos = $instancia->buscarPorId($id);
+            $foto = $instancia->buscarPorId($id);
             // checando se o resultado foi falso //
-            if(!$fotos)
+            if(!$foto)
                     // levanto a excessao RegistroNaoEncontrado //
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::USUARIO);
             // instanciando e retornando o Usuario //
             
-            $a = new Fotos($fotos['id'],
-                            $fotos['nome'],
-                            $fotos['excluido'],
-                            $fotos['acompanhante_id']
-                           ); 
+            $a = new Fotos($foto['id'],
+                            $foto['nome'],
+                            $foto['excluido'],
+                            $foto['acompanhante_id']
+                           );
             return $a;
     }
+    
+    
+    
+    public function sobeFotosCampo(Acompanhante $acompanhante, Array $arquivos){
+        $contFoto = 1;
+        $fotos = count($arquivos[0]['foto']['name']);
+            for($i = 0; $i < $fotos ; $i++){			
+
+                $foto_temp = $arquivos[0]['foto']['tmp_name'][$i]; 
+                $foto_name = $arquivos[0]['foto']['name'][$i];			
+                $foto_size = $arquivos[0]['foto']['size'][$i];
+                $foto_type = $arquivos[0]['foto']['type'][$i];
+
+                if($foto_size > 0){
+
+                    if (substr($foto_name,-4,1) == ".")
+                        $extensao = substr($foto_name, -4);
+                    else
+                        $extensao = substr($foto_name, -5);
+
+                    $dataHora = date("YmdHi");
+
+                    $nome_foto = $acompanhante->getId() . "_" . $dataHora ."_". $contFoto .$extensao;
+                    $contFoto++;
+
+
+                    $caminhoFoto = $_SERVER["DOCUMENT_ROOT"] . BASE . DS . "img/foto/".$nome_foto;
+
+                    /*SALVA FOTO*/
+                    $fotoAcao = new Fotos();
+                    $fotoCadastro = new Fotos();
+                    
+                    $fotoCadastro->setAcompanhanteId($acompanhante->getId());
+                    $fotoCadastro->setNome($caminhoFoto);
+                    
+                    
+                    /*SALVA FOTO*/
+                    
+                    if (move_uploaded_file($foto_temp, $caminhoFoto)){
+                        chmod ($caminhoFoto, 0777);
+                        $fotoAcao = $fotoCadastro->inserir();
+                        //$acaoFoto->cadastrarFoto($idGeradoGaleria, $nome_foto, " ");
+                    }
+                    else{
+                        throw new Exception("Erro ao subir imagem, contate o adminsitrador do sistema");
+                        exit();
+                    }
+                }
+            }
+    }
+    
+    
+    
+    public function excluirFotos(Array $arquivos){
+        
+        
+        
+        foreach ($arquivos as $value) {
+        
+            
+            
+            foreach ($value as $id) {
+                $foto = self::buscar($id);
+            
+                //unlink($foto->getNome());
+                $foto->excluir();
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+    
 }
 
-?>
+?>;

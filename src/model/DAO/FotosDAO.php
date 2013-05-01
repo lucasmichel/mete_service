@@ -69,7 +69,7 @@ class FotosDAO  extends ClassDAO{
         return $resultado;
     }
 
-    public function excluir($id) {
+    /*public function excluir($id) {
     	// checando se existe algum vinculo desse registro com outros //
     	$validacao = "SELECT u.id FROM fotos u WHERE id = '" . $id . "'";
     	if ($this->conexao->fetch($validacao))
@@ -83,29 +83,29 @@ class FotosDAO  extends ClassDAO{
     	}
     	// RETORNANDO O RESULTADO //
     	return $resultado;
-    }
+    }*/
     
-    public function buscar($id) {
+    /*public function buscar($id) {
     	// INSTRUCAO SQL //
     	$sql = "SELECT f.* FROM " . self::TABELA . " f WHERE f.id = '" . $id . "'";
     	// EXECUTANDO A SQL //
     	$resultado = $this->conexao->fetch($sql);
     	// RETORNANDO O RESULTADO //
     	return $resultado;
-    }
+    }*/
     
     /**
      * Metodo listar()
      * @return fetch_assoc[]
      */
-    public function listar() {
+    /*public function listar() {
     	// INSTRUCAO SQL //
     	$sql = "SELECT f.* FROM " . self::TABELA . " f ORDER BY f.nome";
     	// EXECUTANDO A SQL //
     	$resultado = $this->conexao->fetchAll($sql);
     	// RETORNANDO O RESULTADO //
     	return $resultado;
-    }
+    }*/
     
     
     /**
@@ -114,7 +114,7 @@ class FotosDAO  extends ClassDAO{
      */
     public function listarPorIdAcompanhante($id) {  
     	// INSTRUCAO SQL //
-    	$sql = "SELECT * FROM " . self::TABELA . " f WHERE acompanhante_id = '" . $id . "' ";
+    	$sql = "SELECT * FROM " . self::TABELA . " f WHERE acompanhante_id = '" . $id . "' and excluido = '0' ";
     	// EXECUTANDO A SQL //
     	$resultado = $this->conexao->fetchAll($sql);
     	// RETORNANDO O RESULTADO //
