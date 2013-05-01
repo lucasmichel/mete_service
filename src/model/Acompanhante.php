@@ -213,13 +213,14 @@ class Acompanhante {
     public function editar(){
     	// validando os campos //
     	if(self::_validarCampos()){
-    		// recuperando a instancia da classe de acesso a dados //
-    		$instancia = AcompanhanteDAO::getInstancia();
-    		// executando o metodo //
-    		return $instancia->editar($this);
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = AcompanhanteDAO::getInstancia();
+            // executando o metodo //
+            if($instancia->editar($this))
+                return $this;
+            else
+                return null;
     	}
-    		
-    	
     }
     
     public function excluir(){

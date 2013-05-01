@@ -106,8 +106,13 @@ class Usuario {
             // executando o metodo //
             
             $usuario = $instancia->editar($this);
-            // retornando o Usuario //
-            return $usuario;
+            
+            if($usuario)
+                // retornando o Usuario //
+                return $this;
+            else
+                return null;
+        
 		}
     }
 

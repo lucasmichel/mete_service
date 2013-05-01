@@ -249,6 +249,8 @@ class WebServiceControll extends Controll{
 			$acompanhante = new Acompanhante();
 			$acompanhante2 = $acompanhante->buscar($atributoDados['id']);
 			
+                        meuVarDump($acompanhante2);
+                        
                         $retornoDados[] = (array) $acompanhante2;
                         
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
