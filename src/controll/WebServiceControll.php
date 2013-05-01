@@ -567,14 +567,14 @@ class WebServiceControll extends Controll{
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
 			
-                        meuVarDump($atributoDados);
+                        //meuVarDump($atributoDados);
 			//meuVarDump($encoded);			
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
 			//meuVarDump($to);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			
-			$usuario = Usuario::logarAndroid($atributoDados['login'], $atributoDados['senha']);
+			$usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
 			
                         $retornoDados[] = (array) $usuario;
 			

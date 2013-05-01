@@ -237,7 +237,20 @@ class Usuario {
                     throw new LoginInvalido();            
             /*grava a hora do login*/
             $instancia->gravarDataHoraLogin($usuario['id']);            
-            return $usuario;
+            
+            
+            $user = new Usuario($usuario['id'],
+                            Perfil::buscar($usuario['id_perfil']),
+                            $usuario['login'],
+                            NULL,
+                            $usuario['email'],
+                            $usuario['dataUltimoLogin'],
+                            $usuario['excluido']
+                            );
+            /*grava a hora do login*/
+            $instancia->gravarDataHoraLogin($user->getId());
+            
+            return $user;
     }
     
     
