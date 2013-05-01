@@ -239,18 +239,18 @@ class Usuario {
             $instancia->gravarDataHoraLogin($usuario['id']);            
             
             
-            $user = new Usuario($usuario['id'],
-                            Perfil::buscar($usuario['id_perfil']),
-                            $usuario['login'],
-                            NULL,
-                            $usuario['email'],
-                            $usuario['dataUltimoLogin'],
-                            $usuario['excluido']
-                            );
-            /*grava a hora do login*/
-            $instancia->gravarDataHoraLogin($user->getId());
             
-            return $user;
+            
+            $retorno ['id'] = $usuario['id'];
+            $retorno ['idPerfil'] = $usuario['id_perfil'];
+            $retorno ['login'] = $usuario['login'];
+            $retorno ['senha'] = $usuario['senha'];
+            $retorno ['email'] = $usuario['email'];
+            $retorno ['dataUltimoLogin'] = $usuario['dataUltimoLogin'];
+            $retorno ['excluido'] = $usuario['excluido'];
+            
+            
+            return $retorno;
     }
     
     

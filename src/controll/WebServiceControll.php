@@ -577,7 +577,7 @@ class WebServiceControll extends Controll{
 			$usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
 			
                         $retornoDados[] = (array) $usuario;
-			
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
 			
 			$this->retorno($arrayRetorno);
