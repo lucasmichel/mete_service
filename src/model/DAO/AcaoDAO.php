@@ -40,11 +40,12 @@
 		public function inserir(Acao $obj) {
 			// INSTRUCAO SQL //
 			$sql = "INSERT INTO " . self::TABELA . "
-            (id_modulo, codigo_acao, nome, excluido)
+            (id_modulo, codigo_acao, nome, sub_menu, excluido)
 		
             VALUES('" . $obj->getModulo()->getId() . "',
             '" . $obj->getCodigoAcao() . "',
-            '" . $obj->getNome(). "', 0)";			
+            '" . $obj->getNome(). "',
+            '" . $obj->getSubMenu(). "', 0)";			
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// TRATANDO O RESULTADO //
@@ -63,9 +64,9 @@
 			// INSTRUCAO SQL //
 			$sql = "UPDATE " . self::TABELA . " SET
                         codigo_acao = '" . $obj->getCodigoAcao() . "',
-                        nome = '" . $obj->getNome() . "'
+                        nome = '" . $obj->getNome() . "',
+                        sub_menu = '" . $obj->getSubMenu() . "'
                         WHERE id_modulo = '" . $obj->getModulo()->getId() . "' and id = '".$obj->getId()."' ";
-                        
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// RETORNANDO O RESULTADO //
@@ -179,19 +180,18 @@
 		}
 		
                 
-		public function excluirRelacionamentoAcaoModuloPerfil(Acao $obj){
+                public function excluirRelacionamentoAcaoModuloPerfil(Acao $obj){
                     
-            $sql = "DELETE from acoes_modulos_perfis WHERE
-            		 
-            id_modulo = '" . $obj->getModulo()->getId() . "' 
-            and codigo_acao = '".$obj->getCodigoAcao()."' ";
-            
-            // EXECUTANDO A SQL //
-            $resultado = $this->conexao->fetch($sql);
-            // RETORNANDO O RESULTADO //
-        	return $resultado;
+                    $sql = "DELETE from acoes_modulos_perfis
+                    WHERE 
+                    id_modulo = '" . $obj->getModulo()->getId() . "' 
+                    and codigo_acao = '".$obj->getCodigoAcao()."' ";
+                    // EXECUTANDO A SQL //
+                    $resultado = $this->conexao->fetch($sql);
+                    // RETORNANDO O RESULTADO //
+                    return $resultado;
                     
-        }
+                }
                 
 	}
 ?>

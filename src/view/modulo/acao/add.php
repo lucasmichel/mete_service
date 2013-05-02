@@ -52,7 +52,7 @@
                         <span>Cadastrar Ações do Módulo: <?php echo $modulo->getNome();?></span>
                     </h3>
                     <div class="inside">
-                        <form method="post" id="cadastro" action=modulo/acaoAdd/<?php echo $modulo->getId() ?>>
+                        <form method="post" id="cadastro" action=modulo/adicionarAcao/<?php echo $modulo->getId() ?>>
                         	<input type="hidden" id="idModulo" name="idModulo" value="<?php if($modulo != null) echo $modulo->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>
@@ -67,22 +67,22 @@
                                     </li>
                                    
                                    
-                                    <li>
-										<label for="button1">Esta ação será um sub menu?</label>
-										
-										<input id="subMenu" type="radio" value="sim" name="subMenu" 
-											<?php if(($acao != null)&&($acao->getSubMenu() == 1))
-												echo 'checked="checked"';  
-											?>
-										>Sim</input>
-										  
-										<input id="subMenu" type="radio" value="não" name="subMenu"  
-											<?php if(($acao != null)&&($acao->getSubMenu() == 0))
-												echo 'checked="checked"';
-											if($acao == null)
-												echo 'checked="checked"';
-											?>
-										>Não</input>
+                                     <li>
+                                        <label for="button1">Esta ação será um sub menu?</label>
+
+                                        <input id="subMenu" type="radio" value="1" name="subMenu" 
+                                                <?php if(($acao != null)&&($acao->getSubMenu() == 1))
+                                                        echo 'checked="checked"';  
+                                                ?>
+                                        >Sim</input>
+
+                                        <input id="subMenu" type="radio" value="0" name="subMenu"  
+                                                <?php if(($acao != null)&&($acao->getSubMenu() == 0))
+                                                        echo 'checked="checked"';
+                                                if($acao == null)
+                                                        echo 'checked="checked"';
+                                                ?>
+                                        >Não</input>
 										
                                     </li>
                                    

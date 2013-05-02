@@ -57,7 +57,8 @@ class  ModuloControll extends Controll{
 			
 			$acao = new Acao();
 			$acao->setCodigoAcao(trim($dados['codigoAcao']));
-			$acao->setNome($dados['nome']);
+			$acao->setNome(trim($dados['nome']));
+                        $acao->setSubMenu($dados['subMenu']);
 			$acao->setModulo($modulo);
 			
 			$acao->inserir();
@@ -118,10 +119,12 @@ class  ModuloControll extends Controll{
 			$modulo = Modulo::buscar($dados['idModulo']);
 			
 			$acao = new Acao();
-			$acao->setId(trim($dados['idAcao']));
+			$acao->setId(trim($dados['idAcao']));			
 			$acao->setCodigoAcao(trim($dados['codigoAcao']));
 			$acao->setNome(trim($dados['nome']));
-			$acao->setModulo($modulo);                        
+                        $acao->setSubMenu($dados['subMenu']);
+			$acao->setModulo($modulo);           
+                        
 			$a = $acao->editar();
 			
                         if(isset($modulo))
