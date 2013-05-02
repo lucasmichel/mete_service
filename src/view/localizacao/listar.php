@@ -1,48 +1,97 @@
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
- "http://www.w3.org/TR/html4/strict.dtd">
+
+
+
+
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-  <title>Localização do usuário via Geo IP</title>
-  <style type="text/css" media="screen">
 
-  </style>
-</head>
-<body>
-<div id="doc">
-  <div id="map"></div>
-  <div  id="info"></div>
-</div>
 <script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
-<script>
-(function(){
 
-  var info = document.getElementById('info');
-  var lat = geoip_latitude();
-  var lon = geoip_longitude();
-  var city = geoip_city();
-  
-  var out = '<h3>Informacoes para seu IP</h3>'+ 
-            '<ul>'+
-            '<li>Latitude: ' + lat + '</li>'+
-            '<li>Longitude: ' + lon + '</li>'+
-            '<li>Cidade: ' + city + '</li>'+
-            '<li>Cod. Regiao: ' + geoip_region() + '</li>'+
-            '<li>Regiao: ' + geoip_region_name() + '</li>'+
-            '<li>Codigo do Pais: ' + geoip_country_code() + '</li>'+
-            '<li>Nome do Pais: ' + geoip_country_name() + '</li>'+
-            '</ul>';
-  info.innerHTML = out;
-  var url = 'http://maps.google.com/maps/api/staticmap?center='+
-            lat+','+lon+'&sensor=false&size=300x300&maptype=roadmap&key='+
-            'ABQIAAAAijZqBZcz-rowoXZC1tt9iRT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQQBCa'+
-            'F1R_k1GBJV5uDLhAKaTePyQ&markers=color:blue|label:I|'+lat+
-            ','+lon+'6&visible='+lat+','+lon+'|'+(+lat+1)+','+(+lon+1);
-  var map = document.getElementById('map');
-  map.innerHTML = '<img src="'+url+'" alt="'+city+'">';
-  
-})();
+
+<style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #googleMap { height: 100% }
+    </style>
+
+
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDz-izkZlMj8pCSosNtyjeUhFiPYbIqfaU&sensor=false">
 </script>
+
+<script>
+/*pra pegar informações d alocalizaçãoda pessoa*/
+
+var lat = geoip_latitude();
+alert(lat);
+  var lon = geoip_longitude();
+alert(lon);
+  var city = geoip_city();
+alert(city);
+/*pra pegar informações d alocalizaçãoda pessoa*/
+
+
+var map = null; 
+
+//var myCenter = new google.maps.LatLng(-8.102738577783168,-35.299072265625);
+var myCenter = new google.maps.LatLng(lat, lon);
+var marker;
+
+function initialize()
+{
+var mapProp = {
+  center:myCenter,
+  zoom:12,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+marker=new google.maps.Marker({
+  position:myCenter,
+  animation:google.maps.Animation.BOUNCE
+  });
+
+marker.setMap(map);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
+function marcar(){
+
+  				var endereco = document.getElementById("endereco").value ;
+  				//alert(endereco)
+  				geocoder = new google.maps.Geocoder();		
+  				geocoder.geocode({'address':endereco}, function(results, status){ 
+  					if( status = google.maps.GeocoderStatus.OK){
+
+						alert(results[0].geometry.location);
+						myCenter = results[0].geometry.location;
+						markerInicio = new google.maps.Marker({position: myCenter,map: map});		
+						map.setCenter(myCenter); 
+
+					}			
+				});
+  		}
+
+</script>
+</head>
+
+<body>
+<div id="googleMap"></div>
+
+<div>
+			<label>EndereÃ§o</label>
+			<input type="text" id="endereco">
+		</div>
+		
+		<input type="button" value="Marcar" id="marcar" onclick="marcar()">
+
 </body>
 </html>
