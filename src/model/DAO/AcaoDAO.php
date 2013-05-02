@@ -62,8 +62,10 @@
 		public function editar(Acao $obj) {
 			// INSTRUCAO SQL //
 			$sql = "UPDATE " . self::TABELA . " SET
-            nome = '" . $obj->getNome() . "'
-            WHERE id_modulo = '" . $obj->getModulo()->getId() . "' and codigo_acao = '".$obj->getCodigoAcao()."' ";
+                        codigo_acao = '" . $obj->getCodigoAcao() . "',
+                        nome = '" . $obj->getNome() . "'
+                        WHERE id_modulo = '" . $obj->getModulo()->getId() . "' and id = '".$obj->getId()."' ";
+                        
 			// EXECUTANDO A SQL //			
 			$resultado = $this->conexao->exec($sql);
 			// RETORNANDO O RESULTADO //
