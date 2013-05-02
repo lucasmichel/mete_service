@@ -22,7 +22,7 @@ header('Content-Type: text/html; charset=utf-8', true);
             }
             if (Acao::checarPermissao(2, ModuloControll::MODULO)) {
             ?>
-                <option <?php if (getAcaoAtual() == 'add') { ?> selected="selected" <?php } ?> value="add">cadastrar</option>
+                <option <?php if (getAcaoAtual() == 'adicionar') { ?> selected="selected" <?php } ?> value="adicionar">cadastrar</option>
 			<?php
             }
             if (Acao::checarPermissao(1, ModuloControll::MODULO)) {

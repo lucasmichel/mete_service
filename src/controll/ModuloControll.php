@@ -2,6 +2,7 @@
 class  ModuloControll extends Controll{
 	
 	const MODULO = 3;
+        private $linkModulo = "modulo";
 	
 	public function acaoListar($id){
 		// código da ação serve para o controle de acesso//
@@ -28,7 +29,7 @@ class  ModuloControll extends Controll{
 		$this->getPage();
 	}
 	
-	public function acaoAdd($id){		
+	public function adicionarAcao($id){		
 		// código da ação serve para o controle de acesso//
 		static $acao = 6;
 		// checando se o formulário nao foi passado //
@@ -120,13 +121,22 @@ class  ModuloControll extends Controll{
 			$acao->setId(trim($dados['idAcao']));
 			$acao->setCodigoAcao(trim($dados['codigoAcao']));
 			$acao->setNome(trim($dados['nome']));
-			$acao->setModulo($modulo);
-			$acao->editar();
+			$acao->setModulo($modulo);                        
+			$a = $acao->editar();
 			
+                        if(isset($modulo))
+				$this->setDados($modulo,'modulo');
+	
+			if(isset($acao))
+				$this->setDados($acao,'acao');
+                        
+                            
+                        
 			// setando a mensagem de sucesso //
 			$this->setFlash('Ação do módulo '.$modulo->getNome().' editada com sucesso.');
 			// setando a url //
-			$this->setPage();
+			$this->setTela('listar',array('modulo/acao'));
+                        //meuVarDump($this);
 		}
 	
 		catch (Exception $e) {
@@ -174,6 +184,10 @@ class  ModuloControll extends Controll{
 	 * Acao index()
 	 */
 	public function index(){
+                //usar o campo pra o menu em destaque
+                $_SESSION["idMenu"] = $this->linkModulo;
+                //usar o campo pra o menu em destaque
+                
 		// código da ação serve para o controle de acesso//
 		static $acao = 1;
 		// definindo a tela //
@@ -205,7 +219,12 @@ class  ModuloControll extends Controll{
 	/**
 	 * Acao add()
 	 */
-	public function add() {
+	public function adicionar() {
+            
+                //usar o campo pra o menu em destaque
+                $_SESSION["idMenu"] = $this->linkModulo;
+                //usar o campo pra o menu em destaque
+            
 		// código da ação serve para o controle de acesso//
 		static $acao = 2;
 		// checando se o formulário nao foi passado //
