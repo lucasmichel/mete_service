@@ -16,7 +16,7 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Modulo agora</span>
+                        <span>Cadastrar Modulo Vai Vai</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
