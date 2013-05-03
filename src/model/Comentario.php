@@ -24,7 +24,7 @@ class  Comentario{
 	
 	public static function listar() {
 		$instancia = ComentarioDAO::getInstancia();
-		$modulos = $instancia->listar();
+		$comentario = $instancia->listar();
 		if (!$comentario)
 			throw new ListaVazia(ListaVazia::COMENTARIO);
 		foreach ($comentario as $comentario) {
