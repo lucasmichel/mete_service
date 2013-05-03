@@ -83,7 +83,7 @@
  	 */
  	public function listar() {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT c.* FROM " . self::TABELA . " c ORDER BY a.comentario";
+ 		$sql = "SELECT c.* FROM " . self::TABELA . " c ORDER BY c.comentario";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //
