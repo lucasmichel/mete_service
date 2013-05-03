@@ -33,14 +33,7 @@ header('Content-Type: text/html; charset=utf-8', true);
         <div class="clear"> </div>
         <div class="box-content">
             <div class="box">
-                <?php
-                $url = '';
-				$get_ip = gethostbyname($url);
-				//$remote_ip=gethostbyname($REMOTE_ADDR);
-				echo "ip - ".$get_ip."<br>";
-				
-
-				
+                <?php                		
                 /**
                  * Persistindo em listar os usuários
                  */
@@ -90,12 +83,12 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             }
                                             if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
                                             ?>
-                                            	<a href="acompanhante/servico/<?php echo $objeto->getId(); ?>">Serviços</a>
+                                            	<a href="acompanhante/visualizarServicos/<?php echo $objeto->getId(); ?>">Serviços</a>
                                             <?php
                                             }
                                             if (Acao::checarPermissao(9, AcompanhanteControll::MODULO)) {
                                             ?>
-                                            	<a href="acompanhante/foto/<?php echo $objeto->getId(); ?>">Fotos</a>
+                                            	<a href="acompanhante/visualizarFotos/<?php echo $objeto->getId(); ?>">Fotos</a>
                                             <?php
                                             }
                                             ?>

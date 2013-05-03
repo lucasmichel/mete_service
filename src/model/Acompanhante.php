@@ -35,7 +35,7 @@ class Acompanhante {
     		$peso = '', 
     		$busto = '', $cintura = '', $quadril = '', $olhos = '', $pernoite = '',
     	    $atendo = true, $especialidade = '' , $horarioAtendimento = null, $excluido = 0, 
-    		$usuario_id = null, $usuarioIdPerfil = null) {
+    		$usuarioId = null, $usuarioIdPerfil = null) {
     	
         $this->id = $id;
         $this->nome = $nome;
@@ -49,10 +49,10 @@ class Acompanhante {
         $this->pernoite = $pernoite;
         $this->atendo = $atendo;
         $this->especialidade = $especialidade;
-        $this->horario_atendimento = $horarioAtendimento;
+        $this->horarioAtendimento = $horarioAtendimento;
         $this->excluido = $excluido;
-        $this->usuario_id = $usuarioId;
-        $this->usuario_id_perfil = $usuarioIdPerfil;
+        $this->usuarioId = $usuarioId;
+        $this->usuarioIdPerfil = $usuarioIdPerfil;
     }
     public function getId() {
         return $this->id;
@@ -111,7 +111,7 @@ class Acompanhante {
     }
     
     public function getUsuarioId() {
-        return $this->usuario_id;
+        return $this->usuarioId;
     }
 
     public function getUsuarioIdPerfil() {
@@ -166,20 +166,20 @@ class Acompanhante {
         $this->especialidade = $especialidade;
     }
 
-    public function setHorarioAtendimento($horario_atendimento) {
-        $this->horario_atendimento = $horario_atendimento;
+    public function setHorarioAtendimento($horarioAtendimento) {
+        $this->horarioAtendimento = $horarioAtendimento;
     }
 
     public function setExcluido($excluido) {
     	$this->excluido = $excluido;
     }
     
-    public function setUsuarioId($usuario_id) {
-        $this->usuario_id = $usuario_id;
+    public function setUsuarioId($usuarioId) {
+        $this->usuarioId = $usuarioId;
     }
 
-    public function setUsuarioIdPerfil($usuario_id_perfil) {
-        $this->usuario_id_perfil = $usuario_id_perfil;
+    public function setUsuarioIdPerfil($usuarioIdPerfil) {
+        $this->usuarioIdPerfil = $usuarioIdPerfil;
     }
 
 
@@ -285,8 +285,8 @@ class Acompanhante {
     
     
     private static function construirObjeto($dados){
-		$acompanhante =	new Acompanhante();
-		$acompanhante->setId(trim($dados['id']));
+        $acompanhante =	new Acompanhante();
+	$acompanhante->setId(trim($dados['id']));
     	$acompanhante->setNome(trim($dados['nome']));
     	$acompanhante->setIdade(trim($dados['idade']));
     	$acompanhante->setAltura(trim($dados['altura']));

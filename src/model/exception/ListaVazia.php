@@ -18,6 +18,7 @@ class ListaVazia extends Exception {
     const SERVICOS = 6;
     const CLIENTES = 7;
     const FOTOS = 8;
+    const SERVICOS_ACOMPANHNATE = 9;
 
     public function __construct($tipo) {
         switch ($tipo) {
@@ -44,6 +45,9 @@ class ListaVazia extends Exception {
                 break;
             case self::FOTOS:
             	$msg = 'Nenhuma foto encontrada.';
+                break;
+            case self::SERVICOS_ACOMPANHNATE:
+            	$msg = 'Nenhum servico foi encontrado para esta acomanhante.';
                 break;
         }
         parent::__construct($msg);

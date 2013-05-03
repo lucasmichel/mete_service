@@ -241,7 +241,7 @@ class AcompanhanteControll extends Controll {
      * Acao foto($id)
      * @param $id
      */
-    public function servico($id){
+    public function visualizarServicos($id){
     	// código da ação serve para o controle de acesso//
     	static $acao = 5;
     	// buscando o usuário //
@@ -253,11 +253,81 @@ class AcompanhanteControll extends Controll {
     }
     
     
+    
     /**
      * Acao foto($id)
      * @param $id
      */
-    public function foto($id){
+    public function adicionarServico($id){
+    	
+        static $acao = 6;
+        
+        // checando se o formulário nao foi passado //
+        if(!$this->getDados('POST')){
+            // Buscando o usuário //
+            $objeto = Acompanhante::buscar($id);            
+            // Jogando perfil no atributo $dados do controlador //
+            $this->setDados($objeto,'acompanhante');
+            // Definindo a tela //
+            $this->setTela('add',array('acompanhante/servicos'));
+        }
+        // caso passar o formulario //
+        else
+            // chamando o metodo privado _editar() passando os dados do post por parametro //
+            $this->_adicionarServico($this->getDados('POST'));
+    }
+    
+    private function _adicionarServico($dados){
+        try {            
+            
+            
+            $acompanhante = Acompanhante::buscar($dados['acompanhanteId']);
+            
+            $servicosAcompanhante = new ServicosAcompanhantes();
+            $servicosAcompanhante->setServicoId($dados['servico']);
+            
+            if($usuario->_validarCampos())
+                    $insert = true;
+            else
+                    $insert = false;
+
+            if($acompanhante->_validarCampos())
+                    $insert = true;
+            else
+                    $insert = false;
+
+            if($insert == true){
+                    $usuario = $usuario->editar();
+                    $acompanhante = $acompanhante->editar();
+            }
+            
+            // setando a mensagem de sucesso //
+            $this->setFlash('Serviço cadastrado com sucesso.');
+            // setando a url //
+            $this->setPage();
+            
+        }
+        catch (Exception $e){
+            //retorna os campos prar serem preenchidos novamente
+            if(isset($servicosAcompanhante))
+            	$this->setDados($servicosAcompanhante,'servicosAcompanhante');
+            
+            if(isset($acompanhante))
+            	$this->setDados($acompanhante,'acompanhante');
+            // setando a mensagem de excessão //
+            $this->setFlash($e->getMessage());
+            // definindo a tela //
+            $this->setTela('add',array('acompanhante/servicos'));
+        }
+    }
+    
+    
+    
+    /**
+     * Acao foto($id)
+     * @param $id
+     */
+    public function visualizarFotos($id){
     	// código da ação serve para o controle de acesso//
     	static $acao = 9;
     	// buscando o usuário //

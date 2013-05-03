@@ -38,6 +38,7 @@ class ServicoDAO extends ClassDAO{
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->exec($sql);
 		// TRATANDO O RESULTADO //
+                return $resultado;
 	}
 	 
 	public function editar(Servico $obj) {
