@@ -13,7 +13,7 @@ header('Content-Type: text/html; charset=utf-8', true);
    Comentario
     <span class="select-function">
         <select id="select-action">
-            <option <?php if (getAcaoAtual() == 'index') { ?> selected="selected" <?php } ?> value="">listar Módulo</option>
+            <option <?php if (getAcaoAtual() == 'index') { ?> selected="selected" <?php } ?> value="">listar</option>
             <?php
             if (Acao::checarPermissao(2, ComentarioControll::MODULO)) {
                 ?>

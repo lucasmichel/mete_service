@@ -61,11 +61,11 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId()); 
-                                        	echo $usuario->getEmail(); 
+                                        $comentario = Comentario::buscar($objeto->getId()); 
+                                        	echo $comentario->getComentario(); 
                                         ?>
                                         </td>
                                         
