@@ -4,6 +4,7 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
+    meuVarDump("testeee");
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     
