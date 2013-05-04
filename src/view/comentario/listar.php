@@ -1,4 +1,3 @@
-
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
 ?>
@@ -47,9 +46,8 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
-                                    <th width="20%" align="left">Ações</th>
+                                    <th width="28%" align="left">Comentario</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,22 +62,22 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $comentario = Comentario::buscar($objeto->getId()); 
+                                        $comentario = Usuario::buscar($objeto->getId()); 
                                         	echo $comentario->getComentario(); 
                                         ?>
                                         </td>
                                         
                                         <td width="20%">						
-                                            <a href="cliente/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                            <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
                                             if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
-                                                <a href="cliente/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
                                             if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
                                             ?>    
-                                                <a href="cliente/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>
