@@ -5,6 +5,7 @@ header('Content-Type: text/html; charset=utf-8', true);
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
+    testeeee
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
