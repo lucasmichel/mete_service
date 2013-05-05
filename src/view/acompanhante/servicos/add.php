@@ -89,6 +89,25 @@ function marcar(){
     geocoder.geocode({'address':endereco}, function(results, status){ 
         if( status = google.maps.GeocoderStatus.OK){
             
+            alert(results[0].formatted_address);
+            
+            //alert(results[0].geometry.city);
+            //alert(results[0].address_components.long_name);
+            //alert();
+            
+            resultse = results[0].address_components;
+            
+            
+            
+            
+            var city = resultse[0]["long_name"];
+            var state = resultse[1]["short_name"];
+            var country = resultse[2]["types"];
+            alert('Cidade: '+city);
+            alert('Estado: '+state);
+            alert('Pais: '+country);
+            
+            
             myCenter = results[0].geometry.location;
             //markerInicio = new google.maps.Marker({position: myCenter,map: map});		
             //map.setCenter(myCenter); 
