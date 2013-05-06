@@ -32,18 +32,16 @@
  		return self::$instancia;
  	}
  	
- 	public function inserir(Avaliacao $obj) {
+ 	public function inserir(Localizacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "INSERT INTO " . self::TABELA . "
-            (latitude, longitude,bairro,cidade,servico_acompanhante_id
+            (latitude, longitude,endereco_formatado,servico_acompanhante_id
             )
  	
             VALUES('" . $obj->getLatitude() . "',
             '" . $obj->getLongitude() . "',
-            '" . $obj->getBairro() . "',
-            '" . $obj->getCidade() . "',
-            '" . $obj->getgetBairro() . "',
-            		'" . $obj->getServicoAcompanhanteId() . "',)";	
+            '" . $obj->getEnderecoFormatado() . "',
+            '" . $obj->getServicoAcompanhanteId() . "',)";	
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
  		// TRATANDO O RESULTADO //
@@ -57,22 +55,21 @@
  	 * @param $obj
  	 * @return Perfil
  	 */
- 	public function editar(Avaliacao $obj) {
+ 	public function editar(Localizacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "UPDATE " . self::TABELA . " SET
-            latitude = '" . $obj->getLatitude() . "',
-            longitude =	'" . $obj->getLongitude() . "',
-            bairro = '" . $obj->getBairro() . "'
-            cidade = '" . $obj->getCidade() . "'
-            servico_acompanhante_id = '" . $obj->getServicoAcompanhanteId() . "'
-            WHERE id = '" . $obj->getId() . "'";
+                latitude = '" . $obj->getLatitude() . "',
+                longitude =	'" . $obj->getLongitude() . "',
+                endereco_formatado = '" . $obj->getEnderecoFormatado() . "',            
+                servico_acompanhante_id = '" . $obj->getServicoAcompanhanteId() . "'
+                WHERE id = '" . $obj->getId() . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
  	
- 	public function excluir($id) {
+ 	/*public function excluir($id) {
  		// checando se existe algum vinculo desse registro com outros //
  		$validacao = "SELECT l.id FROM localizacao l WHERE l.id = '" . $id . "'";
  		if ($this->conexao->fetch($validacao))
@@ -86,7 +83,7 @@
  		}
  		// RETORNANDO O RESULTADO //
  		return $resultado;
- 	}
+ 	}*/
  	
 
  	public function buscar($id) {
@@ -104,7 +101,7 @@
  	 */
  	public function listar() {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT l.* FROM " . self::TABELA . " l ORDER BY l.cidade";
+ 		$sql = "SELECT * FROM " . self::TABELA . "";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //

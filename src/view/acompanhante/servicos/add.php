@@ -15,11 +15,6 @@
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDz-izkZlMj8pCSosNtyjeUhFiPYbIqfaU&sensor=false"></script>
 
 <script>
-/*contador pros arrasy de localizacao*/
-var contadorLatitude = 0;
-var contadorLongitude = 0;
-/*contador pros arrasy de localizacao*/
-    
 /*pra pegar informações d alocalizaçãoda pessoa*/
   var lat = geoip_latitude();
   var lon = geoip_longitude();
@@ -32,7 +27,7 @@ var centersArray = [];
 
 var latitude = [];
 var longitude = [];
-
+var endereco = [];
 
 //var myCenter = new google.maps.LatLng(-8.102738577783168,-35.299072265625);
 var myCenter = new google.maps.LatLng(lat, lon);
@@ -58,27 +53,98 @@ function initialize(){
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
     });
-    
+
+
+   
+  
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 
+
 function placeMarker(location) {
+    
+  map.setOptions({ draggableCursor: 'wait' });
+    
   var marker = new google.maps.Marker({
     position: location,
-    map: map
+    map: map,
+    title: 'Localização dos serviço'
   });
-  var infowindow = new google.maps.InfoWindow({
-    content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
-  });  
-  infowindow.open(map,marker);
+  
+  
+  
+  
+  
+    var txtEndereco = location.lat() +','+ location.lng();
+    
+    
+    
+    geocoder = new google.maps.Geocoder();
+    
+    
+    
+    geocoder.geocode({'address':txtEndereco}, function(results, status){ 
+        
+    
+        
+        if( status = google.maps.GeocoderStatus.OK){
+            
+           /*
+           alert("FORMATADO: "+results[0].formatted_address);
+            
+           var myString =results[0].formatted_address;
+           var myArray = myString.split(',');
+
+           // display the result in myDiv
+           for(var i=0;i<myArray.length;i++){
+            alert(myArray[i])
+            
+           }*/
+            
+           endereco.push(results[0].formatted_address);
+            
+            var infowindow = new google.maps.InfoWindow({
+              content: '<div class="classBalao" style="width: 100%; height: 100%">' + results[0].formatted_address +'</div>',
+              //content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+              maxWidth: 200
+            });  
+            infowindow.open(map,marker);
+            map.setOptions({ draggableCursor: 'move' });
+            /*
+            if (resultse) {
+                for (i in resultse) {
+                  alert("long_name :"+resultse[i]["long_name"]+ " I = "+i);
+                  alert("short_name :"+resultse[i]["short_name"]+ " I = "+i);
+                  
+                }
+              }*/
+            
+            
+            
+            //cidade.push(city);
+            //estado.push(state);
+            
+        }
+        else{
+            alert("ERROR!: "+status);
+        }
+  
+    });
+    
+ 
+  
   
   latitude.push(location.lat());
   longitude.push(location.lng());
 
   
   markersArray.push(marker);
+  
+  //map.setOptions({ draggableCursor: 'move' });
+  map.setOptions({ draggableCursor: 'wait' });
   
 }
 
@@ -89,7 +155,7 @@ function marcar(){
     geocoder.geocode({'address':endereco}, function(results, status){ 
         if( status = google.maps.GeocoderStatus.OK){
             
-            alert(results[0].formatted_address);
+            //alert(results[0].formatted_address);
             
             //alert(results[0].geometry.city);
             //alert(results[0].address_components.long_name);
@@ -100,12 +166,12 @@ function marcar(){
             
             
             
-            var city = resultse[0]["long_name"];
-            var state = resultse[1]["short_name"];
-            var country = resultse[2]["types"];
-            alert('Cidade: '+city);
-            alert('Estado: '+state);
-            alert('Pais: '+country);
+            //var city = resultse[0]["long_name"];
+            //var state = resultse[1]["short_name"];
+            //var country = resultse[2]["types"];
+            //alert('Cidade: '+city);
+            //alert('Estado: '+state);
+            //alert('Pais: '+country);
             
             
             myCenter = results[0].geometry.location;
@@ -114,11 +180,14 @@ function marcar(){
             
             var marker = new google.maps.Marker({
               position: new google.maps.LatLng(myCenter.lat(), myCenter.lng()),
-              map: map
+              map: map,
+              title: 'Localização dos serviço'
             });
             
             var infowindow = new google.maps.InfoWindow({
-              content: 'Latitude: ' + myCenter.lat() + '<br>Longitude: ' + myCenter.lng()
+              //content: 'Latitude: ' + myCenter.lat() + '<br>Longitude: ' + myCenter.lng()
+              content: '<div class="classBalao" style="width: 100%; height: 100%">' + results[0].formatted_address +'</div>',
+              maxWidth: 200
             });  
             
             infowindow.open(map,marker);
@@ -127,6 +196,8 @@ function marcar(){
             
             latitude.push(myCenter.lat());
             longitude.push(myCenter.lng());
+            
+            endereco.push(results[0].formatted_address);
             
         }			
     });
@@ -200,35 +271,92 @@ function deleteCenters() {
     centersArray.length = null;
     latitude.length = null;
     longitude.length = null;
+    endereco.length = null;
   }
 }
 
 
 $(document).ready(function(){    
-    $("#cadastrar").click(function() {
-        
+    $("#cadastrar").click(function() {        
         if (latitude) {            
             for (i in latitude) {
               //centersArray[i].setMap(null);
               myCenter = latitude[i];
               
-              
               myCenter1 = longitude[i];
+              myEndereco = endereco[i];
               
-              alert("latitude!!"+myCenter);
-              alert("Longitude!!"+myCenter1);
-              
-              
-              
+              alert("latitude: "+myCenter);
+              alert("Longitude: "+myCenter1);
+              alert("Endereco: "+myEndereco);
             }
         }
+        preco = "30,00";
+        servico = "BOLL CAT";
         
-        
-        
-        
-        
+        var request = $.ajax({
+	  url: "<?php echo BASE;?>/acompanhante/adicionarServico/<?php echo $acompanhante->getId();?>",
+	  type: "POST",
+	  data: {latitude: latitude, longitude: longitude, endereco: endereco, preco:preco, servico: servico },
+	  dataType: "html",
+	  async:false,
+	  success:function(retorno){
+              alert(retorno);
+		if(retorno == 0){
+			testeValidacao = true;
+		}else{
+			testeValidacao = false;
+			idEditarAta = retorno;
+			var name=confirm("Já existe uma ata com esses dados registrada no banco de dados. Deseja editá-la?.")
+			/*if (name==true){                                                                                
+				window.document.location = "<?php echo BASE;?>/atas/editar/"+retorno;
+			} else{                                        			                        
+				//$("#finalizar").removeAttr("disabled");
+				$("#cadastrarAta input[type=text]").val("");
+				$("#cadastrarAta select").val("0");						
+			}	*/				
+		}	
+	  }     
+
+	});
         
     });
+    
+    
+    
+    
+    /*
+    var latitude = [];
+    var longitude = [];
+    
+    var request = $.ajax({
+	  url: "<?php echo BASE;?>/acompanhante/adicionarServico/<?php echo $acompanhante->getId();?>",
+	  type: "POST",
+	  data: {id_orgaoDetentor: id_orgaoDetentor, numeroAta: numeroAta, ano: ano },
+	  dataType: "html",
+	  async:false,
+	  success:function(retorno){		
+		if(retorno == 0){
+			testeValidacao = true;
+		}else{
+			testeValidacao = false;
+			idEditarAta = retorno;
+			var name=confirm("Já existe uma ata com esses dados registrada no banco de dados. Deseja editá-la?.")
+			if (name==true){                                                                                
+				window.document.location = "<?php echo BASE;?>/atas/editar/"+retorno;
+			} else{                                        			                        
+				//$("#finalizar").removeAttr("disabled");
+				$("#cadastrarAta input[type=text]").val("");
+				$("#cadastrarAta select").val("0");						
+			}					
+		}	
+	  }     
+
+	});
+    
+    */
+    
+    
 });
 
 </script>

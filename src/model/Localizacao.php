@@ -4,24 +4,24 @@ class  Localizacao{
 	private $id;
 	private $latitude;
 	private $longitude;
-	private $bairro;
-	private $cidade;
-	private $servico_acompanhante_id;
+	private $enderecoFormatado;	
+	private $servicoAcompanhanteId;
 	
-	public function __construct($id = 0, $latitude = '',$longitude = '',$bairro = '',$cidade = '',
-			$servico_acompanhante_id = null) {
+	public function __construct($id = 0, $latitude = '',$longitude = '',
+                $enderecoFormatado = '', $servicoAcompanhanteId = 0) {
 		$this->id = $id;
 		$this->latitude = $latitude;
 		$this->longitude = $longitude;
-		$this->bairro = $bairro;
-		$this->cidade = $cidade;
-		$this->servico_acompanhante_id = $servico_acompanhante_id;
+		$this->enderecoFormatado = $enderecoFormatado;
+		
+		$this->servicoAcompanhanteId = $servicoAcompanhanteId;
 	}
 	
 	private function _validarCampos(){
-		if(($this->getLatitude() == '')||($this->getId() == null)||($this->getLongitude() == '')
-				||($this->getBairro() == '')||($this->getCidade() == null)
-				||($this->getServicoAcompanhanteId() == null))
+		if(($this->getLatitude() == '')
+                        ||($this->getLongitude() == '')
+			||($this->getEnderecoFormatado() == '')
+			||($this->getServicoAcompanhanteId() == 0))
 			return false;
 		return true;
 	}
@@ -50,20 +50,15 @@ class  Localizacao{
 		$this->longitude = $longitude;
 	}
 	
-	public function getBairro() {
-		return $this->bairro;
+	public function getEnderecoFormatado() {
+		return $this->enderecoFormatado;
 	}
+        
+	public function setEnderecoFormatado($enderecoFormatado) {
+		$this->enderecoFormatado = $enderecoFormatado;
+	}
+        
 	
-	public function setBairro($bairro) {
-		$this->bairro = $bairro;
-	}
-	public function getCidade() {
-		return $this->cidade;
-	}
-	
-	public function setCidade($cidade) {
-		$this->cidade = $cidade;
-	}
 	public function getServicoAcompanhanteId() {
 		return $this->servico_acompanhante_id;
 	}
@@ -82,7 +77,7 @@ class  Localizacao{
 		// executando o metodo //
 		$localizacao = $instancia->inserir($this);
 		// retornando o Usuario //
-		return  $localizacao = $instancia->inserir($this);
+		return  $localizacao;
 	}
 	
 	public function editar(){
@@ -95,7 +90,7 @@ class  Localizacao{
 		// executando o metodo //
 		$localizacao = $instancia->editar($this);
 		// retornando o Usuario //
-		return  $localizacao = $instancia->editar($this);
+		return  $localizacao;
 	}
 	
 	public function excluir(){
@@ -120,7 +115,7 @@ class  Localizacao{
 		foreach($localizacao as $localizacao){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
 			$objetos[] = new Localizacao($localizacao['id'],$localizacao['latitude'],
-					$localizacao['longitude'],$localizacao['bairro'],$localizacao['cidade'],
+					$localizacao['longitude'],$localizacao['endereco_formatado'],
 					$localizacao['servico_acompanhante_id']);
 		}
 		// retornando a colecao $objetos //
@@ -139,7 +134,7 @@ class  Localizacao{
         		throw new RegistroNaoEncontrado(RegistroNaoEncontrado::LOCALIZACAO);
         	// instanciando e retornando o Usuario //
         	$a = new  Localizacao($localizacao['id'],$localizacao['latitude'],
-					$localizacao['longitude'],$localizacao['bairro'],$localizacao['cidade'],
+					$localizacao['longitude'],$localizacao['endereco_formatado'],
 					$localizacao['servico_acompanhante_id']);
         	return $a;
         }

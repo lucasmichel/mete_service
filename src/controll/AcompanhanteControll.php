@@ -279,7 +279,41 @@ class AcompanhanteControll extends Controll {
     
     private function _adicionarServico($dados){
         try {            
+                        /*<pre>array(3) {
+              ["latitude"]=>
+              array(1) {
+                [0]=>
+                string(18) "-8.265175539903915"
+              }
+              ["longitude"]=>
+              array(1) {
+                [0]=>
+                string(18) "-34.98252868652344"
+              }
+              ["endereco"]=>
+              array(1) {
+                [0]=>
+                string(90) "Estrada Velha de Barreiros - Cabo de Santo Agostinho - PE, República Federativa do Brasil"
+              }
+            }*/
+         
+            for ($index = 0; $index < count($dados["latitude"]); $index++) {
+                
+                $localizacao = new Localizacao();
+                $localizacao->setLatitude($dados["latitude"][$index]);
+                $localizacao->setLongitude($dados["longitude"][$index]);
+                $localizacao->setEnderecoFormatado($dados["endereco"][$index]);
+                
+                $localizacao->inserir();
+                
+                
+            }
             
+            
+            
+            
+            
+            meuVarDump($dados);
             
             $acompanhante = Acompanhante::buscar($dados['acompanhanteId']);
             
