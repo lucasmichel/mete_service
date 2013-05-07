@@ -284,9 +284,8 @@ $(document).ready(function(){
 
            // assign the value to a variable, so you can test to see if it is working
         var servicoAcompanhanteId = $('#servico :selected').val();
-        var preco = $('#valor').val();
-
-
+        var preco = $("#valor").val();
+        
         /*
         if (latitude) {            
             for (i in latitude) {
@@ -308,16 +307,15 @@ $(document).ready(function(){
 	  data: {latitude: latitude, longitude: longitude, endereco: endereco, preco:preco, servicoAcompanhanteId: servicoAcompanhanteId },
 	  dataType: "html",
 	  async:true,
-	  success:function(retorno){
-              alert(retorno);
-		if(retorno == 0){
-			testeValidacao = true;
-                        alert(testeValidacao);
+	  success:function(retorno){              
+		if(retorno != "erro"){
+                        alert("Cadstro de serviço realizado com sucesso!");
+			window.document.location = "<?php echo BASE;?>/acompanhante/visualizarServicos/<?php echo $acompanhante->getId();?>";
 		}else{
-			testeValidacao = false;
-			idEditarAta = retorno;
-			var name=confirm("Já existe uma ata com esses dados registrada no banco de dados. Deseja editá-la?.")
-			/*if (name==true){                                                                                
+                        alert("ERRO: "+retorno);
+
+			/*var name=confirm("Já existe uma ata com esses dados registrada no banco de dados. Deseja editá-la?.")
+			if (name==true){                                                                                
 				window.document.location = "<?php echo BASE;?>/atas/editar/"+retorno;
 			} else{                                        			                        
 				//$("#finalizar").removeAttr("disabled");
@@ -389,7 +387,7 @@ $(document).ready(function(){
                             <ul class="list-cadastro">   
                                 <li>
                                     <label for="valor">Valor</label>
-                                    <input alt="decimal" type="text" id="valor" name="valor" value="<?php if($servicosAcompanhante != null) echo $servicosAcompanhante->getValor();  ?>" />
+                                    <input alt="decimalLucas" type="text" id="valor" name="valor" value="<?php if($servicosAcompanhante != null) echo $servicosAcompanhante->getValor();  ?>" />
                                 </li>
                                 <li>
                                     <label for="perfil">Serviço</label>

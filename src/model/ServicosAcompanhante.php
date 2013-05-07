@@ -60,39 +60,50 @@ class ServicosAcompanhante {
 	 * Metodo _validarCampos()
 	 * @return boolean
 	 */
-	private function _validarCampos(){            
-		if ($this->getServicoId() == 0)
-                    return false;
-                if ($this->getAcompanhanteId() == 0)
-                    return false;
-                if ($this->getValor() == 0)
-                    return false;
-                
-                
-		return true;
-	}
 	
+	
+        private function _validarCampos(){
+            $retorno = false;
+            
+            if($this->getServicoId() == 0){
+                throw new CamposObrigatorios("Servico acompanhnante: servicoId");
+                $retorno = false;
+            }
+            if($this->getAcompanhanteId() == 0){
+                throw new CamposObrigatorios("Servico acompanhnante: acompanhante id");
+                $retorno = false;
+            }
+            if($this->getValor() == 0){
+                throw new CamposObrigatorios("Servico acompanhnante: valor");
+                $retorno = false;
+            }            
+            else
+                {
+                    $retorno = true;
+
+            }	
+            return $retorno;
+	}
+        
 	public function inserir(){
 		// validando os campos //
-		if(!$this->_validarCampos())
-			// levantando a excessao CamposObrigatorios //
-			throw new CamposObrigatorios();		
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ServicosAcomapnhanteDAO::getInstancia();
-		// retornando o Usuario //
-		return  $instancia->inserir($this);
+		if($this->_validarCampos()){
+                    // recuperando a instancia da classe de acesso a dados //
+                    $instancia = ServicosAcomapnhanteDAO::getInstancia();
+                    // retornando o Usuario //
+                    return  $instancia->inserir($this);
+                }
+			
 	}
 	
 	public function editar(){
 		// validando os campos //
-		if(!$this->_validarCampos())
-			// levantando a excessao CamposObrigatorios //
-			throw new CamposObrigatorios();		
-		
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ServicosAcomapnhanteDAO::getInstancia();
-		// retornando o Usuario //
-		return  $instancia->editar($this);
+		if($this->_validarCampos()){
+                    // recuperando a instancia da classe de acesso a dados //
+                    $instancia = ServicosAcomapnhanteDAO::getInstancia();
+                    // retornando o Usuario //
+                    return  $instancia->editar($this);    
+                }
 	}
 	
 	public function excluir(){
@@ -115,12 +126,17 @@ class ServicosAcompanhante {
 		// percorrendo os usuarios //
 		foreach($servicos as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$objetos[] = new ServicosAcompanhantes($servico['id'],					
+			$objetos[] = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
-					$servico['valor'],
-					$servico['acompanhante_id'],
+                                        $servico['acompanhante_id'],	
+                                        $servico['valor'],
 					$servico['excluido']
                                 );
+                        
+                        
+                        //Chamada da função
+                    
+                        
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
@@ -141,8 +157,8 @@ class ServicosAcompanhante {
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
 			$objetos[] = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
-					$servico['valor'],
-					$servico['acompanhante_id'],
+                                        $servico['acompanhante_id'],	
+                                        $servico['valor'],
 					$servico['excluido']
                                 );
 		}
@@ -163,8 +179,8 @@ class ServicosAcompanhante {
 	
 		$a = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
-					$servico['valor'],
-					$servico['acompanhante_id'],
+                                        $servico['acompanhante_id'],	
+                                        $servico['valor'],
 					$servico['excluido']
                                 );
 		return $a;

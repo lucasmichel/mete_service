@@ -41,7 +41,6 @@ class ServicosAcomapnhanteDAO extends ClassDAO{
 		$resultado = $this->conexao->exec($sql);
                 // TRATANDO O RESULTADO //
                 ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
-		
                 return $obj;
 	}
 	 

@@ -276,11 +276,11 @@ class WebServiceControll extends Controll{
 			$atributoMensagem = $encoded["mensagem"];
 				
 			$acompanhante = new Acompanhante();
-			$acompanhante2 = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
+			$acompanhante = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
 			
 			$usuario = Usuario::buscar($acompanhante->getUsuarioId());
 			
-                        $retornoDados[] = (array) $acompanhante2;
+                        $retornoDados[] = (array) $acompanhante;
                         
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			

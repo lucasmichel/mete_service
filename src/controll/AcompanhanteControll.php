@@ -296,10 +296,11 @@ class AcompanhanteControll extends Controll {
                 string(90) "Estrada Velha de Barreiros - Cabo de Santo Agostinho - PE, República Federativa do Brasil"
               }
             }*/
+            
             $servicoAcompanhnate = new ServicosAcompanhante();            
             $servicoAcompanhnate->setValor($dados["preco"]);
             $servicoAcompanhnate->setServicoId($dados["servicoAcompanhanteId"]);
-            $servicoAcompanhnate->setAcompanhanteId($id);
+            $servicoAcompanhnate->setAcompanhanteId($id);            
             $servicoAcompanhnate = $servicoAcompanhnate->inserir();
             $servicoAcompanhanteId = $servicoAcompanhnate->getId();
             
@@ -313,29 +314,14 @@ class AcompanhanteControll extends Controll {
                         $dados["endereco"][$index], 
                         $servicoAcompanhanteId);
                 
-                
                 $localizacao->inserir();
-                
-                
             }
             
-            // setando a mensagem de sucesso //
-            $this->setFlash('Serviço cadastrado com sucesso.');
-            // setando a url //
-            $this->setTela('listar',array('acompanhante/servicos'));
+            return $servicoAcompanhnate->getId();
             
         }
         catch (Exception $e){
-            //retorna os campos prar serem preenchidos novamente
-            /*if(isset($servicosAcompanhante))
-            	$this->setDados($servicosAcompanhante,'servicosAcompanhante');
-            
-            if(isset($acompanhante))
-            	$this->setDados($acompanhante,'acompanhante');*/
-            // setando a mensagem de excessão //
-            $this->setFlash($e->getMessage());
-            // definindo a tela //
-            $this->setTela('listar',array('acompanhante/servicos'));
+            return "erro"; //$e->getMessage();
         }
     }
     

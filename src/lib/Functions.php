@@ -409,6 +409,22 @@ function meuVarDump($dados){
 	die();
 }
 
+/*
+function moedaGravarBanco($valor) {
+    $valor = str_replace(".", "", $valor);
+    $valor = str_replace(",", ".", $valor);
+    return $valor;
+}
+
+function moedaLerBanco($valorDoBanco) {
+    //$valor = ' R$ ' . number_format($valorDoBanco, 2, ',', '.');    
+    $valor = ' R$ ' . number_format($valorDoBanco,'.',',');    
+    //$valor = ' R$!! ' . number_format($valorDoBanco);    
+    return $valor; //retorna o valor formatado para gravar no banco
+    
+}*/
+	
+	
 
 	
 ?>
