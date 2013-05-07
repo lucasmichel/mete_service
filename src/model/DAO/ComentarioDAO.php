@@ -19,7 +19,7 @@
  	
  	public static function getInstancia() {
  		if (!isset(self::$instancia))
- 			self::$instancia = new CaracteristicasDAO();
+ 			self::$instancia = new ComentarioDAO();
  		return self::$instancia;
  	}
  	

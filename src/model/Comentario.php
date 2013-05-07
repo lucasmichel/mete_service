@@ -22,11 +22,11 @@ class  Comentario{
 		return true;
 	}
 	
-	public static function listar() {
+	public static function listar($campo) {
 		$instancia = ComentarioDAO::getInstancia();
-		$comentario = $instancia->listar();
+		$comentario = $instancia->listar($campo);
 		if (!$comentario)
-			throw new ListaVazia(ListaVazia::COMENTARIO);
+			throw new ListaVazia(ListaVazia::Comentario);
 		foreach ($comentario as $comentario) {
 			$objetos[] = new Comentario($comentario['id'], $comentario['comentario'], $comentario['comentario_id'],
 					 $comentario['cliente_id'], $comentario['acompanhante_id']);
@@ -39,7 +39,7 @@ class  Comentario{
  		$instancia = ComentarioDAO::getInstancia();
  		$comentario = $instancia->buscar($id);
  		if (!$comentario)
- 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::COMENTARIO);
+ 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::Comentario);
  		return new Comentario($comentario['id'], $comentario['comentario'], $comentario['comentario_id'],
 					 $comentario['cliente_id'], $comentario['acompanhante_id']);
  	}
@@ -79,6 +79,17 @@ class  Comentario{
  		return $comentario;
  	}
  	
+ 	private static function construirObjeto($dados){
+ 			
+ 		$comentario = new Comentario();
+ 		$comentario->setId($dados['id']);
+ 		$comentario->setComentario($dados['comentario']);
+ 		$comentario->setComentario_id($dados['comentario_id']);
+ 		$comentario->setClienteId($dados['cliente_id']);
+ 		$comentario->setAcompanhante_id($dados['acompanhante_id']);	
+ 		return $comentario;
+ 			
+ 	}
 	public function getId() {
 		return $this->id;
 	}
