@@ -147,6 +147,31 @@ class Fotos {
             // retornando a colecao $objetos //
             return $objetos;
     }
+    
+     public static function listarPorIdAcompanhanteWebService($id){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = FotosDAO::getInstancia();
+            // executando o metodo //
+            $fotos = $instancia->listarPorIdAcompanhante($id);
+            // checando se o retorno foi falso //
+            if(!$fotos)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::FOTOS);
+            // percorrendo os usuarios //
+            foreach($fotos as $foto){
+                
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $objetos[] = (array) new Fotos($foto['id'],
+                            $foto['nome'],
+                            $foto['excluido'],
+                            $foto['acompanhante_id']
+                           );
+                    
+                           
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+    }
 
     
      public static function buscar($id){

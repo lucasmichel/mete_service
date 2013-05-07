@@ -29,7 +29,7 @@ class ServicosAcomapnhanteDAO extends ClassDAO{
 		return self::$instancia;
 	}
 	
-	public function inserir(ServicosAcomapnhante $obj) {
+	public function inserir(ServicosAcompanhante $obj) {
 		// INSTRUCAO SQL //
 		$sql = "INSERT INTO " . self::TABELA . "
                 (servico_id, valor, acompanhante_id, excluido)VALUES(
@@ -37,14 +37,15 @@ class ServicosAcomapnhanteDAO extends ClassDAO{
                     '" . $obj->getValor()  . "',
                     '" . $obj->getAcompanhanteId()  . "',                    
                 0)";
-	
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->exec($sql);
-		// TRATANDO O RESULTADO //
-                return $resultado;
+                // TRATANDO O RESULTADO //
+                ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+		
+                return $obj;
 	}
 	 
-	public function editar(ServicosAcomapnhante $obj) {		
+	public function editar(ServicosAcompanhante $obj) {		
                 // INSTRUCAO SQL //
 		$sql = "UPDATE " . self::TABELA . " SET
                 servico_id = '" . $obj->getServicoId() . "',

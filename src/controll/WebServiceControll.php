@@ -402,13 +402,19 @@ class WebServiceControll extends Controll{
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
 			
+                        
+                        
+                        $perfil = new Perfil();
+                        
+                        $perfil = Perfil::buscar(2);
+                        
 			$usuario = new Usuario();
 			$cliente = new Cliente();
 			$usuario->setId(trim($atributoDados['idUsuario']));
 			$usuario->setLogin(trim($atributoDados['email']));
 			$usuario->setSenha(trim($atributoDados['senha']));
 			$usuario->setEmail(trim($atributoDados['email']));
-	
+                        $usuario->setPerfil($perfil);
 			$cliente->setId(trim($atributoDados['id']));
 			$cliente->setCpf(trim($atributoDados['cpf']));
 			$cliente->setNome(trim($atributoDados['nome']));
@@ -617,9 +623,9 @@ class WebServiceControll extends Controll{
 			$atributoMensagem = $encoded["mensagem"];	
 				
 			$foto = new Fotos( );
-			$foto->setNome($fotoDados->{'photo'});
-			$foto->setAcompanhanteId($fotoDados->{'id'});
-			
+			$foto->setNome($atributoDados['nome']);
+			$foto->setAcompanhanteId($atributoDados['id']);
+			$foto = $foto->inserir();
                         
                         $retornoDados[] = (array) $foto;
 			
@@ -630,6 +636,32 @@ class WebServiceControll extends Controll{
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);
 		}
+                
+	}
+        
+	public function _listarFoto($dados) {
+		try {
+	
+                        //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                        $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                        $encoded = json_decode($jsonDescriptografado, true);
+                        $atributoDados = $encoded["dados"][0];
+                        $atributoStatus = $encoded["status"];
+                        $atributoMensagem = $encoded["mensagem"];	
+
+
+
+                        $listaFotos = Fotos::listarPorIdAcompanhanteWebService($atributoDados['id']);
+                        $retornoDados[] = $listaFotos;
+
+                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "Listar fotos OK");
+
+                        $this->retorno($arrayRetorno);
+		} catch (Exception $e) {			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+                
 	}
 	
 	

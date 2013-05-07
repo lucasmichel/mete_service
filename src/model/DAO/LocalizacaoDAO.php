@@ -5,7 +5,7 @@
  * @package model
  * @subpackage DAO
  */
- class LocalizacaoDAO extends ClasseDAO{
+ class LocalizacaoDAO extends ClassDAO{
  	/**
  	 * Atributos
  	 */
@@ -35,13 +35,13 @@
  	public function inserir(Localizacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "INSERT INTO " . self::TABELA . "
-            (latitude, longitude,endereco_formatado,servico_acompanhante_id
-            )
- 	
-            VALUES('" . $obj->getLatitude() . "',
-            '" . $obj->getLongitude() . "',
-            '" . $obj->getEnderecoFormatado() . "',
-            '" . $obj->getServicoAcompanhanteId() . "',)";	
+                (latitude, longitude,endereco_formatado,servicos_acompanhante_id
+                )
+
+                VALUES('" . $obj->getLatitude() . "',
+                '" . $obj->getLongitude() . "',
+                '" . $obj->getEnderecoFormatado() . "',
+                '" . $obj->getServicoAcompanhanteId() . "')";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
  		// TRATANDO O RESULTADO //

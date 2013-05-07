@@ -60,9 +60,15 @@ class ServicosAcompanhante {
 	 * Metodo _validarCampos()
 	 * @return boolean
 	 */
-	private function _validarCampos(){
-		if($this->getNome() == null)
-			return false;
+	private function _validarCampos(){            
+		if ($this->getServicoId() == 0)
+                    return false;
+                if ($this->getAcompanhanteId() == 0)
+                    return false;
+                if ($this->getValor() == 0)
+                    return false;
+                
+                
 		return true;
 	}
 	
@@ -133,7 +139,7 @@ class ServicosAcompanhante {
 		// percorrendo os usuarios //
 		foreach($servicos as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$objetos[] = new ServicosAcompanhantes($servico['id'],					
+			$objetos[] = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
 					$servico['valor'],
 					$servico['acompanhante_id'],
@@ -155,7 +161,7 @@ class ServicosAcompanhante {
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::SERVICO);
 		// instanciando e retornando o Usuario //
 	
-		$a = new ServicosAcompanhantes($servico['id'],					
+		$a = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
 					$servico['valor'],
 					$servico['acompanhante_id'],

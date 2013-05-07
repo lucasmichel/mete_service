@@ -274,10 +274,10 @@ class AcompanhanteControll extends Controll {
         // caso passar o formulario //
         else
             // chamando o metodo privado _editar() passando os dados do post por parametro //
-            $this->_adicionarServico($this->getDados('POST'));
+            $this->_adicionarServico($this->getDados('POST'), $id);
     }
     
-    private function _adicionarServico($dados){
+    private function _adicionarServico($dados, $id){
         try {            
                         /*<pre>array(3) {
               ["latitude"]=>
@@ -296,62 +296,46 @@ class AcompanhanteControll extends Controll {
                 string(90) "Estrada Velha de Barreiros - Cabo de Santo Agostinho - PE, República Federativa do Brasil"
               }
             }*/
-         
+            $servicoAcompanhnate = new ServicosAcompanhante();            
+            $servicoAcompanhnate->setValor($dados["preco"]);
+            $servicoAcompanhnate->setServicoId($dados["servicoAcompanhanteId"]);
+            $servicoAcompanhnate->setAcompanhanteId($id);
+            $servicoAcompanhnate = $servicoAcompanhnate->inserir();
+            $servicoAcompanhanteId = $servicoAcompanhnate->getId();
+            
+            
+            
             for ($index = 0; $index < count($dados["latitude"]); $index++) {
                 
-                $localizacao = new Localizacao();
-                $localizacao->setLatitude($dados["latitude"][$index]);
-                $localizacao->setLongitude($dados["longitude"][$index]);
-                $localizacao->setEnderecoFormatado($dados["endereco"][$index]);
+                $localizacao = new Localizacao(0, 
+                        $dados["latitude"][$index], 
+                        $dados["longitude"][$index], 
+                        $dados["endereco"][$index], 
+                        $servicoAcompanhanteId);
+                
                 
                 $localizacao->inserir();
                 
                 
             }
             
-            
-            
-            
-            
-            meuVarDump($dados);
-            
-            $acompanhante = Acompanhante::buscar($dados['acompanhanteId']);
-            
-            $servicosAcompanhante = new ServicosAcompanhantes();
-            $servicosAcompanhante->setServicoId($dados['servico']);
-            
-            if($usuario->_validarCampos())
-                    $insert = true;
-            else
-                    $insert = false;
-
-            if($acompanhante->_validarCampos())
-                    $insert = true;
-            else
-                    $insert = false;
-
-            if($insert == true){
-                    $usuario = $usuario->editar();
-                    $acompanhante = $acompanhante->editar();
-            }
-            
             // setando a mensagem de sucesso //
             $this->setFlash('Serviço cadastrado com sucesso.');
             // setando a url //
-            $this->setPage();
+            $this->setTela('listar',array('acompanhante/servicos'));
             
         }
         catch (Exception $e){
             //retorna os campos prar serem preenchidos novamente
-            if(isset($servicosAcompanhante))
+            /*if(isset($servicosAcompanhante))
             	$this->setDados($servicosAcompanhante,'servicosAcompanhante');
             
             if(isset($acompanhante))
-            	$this->setDados($acompanhante,'acompanhante');
+            	$this->setDados($acompanhante,'acompanhante');*/
             // setando a mensagem de excessão //
             $this->setFlash($e->getMessage());
             // definindo a tela //
-            $this->setTela('add',array('acompanhante/servicos'));
+            $this->setTela('listar',array('acompanhante/servicos'));
         }
     }
     

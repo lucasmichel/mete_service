@@ -7,23 +7,41 @@ class  Localizacao{
 	private $enderecoFormatado;	
 	private $servicoAcompanhanteId;
 	
-	public function __construct($id = 0, $latitude = '',$longitude = '',
-                $enderecoFormatado = '', $servicoAcompanhanteId = 0) {
+	public function __construct($id = 0, $latitude = null,$longitude = null,
+                $enderecoFormatado = null, $servicoAcompanhanteId = 0) {
 		$this->id = $id;
 		$this->latitude = $latitude;
 		$this->longitude = $longitude;
 		$this->enderecoFormatado = $enderecoFormatado;
-		
 		$this->servicoAcompanhanteId = $servicoAcompanhanteId;
 	}
 	
 	private function _validarCampos(){
-		if(($this->getLatitude() == '')
-                        ||($this->getLongitude() == '')
-			||($this->getEnderecoFormatado() == '')
-			||($this->getServicoAcompanhanteId() == 0))
-			return false;
-		return true;
+            $retorno = false;
+            
+            if($this->getLatitude() == null){
+                throw new CamposObrigatorios("Localização: falta latitude");
+                $retorno = false;
+            }
+            if($this->getLongitude() == null){
+                throw new CamposObrigatorios("Localização: falta longitude");
+                $retorno = false;
+            }
+            if($this->getEnderecoFormatado() == null){
+                throw new CamposObrigatorios("Localização: falta enderço formatado");
+                $retorno = false;
+            }
+            if ($this->getServicoAcompanhanteId() == 0)
+            {
+                throw new CamposObrigatorios("Localização: falta ServicoAcompanhanteId");
+                $retorno = false;
+            }
+            else
+                {
+                    $retorno = true;
+
+            }	
+            return $retorno;
 	}
 	
 	
@@ -60,7 +78,7 @@ class  Localizacao{
         
 	
 	public function getServicoAcompanhanteId() {
-		return $this->servico_acompanhante_id;
+		return $this->servicoAcompanhanteId;
 	}
 	
 	public function setServicoAcompanhanteId($servicoAcompanhanteId) {
@@ -68,16 +86,19 @@ class  Localizacao{
 	}
 	
 	public function inserir(){
+            
 		// validando os campos //
-		if(!$this->_validarCampos())
-			// levantando a excessao CamposObrigatorios //
-			throw new CamposObrigatorios();
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = LocalizacaoDAO::getInstancia();
-		// executando o metodo //
-		$localizacao = $instancia->inserir($this);
-		// retornando o Usuario //
-		return  $localizacao;
+		if($this->_validarCampos()){
+                    // recuperando a instancia da classe de acesso a dados //
+                    $instancia = LocalizacaoDAO::getInstancia();
+                    // executando o metodo //                    
+                    $localizacao = $instancia->inserir($this);
+                    // retornando o Usuario //
+                    return  $localizacao;
+                }
+			
+			
+		
 	}
 	
 	public function editar(){

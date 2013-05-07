@@ -278,6 +278,16 @@ function deleteCenters() {
 
 $(document).ready(function(){    
     $("#cadastrar").click(function() {        
+        
+        
+        
+
+           // assign the value to a variable, so you can test to see if it is working
+        var servicoAcompanhanteId = $('#servico :selected').val();
+        var preco = $('#valor').val();
+
+
+        /*
         if (latitude) {            
             for (i in latitude) {
               //centersArray[i].setMap(null);
@@ -291,19 +301,18 @@ $(document).ready(function(){
               alert("Endereco: "+myEndereco);
             }
         }
-        preco = "30,00";
-        servico = "BOLL CAT";
-        
+        */
         var request = $.ajax({
 	  url: "<?php echo BASE;?>/acompanhante/adicionarServico/<?php echo $acompanhante->getId();?>",
 	  type: "POST",
-	  data: {latitude: latitude, longitude: longitude, endereco: endereco, preco:preco, servico: servico },
+	  data: {latitude: latitude, longitude: longitude, endereco: endereco, preco:preco, servicoAcompanhanteId: servicoAcompanhanteId },
 	  dataType: "html",
-	  async:false,
+	  async:true,
 	  success:function(retorno){
               alert(retorno);
 		if(retorno == 0){
 			testeValidacao = true;
+                        alert(testeValidacao);
 		}else{
 			testeValidacao = false;
 			idEditarAta = retorno;
@@ -379,8 +388,8 @@ $(document).ready(function(){
                             <input type="hidden" name="acompanhanteId" id="acompanhanteId" value="<?php echo $acompanhante->getId(); ?>" />
                             <ul class="list-cadastro">   
                                 <li>
-                                    <label for="email">Valor</label>
-                                    <input alt="decimal" type="text" id="valor" name="email" value="<?php if($servicosAcompanhante != null) echo $servicosAcompanhante->getValor();  ?>" />
+                                    <label for="valor">Valor</label>
+                                    <input alt="decimal" type="text" id="valor" name="valor" value="<?php if($servicosAcompanhante != null) echo $servicosAcompanhante->getValor();  ?>" />
                                 </li>
                                 <li>
                                     <label for="perfil">Serviço</label>

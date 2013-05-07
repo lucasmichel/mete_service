@@ -300,21 +300,25 @@ class DefaultControll extends Controll {
     /******FOTO******/
     /******FOTO******/
     public function cadastrarFoto() {    	
-    	if ($this->getDados('POST')) {
-    		$this->_cadastrarFoto($this->getDados('POST'));
-    	}
-    	else{
-    		$this->setTela('cadastrarFoto');
-    		$this->getPage();
+        if ($this->getDados('POST')) {
+            $this->_cadastrarFoto($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
     	}
     	
     }
+        
+    private function _cadastrarFoto($dados) {
+        $executa = new WebServiceControll();
+        $executa->_cadastrarFoto($dados);
+    }
     
-   	private function _cadastrarFoto($dados) {
-    	
-   		$executa = new WebServiceControll();
-   		$executa->_cadastrarFoto($dados);
-    	
+    public function listarFotos() {
+    	$executa = new WebServiceControll();
+    	$executa->_listarFotos($this->getDados('POST'));
     }
     /******FOTO******/
     /******FOTO******/
@@ -346,31 +350,7 @@ class DefaultControll extends Controll {
 		}
     }
 
-    private function _logarAndroid($dados) {
-    	
-    	/*
-    	PARA TESTE
-    	meuVarDump($dados);    	
-    	 
-    	$usuarioinsercao[] = $dados;   	
-    	 
-    	$arrayRetorno["dados"] = $usuarioinsercao;
-    	$arrayRetorno["status"] = 0;
-    	$arrayRetorno["mensagem"] = 'ok';
-    	 
-    	meuVarDump(json_encode($arrayRetorno));
-    	meuVarDump(base64_encode(json_encode($arrayRetorno)));
-    	 
-    	$dadosTransferir = base64_encode(json_encode($arrayRetorno));
-    	 
-    	$dadosenvio['textoCriptografado'] = $dadosTransferir;
-    	 
-    	meuVarDump($dadosTransferir);
-    	 
-    	$executa = new WebServiceControll();
-    	$executa->_logarAndroid($dadosenvio);
-    	PARA TESTE
-    	*/
+    private function _logarAndroid($dados) {    	
     	$executa = new WebServiceControll();
     	$executa->_logarAndroid($dados);
     }
@@ -392,60 +372,6 @@ class DefaultControll extends Controll {
     
     
     
-    
-    
-    /*APAGAR DEPOIS*/
-    public function testeNovaEstruturaDados() {
-    	try {
-    
-    
-    		//$this->getDados('POST')
-    
-    		// O Curl irá fazer uma requisição para a API do Vimeo
-    		// e irá receber o JSON com as informações do vídeo.
-    		$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
-    		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    		$jsonCriptografado = curl_exec($curl);
-    		curl_close($curl);
-    		
-    		//$encoded = json_decode(base64_decode( $jsonCriptografado));
-    		$encoded = json_decode($jsonCriptografado);
-    		
-    		meuVarDump($encoded);
-    		
-    		
-    		//$encoded = base64_decode($jsonCriptografado);
-    
-    		meuVarDump($encoded);
-    
-    		// As informações pode ser recuperadas da seguinte forma.
-    		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
-    		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
-    
-    		$jsonCriptografado = $dados['textoCriptografado'];
-    		$jsonDescriptografado = base64_decode($jsonCriptografado);
-    		$encoded = json_decode($jsonDescriptografado);
-    
-    		$arrayRetorno["dados"] = Usuario::logarAndroid(trim($encoded->{'email'}), trim($encoded->{'senha'}));
-    		$arrayRetorno["status"] = 0;
-    		$arrayRetorno["messagem"] = "OK";
-    		header('Cache-Control: no-cache, must-revalidate');
-    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    		header('Content-type: application/json');
-    		$retorno = base64_encode(json_encode($arrayRetorno));
-    		echo $retorno;
-    	} catch (Exception $e) {
-    		$arrayRetorno["dados"] = null;
-    		$arrayRetorno["status"] = 1;
-    		$arrayRetorno["messagem"] = $e->getMessage();
-    		header('Cache-Control: no-cache, must-revalidate');
-    		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    		header('Content-type: application/json');
-    		$retorno = base64_encode(json_encode($arrayRetorno));
-    		echo $retorno;
-    	}
-    }
-    /*APAGAR DEPOIS*/
     
 }
 
