@@ -26,7 +26,7 @@ class  Comentario{
 		$instancia = ComentarioDAO::getInstancia();
 		$comentario = $instancia->listar($campo);
 		if (!$comentario)
-			throw new ListaVazia(ListaVazia::Comentario);
+			throw new ListaVazia(ListaVazia::COMENTARIO);
 		foreach ($comentario as $comentario) {
 			$objetos[] = new Comentario($comentario['id'], $comentario['comentario'], $comentario['comentario_id'],
 					 $comentario['cliente_id'], $comentario['acompanhante_id']);

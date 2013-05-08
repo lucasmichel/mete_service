@@ -1,6 +1,6 @@
 <?php
  class ComentarioControll extends Controll{
- 	const MODULO = 6;
+ 	const MODULO = 8;
  	/**
  	 * Acao index()
  	 */

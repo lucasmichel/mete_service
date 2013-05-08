@@ -47,7 +47,7 @@ class  Cliente{
 			throw new ListaVazia(ListaVazia::CLIENTES);
 		foreach ($cliente as $cliente) {
 			$objetos[] = self::construirObjeto($cliente);
-		}
+		} 
 		return $objetos;
 	}
 
