@@ -236,11 +236,6 @@ class AcompanhanteControll extends Controll {
         $this->setPage();
     }
     
-    
-    /**
-     * Acao foto($id)
-     * @param $id
-     */
     public function visualizarServicos($id){
     	// código da ação serve para o controle de acesso//
     	static $acao = 5;
@@ -252,7 +247,21 @@ class AcompanhanteControll extends Controll {
     	$this->setTela('listar',array('acompanhante/servicos'));
     }
     
-    
+    public function verServico($id){
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 5;
+    	// buscando o usuário //
+    	$ServicosAcompanhanteRetorno = ServicosAcompanhante::buscar($id); // Acompanhante::buscar($id);        
+        $acompanhante = Acompanhante::buscar($ServicosAcompanhanteRetorno->getAcompanhanteId());
+        $listaLocalizacao = Localizacao::listarPorServicoAcompanhanteId($ServicosAcompanhanteRetorno->getId());
+        
+    	// jogando o usuário no atributo $dados do controlador //
+    	$this->setDados($ServicosAcompanhanteRetorno,'servicosAcompanhante');
+    	$this->setDados($acompanhante,'acompanhante');
+    	$this->setDados($listaLocalizacao,'listaLocalizacao');
+    	// definindo a tela //
+    	$this->setTela('ver',array('acompanhante/servicos'));
+    }
     
     /**
      * Acao foto($id)
@@ -278,25 +287,7 @@ class AcompanhanteControll extends Controll {
     }
     
     private function _adicionarServico($dados, $id){
-        try {            
-                        /*<pre>array(3) {
-              ["latitude"]=>
-              array(1) {
-                [0]=>
-                string(18) "-8.265175539903915"
-              }
-              ["longitude"]=>
-              array(1) {
-                [0]=>
-                string(18) "-34.98252868652344"
-              }
-              ["endereco"]=>
-              array(1) {
-                [0]=>
-                string(90) "Estrada Velha de Barreiros - Cabo de Santo Agostinho - PE, República Federativa do Brasil"
-              }
-            }*/
-            
+        try {                      
             $servicoAcompanhnate = new ServicosAcompanhante();            
             $servicoAcompanhnate->setValor($dados["preco"]);
             $servicoAcompanhnate->setServicoId($dados["servicoAcompanhanteId"]);
@@ -305,6 +296,65 @@ class AcompanhanteControll extends Controll {
             $servicoAcompanhanteId = $servicoAcompanhnate->getId();
             
             
+            
+            for ($index = 0; $index < count($dados["latitude"]); $index++) {
+                
+                $localizacao = new Localizacao(0, 
+                        $dados["latitude"][$index], 
+                        $dados["longitude"][$index], 
+                        $dados["endereco"][$index], 
+                        $servicoAcompanhanteId);
+                
+                $localizacao->inserir();
+            }
+            
+            return $servicoAcompanhnate->getId();
+            
+        }
+        catch (Exception $e){
+            return "erro"; //$e->getMessage();
+        }
+    }
+    
+    public function editarServico($id){
+        static $acao = 7;
+        // checando se o formulário nao foi passado //
+        if(!$this->getDados('POST')){
+            
+            $ServicosAcompanhanteRetorno = ServicosAcompanhante::buscar($id); // Acompanhante::buscar($id);        
+            $acompanhante = Acompanhante::buscar($ServicosAcompanhanteRetorno->getAcompanhanteId());
+            $listaLocalizacao = Localizacao::listarPorServicoAcompanhanteId($ServicosAcompanhanteRetorno->getId());
+
+            // jogando o usuário no atributo $dados do controlador //
+            $this->setDados($ServicosAcompanhanteRetorno,'servicosAcompanhante');
+            $this->setDados($acompanhante,'acompanhante');
+            $this->setDados($listaLocalizacao,'listaLocalizacao');
+            
+            
+            // Definindo a tela //
+            $this->setTela('editar',array('acompanhante/servicos'));
+        }
+        // caso passar o formulario //
+        else{
+            $ServicosAcompanhanteRetorno = ServicosAcompanhante::buscar($id); // Acompanhante::buscar($id);        
+            $this->_editarServico($this->getDados('POST'), $ServicosAcompanhanteRetorno->getAcompanhanteId());
+        }
+            
+    }
+    
+    private function _editarServico($dados, $idAcompanhnante){
+        echo '<pre>';
+        var_dump($idAcompanhnante);
+        echo '<br />';
+        meuVarDump($dados);
+        
+        try {                      
+            $servicoAcompanhnate = new ServicosAcompanhante();            
+            $servicoAcompanhnate->setValor($dados["preco"]);
+            $servicoAcompanhnate->setServicoId($dados["servicoAcompanhanteId"]);
+            $servicoAcompanhnate->setAcompanhanteId($idAcompanhnante);            
+            $servicoAcompanhnate = $servicoAcompanhnate->inserir();
+            $servicoAcompanhanteId = $servicoAcompanhnate->getId();
             
             for ($index = 0; $index < count($dados["latitude"]); $index++) {
                 

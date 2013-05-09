@@ -107,6 +107,20 @@
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
+        
+        
+ 	/**
+ 	 * Metodo listar()
+ 	 * @return fetch_assoc[]
+ 	 */
+ 	public function listarPorServicoAcompanhanteId($ServicoAcompanhanteId) {
+ 		// INSTRUCAO SQL //
+ 		$sql = "SELECT * FROM " . self::TABELA . " where servicos_acompanhante_id = '".$ServicoAcompanhanteId."'";
+ 		// EXECUTANDO A SQL //
+ 		$resultado = $this->conexao->fetchAll($sql);
+ 		// RETORNANDO O RESULTADO //
+ 		return $resultado;
+ 	}
  	
  }
 

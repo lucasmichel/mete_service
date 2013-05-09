@@ -75,9 +75,7 @@ class ServicosAcomapnhanteDAO extends ClassDAO{
     	// RETORNANDO O RESULTADO //
     	return $resultado;
     }
-	
-	
-	
+    	
 }
 
 ?>

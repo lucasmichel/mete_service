@@ -178,11 +178,11 @@ class ServicosAcompanhante {
 		// instanciando e retornando o Usuario //
 	
 		$a = new ServicosAcompanhante($servico['id'],					
-					$servico['servico_id'],
-                                        $servico['acompanhante_id'],	
-                                        $servico['valor'],
-					$servico['excluido']
-                                );
+                                    $servico['servico_id'],
+                                    $servico['acompanhante_id'],	
+                                    $servico['valor'],
+                                    $servico['excluido']
+                            );
 		return $a;
 	}
 	
