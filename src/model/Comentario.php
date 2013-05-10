@@ -16,8 +16,11 @@ class  Comentario{
 	}
 	
 	private function _validarCampos(){
-		if(($this->getComentario() == '')||($this->getId() == null)||($this->getCliente_id() == null)
-				||($this->getAcompanhante_id() == null))
+		if(($this->getComentario() == '')
+				//||($this->getId() == null));
+				//||($this->getCliente_id() == null)
+				//||($this->getAcompanhante_id() == null))
+		);
 			return false;
 		return true;
 	}
@@ -39,7 +42,7 @@ class  Comentario{
  		$instancia = ComentarioDAO::getInstancia();
  		$comentario = $instancia->buscar($id);
  		if (!$comentario)
- 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::Comentario);
+ 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::COMENTARIO);
  		return new Comentario($comentario['id'], $comentario['comentario'], $comentario['comentario_id'],
 					 $comentario['cliente_id'], $comentario['acompanhante_id']);
  	}

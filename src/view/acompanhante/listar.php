@@ -91,6 +91,11 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             	<a href="acompanhante/visualizarFotos/<?php echo $objeto->getId(); ?>">Fotos</a>
                                             <?php
                                             }
+                                            if (Acao::checarPermissao(1, AcompanhanteControll::MODULO)) {
+                                            ?>
+                                            <a href="acompanhante/visualizarComentario/<?php echo $objeto->getId(); ?>">Comentario</a>
+                                            <?php
+                                            }
                                             ?>
                                         </td>
                                     </tr>

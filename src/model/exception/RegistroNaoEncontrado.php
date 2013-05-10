@@ -30,7 +30,10 @@ class RegistroNaoEncontrado extends Exception {
                         break;
 				case self::CLIENTE:
                 		$msg = 'Cliente não encontrado.';
-                        break;                        
+                        break;      
+                case self::COMENTARIO:
+                        	$msg = 'Comentario não encontrado.';
+                        	break;
         }
         parent::__construct($msg);
     }

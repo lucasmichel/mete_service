@@ -57,9 +57,9 @@
  	try {
  		$comentario = new Comentario();
  		$comentario->setComentario($dados['comentario']);
- 		$comentario->setNome($dados['comentario_id']);
-		$comentario->getCliente_id($dados['cliente_id']);
-		$comentario->setAcompanhante_id($dados['acompanhante_id']);
+ 		//$comentario->setNome($dados['comentario_id']);
+		//$comentario->getCliente_id($dados['cliente_id']);
+		//$comentario->setAcompanhante_id($dados['acompanhante_id']);
  		$comentario->inserir();
  		// setando a mensagem de sucesso //
  		$this->setFlash('Comentario cadastrado com sucesso.');
