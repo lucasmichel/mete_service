@@ -320,6 +320,41 @@ class DefaultControll extends Controll {
     	$executa = new WebServiceControll();
     	$executa->_listarFotos($this->getDados('POST'));
     }
+    
+    
+    public function subirImagemTeste(){
+        $this->setTela('subirFoto');
+        $this->getPage();
+    }
+    
+    public function subirFoto(){
+        
+        // Where the file is going to be placed
+        //$target_path = "http://leonardogalvao.com.br/TesteAndroid/uploads";
+        //$target_path = dirname(__FILE__)."/uploads/";
+        $target_path = RAIZ."/img/fotos/";
+
+        /* Add the original filename to our target path.
+        Result is "uploads/filename.extension" */
+        $target_path = $target_path .  $_FILES['uploadedfile']['name'];
+
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            echo "The file ".  basename( $_FILES['uploadedfile']['name']).
+            " has been uploaded";
+        } else{
+            echo "There was an error uploading the file, please try again!";
+            echo "filename: " .  basename( $_FILES['uploadedfile']['name']);
+            echo "target_path: " .$target_path;
+        }
+        /*
+            <!--
+            <form name="form1" id="form1" method="post" enctype="multipart/form-data">
+                    <input type="file" name="uploadedfile" id="uploadedfile" />
+                    <input type="submit" value="  Cadastrar  " />
+            </form>-->
+          */  
+    }
+    
     /******FOTO******/
     /******FOTO******/
     /******FOTO******/
@@ -332,10 +367,30 @@ class DefaultControll extends Controll {
     	$executa = new WebServiceControll();
     	$executa->listarServicos();
     }
-    /******SERVIÇO******/
-    /******SERVIÇO******/
-    /******SERVIÇO******/
     
+    
+    /******SERVIÇOS_ACOMPANHNATE******/
+    /******SERVIÇOS_ACOMPANHNATE******/
+    /******SERVIÇOS_ACOMPANHNATE******/    
+    public function cadastrarServicosAcompanhante() {    	
+        if ($this->getDados('POST')) {
+            $this->_cadastrarServicosAcompanhnate($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    	
+    }
+        
+    private function _cadastrarServicosAcompanhnate($dados) {
+        $executa = new WebServiceControll();
+        $executa->_cadastrarServicosAcompanhnate($dados);
+    }
+    /******SERVIÇOS_ACOMPANHNATE******/
+    /******SERVIÇOS_ACOMPANHNATE******/
+    /******SERVIÇOS_ACOMPANHNATE******/
     
     
 

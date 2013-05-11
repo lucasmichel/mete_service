@@ -154,7 +154,6 @@ class ClienteControll extends Controll {
         	$usuario->setLogin(trim($dados['email']));
         	$usuario->setSenha(trim($dados['senha']));
         	$usuario->setEmail(trim($dados['email']));
-        	
         	$cliente->setId(trim($dados['idCliente']));
         	$cliente->setCpf(trim($dados['cpf']));
         	$cliente->setNome(trim($dados['nome']));

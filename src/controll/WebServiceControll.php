@@ -554,9 +554,6 @@ class WebServiceControll extends Controll{
 	}
         
         
-        
-        
-        
 	
 	
 	public function _logarAndroid($dados) {
@@ -665,7 +662,50 @@ class WebServiceControll extends Controll{
 	}
 	
 	
+	public function _cadastrarServicosAcompanhnate($dados) {
 	
+		// O Curl irá fazer uma requisição para a API do Vimeo
+		// e irá receber o JSON com as informações do vídeo.
+		/*$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
+		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$jsonCriptografado = curl_exec($curl);
+		curl_close($curl);
+		$encoded = json_decode(base64_decode( $jsonCriptografado));*/
+	
+	
+	
+		// As informações pode ser recuperadas da seguinte forma.
+		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
+		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+		try {
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+			
+                        $serivicosAcompanhnate = new ServicosAcompanhante();
+                        $serivicosAcompanhnate->setAcompanhanteId($atributoDados['acompanhanteId']);
+                        $serivicosAcompanhnate->setServicoId($atributoDados['servicoId']);
+                        $serivicosAcompanhnate->setValor($atributoDados['valor']);
+                        
+                        $serivicosAcompanhnate = $serivicosAcompanhnate->inserir();                        
+                        $retornoDados[] = (array) $serivicosAcompanhnate;
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Servico da acompanhante cadastrado com sucesso");
+			
+			$this->retorno($arrayRetorno);
+		}
+		catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	
+	}	
 	
 }
 ?>

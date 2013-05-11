@@ -96,24 +96,19 @@ class Usuario {
      * @return Usuario
      */
     public function editar(){
-		// validando os campos //	
+    // validando os campos //	
+    if(self::_validarCampos()){
+        // recuperando a instancia da classe de acesso a dados //
+        $instancia = UsuarioDAO::getInstancia();
+        // executando o metodo //       
+        $usuario = $instancia->editar($this);
+        if($usuario)
+            // retornando o Usuario //
+            return $this;
+        else
+            return null;
 
-    	
-    	
-        if(self::_validarCampos()){
-        	// recuperando a instancia da classe de acesso a dados //
-            $instancia = UsuarioDAO::getInstancia();
-            // executando o metodo //
-            
-            $usuario = $instancia->editar($this);
-            
-            if($usuario)
-                // retornando o Usuario //
-                return $this;
-            else
-                return null;
-        
-		}
+        }
     }
 
     /**

@@ -4,7 +4,7 @@
  * Arquivo de Início
  * Chamada aos arquivos básicos do Framework para que tudo comece a funcionar
  * ATENÇÃO: só mexer se desejar alterar o funcionamento do framework
- * @author Idealizza
+ * @author Lucas Michel
  */
 /**
  * Iniciando a sessão
