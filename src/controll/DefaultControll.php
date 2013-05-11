@@ -323,7 +323,7 @@ class DefaultControll extends Controll {
     
     
     public function subirFoto(){
-        $this->setTela('subir');
+        $this->setTela('subirFoto');
         $this->getPage();
     }
     
