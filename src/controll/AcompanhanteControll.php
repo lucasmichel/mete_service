@@ -392,13 +392,13 @@ class AcompanhanteControll extends Controll {
     	$this->setTela('listar',array('acompanhante/foto'));
     }
     
-    public function visualizarComentario($id){
+    public function visualizarComentario($idAcompanhnate){
     	// código da ação serve para o controle de acesso//
     	static $acao = 1;
     	// buscando o usuário //
-    	$objeto = Comentario::buscar($id);
+    	$objeto = Acompanhante::buscar($idAcompanhnate);
     	// jogando o usuário no atributo $dados do controlador //
-    	$this->setDados($objeto,'comentario');
+    	$this->setDados($objeto,'acompanhante');
     	// definindo a tela //
     	$this->setTela('listar',array('acompanhante/comentario'));
     }

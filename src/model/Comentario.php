@@ -37,6 +37,19 @@ class  Comentario{
 		return $objetos;
 	}
 	
+	public static function listarPorIdAcompanhante($id){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = AcompanhanteDAO::getInstancia();
+		// executando o metodo //
+		$acompanhante = $instancia->buscarPorIdUsuario($id);
+		// checando se o resultado foi falso //
+		if(!$acompanhante)
+			// levanto a excessao RegistroNaoEncontrado //
+			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
+		// instanciando e retornando o Usuario //
+		return self::construirObjeto($acompanhante);
+	}
+	
 	
  	public static function buscar($id) {
  		$instancia = ComentarioDAO::getInstancia();
@@ -83,16 +96,30 @@ class  Comentario{
  	}
  	
  	private static function construirObjeto($dados){
+ 		//varDump($dados);
  			
- 		$comentario = new Comentario();
- 		$comentario->setId($dados['id']);
- 		$comentario->setComentario($dados['comentario']);
- 		$comentario->setComentario_id($dados['comentario_id']);
- 		$comentario->setClienteId($dados['cliente_id']);
- 		$comentario->setAcompanhante_id($dados['acompanhante_id']);	
- 		return $comentario;
+ 		$acompanhante =	new Acompanhante();
+		$acompanhante->setId(trim($dados['id']));
+    	$acompanhante->setNome(trim($dados['nome']));
+    	$acompanhante->setIdade(trim($dados['idade']));
+    	$acompanhante->setAltura(trim($dados['altura']));
+    	$acompanhante->setPeso(trim($dados['peso']));
+    	$acompanhante->setBusto(trim($dados['busto']));
+    	$acompanhante->setCintura(trim($dados['cintura']));
+    	$acompanhante->setQuadril(trim($dados['quadril']));
+    	$acompanhante->setOlhos(trim($dados['olhos']));
+    	$acompanhante->setPernoite(trim($dados['pernoite']));
+    	$acompanhante->setAtendo(trim($dados['atendo']));
+    	$acompanhante->setEspecialidade(trim($dados['especialidade']));
+    	$acompanhante->setHorarioAtendimento(trim($dados['horario_atendimento']));
+    	$acompanhante->setExcluido(trim($dados['excluido']));
+    	$acompanhante->setUsuarioId(trim($dados['usuarios_id']));
+    	$acompanhante->setUsuarioIdPerfil(trim($dados['usuarios_id_perfil']));  	
+    		
+		return $acompanhante; 
  			
  	}
+ 	
 	public function getId() {
 		return $this->id;
 	}

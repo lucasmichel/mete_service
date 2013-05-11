@@ -1,13 +1,14 @@
 <?php
-//meuVarDump("testeee");
+$acompanhante = $this->getDados('acompanhante');
+
 header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
     //meuVarDump("testeee");
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
-    
+    <h2>Lista de comentarios da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
@@ -40,7 +41,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Comentario::listar("comentario");
+                    $objetos = Comentario::listarPorIdAcompanhante($acompanhante->getId());
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">

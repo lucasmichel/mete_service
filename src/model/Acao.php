@@ -91,8 +91,6 @@ class Acao {
     }
 	
     
-    
-    
     public function inserir(){
     	// validando os campos //
     	if($this->_validarCampos()){

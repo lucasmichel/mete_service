@@ -7,6 +7,7 @@ class RegistroNaoEncontrado extends Exception {
     const ACOMPANHANTE = 5;
     const SERVICO = 6;
     const CLIENTE = 7;
+    const COMENTARIO = 8;
 
     public function __construct($tipo){
         switch($tipo){

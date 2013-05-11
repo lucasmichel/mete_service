@@ -89,6 +89,20 @@
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
+ 	
+ 	/**
+ 	 * Metodo buscarPorId($id)
+ 	 * @param $id
+ 	 * @return fetch_assoc
+ 	 */
+ 	public function listarPorIdAcompanhante($id) {
+ 		// INSTRUCAO SQL //
+ 		$sql = "SELECT a.* FROM " . self::TABELA . " a WHERE a.acompanhante_id = '" . $id . "'";
+ 		// EXECUTANDO A SQL //
+ 		$resultado = $this->conexao->fetch($sql);
+ 		// RETORNANDO O RESULTADO //
+ 		return $resultado;
+ 	}
  }
 
 ?>
