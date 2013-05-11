@@ -737,6 +737,7 @@ class WebServiceControll extends Controll{
                         $localizacao->setLatitude($atributoDados['latitude']);
                         $localizacao->setLongitude($atributoDados['latitude']);
                         $localizacao->setEnderecoFormatado($atributoDados['enderecoFormatado']);
+                        $localizacao->setServicoAcompanhanteId($atributoDados['servicoAcompanhanteId']);
                         $localizacao = $localizacao->inserir();
                         
                         $retornoDados[] = (array) $localizacao;

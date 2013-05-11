@@ -322,12 +322,12 @@ class DefaultControll extends Controll {
     }
     
     
-    public function subirImagemTeste(){
-        $this->setTela('subirFoto');
+    public function subirFoto(){
+        $this->setTela('subir');
         $this->getPage();
     }
     
-    public function subirFoto(){
+    public function subir(){
         
         // Where the file is going to be placed
         //$target_path = "http://leonardogalvao.com.br/TesteAndroid/uploads";
