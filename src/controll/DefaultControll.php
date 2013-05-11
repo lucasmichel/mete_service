@@ -394,6 +394,31 @@ class DefaultControll extends Controll {
     
     
 
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/    
+    public function cadastrarLocalizacaoServicoAcompanhante(){
+        if ($this->getDados('POST')) {
+            $this->_cadastrarLocalizacaoServicoAcompanhante($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    	
+    }
+        
+    private function _cadastrarLocalizacaoServicoAcompanhante($dados){
+        $executa = new WebServiceControll();
+        $executa->_cadastrarLocalizacaoServicoAcompanhante($dados);
+    }
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
+    /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
+    
+    
+    
     public function logarAndroid() {
         if ($this->getDados('POST')) {
             $this->_logarAndroid($this->getDados('POST'));
