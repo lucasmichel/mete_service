@@ -236,6 +236,37 @@ class WebServiceControll extends Controll{
 			$this->retorno($arrayRetorno);
 		}
 	}
+        
+	public function _excluirAcompanhantePorIdUsuario($dados) {
+		try {
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+
+
+			
+			$acompanhante = new Acompanhante();
+			$acompanhante2 = $acompanhante->buscar($atributoDados['idUsuario']);
+			$acompanhante3 = $acompanhante2->excluirPorIdUsuario();
+			
+                        
+                        $retornoDados[] = (array) $acompanhante3;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante excluída com sucesso!");
+			
+			$this->retorno($arrayRetorno);
+                        
+	
+		} catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	}
 	
 	public function _buscarAcompanhantePorId($dados) {
 		try {
@@ -466,6 +497,40 @@ class WebServiceControll extends Controll{
 			$cliente = new Cliente();
 			$cliente = $cliente->buscar($atributoDados['id']);
 			$cliente = $cliente->excluir();
+			
+                        $retornoDados[] = (array) $cliente;
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
+			
+			$this->retorno($arrayRetorno);
+	
+		} catch (Exception $e) {
+						
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+	}
+        
+        
+	public function _excluirClientePorIdUsuario($dados) {
+		try {
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+			
+			//meuVarDump($encoded);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			//$to = count($encoded["dados"]);
+			//meuVarDump($to);
+			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			
+			$cliente = new Cliente();
+			$cliente = $cliente->buscar($atributoDados['idUsuario']);
+			$cliente = $cliente->excluirPorIdUsuario();
 			
                         $retornoDados[] = (array) $cliente;
                         

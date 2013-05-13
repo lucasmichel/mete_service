@@ -114,6 +114,21 @@ class  Cliente{
 		// retornando o resultado //
 		return $cliente;
 	}
+        
+        
+	public function excluirPorIdUsuario(){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ClienteDAO::getInstancia();
+		// executando o metodo //
+		
+		$usuario = Usuario::buscar($this->getUsuarioId());
+		
+		$usuario = $usuario->excluir();
+		
+		$cliente = $instancia->excluirPorIdUsuario($this->getUsuarioId());
+		// retornando o resultado //
+		return $cliente;
+	}
 
 	private static function construirObjeto($dados){
 			

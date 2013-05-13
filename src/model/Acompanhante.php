@@ -236,6 +236,19 @@ class Acompanhante {
     	return $acompanhante;
     }
     
+    public function excluirPorIdUsuario(){
+    	// recuperando a instancia da classe de acesso a dados //
+    	$instancia = AcompanhanteDAO::getInstancia();
+    	// executando o metodo //
+    	
+    	$usuario = Usuario::buscar($this->getUsuarioId());    	
+    	$usuario = $usuario->excluir();    	
+    	$acompanhante = $instancia->excluirPorIdUsuario($this->getUsuarioId());
+    	
+    	// retornando o resultado //
+    	return $acompanhante;
+    }
+    
     public static function listar($ordenarPor){
     	// recuperando a instancia da classe de acesso a dados //
     	$instancia = AcompanhanteDAO::getInstancia();
