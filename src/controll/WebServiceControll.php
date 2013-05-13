@@ -278,7 +278,7 @@ class WebServiceControll extends Controll{
 			$acompanhante = new Acompanhante();
 			$acompanhante = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
 			
-			$usuario = Usuario::buscar($acompanhante->getUsuarioId());
+			//$usuario = Usuario::buscar($acompanhante->getUsuarioId());
 			
                         $retornoDados[] = (array) $acompanhante;
                         
@@ -731,14 +731,42 @@ class WebServiceControll extends Controll{
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
+                        
+                        
+                        $total = count($encoded["dados"]);
+                        
+                        for($i = 0 ; $i< $total; $i++){
+                            $atributoDados = $encoded["dados"][$i];
+                            //meuVarDump($atributoDados);
+                            $localizacao = new Localizacao(0,
+                                    $atributoDados['latitude'],
+                                    $atributoDados['longitude'],
+                                    $atributoDados['enderecoFormatado'], 
+                                    $atributoDados['servicoAcompanhanteId']);
+                            $localizacao = $localizacao->inserir();
+                           
+                            
+                            /*$localizacao->setLatitude($atributoDados['latitude']);
+                            $localizacao->setLongitude($atributoDados['longitude']);
+                            $localizacao->setEnderecoFormatado($atributoDados['enderecoFormatado']);
+                            $localizacao->setServicoAcompanhanteId($atributoDados['servicoAcompanhanteId']);
+                            $localizacao = $localizacao->inserir();*/
+                            
+                            $retornoDados[] = (array) $localizacao;
+                            
+                        }
+                        
+                        /*if($encoded["dados"] > 1){
+                            
+                        }*/
 			
                         
-                        $localizacao = new Localizacao();
+                        /*$localizacao = new Localizacao();
                         $localizacao->setLatitude($atributoDados['latitude']);
                         $localizacao->setLongitude($atributoDados['latitude']);
                         $localizacao->setEnderecoFormatado($atributoDados['enderecoFormatado']);
                         $localizacao->setServicoAcompanhanteId($atributoDados['servicoAcompanhanteId']);
-                        $localizacao = $localizacao->inserir();
+                        $localizacao = $localizacao->inserir();*/
                         
                         $retornoDados[] = (array) $localizacao;
                         
@@ -753,7 +781,32 @@ class WebServiceControll extends Controll{
 			$this->retorno($arrayRetorno);
 		}
 	
-	}	
+	}
+        
+        public function _listarLocalizacaoServicoAcompanhante($dados) {
+		try {
+	
+                        //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                        $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                        $encoded = json_decode($jsonDescriptografado, true);
+                        $atributoDados = $encoded["dados"][0];
+                        $atributoStatus = $encoded["status"];
+                        $atributoMensagem = $encoded["mensagem"];	
+
+                        $lista = Localizacao::listarPorServicoAcompanhanteId($atributoDados['id']);
+
+                        
+                        $retornoDados[] = $lista;
+
+                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "listarLocalizacaoServicoAcompanhante OK");
+
+                        $this->retorno($arrayRetorno);
+		} catch (Exception $e) {			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+                
+	}
 	
 }
 ?>

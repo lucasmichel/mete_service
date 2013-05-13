@@ -68,12 +68,12 @@
 
                                                     <p align="center"> 
                                                         <?php
-                                                        $pastas = explode("/", $foto->getNome());
+                                                        //$pastas = explode("/", $foto->getNome());
                                                         
-                                                        $caminho = "/".$pastas[4]."/".$pastas[5]."/".$pastas[6]."/".$pastas[7]."/".$pastas[8];
+                                                        //$caminho = "/".$pastas[4]."/".$pastas[5]."/".$pastas[6]."/".$pastas[7]."/".$pastas[8];
                                                         ?>
 
-                                                        <img src="<?php echo $caminho;?>" width="150" height="150" />
+                                                        <img src="<?php echo BASE.'/img/foto/'.$foto->getNome();?>" width="150" height="150" />
                                                         <br />
                                                         <input type="checkbox" name="idFoto[]" value="<?php echo $foto->getId();?>" >Excluir foto?
 

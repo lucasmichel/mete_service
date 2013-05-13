@@ -367,6 +367,9 @@ class DefaultControll extends Controll {
     	$executa = new WebServiceControll();
     	$executa->listarServicos();
     }
+    /******SERVIÇO******/
+    /******SERVIÇO******/
+    /******SERVIÇO******/
     
     
     /******SERVIÇOS_ACOMPANHNATE******/
@@ -406,13 +409,30 @@ class DefaultControll extends Controll {
             $this->setTela('cadastrarFoto');
             $this->getPage();
     	}
-    	
     }
         
     private function _cadastrarLocalizacaoServicoAcompanhante($dados){
         $executa = new WebServiceControll();
         $executa->_cadastrarLocalizacaoServicoAcompanhante($dados);
     }
+    
+    
+    public function listarLocalizacaoServicoAcompanhante() {
+    	if ($this->getDados('POST')) {
+    		$this->_listarLocalizacaoServicoAcompanhante($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    private function _listarLocalizacaoServicoAcompanhante($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_listarLocalizacaoServicoAcompanhante($dados);
+    
+    }
+    
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/

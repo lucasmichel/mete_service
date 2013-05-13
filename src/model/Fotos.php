@@ -63,8 +63,8 @@ class Fotos {
         $this->excluido = $excluido;
     }
 
-    public function setAcompanhanteId($acompanhante_id) {
-        $this->acompanhanteId = $acompanhante_id;
+    public function setAcompanhanteId($acompanhanteId) {
+        $this->acompanhanteId = $acompanhanteId;
     }
 
         
@@ -207,31 +207,35 @@ class Fotos {
 
                 if($foto_size > 0){
 
-                    if (substr($foto_name,-4,1) == ".")
+                    /*if (substr($foto_name,-4,1) == ".")
                         $extensao = substr($foto_name, -4);
                     else
-                        $extensao = substr($foto_name, -5);
+                        $extensao = substr($foto_name, -5);*/
 
-                    $dataHora = date("YmdHi");
+                    //$dataHora = date("YmdHi");
 
-                    $nome_foto = $acompanhante->getId() . "_" . $dataHora ."_". $contFoto .$extensao;
-                    $contFoto++;
-
-
-                    $caminhoFoto = $_SERVER["DOCUMENT_ROOT"] . BASE . DS . "img/foto/".$nome_foto;
+                    //$nome_foto = $acompanhante->getId() . "_" . $dataHora ."_". $contFoto .$extensao;
+                    //$contFoto++;
+                    //$caminhoFoto = $_SERVER["DOCUMENT_ROOT"] . BASE . DS . "img/foto/".$nome_foto;
 
                     /*SALVA FOTO*/
+                    
+                    $caminhoFotoNovo = $_SERVER["DOCUMENT_ROOT"] . BASE.'/img/foto/'.$foto_name;
+                    
                     $fotoAcao = new Fotos();
                     $fotoCadastro = new Fotos();
                     
                     $fotoCadastro->setAcompanhanteId($acompanhante->getId());
-                    $fotoCadastro->setNome($caminhoFoto);
+                    //$fotoCadastro->setNome($nome_foto);
+                    $fotoCadastro->setNome($foto_name);
                     
                     
                     /*SALVA FOTO*/
                     
-                    if (move_uploaded_file($foto_temp, $caminhoFoto)){
-                        chmod ($caminhoFoto, 0777);
+                    //if (move_uploaded_file($foto_temp, $caminhoFoto)){
+                    if (move_uploaded_file($foto_temp, $caminhoFotoNovo)){
+                        //chmod ($caminhoFoto, 0777);
+                        chmod ($caminhoFotoNovo, 0777);
                         $fotoAcao = $fotoCadastro->inserir();
                         //$acaoFoto->cadastrarFoto($idGeradoGaleria, $nome_foto, " ");
                     }
