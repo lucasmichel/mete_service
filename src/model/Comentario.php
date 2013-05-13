@@ -37,19 +37,49 @@ class  Comentario{
 		return $objetos;
 	}
 	
-	public static function listarPorIdAcompanhante($id){
+public static function listarPorAcompanhante(Acompanhante $acompanhante){
 		// recuperando a instancia da classe de acesso a dados //
-		$instancia = AcompanhanteDAO::getInstancia();
+		$instancia = ComentarioDAO::getInstancia();
 		// executando o metodo //
-		$acompanhante = $instancia->buscarPorIdUsuario($id);
-		// checando se o resultado foi falso //
-		if(!$acompanhante)
-			// levanto a excessao RegistroNaoEncontrado //
-			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ACOMPANHANTE);
-		// instanciando e retornando o Usuario //
-		return self::construirObjeto($acompanhante);
+		$comentario = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+		// checando se o retorno foi falso //
+		if(!$comentario)
+			// levantando a excessao ListaVazia //
+			throw new ListaVazia(ListaVazia::COMENTARIO);
+		// percorrendo os usuarios //
+		foreach($comentario as $comentario){
+			// instanciando e jogando dentro da colecao $objetos o Usuario //
+			$objetos[] = Comentario($comentario['id'], $comentario['comentario'], $comentario['comentario_id'],
+					 $comentario['cliente_id'], $comentario['acompanhante_id']);                              
+		}
+		// retornando a colecao $objetos //
+		return $objetos;
 	}
 	
+	
+	/*public static function listarPorAcompanhante(Acompanhante $acompanhante){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicosAcomapnhanteDAO::getInstancia();
+		// executando o metodo //
+		$servicos = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+		// checando se o retorno foi falso //
+		if(!$servicos)
+			// levantando a excessao ListaVazia //
+			throw new ListaVazia(ListaVazia::SERVICOS_ACOMPANHNATE);
+		// percorrendo os usuarios //
+		foreach($servicos as $servico){
+			// instanciando e jogando dentro da colecao $objetos o Usuario //
+			$objetos[] = new ServicosAcompanhante($servico['id'],
+					$servico['servico_id'],
+					$servico['acompanhante_id'],
+					$servico['valor'],
+					$servico['excluido']
+			);
+		}
+		// retornando a colecao $objetos //
+		return $objetos;
+	}
+	*/
 	
  	public static function buscar($id) {
  		$instancia = ComentarioDAO::getInstancia();
