@@ -155,9 +155,12 @@ class  Localizacao{
 		// percorrendo os usuarios //
 		foreach($localizacao as $localizacao){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$objetos[] = new Localizacao($localizacao['id'],$localizacao['latitude'],
+			
+                        $ob = new Localizacao($localizacao['id'],$localizacao['latitude'],
 					$localizacao['longitude'],$localizacao['endereco_formatado'],
 					$localizacao['servicos_acompanhante_id']);
+                    
+                        $objetos[] = (array) $ob;
 		}
 		// retornando a colecao $objetos //
 		return $objetos;

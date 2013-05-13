@@ -783,6 +783,37 @@ class WebServiceControll extends Controll{
 	
 	}
         
+        public function _listarServicoAcompanhante($dados) {
+		try {
+	
+
+                        //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                        $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                        $encoded = json_decode($jsonDescriptografado, true);
+                        $atributoDados = $encoded["dados"][0];
+                        $atributoStatus = $encoded["status"];
+                        $atributoMensagem = $encoded["mensagem"];	
+                        
+                        $acompanhante = Acompanhante::buscar($atributoDados['id']);
+
+                        $lista = ServicosAcompanhante::listarPorAcompanhante($acompanhante); //::listarServicoAcompanhante($atributoDados['id']);
+                        
+                        
+                        //$retornoDados[] = $lista;
+
+                        //meuVarDump($retornoDados);
+                        
+                        $arrayRetorno = $this->preencherArray($lista, 0, "listarServicoAcompanhante OK");
+                        $this->retorno($arrayRetorno);
+		} catch (Exception $e) {			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+                
+	}
+        
+        
+        
         public function _listarLocalizacaoServicoAcompanhante($dados) {
 		try {
 	
@@ -794,11 +825,13 @@ class WebServiceControll extends Controll{
                         $atributoMensagem = $encoded["mensagem"];	
 
                         $lista = Localizacao::listarPorServicoAcompanhanteId($atributoDados['id']);
-
+                        //meuVarDump($lista);
                         
-                        $retornoDados[] = $lista;
+                        //$retornoDados[] = (array)$lista;
 
-                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "listarLocalizacaoServicoAcompanhante OK");
+                        //meuVarDump($retornoDados);
+                        
+                        $arrayRetorno = $this->preencherArray($lista, 0, "listarLocalizacaoServicoAcompanhante OK");
 
                         $this->retorno($arrayRetorno);
 		} catch (Exception $e) {			

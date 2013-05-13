@@ -391,6 +391,24 @@ class DefaultControll extends Controll {
         $executa = new WebServiceControll();
         $executa->_cadastrarServicosAcompanhnate($dados);
     }
+    
+    
+    
+     public function listarServicoAcompanhante() {
+    	if ($this->getDados('POST')) {
+    		$this->_listarServicoAcompanhante($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    private function _listarServicoAcompanhante($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_listarServicoAcompanhante($dados);
+    
+    }
     /******SERVIÇOS_ACOMPANHNATE******/
     /******SERVIÇOS_ACOMPANHNATE******/
     /******SERVIÇOS_ACOMPANHNATE******/

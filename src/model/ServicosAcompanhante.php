@@ -155,12 +155,15 @@ class ServicosAcompanhante {
 		// percorrendo os usuarios //
 		foreach($servicos as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$objetos[] = new ServicosAcompanhante($servico['id'],					
+			
+                        /*$obj[] = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
                                         $servico['acompanhante_id'],	
                                         $servico['valor'],
 					$servico['excluido']
-                                );
+                                );*/
+                        
+                        $objetos[] = $servico;
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
@@ -191,15 +194,16 @@ class ServicosAcompanhante {
 	
 	public static function listarParaWebService(){
 		// recuperando a instancia da classe de acesso a dados //
-    	$instancia = ServicoDAO::getInstancia();
-    	// executando o metodo //
-    	$servicos = $instancia->listar("nome");
-    	// checando se o retorno foi falso //
-    	if(!$servicos)
-    		// levantando a excessao ListaVazia //
-    		throw new ListaVazia(ListaVazia::SERVICOS);
-    	return $servicos;
+                $instancia = ServicoDAO::getInstancia();
+                // executando o metodo //
+                $servicos = $instancia->listar("nome");
+                // checando se o retorno foi falso //
+                if(!$servicos)
+                        // levantando a excessao ListaVazia //
+                        throw new ListaVazia(ListaVazia::SERVICOS);
+                return $servicos;
 	}
+       
 }
 
 ?>

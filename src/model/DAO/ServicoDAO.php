@@ -82,10 +82,7 @@ class ServicoDAO extends ClassDAO{
 		$resultado = $this->conexao->fetch($sql);
 		// RETORNANDO O RESULTADO //
 		return $resultado;
-	}
-	
-	
-	
+	}	
 }
 
 ?>
