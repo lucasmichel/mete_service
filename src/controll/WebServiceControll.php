@@ -799,7 +799,7 @@ class WebServiceControll extends Controll{
                         $lista = ServicosAcompanhante::listarPorAcompanhante($acompanhante); //::listarServicoAcompanhante($atributoDados['id']);
                         
                         
-                        //$retornoDados[] = $lista;
+                        //$retornoDados[] = (array)$lista;
 
                         //meuVarDump($retornoDados);
                         

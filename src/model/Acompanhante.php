@@ -103,7 +103,7 @@ class Acompanhante {
     }
 
     public function getHorarioAtendimento() {
-        return $this->horario_atendimento;
+        return $this->horarioAtendimento;
     }
 
     public function getExcluido() {

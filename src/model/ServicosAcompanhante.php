@@ -155,15 +155,16 @@ class ServicosAcompanhante {
 		// percorrendo os usuarios //
 		foreach($servicos as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			
-                        /*$obj[] = new ServicosAcompanhante($servico['id'],					
+                         $ob = new ServicosAcompanhante($servico['id'],					
 					$servico['servico_id'],
                                         $servico['acompanhante_id'],	
                                         $servico['valor'],
 					$servico['excluido']
-                                );*/
+                                );
+                    
+                        $objetos[] = (array) $ob;
                         
-                        $objetos[] = $servico;
+
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
