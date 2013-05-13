@@ -1,7 +1,6 @@
 <?php
-$acompanhante = $this->getDados('acompanhante');
-
 header('Content-Type: text/html; charset=utf-8', true);
+$acompanhante = $this->getDados('acompanhante');
 ?>
 <div class="wrap">
     <?php
@@ -41,8 +40,21 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Comentario::listarPorIdAcompanhante($acompanhante->getId());
+					if(Acao::checarPermissao(12, AcompanhanteControll::MODULO))
+						
+					{
+						//meuVarDump("testeee");
+							?>
+					 <a class="classBt" href=acompanhante/adicionarComentario/<?php echo $acompanhante->getId(); ?> >
+                                Adicionar Comentario
+                            </a>
+							                <?php 
+					}
+					//meuVarDump("testeee");
+                    $objetos = Comentario::listarPorAcompanhante($acompanhante->getId());
                     $paginacao = new Paginacao($objetos, 20);
+						
+                  
                     ?>
                     <div class="table">
                         <table id="lista" class="widefat fixed">

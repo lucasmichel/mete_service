@@ -286,6 +286,46 @@ class AcompanhanteControll extends Controll {
             $this->_adicionarServico($this->getDados('POST'), $id);
     }
     
+    public function adicionarComentario($id){
+    	 
+    	static $acao = 12;
+    
+    	// checando se o formulário nao foi passado //
+    	if(!$this->getDados('POST')){
+    		// Buscando o usuário //
+    		$objeto = Acompanhante::buscar($id);
+    		// Jogando perfil no atributo $dados do controlador //
+    		$this->setDados($objeto,'acompanhante');
+    		// Definindo a tela //
+    		$this->setTela('add',array('acompanhante/comentario'));
+    	}
+    	// caso passar o formulario //
+    	else
+    		// chamando o metodo privado _editar() passando os dados do post por parametro //
+    		$this->_adicionarComentario($this->getDados('POST'), $id);
+    }
+    
+    private function _adicionarComentario($dados, $id){
+    	try {
+    		$comentario = new Comentario();
+    		$comentario->setComentario($dados['comentario']);
+    		$comentario->setNome($dados['comentario_id']);
+    		$comentario->getCliente_id($dados['cliente_id']);
+    		$comentario->setAcompanhanteId($id);
+    		$comentario = $comentario->inserir();
+    		$comentariooAcompanhanteId = $comentario->getId();
+    		$comentario->inserir();
+    		// setando a mensagem de sucesso //
+    		$this->setFlash('Comentario cadastrado com sucesso.');
+    		// setando a url //
+    		$this->setPage();
+    
+    	}
+    	catch (Exception $e){
+    		return "erro"; //$e->getMessage();
+    	}
+    }
+    
     private function _adicionarServico($dados, $id){
         try {                      
             $servicoAcompanhnate = new ServicosAcompanhante();            
@@ -394,7 +434,7 @@ class AcompanhanteControll extends Controll {
     
     public function visualizarComentario($idAcompanhnate){
     	// código da ação serve para o controle de acesso//
-    	static $acao = 1;
+    	static $acao = 11;
     	// buscando o usuário //
     	$objeto = Acompanhante::buscar($idAcompanhnate);
     	// jogando o usuário no atributo $dados do controlador //

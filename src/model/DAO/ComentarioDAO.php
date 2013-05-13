@@ -97,9 +97,11 @@
  	 */
  	public function listarPorIdAcompanhante($id) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT a.* FROM " . self::TABELA . " a WHERE a.acompanhante_id = '" . $id . "'";
+ 		$sql = "SELECT * FROM " . self::TABELA . "
+            where acompanhante_id = '".$id."' and excluido = '0' ";
+ 		//meuVarDump($sql);
  		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->fetch($sql);
+ 		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
