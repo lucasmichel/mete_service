@@ -108,6 +108,31 @@ class Servico {
 		// retornando a colecao $objetos //
 		return $objetos;
 	}
+        
+	public static function listarParaWebService($ordenarPor){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicoDAO::getInstancia();
+		// executando o metodo //
+		$servico = $instancia->listar($ordenarPor);
+		// checando se o retorno foi falso //
+		if(!$servico)
+			// levantando a excessao ListaVazia //
+			throw new ListaVazia(ListaVazia::SERVICOS);
+		// percorrendo os usuarios //
+		foreach($servico as $servico){
+			// instanciando e jogando dentro da colecao $objetos o Usuario //
+			$obj = new Servico($servico['id'],					
+					$servico['nome'],
+					$servico['excluido']
+			);
+                        
+                        $objetos[] = (array) $obj;
+		}
+		// retornando a colecao $objetos //
+		return $objetos;
+	}
+        
+        
 	
 	public static function buscar($id){
 		// recuperando a instancia da classe de acesso a dados //

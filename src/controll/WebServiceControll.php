@@ -660,11 +660,11 @@ class WebServiceControll extends Controll{
 	public function listarServicos() {
 		try {
 			
-			$arrayRetornoLista = Servico::listarParaWebService();
+			$arrayRetornoLista = Servico::listarParaWebService("nome");
 			
-			$retornoDados[] = (array) $arrayRetornoLista;
+			//$retornoDados[] = (array) $arrayRetornoLista;
 			
-			$arrayRetorno = $this->preencherArray($retornoDados, 0, "OK");
+			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "listarServicos OK");
 			
 			$this->retorno($arrayRetorno);
 		} catch (Exception $e) {
