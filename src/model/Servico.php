@@ -133,6 +133,27 @@ class Servico {
 	}
         
         
+	public static function buscarServicoPorIdParaWebService($idServico){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicoDAO::getInstancia();
+		// executando o metodo //
+		$servico = $instancia->buscarServicoPorIdParaWebService($idServico);
+		// checando se o retorno foi falso //
+		if(!$servico)
+			// levantando a excessao ListaVazia //
+			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::SERVICO);
+		// percorrendo os usuarios //
+                
+                
+                $objeto = (array) new  Servico($servico['id'],					
+					$servico['nome'],
+					$servico['excluido']
+			);
+		// retornando a colecao $objetos //
+		return $objeto;
+	}
+        
+        
 	
 	public static function buscar($id){
 		// recuperando a instancia da classe de acesso a dados //

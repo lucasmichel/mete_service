@@ -4,6 +4,55 @@ class WebServiceControll extends Controll{
 	public function WebServiceControll(){}
 	
 	
+        private function calcularTempo(DateTime $tempoInicio, DateTime $tempoFim){
+            
+                        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+                        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+                        $this->calcularTempo($DateTimeInicio, $DateTimeFim);
+                        
+                        
+            echo '<pre>';
+            echo '<br/>';
+            echo '<br/>';
+            echo $tempoInicio->format( "Y-m-d H:i:s" );
+            echo '<br/>';
+            echo '<br/>';
+            echo $tempoFim->format( "Y-m-d H:i:s" );
+            
+            echo '<br/>';
+            echo '<br/>';
+            
+            $data_login = strtotime($tempoInicio->format( "Y-m-d H:i:s" ));
+            $data_logout = strtotime($tempoFim->format( "Y-m-d H:i:s" ));
+
+            /*$tempo_con = mktime($tempoFim->getTimestamp() - $tempoInicio->getTimestamp());
+            meuVarDump($tempo_con);*/
+            
+            $tempo_con = mktime(
+                    date('H', $data_logout) - date('H', $data_login), date('i', $data_logout) - 
+                    date('i', $data_login), date('s', $data_logout) - date('s', $data_login)
+                    );
+
+            echo '<br/>';
+            echo '<br/>';
+            print date('H:i:s', $tempo_con);
+            die();
+            
+            try
+                {
+                    $DateTime = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+                }
+                catch( Exception $e )
+                {
+                    echo 'Erro ao instanciar objeto.';
+                    echo $e->getMessage();
+                    exit();
+                }
+        }
+        
+        
+        
+        
 	private function objectToArray ($object) {
 		
 		return (array) $object;
@@ -328,13 +377,17 @@ class WebServiceControll extends Controll{
 	}
 	
 	public function listarAcompanhante() {
+            
+
+            
 		try {
-			$arrayRetornoLista = Acompanhante::listarParaWebService();			
-			
+			$arrayRetornoLista = Acompanhante::listarParaWebService();
                         $retornoDados[] =(array) $arrayRetornoLista;
-			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
-			
-			$this->retorno($arrayRetorno);
+                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
+                        $this->retorno($arrayRetorno);
+                        
+                        
+
                         
 		} catch (Exception $e) {
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
@@ -658,19 +711,38 @@ class WebServiceControll extends Controll{
 	
 	
 	public function listarServicos() {
-		try {
-			
-			$arrayRetornoLista = Servico::listarParaWebService("nome");
-			
-			//$retornoDados[] = (array) $arrayRetornoLista;
-			
-			$arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "listarServicos OK");
-			
-			$this->retorno($arrayRetorno);
-		} catch (Exception $e) {
-			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
-			$this->retorno($arrayRetorno);
-		}
+            try {
+                    $arrayRetornoLista = Servico::listarParaWebService("nome");
+                    //$retornoDados[] = (array) $arrayRetornoLista;
+                    $arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "listarServicos OK");
+                    $this->retorno($arrayRetorno);
+            } catch (Exception $e) {
+                    $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    $this->retorno($arrayRetorno);
+            }
+	}
+        
+        
+	public function _buscarServicoPorId($dado) {
+            try {
+                
+                    //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                    $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];
+                    
+                    $idServico = $atributoDados['id'];
+                
+                    $arrayRetornoLista = Servico::buscarServicoPorIdParaWebService($idServico);
+                    //$retornoDados[] = (array) $arrayRetornoLista;
+                    $arrayRetorno = $this->preencherArray($arrayRetornoLista, 0, "listarServicos OK");
+                    $this->retorno($arrayRetorno);
+            } catch (Exception $e) {
+                    $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    $this->retorno($arrayRetorno);
+            }
 	}
 	
 	
@@ -701,7 +773,7 @@ class WebServiceControll extends Controll{
                 
 	}
         
-	public function _listarFoto($dados) {
+	public function _listarFotosPorIdAcompanhnate($dados) {
 		try {
 	
                         //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
@@ -710,13 +782,8 @@ class WebServiceControll extends Controll{
                         $atributoDados = $encoded["dados"][0];
                         $atributoStatus = $encoded["status"];
                         $atributoMensagem = $encoded["mensagem"];	
-
-
-
                         $listaFotos = Fotos::listarPorIdAcompanhanteWebService($atributoDados['id']);
-                        $retornoDados[] = $listaFotos;
-
-                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "Listar fotos OK");
+                        $arrayRetorno = $this->preencherArray($listaFotos, 0, "Listar fotos OK");
 
                         $this->retorno($arrayRetorno);
 		} catch (Exception $e) {			

@@ -352,9 +352,23 @@ class DefaultControll extends Controll {
         $executa->_cadastrarFoto($dados);
     }
     
-    public function listarFotos() {
+    
+    
+    public function listarFotosPorIdAcompanhnate() {
+    	if ($this->getDados('POST')) {
+    		$this->_listarFotosPorIdAcompanhnate($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    
+    private function _listarFotosPorIdAcompanhnate($dados) {
+    
     	$executa = new WebServiceControll();
-    	$executa->_listarFotos($this->getDados('POST'));
+    	$executa->_listarFotosPorIdAcompanhnate($dados);
+    
     }
     
     
@@ -402,6 +416,23 @@ class DefaultControll extends Controll {
     public function listarServicos() {
     	$executa = new WebServiceControll();
     	$executa->listarServicos();
+    }
+    
+    public function buscarServicoPorId() {
+    	if ($this->getDados('POST')) {
+    		$this->_buscarServicoPorId($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    
+    private function _buscarServicoPorId($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_buscarServicoPorId($dados);
+    
     }
     /******SERVIÇO******/
     /******SERVIÇO******/

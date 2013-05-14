@@ -83,6 +83,24 @@ class ServicoDAO extends ClassDAO{
 		// RETORNANDO O RESULTADO //
 		return $resultado;
 	}	
+        
+        
+        
+	/**
+	 * Metodo testarEmailExisteEdicao($email, $id)
+	 * @param $email
+	 * @return fetch_assoc
+	 */
+	public function buscarServicoPorIdParaWebService($idServico) {
+		// INSTRUCAO SQL //
+		$sql = "SELECT u.* FROM " . self::TABELA . " u
+                        WHERE u.id = '" . $idServico . "' AND
+                        u.excluido <> 1";
+		// EXECUTANDO A SQL //
+		$resultado = $this->conexao->fetch($sql);
+		// RETORNANDO O RESULTADO //
+		return $resultado;
+	}	
 }
 
 ?>
