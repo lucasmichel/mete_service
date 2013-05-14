@@ -1,11 +1,13 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
+$acompanhante = $this->getDados('acompanhante');
 ?>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
+    //meuVarDump("testeee");
+    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
+    <h2>Lista das avaliações da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
@@ -33,13 +35,26 @@ header('Content-Type: text/html; charset=utf-8', true);
         <div class="clear"> </div>
         <div class="box-content">
             <div class="box">
-                <?php                		
+                <?php
                 /**
                  * Persistindo em listar os usuÃ¡rios
                  */
                 try {
-                    $objetos = Acompanhante::listar("nome");
+					if(Acao::checarPermissao(12, AcompanhanteControll::MODULO))
+						
+					{
+						//meuVarDump("testeee");
+							?>
+					 <a class="classBt" href=acompanhante/adicionarAvaliacao/<?php echo $acompanhante->getId(); ?> >
+                                Adicionar Avaliação
+                            </a>
+							                <?php 
+					}
+					//meuVarDump("testeee");
+                    $objetos = Comentario::listarPorAcompanhante($acompanhante);
                     $paginacao = new Paginacao($objetos, 20);
+						
+                  
                     ?>
                     <div class="table">
                         <table id="lista" class="widefat fixed">
@@ -47,9 +62,8 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
-                                    <th width="20%" align="left">AÃ§Ãµes</th>
+                                    <th width="28%" align="left">Comentario</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,45 +75,25 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
                                         <td width="28%" align="left">
-                                        <?php 
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId());
-                                        	echo $usuario->getEmail(); 
-                                        ?></td>
+                                        <?php
+                                        $comentario = Comentario::buscar($objeto->getId()); 
+                                        	echo $comentario->getComentario(); 
+                                        ?>
+                                        </td>
                                         
                                         <td width="20%">						
-                                            <a href="acompanhante/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                            <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, AcompanhanteControll::MODULO)) {
-											?>
-                                                <a href="acompanhante/editar/<?php echo $objeto->getId(); ?>">Editar</a>
-                                            <?php
-                                            }
-                                            if (Acao::checarPermissao(4, AcompanhanteControll::MODULO)) {
-											?>    
-                                                <a href="acompanhante/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
-                                            <?php
-                                            }
-                                            if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
-                                            	<a href="acompanhante/visualizarServicos/<?php echo $objeto->getId(); ?>">ServiÃ§os</a>
+                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(9, AcompanhanteControll::MODULO)) {
-                                            ?>
-                                            	<a href="acompanhante/visualizarFotos/<?php echo $objeto->getId(); ?>">Fotos</a>
-                                            <?php
-                                            }
-                                            if (Acao::checarPermissao(11, AcompanhanteControll::MODULO)) {
-                                            ?>
-                                            <a href="acompanhante/visualizarComentario/<?php echo $objeto->getId(); ?>">Comentario</a>
-                                            <?php
-                                            }
-                                            if (Acao::checarPermissao(12, AcompanhanteControll::MODULO)) {
-                                            ?>
-                                            <a href="acompanhante/visualizarAvaliacao/<?php echo $objeto->getId(); ?>">Avalicao</a>
-                                            
+                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
+                                            ?>    
+                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>
@@ -115,14 +109,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                         <span class="page"><?php echo $paginacao->getLinks(); ?></span>
                     </div>
                     <?php
-                } catch (Exception $e) {
-                    ?>
-                    <div class="exception">
-                        <?php echo $e->getMessage(); ?>
-                    </div>
-                    <?php
-                }
-                ?>
+	                } catch (Exception $e) {
+	                    ?>
+	                    <div class="exception">
+	                        <?php echo $e->getMessage(); ?>
+	                    </div>
+	                    <?php
+	                }
+	                ?>
             </div> <!--fim div box-->
         </div> <!--fim div box-content-->
     </div><!--fim div dashboard-wrap-->

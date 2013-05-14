@@ -40,7 +40,7 @@ $acompanhante = $this->getDados('acompanhante');
                  * Persistindo em listar os usuários
                  */
                 try {
-					if(Acao::checarPermissao(12, AcompanhanteControll::MODULO))
+					if(Acao::checarPermissao(13, AcompanhanteControll::MODULO))
 						
 					{
 						//meuVarDump("testeee");
@@ -51,7 +51,7 @@ $acompanhante = $this->getDados('acompanhante');
 							                <?php 
 					}
 					//meuVarDump("testeee");
-                    $objetos = Comentario::listarPorAcompanhante($acompanhante->getId());
+                    $objetos = Comentario::listarPorAcompanhante($acompanhante);
                     $paginacao = new Paginacao($objetos, 20);
 						
                   
@@ -78,7 +78,7 @@ $acompanhante = $this->getDados('acompanhante');
                                         <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $comentario = Usuario::buscar($objeto->getId()); 
+                                        $comentario = Comentario::buscar($objeto->getId()); 
                                         	echo $comentario->getComentario(); 
                                         ?>
                                         </td>

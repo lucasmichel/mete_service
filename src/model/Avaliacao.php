@@ -2,14 +2,14 @@
  class Avaliacao{
  	private $id;
  	private $nota;
- 	private $cliente_id;
- 	private $acompanhante_id;
+ 	private $clienteId;
+ 	private $acompanhanteId;
  	
- 	public function __construct($id = 0, $nota = '', $cliente_id = null, $acompanhante_id = null) {
+ 	public function __construct($id = 0, $nota = '', $clienteId = null, $acompanhanteId = null) {
  		$this->id = $id;
  		$this->nota = $nota;
- 		$this->cliente_id = $cliente_id;
- 		$this->acompanhante_id = $acompanhante_id;
+ 		$this->clienteId = $clienteId;
+ 		$this->acompanhanteId = $acompanhanteId;
  	}
  	
  	private function _validarCampos(){
@@ -19,14 +19,34 @@
  		return true;
  	}
  	
+ 	public static function listarPorAcompanhante(Acompanhante $acompanhante){
+ 		// recuperando a instancia da classe de acesso a dados //
+ 		$instancia = AvaliacaoDAO::getInstancia();
+ 		// executando o metodo //
+ 		$avaliacao = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+ 		// checando se o retorno foi falso //
+ 		if(!$avaliacao)
+ 			// levantando a excessao ListaVazia //
+ 			throw new ListaVazia(ListaVazia::AVALIACAO);
+ 		// percorrendo os usuarios //
+ 		foreach($avaliacao as $avaliacao){
+ 			// instanciando e jogando dentro da colecao $objetos o Usuario //
+ 			$ob = new Comentario($avaliacao['id'], $avaliacao['nota'],
+ 					$avaliacao['clienteId'], $avaliacao['acompanhanteId']);
+ 			$objetos[] = (array) $ob;
+ 		}
+ 		// retornando a colecao $objetos //
+ 		return $objetos;
+ 	}
+ 	
  	public static function listar() {
  		$instancia = AvaliacaoDAO::getInstancia();
  		$avaliacao = $instancia->listar();
  		if (!$avaliacao)
  			throw new ListaVazia(ListaVazia::AVALIACAO);
  		foreach ($avaliacao as $avaliacao) {
- 			$objetos[] = new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['cliente_id'],
- 					$avaliacao['acompanhante_id']);
+ 			$objetos[] = new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['clienteId'],
+ 					$avaliacao['acompanhanteId']);
  		}
  		return $objetos;
  	}
@@ -36,8 +56,8 @@
  		$avaliacao = $instancia->buscar($id);
  		if (!$avaliacao)
  			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::AVALIACAO);
- 		return new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['cliente_id'],
- 					$avaliacao['acompanhante_id']);
+ 		return new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['clienteId'],
+ 					$avaliacao['acompanhanteId']);
  	}
  	
  	public function inserir(){
@@ -83,7 +103,7 @@
  		$this->id = $id;
  	}
  	public function getNota() {
- 		return $this->id;
+ 		return $this->nota;
  	}
  	
  	public function setNota($nota) {
@@ -91,11 +111,11 @@
  	}
  	
  	public function getClienteId() {
- 		return $this->cliente_id;
+ 		return $this->clienteId;
  	}
  	
  	public function setClienteId($cliente_id) {
- 		$this->cliente_id = $cliente_id;
+ 		$this->clienteId = $cliente_id;
  	}
  	
  	public function getAcompanhanteId() {

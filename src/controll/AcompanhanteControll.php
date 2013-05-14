@@ -286,9 +286,20 @@ class AcompanhanteControll extends Controll {
             $this->_adicionarServico($this->getDados('POST'), $id);
     }
     
+    public function visualizarComentario($idAcompanhnate){
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 11;
+    	// buscando o usuário //
+    	$objeto = Acompanhante::buscar($idAcompanhnate);
+    	// jogando o usuário no atributo $dados do controlador //
+    	$this->setDados($objeto,'acompanhante');
+    	// definindo a tela //
+    	$this->setTela('listar',array('acompanhante/comentario'));
+    }
+    
     public function adicionarComentario($id){
     	 
-    	static $acao = 12;
+    	static $acao = 13;
     
     	// checando se o formulário nao foi passado //
     	if(!$this->getDados('POST')){
@@ -305,12 +316,59 @@ class AcompanhanteControll extends Controll {
     		$this->_adicionarComentario($this->getDados('POST'), $id);
     }
     
+    public function visualizarAvaliacao($idAcompanhnate){
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 12;
+    	// buscando o usuário //
+    	$objeto = Avaliacao::buscar($idAcompanhnate);
+    	// jogando o usuário no atributo $dados do controlador //
+    	$this->setDados($objeto,'acompanhante');
+    	// definindo a tela //
+    	$this->setTela('listar',array('acompanhante/avaliacao'));
+    }
+    public function adicionarAvaliacao($id){
+    
+    	static $acao = 14;
+    
+    	// checando se o formulário nao foi passado //
+    	if(!$this->getDados('POST')){
+    		// Buscando o usuário //
+    		$objeto = Acompanhante::buscar($id);
+    		// Jogando perfil no atributo $dados do controlador //
+    		$this->setDados($objeto,'acompanhante');
+    		// Definindo a tela //
+    		$this->setTela('add',array('acompanhante/avaliacao'));
+    	}
+    	// caso passar o formulario //
+    	else
+    		// chamando o metodo privado _editar() passando os dados do post por parametro //
+    		$this->_adicionarAvaliacao($this->getDados('POST'), $id);
+    }
+    private function _adicionarAvaliacao($dados, $id){
+    	try {
+    		$avaliacao = new Avaliacao();
+    		$avaliacao->setNota($dados['nota']);
+    		$avaliacao->getClienteId($dados['clienteId']);
+    		$avaliacao->setAcompanhanteId($id);
+    		$avaliacao = $avaliacao->inserir();
+    		//$comentarioAcompanhanteId = $comentario->getId();
+    		$avaliacao->inserir();
+    		// setando a mensagem de sucesso //
+    		$this->setFlash('Avaliacao cadastrado com sucesso.');
+    		// setando a url //
+    		$this->setPage();
+    
+    	}
+    	catch (Exception $e){
+    		return "erro"; //$e->getMessage();
+    	}
+    }
+    
     private function _adicionarComentario($dados, $id){
     	try {
     		$comentario = new Comentario();
     		$comentario->setComentario($dados['comentario']);
-    		$comentario->setNome($dados['comentario_id']);
-    		$comentario->getCliente_id($dados['cliente_id']);
+    		$comentario->getClienteId($dados['clienteId']);
     		$comentario->setAcompanhanteId($id);
     		$comentario = $comentario->inserir();
     		$comentariooAcompanhanteId = $comentario->getId();
@@ -432,16 +490,9 @@ class AcompanhanteControll extends Controll {
     	$this->setTela('listar',array('acompanhante/foto'));
     }
     
-    public function visualizarComentario($idAcompanhnate){
-    	// código da ação serve para o controle de acesso//
-    	static $acao = 11;
-    	// buscando o usuário //
-    	$objeto = Acompanhante::buscar($idAcompanhnate);
-    	// jogando o usuário no atributo $dados do controlador //
-    	$this->setDados($objeto,'acompanhante');
-    	// definindo a tela //
-    	$this->setTela('listar',array('acompanhante/comentario'));
-    }
+   
+    
+  
     /**
      * Acao fotoAdd($id)
      * @param $id

@@ -35,7 +35,7 @@
  	public function inserir(Avaliacao $obj) {
  		// INSTRUCAO SQL //
  		$sql = "INSERT INTO " . self::TABELA . "
-            (nota, cliente_id, acompanhante_id
+            (nota, clienteId, acompanhanteId
             )
  	
             VALUES('" . $obj->getNota() . "',
@@ -59,8 +59,8 @@
  		// INSTRUCAO SQL //
  		$sql = "UPDATE " . self::TABELA . " SET
             nota = '" . $obj->getNota() . "',
-            cliente_id =	'" . $obj->getClienteId() . "',
-            acompanhante_id = '" . $obj->getAcompanhanteId() . "'
+            clienteId =	'" . $obj->getClienteId() . "',
+            acompanhanteId = '" . $obj->getAcompanhanteId() . "'
             WHERE id = '" . $obj->getId() . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
