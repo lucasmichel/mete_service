@@ -36,6 +36,8 @@
                 <div class="table">
                     <h3 class="hndle">                        
                         <span>Cadastrar Comentario</span>
+                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5>
+                         <h5>Código Cliente: <?php echo $cliente->getId(); ?></h5>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">

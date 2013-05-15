@@ -18,7 +18,8 @@
     //meuVarDump("testeee");
     //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
-    <h2>Lista de comentarios da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
+    <h2>Lista de comentarios da acompanhante: <?php echo $acompanhante->getNome(); ?></h2> </br>
+     
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 

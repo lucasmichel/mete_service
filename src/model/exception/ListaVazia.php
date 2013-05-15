@@ -20,6 +20,8 @@ class ListaVazia extends Exception {
     const FOTOS = 8;
     const SERVICOS_ACOMPANHNATE = 9;
     const COMENTARIO = 10;
+    const AVALIACAO = 11;
+    
     public function __construct($tipo) {
         switch ($tipo) {
             case self::ACOES:
@@ -48,9 +50,12 @@ class ListaVazia extends Exception {
                 break;
             case self::SERVICOS_ACOMPANHNATE:
             	$msg = 'Nenhum servico foi encontrado para esta acomanhante.';
-            	case self::COMENTARIO:
+            case self::COMENTARIO:
             		$msg = 'Nenhum comentario encontrada.';
             		break;
+            case self::AVALIACAO:
+            			$msg = 'Nenhuma avalição encontrada.';
+            			break;
             	break;
         }
         parent::__construct($msg);

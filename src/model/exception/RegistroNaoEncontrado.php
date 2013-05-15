@@ -8,6 +8,7 @@ class RegistroNaoEncontrado extends Exception {
     const SERVICO = 6;
     const CLIENTE = 7;
     const COMENTARIO = 8;
+    const  AVALIACAO = 9;
 
     public function __construct($tipo){
         switch($tipo){
@@ -35,6 +36,10 @@ class RegistroNaoEncontrado extends Exception {
                 case self::COMENTARIO:
                         	$msg = 'Comentario não encontrado.';
                         	break;
+                case self::AVALIACAO:
+                        		$msg = 'Avaliacao não encontrado.';
+                        		break;
+                        	
         }
         parent::__construct($msg);
     }

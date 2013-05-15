@@ -5,7 +5,7 @@
  * @package model
  * @subpackage DAO
  */
- class AvaliacaoDAO extends ClasseDAO{
+ class AvaliacaoDAO extends ClassDAO{
  	/**
  	 * Atributos
  	 */
