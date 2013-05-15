@@ -286,20 +286,9 @@ class AcompanhanteControll extends Controll {
             $this->_adicionarServico($this->getDados('POST'), $id);
     }
     
-    public function visualizarComentario($idAcompanhnate){
-    	// código da ação serve para o controle de acesso//
-    	static $acao = 11;
-    	// buscando o usuário //
-    	$objeto = Acompanhante::buscar($idAcompanhnate);
-    	// jogando o usuário no atributo $dados do controlador //
-    	$this->setDados($objeto,'acompanhante');
-    	// definindo a tela //
-    	$this->setTela('listar',array('acompanhante/comentario'));
-    }
-    
     public function adicionarComentario($id){
-    	 
-    	static $acao = 13;
+    
+    	static $acao = 2;
     
     	// checando se o formulário nao foi passado //
     	if(!$this->getDados('POST')){
@@ -315,6 +304,19 @@ class AcompanhanteControll extends Controll {
     		// chamando o metodo privado _editar() passando os dados do post por parametro //
     		$this->_adicionarComentario($this->getDados('POST'), $id);
     }
+    
+    public function visualizarComentario($idAcompanhnate){
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 11;
+    	// buscando o usuário //
+    	$objeto = Acompanhante::buscar($idAcompanhnate);
+    	// jogando o usuário no atributo $dados do controlador //
+    	$this->setDados($objeto,'acompanhante');
+    	// definindo a tela //
+    	$this->setTela('listar',array('acompanhante/comentario'));
+    }
+    
+ 
     
     public function visualizarAvaliacao($idAcompanhnate){
     	// código da ação serve para o controle de acesso//

@@ -1,7 +1,18 @@
 <?php
-header('Content-Type: text/html; charset=utf-8', true);
-$acompanhante = $this->getDados('acompanhante');
+    header('Content-Type: text/html; charset=utf-8', true);
+    $acompanhante = $this->getDados('acompanhante');
+    $usuario = $this->getDados('usuario');
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function($){
+        $("#ok").click(function() {
+            $("#cadastro").submit();
+        });                
+                
+                
+    });
+</script>
 <div class="wrap">
     <?php
     //meuVarDump("testeee");
@@ -39,31 +50,30 @@ $acompanhante = $this->getDados('acompanhante');
                 /**
                  * Persistindo em listar os usuários
                  */
-                try {
-					if(Acao::checarPermissao(13, AcompanhanteControll::MODULO))
-						
-					{
-						//meuVarDump("testeee");
-							?>
-					 <a class="classBt" href=acompanhante/adicionarComentario/<?php echo $acompanhante->getId(); ?> >
+               // meuVarDump("testeee");
+				 try {
+                        if(Acao::checarPermissao(2, AcompanhanteControll::MODULO))
+                        {
+					?>
+                            <a class="classBt" href=acompanhante/adicionarComentario/<?php echo $acompanhante->getId(); ?> >
                                 Adicionar Comentario
                             </a>
-							                <?php 
-					}
+              		  <?php 
+                        }
 					//meuVarDump("testeee");
-                    $objetos = Comentario::listarPorAcompanhante($acompanhante);
+                    $objetos = Comentario::listar("comentario");                   
                     $paginacao = new Paginacao($objetos, 20);
-						
-                  
+
                     ?>
-                    <div class="table">
+                      <div class="table">
                         <table id="lista" class="widefat fixed">
                             <thead>
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Comentario</th>
-                                    
+                                    <th width="28%" align="left">Serviço</th>
+                                    <th width="28%" align="left">Valor</th>
+                                    <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -56,6 +56,29 @@ class  Comentario{
 		// retornando a colecao $objetos //
 		return $objetos;
 	}
+	
+ public static function listarPorIdAcompanhante($id){
+            // recuperando a instancia da classe de acesso a dados //
+           $instancia = ComentarioDAO::getInstancia();
+            // executando o metodo //
+            $comentario = $instancia->listarPorIdAcompanhante($id);
+            // checando se o retorno foi falso //
+            if(!$comentario)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::COMENTARIO);
+            // percorrendo os usuarios //
+            foreach($comentario as $comentario){
+                
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $objetos[] = new Comentario($comentario['id'], $comentario['comentario'],
+					 $comentario['clienteId'], $comentario['acompanhanteId']
+                           );
+                    
+                           
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+    }
 		
  	public static function buscar($id) {
  		$instancia = ComentarioDAO::getInstancia();
