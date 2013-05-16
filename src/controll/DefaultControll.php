@@ -552,34 +552,6 @@ class DefaultControll extends Controll {
 
 
 	
-    /******TREAHD******/
-    /******TREAHD******/
-    /******TREAHD******/
-    
-    public function teste() {
-        if ($this->getDados('POST')) {
-            $this->_teste($this->getDados('POST'));
-        }
-        else{
-            
-            $this->setTela('testePerformance');
-            $this->getPage();
-		}
-    }
-
-    private function _teste($_POST) {    	
-        /*echo $_POST["email"];
-        echo "<br />";
-        echo $_POST["senha"];*/
-        
-    	$executa = new WebServiceControll();
-    	$executa->_teste($_POST);
-    }
-    
-    
-    /******TREAHD******/
-    /******TREAHD******/
-    /******TREAHD******/    
 }
 
 ?>
