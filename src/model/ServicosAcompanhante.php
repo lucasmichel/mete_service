@@ -143,7 +143,7 @@ class ServicosAcompanhante {
 	}
         
         
-	public static function listarPorAcompanhante(Acompanhante $acompanhante){
+	public static function listarPorAcompanhanteWebService(Acompanhante $acompanhante){
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ServicosAcomapnhanteDAO::getInstancia();
 		// executando o metodo //
@@ -163,6 +163,33 @@ class ServicosAcompanhante {
                                 );
                     
                         $objetos[] = (array) $ob;
+                        
+
+		}
+		// retornando a colecao $objetos //
+		return $objetos;
+	}
+        
+	public static function listarPorAcompanhante(Acompanhante $acompanhante){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = ServicosAcomapnhanteDAO::getInstancia();
+		// executando o metodo //
+		$servicos = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+		// checando se o retorno foi falso //
+		if(!$servicos)
+			// levantando a excessao ListaVazia //
+			throw new ListaVazia(ListaVazia::SERVICOS_ACOMPANHNATE);
+		// percorrendo os usuarios //
+		foreach($servicos as $servico){
+			// instanciando e jogando dentro da colecao $objetos o Usuario //
+                         $ob = new ServicosAcompanhante($servico['id'],					
+					$servico['servico_id'],
+                                        $servico['acompanhante_id'],	
+                                        $servico['valor'],
+					$servico['excluido']
+                                );
+                    
+                        $objetos[] = $ob;
                         
 
 		}

@@ -581,6 +581,7 @@ class WebServiceControll extends Controll{
 			//meuVarDump($to);
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			
+                        
 			$cliente = new Cliente();
 			$cliente = $cliente->buscar($atributoDados['idUsuario']);
 			$cliente = $cliente->excluirPorIdUsuario();
@@ -928,8 +929,7 @@ class WebServiceControll extends Controll{
                         
                         $acompanhante = Acompanhante::buscar($atributoDados['id']);
 
-                        $lista = ServicosAcompanhante::listarPorAcompanhante($acompanhante); //::listarServicoAcompanhante($atributoDados['id']);
-                        
+                        $lista = ServicosAcompanhante::listarPorAcompanhanteWebService($acompanhante); //::listarServicoAcompanhante($atributoDados['id']);
                         
                         //$retornoDados[] = (array)$lista;
 
@@ -972,6 +972,63 @@ class WebServiceControll extends Controll{
 		}
                 
 	}
-	
+        
+        public function _teste($dados) {
+            try {
+                
+                    $usuario = Usuario::logarAndroid($dados['email'], $dados['senha']);
+                    
+                    //echo json_encode(array($usuario));
+                    $user = array($usuario);
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = "Login OK";
+                    $retorno["status"] = 0;
+                    $retorno["dados"] = $user;
+                    echo json_encode($retorno);
+                    /*header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    //echo "oK";
+                    //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                    /*$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];	
+
+                    $usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
+			
+                    $retornoDados[] = (array) $usuario;
+                        
+                    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
+			
+                    $this->retorno($arrayRetorno);*/
+                    
+		} catch (Exception $e) {			
+                    //$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    //$this->retorno($arrayRetorno);
+                    //echo $e->getMessage();
+                    //json_encode(array("msgm"=>"".$e->getMessage()."","status"=>"1","dados"=>"null"));
+                    /*$retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    echo json_encode($retorno);
+                    
+		}
+        }
 }
 ?>
