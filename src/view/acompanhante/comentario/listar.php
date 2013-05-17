@@ -72,9 +72,8 @@
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Serviço</th>
-                                    <th width="28%" align="left">Valor</th>
-                                    <th width="20%" align="left">Ações</th>
+                                    <th width="28%" align="left">Comentario</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,8 +88,8 @@
                                         <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $comentario = Comentario::buscar($objeto->getId()); 
-                                        	echo $comentario->getComentario(); 
+                                       // $comentario = Comentario::buscar($objeto->getId()); 
+                                        	//echo $comentario->getComentario(); 
                                         ?>
                                         </td>
                                         

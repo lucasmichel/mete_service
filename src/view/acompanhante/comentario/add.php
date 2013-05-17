@@ -25,6 +25,11 @@
         });                
     });
 </script>
+<style>
+<!--
+
+-->
+</style>
 <div class="wrap">
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
@@ -37,7 +42,8 @@
                 <div class="table">
                     <h3 class="hndle">                        
                         <span>Cadastrar Comentario</span>
-                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5>       
+                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
+                              
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
@@ -47,8 +53,8 @@
                                     <li>
                                         <label for="nome">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
-                                         <input type="text" id="acompanhanteId" name="acompanhanteId" value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
-                                          <input type="text" id="clienteId" name="clienteId" value="<?php if($cliente != null) echo $cliente->getId();  ?>" />
+                                         <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
+                                          
                                     </li>                                   
                                 </ul>
                             </fieldset>

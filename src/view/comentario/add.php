@@ -45,6 +45,8 @@
                                     <li>
                                         <label for="nome">Comentarioo</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
+                                                                             <input type="text" id="acompanhanteId" name="acompanhanteId" value="<?php if($comentario != null) echo $comentario->getId();  ?>" />
+                                         <input type="text" id="clienteId" name="clienteId" value="<?php  echo $cliente->getId();  ?>" />
                                     </li>                                   
                                 </ul>
                             </fieldset>

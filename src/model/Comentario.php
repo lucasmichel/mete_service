@@ -15,15 +15,20 @@ class  Comentario{
 		
 	}
 	
-	private function _validarCampos(){
-		if(($this->getComentario() == '')
-				//||($this->getId() == null));
-				//||($this->getCliente_id() == null)
-				//||($this->getAcompanhante_id() == null))
-		);
-			return false;
-		return true;
+
+	
+	public function _validarCampos(){
+		$retorno = true;
+		if($this->getComentario() == null){
+			throw new CamposObrigatorios("Comentario");
+			$retorno = false;
+		}
+		else{
+			$retorno = true;
+		}
+		return $retorno;
 	}
+	
 	
 	public static function listar($campo) {
 		$instancia = ComentarioDAO::getInstancia();
@@ -178,7 +183,7 @@ class  Comentario{
 		return $this->acompanhanteId;
 	}
 	
-	public function setAcompanhante_id($acompanhante_id) {
+	public function setAcompanhanteId($acompanhanteId) {
 		$this->acompanhanteId = $acompanhanteId;
 	}
 }

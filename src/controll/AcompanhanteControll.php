@@ -294,6 +294,7 @@ class AcompanhanteControll extends Controll {
     	if(!$this->getDados('POST')){
     		// Buscando o usuário //
     		$objeto = Acompanhante::buscar($id);
+    		//$objeto = Cliente::buscar($id);
     		// Jogando perfil no atributo $dados do controlador //
     		$this->setDados($objeto,'acompanhante');
     		// Definindo a tela //
@@ -369,13 +370,14 @@ class AcompanhanteControll extends Controll {
     
     private function _adicionarComentario($dados, $id){
     	try {
+    		//var_dump($id);
     		$comentario = new Comentario();
     		$comentario->setComentario($dados['comentario']);
     		//$comentario->getClienteId($dados['clienteId']);
-    		$comentario->setAcompanhanteId($id);  
+    		$comentario->setAcompanhanteId($dados['acompanhanteId']);  
     		$comentario = $comentario->inserir();
-    		$comentariooAcompanhanteId = $comentario->getId();
-    		$comentario->inserir();
+    		//$comentariooAcompanhanteId = $comentario->getId();
+    		//$comentario->inserir();
     		// setando a mensagem de sucesso //
     		$this->setFlash('Comentario cadastrado com sucesso.');
     		// setando a url //

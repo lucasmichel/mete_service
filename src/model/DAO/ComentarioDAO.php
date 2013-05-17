@@ -24,16 +24,16 @@
  	}
  	
  	
- 	public function inserir(Fotos $obj) {
+ 	public function inserir(Comentario $obj) {
  		// INSTRUCAO SQL //
  		$sql = "INSERT INTO " . self::TABELA . "
-            (comentario,clienteId,acompanhanteId)
+            (comentario,acompanhanteId)
             VALUES('" . $obj->getComentario() . "' ,
-            '" . $obj->getClienteId() . "' ,
+            
             '" . $obj->getAcompanhanteId() . "')";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
- 		// TRATANDO O RESULTADO //
+ 		// TRATANDO O RESULTADO // '" . $obj->getClienteId() . "' ,
  	}
  	
  	public function editar(Acompanhante $obj) {
