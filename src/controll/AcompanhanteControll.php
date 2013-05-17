@@ -346,6 +346,7 @@ class AcompanhanteControll extends Controll {
     		// chamando o metodo privado _editar() passando os dados do post por parametro //
     		$this->_adicionarAvaliacao($this->getDados('POST'), $id);
     }
+    
     private function _adicionarAvaliacao($dados, $id){
     	try {
     		$avaliacao = new Avaliacao();
@@ -370,8 +371,8 @@ class AcompanhanteControll extends Controll {
     	try {
     		$comentario = new Comentario();
     		$comentario->setComentario($dados['comentario']);
-    		$comentario->getClienteId($dados['clienteId']);
-    		$comentario->setAcompanhanteId($id);
+    		//$comentario->getClienteId($dados['clienteId']);
+    		$comentario->setAcompanhanteId($id);  
     		$comentario = $comentario->inserir();
     		$comentariooAcompanhanteId = $comentario->getId();
     		$comentario->inserir();
@@ -394,8 +395,6 @@ class AcompanhanteControll extends Controll {
             $servicoAcompanhnate->setAcompanhanteId($id);            
             $servicoAcompanhnate = $servicoAcompanhnate->inserir();
             $servicoAcompanhanteId = $servicoAcompanhnate->getId();
-            
-            
             
             for ($index = 0; $index < count($dados["latitude"]); $index++) {
                 
