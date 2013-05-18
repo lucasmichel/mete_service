@@ -40,10 +40,13 @@ class FotosDAO  extends ClassDAO{
             (nome,acompanhante_id) 
             VALUES('" . $obj->getNome() . "',
             '" . $obj->getAcompanhanteId() . "')";
-        
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
         // TRATANDO O RESULTADO //
+        ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+        
+        return $obj;
+        
      }
      
        public function editar(Fotos $obj) {
@@ -55,6 +58,8 @@ class FotosDAO  extends ClassDAO{
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
         // RETORNANDO O RESULTADO /////
+        //($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+        
         return $resultado;
     }
     
