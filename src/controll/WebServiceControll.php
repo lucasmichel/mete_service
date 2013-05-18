@@ -967,7 +967,7 @@ class WebServiceControll extends Controll{
                         $atributoStatus = $encoded["status"];
                         $atributoMensagem = $encoded["mensagem"];	
 
-                        $lista = Localizacao::listarPorServicoAcompanhanteId($atributoDados['id']);
+                        $lista = Localizacao::listarPorServicoAcompanhanteIdWebService($atributoDados['id']);
                         //meuVarDump($lista);
                         
                         //$retornoDados[] = (array)$lista;

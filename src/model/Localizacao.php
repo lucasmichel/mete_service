@@ -143,7 +143,7 @@ class  Localizacao{
 		return $objetos;
 	}
         
-	public static function listarPorServicoAcompanhanteId($ServicoAcompanhanteId){
+	public static function listarPorServicoAcompanhanteIdWebService($ServicoAcompanhanteId){
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = LocalizacaoDAO::getInstancia();
 		// executando o metodo //
@@ -161,6 +161,29 @@ class  Localizacao{
 					$localizacao['servicos_acompanhante_id']);
                     
                         $objetos[] = (array) $ob;
+		}
+		// retornando a colecao $objetos //
+		return $objetos;
+	}
+        
+	public static function listarPorServicoAcompanhanteId($ServicoAcompanhanteId){
+		// recuperando a instancia da classe de acesso a dados //
+		$instancia = LocalizacaoDAO::getInstancia();
+		// executando o metodo //
+		$localizacao = $instancia->listarPorServicoAcompanhanteId($ServicoAcompanhanteId);
+		// checando se o retorno foi falso //
+		if(!$localizacao)
+			// levantando a excessao ListaVazia //
+			throw new ListaVazia(ListaVazia::LOCALIZACAO);
+		// percorrendo os usuarios //
+		foreach($localizacao as $localizacao){
+			// instanciando e jogando dentro da colecao $objetos o Usuario //
+			
+                        $ob = new Localizacao($localizacao['id'],$localizacao['latitude'],
+					$localizacao['longitude'],$localizacao['endereco_formatado'],
+					$localizacao['servicos_acompanhante_id']);
+                    
+                        $objetos[] = $ob;
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
