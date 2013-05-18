@@ -80,11 +80,11 @@ function log(tempo1, tempo2){
 
 
         <?php
-        for($i = 0; $i < 100; $i++){
+        for($i = 0; $i < 30; $i++){
             ?>
 
                 $.ajax({
-                    url: "<?php echo BASE;?>/teste",
+                    url: "<?php echo BASE;?>/teste30",
                     type: "POST",
                     data: {email: email, senha:senha},
                     dataType: "html",
@@ -126,8 +126,8 @@ function log(tempo1, tempo2){
 });
 </script>
 <div id="user-login" class="border">
-    <h2>Logar</h2>
-    <form method="post">        
+    <h2>Logar 30</h2>
+    <form method="post">
         <ul>
             <li>
                 <label for="email">Email:</label>

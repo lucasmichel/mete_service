@@ -32,7 +32,7 @@ function log(tempo1, tempo2){
             type: "POST",
             //data: {funcao:'logarAndroid', dataIncio:tempo1, dataFim:tempo2},
             
-            data: 'funcao=logarAndroid&dataIncio='+ temp1 +'&dataFim='+ temp2,
+            data: 'funcao=excluiAcompnhante&dataIncio='+ temp1 +'&dataFim='+ temp2,
             
             dataType: "html",
             async:false,
@@ -75,18 +75,18 @@ function log(tempo1, tempo2){
         //alert("inicio: "+tempo_1.toTimeString());
         
         //alert(event.timeStamp);
-        var email = $.trim($("#email").val());    
-        var senha = $.trim($("#senha").val());
+        
+        
 
 
-        <?php
+        <?php        
         for($i = 0; $i < 100; $i++){
             ?>
 
                 $.ajax({
-                    url: "<?php echo BASE;?>/teste",
+                    url: "<?php echo BASE;?>/excluirAcompanhantePerformance",
                     type: "POST",
-                    data: {email: email, senha:senha},
+                    data: {},
                     dataType: "html",
                     async:false,
                     success:function(data){                                
@@ -126,16 +126,12 @@ function log(tempo1, tempo2){
 });
 </script>
 <div id="user-login" class="border">
-    <h2>Logar</h2>
-    <form method="post">        
+    <form method="post">
         <ul>
             <li>
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" value="" class="required" />
+                <h2>ExcluirAcompanhante30</h2>
             </li>
             <li>
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" value="" class="required" /> 
                 <input type="button" value=" OK " name="ok" id="ok" />
             </li>
         </ul>

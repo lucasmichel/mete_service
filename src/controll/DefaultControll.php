@@ -528,11 +528,10 @@ class DefaultControll extends Controll {
         if ($this->getDados('POST')) {
             $this->_logarAndroid($this->getDados('POST'));
         }
-        else{
-            
+        else{            
             $this->setTela('loginTesteAndroid');
             $this->getPage();
-		}
+        }
     }
 
     private function _logarAndroid($dados) {    	
@@ -552,6 +551,333 @@ class DefaultControll extends Controll {
 
 
 	
+    /******TREAHD******/
+    /******TREAHD******/
+    /******TREAHD******/
+    
+    public function teste() {
+        if ($this->getDados('POST')) {
+            $this->_teste($this->getDados('POST'));
+        }
+        else{
+            
+            $this->setTela('testePerformance');
+            $this->getPage();
+		}
+    }
+
+    private function _teste($_POST) {    	
+        
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        
+    	$executa = new WebServiceControll();
+    	$executa->_teste($_POST);
+            
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        
+    }
+    
+    
+    public function teste30() {
+        if ($this->getDados('POST')) {
+            $this->_teste30($this->getDados('POST'));
+        }
+        else{
+            $this->setTela('testePerformance30');
+            $this->getPage();
+        }
+    }
+
+    private function _teste30($_POST) {    	
+    	$executa = new WebServiceControll();
+    	$executa->_teste($_POST);
+    }
+    
+    
+    public function teste100() {
+        if ($this->getDados('POST')) {
+            $this->_teste100($this->getDados('POST'));
+        }
+        else{
+            $this->setTela('testePerformance100');
+            $this->getPage();
+        }
+    }
+
+    private function _teste100($_POST) {
+    	$executa = new WebServiceControll();
+    	$executa->_teste($_POST);
+    }
+    
+    
+    
+    public function testeListaAcompanhante() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaAcompanhante($this->getDados('POST'));
+        }
+        else{
+            
+            $this->setTela('listarPerformance');
+            $this->getPage();
+		}
+    }
+
+    private function _testeListaAcompanhante($_POST) {    	
+        
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        
+    	$executa = new WebServiceControll();
+    	$A = $executa->_testeListar($_POST);
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        
+    }
+    
+    
+    public function testeListaAcompanhante30() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaAcompanhante30($this->getDados('POST'));
+        }
+        else{
+            
+            $this->setTela('listarPerformance30');
+            $this->getPage();
+        }
+    }
+
+    private function _testeListaAcompanhante30($_POST) {    	
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+    	$executa = new WebServiceControll();
+    	$A = $executa->_testeListar($_POST);
+            
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/   
+    }
+    
+    public function testeListaAcompanhante100() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaAcompanhante100($this->getDados('POST'));
+        }
+        else{
+            
+            $this->setTela('listarPerformance100');
+            $this->getPage();
+        }
+    }
+
+    private function _testeListaAcompanhante100($_POST) {    	
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+    	$executa = new WebServiceControll();
+    	$A = $executa->_testeListar($_POST);
+            
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/   
+    }
+    
+    
+    
+    public function testeListaServico() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaServico($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('listarPerformanceServico');
+            $this->getPage();
+        }
+    }
+
+    private function _testeListaServico($_POST) {    	
+        
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        
+    	$executa = new WebServiceControll();
+    	$executa->_testeListarServico($_POST);
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        
+    }
+    
+    public function testeListaServico30() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaServico30($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('listarPerformanceServico30');
+            $this->getPage();
+        }
+    }
+
+    private function _testeListaServico30($_POST) {    	
+        
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        
+    	$executa = new WebServiceControll();
+    	$executa->_testeListarServico($_POST);
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        
+    }
+    
+    public function testeListaServico100() {
+        if ($this->getDados('POST')) {
+            $this->_testeListaServico100($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('listarPerformanceServico100');
+            $this->getPage();
+        }
+    }
+
+    private function _testeListaServico100($_POST) {    	
+        
+        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        
+    	$executa = new WebServiceControll();
+    	$executa->_testeListarServico($_POST);
+        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        
+    }
+    
+    
+    
+    public function excluirAcompanhantePerformance() {
+        if ($this->getDados('POST')) {
+            $this->_excluirAcompanhantePerformance($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirAcompanhantePerformance');
+            $this->getPage();
+        }
+    }
+    public function _excluirAcompanhantePerformance($dados){
+        $executa = new WebServiceControll();
+    	$executa->_excluirAcompanhantePerformance($dados);
+    }
+    
+    
+    public function excluirAcompanhantePerformance30() {
+        if ($this->getDados('POST')) {
+            $this->_excluirAcompanhantePerformance30($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirAcompanhantePerformance30');
+            $this->getPage();
+        }
+    }
+    public function _excluirAcompanhantePerformance30($dados){
+        $executa = new WebServiceControll();
+    	$executa->_excluirAcompanhantePerformance($dados);
+    }
+    
+    
+    public function excluirAcompanhantePerformance100() {
+        if ($this->getDados('POST')) {
+            $this->_excluirAcompanhantePerformance100($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirAcompanhantePerformance100');
+            $this->getPage();
+        }
+    }
+    public function _excluirAcompanhantePerformance100($dados){
+        $executa = new WebServiceControll();
+    	$executa->_excluirAcompanhantePerformance($dados);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public function excluirClientePerformance() {
+        if ($this->getDados('POST')) {
+            $this->_excluirClientePerformance($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirClientePerformance');
+            $this->getPage();
+        }
+    }
+    
+    public function _excluirClientePerformance(){
+        $executa = new WebServiceControll();
+    	$executa->_excluirClientePerformance($dados);
+    }
+    
+    
+    public function excluirClientePerformance30() {
+        if ($this->getDados('POST')) {
+            $this->_excluirClientePerformance30($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirClientePerformance30');
+            $this->getPage();
+        }
+    }
+    
+    public function _excluirClientePerformance30($dados){
+        $executa = new WebServiceControll();
+    	$executa->_excluirClientePerformance($dados);
+    }
+    
+    
+    public function excluirClientePerformance100() {
+        if ($this->getDados('POST')) {
+            $this->_excluirClientePerformance100($this->getDados('POST'));
+        }
+        else{    
+            $this->setTela('excluirClientePerformance100');
+            $this->getPage();
+        }
+    }
+    
+    public function _excluirClientePerformance100($dados){
+        $executa = new WebServiceControll();
+    	$executa->_excluirClientePerformance($dados);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public function gravarLog(){
+        if ($this->getDados('POST')) {
+            $dados = $this->getDados('POST');
+            
+            
+            $dtInicio = new DateTime($dados['dataIncio']);
+            $dtFim = new DateTime($dados['dataFim']);
+                        
+            
+            $executa = new WebServiceControll();
+            $executa->calcularTempo($dados['funcao'], $dtInicio, $dtFim);
+        }
+        else{
+            echo'Falta enviar os dados via post';
+        }
+        
+    }
+    
+    
+    /******TREAHD******/
+    /******TREAHD******/
+    /******TREAHD******/    
 }
 
 ?>

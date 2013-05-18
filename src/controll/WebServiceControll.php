@@ -4,23 +4,10 @@ class WebServiceControll extends Controll{
 	public function WebServiceControll(){}
 	
 	
-        private function calcularTempo(DateTime $tempoInicio, DateTime $tempoFim){
+        public function calcularTempo($nomeFuncaoExecutada, $tempoInicio, $tempoFim){
             
-                        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-                        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-                        $this->calcularTempo($DateTimeInicio, $DateTimeFim);
-                        
-                        
-            echo '<pre>';
-            echo '<br/>';
-            echo '<br/>';
-            echo $tempoInicio->format( "Y-m-d H:i:s" );
-            echo '<br/>';
-            echo '<br/>';
-            echo $tempoFim->format( "Y-m-d H:i:s" );
-            
-            echo '<br/>';
-            echo '<br/>';
+            //echo $tempoInicio->format( "Y-m-d H:i:s" );
+            //echo $tempoFim->format( "Y-m-d H:i:s" );
             
             $data_login = strtotime($tempoInicio->format( "Y-m-d H:i:s" ));
             $data_logout = strtotime($tempoFim->format( "Y-m-d H:i:s" ));
@@ -29,25 +16,49 @@ class WebServiceControll extends Controll{
             meuVarDump($tempo_con);*/
             
             $tempo_con = mktime(
-                    date('H', $data_logout) - date('H', $data_login), date('i', $data_logout) - 
-                    date('i', $data_login), date('s', $data_logout) - date('s', $data_login)
-                    );
-
-            echo '<br/>';
-            echo '<br/>';
-            print date('H:i:s', $tempo_con);
-            die();
+                date('H', $data_logout) - date('H', $data_login), date('i', $data_logout) - 
+                date('i', $data_login), date('s', $data_logout) - date('s', $data_login)
+            );
             
-            try
-                {
-                    $DateTime = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-                }
-                catch( Exception $e )
-                {
-                    echo 'Erro ao instanciar objeto.';
-                    echo $e->getMessage();
-                    exit();
-                }
+            $this->escreverArquivoLog($tempoInicio, $tempoFim, $nomeFuncaoExecutada, $tempo_con);
+        }
+        
+        private function escreverArquivoLog($dtInicio, $dtFim, $nomeFuncao, $resultado){
+            
+            
+            $arq = $_SERVER["DOCUMENT_ROOT"] . BASE."/img/".$nomeFuncao.$dtInicio->format( "d-m-Y H:i:s" ).".txt";
+            
+            
+            
+            if($novoarquivo = fopen($arq, "w+")){
+                            
+                fwrite($novoarquivo, "Funcao: ".$nomeFuncao." ...\n");
+                fwrite($novoarquivo, "Início: ".$dtInicio->format( "d/m/Y H:i:s" )." ...\n");
+                fwrite($novoarquivo, "Fim: ".$dtFim->format( "d/m/Y H:i:s" )." ...\n");
+                fwrite($novoarquivo, "Tempo gasto: ".date('H:i:s', $resultado)." ...\n");
+
+                fclose($novoarquivo);
+                chmod ($arq, 0777);
+
+
+
+                //$link = $path_a_tu_doc."/".$id;
+                $link = $arq;
+                header ("Content-Disposition: attachment; filename=dados.txt");
+                header ("Content-Type: application/octet-stream");
+                header ("Content-Length: ".filesize($link));
+                readfile($link);
+                echo "Tudo concluído!";
+                //unlink($arq);
+                
+            }
+            else{
+                echo 'nao pode criar o arquivo';
+            }
+
+            
+            
+            
         }
         
         
@@ -1030,5 +1041,149 @@ class WebServiceControll extends Controll{
                     
 		}
         }
+        
+        public function _testeListar($dados) {
+            try {
+                
+                    $lista = Acompanhante::listarParaWebService();
+                    
+                    //echo json_encode(array($usuario));
+                    $user = array($lista);
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = "Login OK";
+                    $retorno["status"] = 0;
+                    $retorno["dados"] = $user;
+                    echo json_encode($retorno);
+                    /*header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    //echo "oK";
+                    //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                    /*$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];	
+
+                    $usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
+			
+                    $retornoDados[] = (array) $usuario;
+                        
+                    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
+			
+                    $this->retorno($arrayRetorno);*/
+                    
+		} catch (Exception $e) {			
+                    //$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    //$this->retorno($arrayRetorno);
+                    //echo $e->getMessage();
+                    //json_encode(array("msgm"=>"".$e->getMessage()."","status"=>"1","dados"=>"null"));
+                    /*$retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    echo json_encode($retorno);
+                    
+		}
+        }
+        
+        public function _testeListarServico($dados) {
+            try {
+                
+                    $lista = Servico::listar($ordenarPor);
+                    
+                    //echo json_encode(array($usuario));
+                    $user = array($lista);
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = "Login OK";
+                    $retorno["status"] = 0;
+                    $retorno["dados"] = $user;
+                    echo json_encode($retorno);
+                    /*header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    //echo "oK";
+                    //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                    /*$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];	
+
+                    $usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
+			
+                    $retornoDados[] = (array) $usuario;
+                        
+                    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
+			
+                    $this->retorno($arrayRetorno);*/
+                    
+		} catch (Exception $e) {			
+                    //$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    //$this->retorno($arrayRetorno);
+                    //echo $e->getMessage();
+                    //json_encode(array("msgm"=>"".$e->getMessage()."","status"=>"1","dados"=>"null"));
+                    /*$retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    header('Cache-Control: no-cache, must-revalidate');
+                    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+                    header('Content-type: application/json');
+                    $a = json_encode($retorno,true);
+                    echo $a;*/
+                    
+                    $retorno = Array();
+                    $retorno["msgm"] = $e->getMessage();
+                    $retorno["status"] = 1;
+                    $retorno["dados"] = null;
+                    echo json_encode($retorno);
+                    
+		}
+        }
+        
+        
+        
+     
+        
+        
+        
+        public function _excluirAcompanhantePerformance($dados) {
+            try {
+                    $acompanhante = Acompanhante::buscar($dados['id']);
+                    $acompanhante->excluir();
+                    
+		} catch (Exception $e) {			
+                    echo $e->getMessage();
+		}
+        }
+        
+        
+        public function _excluirClientePerformance($dados) {
+            try {
+                    $acompanhante = Cliente::buscar($dados['id']);
+                    $acompanhante->excluir();
+                    
+		} catch (Exception $e) {			
+                    echo $e->getMessage();
+		}
+        }
+        
 }
 ?>

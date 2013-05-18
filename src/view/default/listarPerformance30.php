@@ -32,7 +32,7 @@ function log(tempo1, tempo2){
             type: "POST",
             //data: {funcao:'logarAndroid', dataIncio:tempo1, dataFim:tempo2},
             
-            data: 'funcao=logarAndroid&dataIncio='+ temp1 +'&dataFim='+ temp2,
+            data: 'funcao=listarAcompanhante&dataIncio='+ temp1 +'&dataFim='+ temp2,
             
             dataType: "html",
             async:false,
@@ -80,11 +80,11 @@ function log(tempo1, tempo2){
 
 
         <?php
-        for($i = 0; $i < 100; $i++){
+        for($i = 0; $i < 30; $i++){
             ?>
 
                 $.ajax({
-                    url: "<?php echo BASE;?>/teste",
+                    url: "<?php echo BASE;?>/testeListaAcompanhante30",
                     type: "POST",
                     data: {email: email, senha:senha},
                     dataType: "html",
@@ -126,16 +126,12 @@ function log(tempo1, tempo2){
 });
 </script>
 <div id="user-login" class="border">
-    <h2>Logar</h2>
-    <form method="post">        
+    <form method="post">
         <ul>
             <li>
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" value="" class="required" />
+                <h2>Lista acompanhnate 30</h2>
             </li>
             <li>
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" value="" class="required" /> 
                 <input type="button" value=" OK " name="ok" id="ok" />
             </li>
         </ul>

@@ -25,7 +25,7 @@ class ListaVazia extends Exception {
     public function __construct($tipo) {
         switch ($tipo) {
             case self::ACOES:
-                $msg = 'Nenhuma a√ß√£o encontrada.';
+                $msg = 'Nenhuma aÁ„o encontrada.';
                 break;
             case self::MODULOS:
                 $msg = 'Nenhum modulo encontrado.';
@@ -34,13 +34,13 @@ class ListaVazia extends Exception {
                 $msg = 'Nenhum perfil encontrado.';
                 break;
             case self::USUARIOS:
-                $msg = 'Nenhum usu√°rio encontrado.';
+                $msg = 'Nenhum usu·rio encontrado.';
                 break;
             case self::ACOMPANHANTES:
                 $msg = 'Nenhuma acompanhante encontrada.';
                 break;
             case self::SERVICOS:
-            	$msg = 'Nenhum servi√ßo encontrado.';
+            	$msg = 'Nenhum serviÁo encontrado.';
                 break;
             case self::CLIENTES:
             	$msg = 'Nenhum cliente encontrado.';
@@ -50,7 +50,7 @@ class ListaVazia extends Exception {
                 break;
             case self::SERVICOS_ACOMPANHNATE:
             	$msg = 'Nenhum servico foi encontrado para esta acomanhante.';
-            case self::COMENTARIO:
+            	case self::COMENTARIO:
             		$msg = 'Nenhum comentario encontrada.';
             		break;
             case self::AVALIACAO:
