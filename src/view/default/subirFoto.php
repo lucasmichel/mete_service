@@ -14,7 +14,7 @@ $(document).ready(function($){
 <h2>SUBIR FOTO TESTE</h2>
 <div id="user-login" class="border">
     
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="subir">
         <ul>            
             <li>
                 <label for="email">Subir fotos</label>                                                                                
