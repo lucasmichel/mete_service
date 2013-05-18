@@ -124,7 +124,7 @@ class AcompanhanteDAO extends ClassDAO {
      */
     public function excluirPorIdUsuario($idUsuario) {
         // INSTRUCAO SQL //
-        $sql = "UPDATE " . $this->tabela . " SET excluido = 1 WHERE usuarios_id = '" . $idUsuario . "'";
+        $sql = "UPDATE " . self::TABELA . " SET excluido = 1 WHERE usuarios_id = '" . $idUsuario . "'";
         
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->exec($sql);
