@@ -17,9 +17,9 @@ try{
         
         
         if(($modulo->getLink() != "acao")&&
-			($modulo->getLink() != "modulo")&&
-			($modulo->getLink() != "usuario")&&			 
-			($modulo->getLink() != "perfil")){
+            ($modulo->getLink() != "modulo")&&
+            ($modulo->getLink() != "usuario")&&			 
+            ($modulo->getLink() != "perfil")){
         
 
 			$classname = $modulo->getLink() . "Controll";
@@ -91,9 +91,9 @@ try{
     	
         
         if(($modulo->getLink() == "acao")||
-			($modulo->getLink() == "modulo")||
-			($modulo->getLink() == "usuario")|| 
-			($modulo->getLink() == "perfil")){
+        ($modulo->getLink() == "modulo")||
+        ($modulo->getLink() == "usuario")|| 
+        ($modulo->getLink() == "perfil")){
         
 			$classname = $modulo->getLink() . "Controll";
             if(class_exists($classname)){

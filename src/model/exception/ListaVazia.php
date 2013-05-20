@@ -21,11 +21,13 @@ class ListaVazia extends Exception {
     const SERVICOS_ACOMPANHNATE = 9;
     const COMENTARIO = 10;
     const AVALIACAO = 11;
+    const SERVICOS_DO_ENCONTRO = 12;
+    const ENCONTRO = 13;
     
     public function __construct($tipo) {
         switch ($tipo) {
             case self::ACOES:
-                $msg = 'Nenhuma aÁ„o encontrada.';
+                $msg = 'Nenhuma n√£o encontrada.';
                 break;
             case self::MODULOS:
                 $msg = 'Nenhum modulo encontrado.';
@@ -34,13 +36,13 @@ class ListaVazia extends Exception {
                 $msg = 'Nenhum perfil encontrado.';
                 break;
             case self::USUARIOS:
-                $msg = 'Nenhum usu·rio encontrado.';
+                $msg = 'Nenhum usu√°rio encontrado.';
                 break;
             case self::ACOMPANHANTES:
                 $msg = 'Nenhuma acompanhante encontrada.';
                 break;
             case self::SERVICOS:
-            	$msg = 'Nenhum serviÁo encontrado.';
+            	$msg = 'Nenhum servi√ßo encontrado.';
                 break;
             case self::CLIENTES:
             	$msg = 'Nenhum cliente encontrado.';
@@ -50,13 +52,20 @@ class ListaVazia extends Exception {
                 break;
             case self::SERVICOS_ACOMPANHNATE:
             	$msg = 'Nenhum servico foi encontrado para esta acomanhante.';
-            	case self::COMENTARIO:
-            		$msg = 'Nenhum comentario encontrada.';
-            		break;
+                break;
+            case self::COMENTARIO:
+                $msg = 'Nenhum comentario encontrada.';
+                break;
             case self::AVALIACAO:
-            			$msg = 'Nenhuma avaliÁ„o encontrada.';
-            			break;
-            	break;
+                $msg = 'Nenhuma avali√ß√£o encontrada.';
+                break;
+            case self::SERVICOS_DO_ENCONTRO:
+                $msg = 'Nenhum servi√ßo do encontro localizado.';
+                break;
+            case self::ENCONTRO:
+                $msg = 'Nenhum encontro localizado.';
+                break;
+            	
         }
         parent::__construct($msg);
     }

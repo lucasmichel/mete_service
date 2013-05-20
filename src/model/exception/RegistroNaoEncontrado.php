@@ -9,6 +9,8 @@ class RegistroNaoEncontrado extends Exception {
     const CLIENTE = 7;
     const COMENTARIO = 8;
     const  AVALIACAO = 9;
+    const  SERVICOS_DO_ECONTRO = 10;
+    const  ECONTRO = 11;
 
     public function __construct($tipo){
         switch($tipo){
@@ -27,18 +29,24 @@ class RegistroNaoEncontrado extends Exception {
                 case self::ACOMPANHANTE:
                         $msg = 'Acompanhante não encontrada.';
                         break;
-				case self::SERVICO:
-                		$msg = 'Serviço não encontrado.';
+                case self::SERVICO:
+                        $msg = 'Serviço não encontrado.';
                         break;
-				case self::CLIENTE:
-                		$msg = 'Cliente não encontrado.';
+                case self::CLIENTE:
+                        $msg = 'Cliente não encontrado.';
                         break;      
                 case self::COMENTARIO:
-                        	$msg = 'Comentario não encontrado.';
-                        	break;
+                        $msg = 'Comentario não encontrado.';
+                        break;
                 case self::AVALIACAO:
-                        		$msg = 'Avaliacao não encontrado.';
-                        		break;
+                        $msg = 'Avaliacao não encontrado.';
+                        break;
+                case self::SERVICOS_DO_ECONTRO:
+                        $msg = 'Serviço do encontro não encontrado.';
+                        break;
+                case self::ECONTRO:
+                        $msg = 'Encontro não encontrado.';
+                        break;
                         	
         }
         parent::__construct($msg);

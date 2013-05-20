@@ -1,5 +1,5 @@
 <?php
-class EncontroDAO extends ClasseDAO{
+class EncontroDAO extends ClassDAO{
 	/**
 	 * Atributos
 	 */
@@ -27,19 +27,18 @@ class EncontroDAO extends ClasseDAO{
 	}
 	
 	public function inserir(Encontro $obj) {
-		// INSTRUCAO SQL //
-		$sql = "INSERT INTO " . self::TABELA . "
-            (cliente_id,data_horario ,aprovado)
+            // INSTRUCAO SQL //
+            $sql = "INSERT INTO " . self::TABELA . "
+            (cliente_id, data_horario, excluido)
             VALUES('" . $obj->getClienteId() . "',
-            '" . $obj->getData_horario() . "',
-            '" . $obj->getAprovado() . "')";
-	
-		// EXECUTANDO A SQL //
-		$resultado = $this->conexao->exec($sql);
-		// TRATANDO O RESULTADO //
-		($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
-		// RETORNANDO O RESULTADO //
-		return $obj;
+            '" . $obj->getDataHorario() . "',
+            '" . $obj->getExcluido() . "')";
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // TRATANDO O RESULTADO //
+            ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+            // RETORNANDO O RESULTADO //
+            return $obj;
 	}
 	
 	/**
@@ -48,32 +47,59 @@ class EncontroDAO extends ClasseDAO{
 	 * @return Perfil
 	 */
 	public function editar(Encontro $obj) {
-		// INSTRUCAO SQL //
-		$sql = "UPDATE " . self::TABELA . " SET
+            // INSTRUCAO SQL //
+            $sql = "UPDATE " . self::TABELA . " SET
             cliente_id = '" . $obj->getClienteId() . "',
             data_horario =	'" . $obj->getData_horario() . "',
-            aprovado = '" . $obj->getAprovado() . "'
+            excluido = '" . $obj->getExcluido() . "'
             WHERE id = '" . $obj->getId() . "'";
-		// EXECUTANDO A SQL //
-		$resultado = $this->conexao->exec($sql);
-		// RETORNANDO O RESULTADO //
-		return $resultado;
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // RETORNANDO O RESULTADO //
+            return $resultado;
 	}
 	
-	public function excluir($id) {
-		// checando se existe algum vinculo desse registro com outros //
-		$validacao = "SELECT e.id FROM encontro e WHERE e.id = '" . $id . "'";
-		if ($this->conexao->fetch($validacao))
-			throw new RegistroNaoExcluido(RegistroNaoExcluido::ENCONTRO);
-		// INSTRUCOES SQL //
-		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
-		// PERCORRENDO AS SQL //
-		foreach ($sql as $item) {
-			// EXECUTANDO A SQL //
-			$resultado = $this->conexao->exec($item);
-		}
-		// RETORNANDO O RESULTADO //
-		return $resultado;
+        public function buscarSituacaoEcontro($idEcontro) {
+            // INSTRUCAO SQL //
+            /*$sql = "SELECT count(id) as total FROM servicos_do_encontro WHERE econtro_id = '" . $idEcontro . "' and aprovado = 1";
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->fetch($sql);            
+            foreach($resultado as $obj){
+                $totAprovado = $obj['total'];
+            }*/
+            
+            // INSTRUCAO SQL //
+            $sql2 = "SELECT count(id) as total FROM servicos_do_encontro WHERE econtro_id = '" . $idEcontro . "' and aprovado = 0";
+            // EXECUTANDO A SQL //
+            $resultado2 = $this->conexao->fetch($sql);            
+            foreach($resultados as $objs){
+                $totReprovado = $obj['total'];
+            }
+            
+            if($totReprovado == 0){
+                return true;
+            }
+            else {
+                return false;
+            }
+            
+            
+	}
+        
+	/*public function excluir($id) {
+            // checando se existe algum vinculo desse registro com outros //
+            $validacao = "SELECT e.id FROM encontro e WHERE e.id = '" . $id . "'";
+            if ($this->conexao->fetch($validacao))
+                    throw new RegistroNaoExcluido(RegistroNaoExcluido::ENCONTRO);
+            // INSTRUCOES SQL //
+            $sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
+            // PERCORRENDO AS SQL //
+            foreach ($sql as $item) {
+                    // EXECUTANDO A SQL //
+                    $resultado = $this->conexao->exec($item);
+            }
+            // RETORNANDO O RESULTADO //
+            return $resultado;
 	}
 	
 	public function buscar($id) {
@@ -83,20 +109,20 @@ class EncontroDAO extends ClasseDAO{
 		$resultado = $this->conexao->fetch($sql);
 		// RETORNANDO O RESULTADO //
 		return $resultado;
-	}
+	}*/
 	
 	/**
 	 * Metodo listar()
 	 * @return fetch_assoc[]
 	 */
-	public function listar() {
+	/*public function listar() {
 		// INSTRUCAO SQL //
 		$sql = "SELECT e.* FROM " . self::TABELA . " e ORDER BY e.aprovado";
 		// EXECUTANDO A SQL //
 		$resultado = $this->conexao->fetchAll($sql);
 		// RETORNANDO O RESULTADO //
 		return $resultado;
-	}
+	}*/
 	
 	
 }

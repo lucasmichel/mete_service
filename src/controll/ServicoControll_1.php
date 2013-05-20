@@ -2,7 +2,7 @@
 
 
 class  ServicoControll extends Controll{
-	const MODULO = 6;
+	const MODULO = 5;
 	
 	/**
 	 * Acao index()

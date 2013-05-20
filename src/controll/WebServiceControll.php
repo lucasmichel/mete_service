@@ -798,6 +798,9 @@ class WebServiceControll extends Controll{
                         $arrayRetorno = $this->preencherArray($listaFotos, 0, "Listar fotos OK");
 
                         $this->retorno($arrayRetorno);
+                        
+                        
+                        
 		} catch (Exception $e) {			
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);

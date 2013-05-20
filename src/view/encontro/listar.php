@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "encontro.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Cliente::listar("nome");
+                    $objetos = Encontro::listar("data_horario");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -46,8 +46,11 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
+                                    <th width="28%" align="left">Cliente</th>                                    
+                                    <th width="28%" align="left">Acompanhante(s)</th>
+                                    <th width="28%" align="left">Total de servicos</th>
+                                    <th width="28%" align="left">Situação</th>
+                                    <th width="28%" align="left">Data Hora</th>
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
@@ -60,25 +63,59 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
                                         <td width="28%" align="left">
-                                        <?php
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId()); 
-                                        	echo $usuario->getEmail(); 
-                                        ?>
+                                            <?php 
+                                                $obj = Cliente::buscar($objeto->getClienteId());
+                                                echo $obj->getNome(); 
+                                            ?>
+                                        </td>
+                                        <td width="28%" align="left">
+                                            <?php 
+                                                
+                                                $servicosEcontro = ServicosDoEcontro::listarPorEcontro($objeto);
+                                                
+                                                foreach ($servicosEcontro as $servico) {
+                                                   $acompanhante = Acompanhante::buscar($servico->getAcompanhanteId());
+                                                   echo '<p>'.$acompanhante->getNome().'</p>';
+                                                }
+                                            ?>
                                         </td>
                                         
-                                        <td width="20%">						
-                                            <a href="cliente/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
-                                            <?php
-                                            if (Acao::checarPermissao(3, ClienteControll::MODULO)) {
+                                        <td width="28%" align="left">
+                                            <?php    
+                                            $encontro = Encontro::buscar($objeto->getId());
+                                            if($encontro->buscarSituacaoEcontro())
+                                                echo "Aprovado";
+                                            else{
+                                                echo "Esperando aprovacao;";
+                                            }
                                             ?>
-                                                <a href="cliente/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                        </td>
+                                        
+                                        <td width="28%" align="left">
+                                            <?php    
+                                            
+                                                echo $objeto->getDataHorario();
+                                            
+                                            ?>
+                                        </td>
+                                        
+                                        
+                                        <td width="20%">						
+                                            <?php
+                                            if (Acao::checarPermissao(1, EncontroControll::MODULO)) {
+                                            ?>
+                                            <a href="encontro/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, ClienteControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, EncontroControll::MODULO)) {
+                                            ?>
+                                                <a href="encontro/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(4, EncontroControll::MODULO)) {
                                             ?>    
-                                                <a href="cliente/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="encontro/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>
