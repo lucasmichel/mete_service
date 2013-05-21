@@ -104,6 +104,36 @@
  		$this->_editar($this->getDados('POST'));
  }
  
+ private function _editar($dados){
+ 		
+ 	// persistindo em inserir o usuário //
+ 	try {
+ 		$comentario = new Comentario();
+ 		$comentario->setComentario($dados['comentario']);
+ 		//$comentario->setNome($dados['comentario_id']);
+ 		//$comentario->getCliente_id($dados['cliente_id']);
+ 		//$comentario->setAcompanhante_id($dados['acompanhante_id']);
+ 		$comentario->editar();
+ 		// setando a mensagem de sucesso //
+ 		$this->setFlash('Comentario alterado com sucesso.');
+ 		// setando a url //
+ 		$this->setPage();
+ 	}
+ 
+ 
+ 	catch (Exception $e) {
+ 		//retorna os campos prar serem preenchidos novamente
+ 		if(isset($comentario))
+ 			$this->setDados($comentario,'comentario');
+ 
+ 		if(isset($usuario))
+ 			$this->setDados($comentario,'comentario');
+ 		// setando a mensagem de excessão //
+ 		$this->setFlash($e->getMessage());
+ 		// definindo a tela //
+ 		$this->setTela('add',array('comentario'));
+ 	}
+ }
  /**
   * Acao excluir($id)
   * @param $id

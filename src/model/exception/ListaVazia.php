@@ -24,6 +24,8 @@ class ListaVazia extends Exception {
     const SERVICOS_DO_ENCONTRO = 12;
     const ENCONTRO = 13;
     const LOCALIZACAO = 14;
+   // const LOCALIZACAO = 15;
+    
     
     public function __construct($tipo) {
         switch ($tipo) {

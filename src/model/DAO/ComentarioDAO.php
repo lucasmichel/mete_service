@@ -36,24 +36,24 @@
  		// TRATANDO O RESULTADO // '" . $obj->getClienteId() . "' ,
  	}
  	
- 	public function editar(Acompanhante $obj) {
+ 	public function editar(Comentario $obj) {
+		//meuVarDump($obj->getComentario());
  		// INSTRUCAO SQL //
  		$sql = "UPDATE " . self::TABELA . " SET
             comentario = '" . $obj->getComentario() . "',
-            clienteId = '" .  $obj->getClienteId() . "',
             acompanhanteId = '" .$obj->getAcompanhanteId() . "'
             WHERE id = '" . $obj->getId() . "'";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->exec($sql);
- 		// RETORNANDO O RESULTADO //
+ 		// RETORNANDO O RESULTADO /////
  		return $resultado;
  	}
  	
  	public function excluir($id) {
  		// checando se existe algum vinculo desse registro com outros //
- 		$validacao = "SELECT c.id FROM comentario c WHERE c.id = '" . $id . "'";
- 		if ($this->conexao->fetch($validacao))
- 			throw new RegistroNaoExcluido(RegistroNaoExcluido::COMENTARIO);
+ 		//$validacao = "SELECT c.id FROM comentario c WHERE c.id = '" . $id . "'";
+ 		//if ($this->conexao->fetch($validacao))
+ 			//throw new RegistroNaoExcluido(RegistroNaoExcluido::COMENTARIO);
  		// INSTRUCOES SQL //
  		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
  		// PERCORRENDO AS SQL //

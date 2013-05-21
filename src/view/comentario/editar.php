@@ -5,19 +5,18 @@
     $acompanhante = $this->getDados('acompanhante');
     $comentario = $this->getDados('comentario');
     $usuario = $this->getDados('usuario');
-    $avaliacao = $this->getDados('avaliacao');
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-        $('#avaliacao').focus();
+        $('#comentario').focus();
                 
         $("#ok").click(function() {
-        	var servico = $.trim($("#avaliacao").val());
+        	var servico = $.trim($("#comentario").val());
         	
         	
-        	if(nota.length <= 0){
+        	if(comentario.length <= 0){
             	alert('Não necessÃ¡rio o nome do comentario');
-                $("#avaliacao").focus();
+                $("#comentario").focus();
                 return false;
 			}           
             else{
@@ -43,7 +42,7 @@
                 <div class="table">
                     <h3 class="hndle">                        
                         <span>Cadastrar Comentario</span>
-                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
+                      
                               
                     </h3>
                     <div class="inside">
@@ -52,8 +51,9 @@
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
                                     <li>
-                                        <label for="nome">Nota</label>
-                                        <input type="text" id="nota" name="nota" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
+                                        <label for="nome">Comentario</label>
+                                        <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
+                                        <input type="text" id="comentario" name="comentario" value="<?php  echo $comentario->getId();  ?>" />
                                          <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
                                           
                                     </li>                                   

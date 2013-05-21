@@ -7,7 +7,7 @@ $acompanhante = $this->getDados('acompanhante');
     //meuVarDump("testeee");
     //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
-    <h2>Lista das avaliações da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
+    <h2>Lista das avaliacoes da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
@@ -46,12 +46,12 @@ $acompanhante = $this->getDados('acompanhante');
 						//meuVarDump("testeee");
 							?>
 					 <a class="classBt" href=acompanhante/adicionarAvaliacao/<?php echo $acompanhante->getId(); ?> >
-                                Adicionar Avaliação
+                                Adicionar Avaliacao
                             </a>
 							                <?php 
 					}
 					//meuVarDump("testeee");
-                    $objetos = Comentario::listarPorAcompanhante($acompanhante);
+                    $objetos = Avaliacao::listar("avaliacao"); 
                     $paginacao = new Paginacao($objetos, 20);
 						
                   
@@ -62,7 +62,7 @@ $acompanhante = $this->getDados('acompanhante');
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Comentario</th>
+                                    <th width="28%" align="left">Nota</th>
                                     
                                 </tr>
                             </thead>
@@ -74,12 +74,12 @@ $acompanhante = $this->getDados('acompanhante');
                                         <th width="1%">
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
-                                        <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
+                                         <td width="1%"></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getNota(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $comentario = Comentario::buscar($objeto->getId()); 
-                                        	echo $comentario->getComentario(); 
+                                        //$avaliacao = Avaliacao::buscar($objeto->getId()); 
+                                        	//echo $avaliacao->getNota(); 
                                         ?>
                                         </td>
                                         

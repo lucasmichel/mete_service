@@ -320,18 +320,20 @@ class AcompanhanteControll extends Controll {
  
     
     public function visualizarAvaliacao($idAcompanhnate){
+    	//meuVarDump("eae");
     	// código da ação serve para o controle de acesso//
     	static $acao = 12;
     	// buscando o usuário //
-    	$objeto = Avaliacao::buscar($idAcompanhnate);
+    	$objeto = Acompanhante::buscar($idAcompanhnate);
     	// jogando o usuário no atributo $dados do controlador //
     	$this->setDados($objeto,'acompanhante');
     	// definindo a tela //
     	$this->setTela('listar',array('acompanhante/avaliacao'));
     }
+    
     public function adicionarAvaliacao($id){
     
-    	static $acao = 14;
+    	static $acao = 1;
     
     	// checando se o formulário nao foi passado //
     	if(!$this->getDados('POST')){
@@ -350,9 +352,11 @@ class AcompanhanteControll extends Controll {
     
     private function _adicionarAvaliacao($dados, $id){
     	try {
+    		//var_dump($dados);
     		$avaliacao = new Avaliacao();
+    		//meuVarDump($dados['nota']);
     		$avaliacao->setNota($dados['nota']);
-    		$avaliacao->getClienteId($dados['clienteId']);
+    		//$avaliacao->getClienteId($dados['clienteId']);
     		$avaliacao->setAcompanhanteId($id);
     		$avaliacao = $avaliacao->inserir();
     		//$comentarioAcompanhanteId = $comentario->getId();
@@ -370,7 +374,7 @@ class AcompanhanteControll extends Controll {
     
     private function _adicionarComentario($dados, $id){
     	try {
-    		//var_dump($id);
+    		var_dump($id);
     		$comentario = new Comentario();
     		$comentario->setComentario($dados['comentario']);
     		//$comentario->getClienteId($dados['clienteId']);

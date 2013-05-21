@@ -9,7 +9,7 @@ class AvaliacaoControll extends Controll {
     /**
      * Constante referente ao número do modulo serve para o controle de acesso
      */
-    const MODULO = 6;
+    const MODULO = 9;
 
     /**
      * Acao index()
@@ -21,6 +21,20 @@ class AvaliacaoControll extends Controll {
         $this->setTela('listar',array('acompanhante'));
         // guardando a url //
         $this->getPage();
+    }
+    
+    
+    
+    public function visualizarAvaliacao($idAcompanhnate){
+    	//meuVarDump($acao);
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 1;
+    	// buscando o usuário //
+    	$objeto = Avaliacao::buscar($idAcompanhnate);
+    	// jogando o usuário no atributo $dados do controlador //
+    	$this->setDados($objeto,'avaliacao');
+    	// definindo a tela //
+    	$this->setTela('listar',array('avaliacao'));
     }
 
     /**

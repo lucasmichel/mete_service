@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
+    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Cliente::listar("nome");
+                    $objetos = Avaliacao::listar("avaliacao");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -46,9 +46,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nome</th>
-                                    <th width="28%" align="left">Email</th>
-                                    <th width="20%" align="left">Ações</th>
+                                    <th width="28%" align="left">Nota</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,25 +58,26 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNome(); ?></td>
+                                        <td width="28%" align="left"><?php echo $objeto->getNota(); ?></td>
                                         <td width="28%" align="left">
                                         <?php
-                                        $usuario = Usuario::buscar($objeto->getUsuarioId()); 
-                                        	echo $usuario->getEmail(); 
+                                        $avaliacao = Avaliacao::buscar($objeto->getId()); 
+                                        	echo $avaliacao->getNota(); 
                                         ?>
                                         </td>
                                         
+                                         
                                         <td width="20%">						
-                                            <a href="cliente/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                            <a href="avaliacao/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, ClienteControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
-                                                <a href="cliente/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="avaliacao/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, ClienteControll::MODULO)) {
+                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
                                             ?>    
-                                                <a href="cliente/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="avaliacao/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>

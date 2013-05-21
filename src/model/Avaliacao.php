@@ -13,10 +13,17 @@
  	}
  	
  	private function _validarCampos(){
- 		if(($this->getNota() == '')||($this->getId() == null)||($this->getClienteId() == null)
- 				||($this->getAcompanhanteId() == null))
- 			return false;
- 		return true;
+ 		
+ 		$retorno = true;
+ 		if($this->getNota() == null){
+ 			throw new CamposObrigatorios("Avaliacao");
+ 			$retorno = false;
+ 		}
+ 		else{
+ 			$retorno = true;
+ 		
+ 		}
+ 		return $retorno;
  	}
  	
  	public static function listarPorAcompanhante(Acompanhante $acompanhante){
