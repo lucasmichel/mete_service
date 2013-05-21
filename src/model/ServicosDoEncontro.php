@@ -177,7 +177,7 @@ class ServicosDoEncontro {
 		// percorrendo os usuarios //
 		foreach($lista as $obj){
                     
-                    $objetos[] =  $this->fabricaObjeto($obj);                    
+                    $objetos[] =  self::fabricaObjeto($obj);                    
 		}
 		// retornando a colecao $objetos //
 		return $objetos;

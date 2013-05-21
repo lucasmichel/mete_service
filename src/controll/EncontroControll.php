@@ -22,8 +22,11 @@ class EncontroControll extends Controll{
             static $acao = 1;
             // buscando o usuário //
             $encontro = Encontro::buscar($id);
+            
+            $cliente = Cliente::buscar($encontro->getClienteId());
             // jogando o usuário no atributo $dados do controlador //
             $this->setDados($encontro,'encontro');
+            $this->setDados($cliente,'cliente');
             // definindo a tela //
             $this->setTela('ver',array('encontro'));
 	}
