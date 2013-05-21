@@ -1,5 +1,5 @@
 <?php
-class ServicosDoEncontroDAO extends ClasseDAO{
+class ServicosDoEncontroDAO extends ClassDAO{
     /**
      * Atributos
      */

@@ -68,8 +68,9 @@ class Encontro{
 	}
 	
         
-        private function fabricaObjeto (Array $obj){
+        private static function fabricaObjeto (Array $obj){
             $obj = new Encontro(
+                                $obj['id'],
                                 $obj['cliente_id'],
                                 $obj['data_horario'],                                
                                 $obj['excluido']
@@ -89,7 +90,7 @@ class Encontro{
             // percorrendo os usuarios //
             foreach($lista as $obj){
                     // instanciando e jogando dentro da colecao $objetos o Usuario //
-                    $objetos[] =  $this->fabricaObjeto($obj);
+                    $objetos[] = self::fabricaObjeto($obj);
             }
             // retornando a colecao $objetos //
             return $objetos;
@@ -97,7 +98,7 @@ class Encontro{
 	
 	public static function buscar($id){
             // recuperando a instancia da classe de acesso a dados //
-            $instancia = EcontroDAO::getInstancia();
+            $instancia = EncontroDAO::getInstancia();
             // executando o metodo //
             $obj = $instancia->buscarPorId($id);
             // checando se o resultado foi falso //
@@ -105,7 +106,7 @@ class Encontro{
                     // levanto a excessao RegistroNaoEncontrado //
                     throw new RegistroNaoEncontrado(RegistroNaoEncontrado::ENCONTRO);
             // instanciando e retornando o objeto //
-            return $this->fabricaObjeto($obj);
+            return self::fabricaObjeto($obj);
 	}
         
 	public function buscarSituacaoEcontro(){
@@ -124,19 +125,19 @@ class Encontro{
 	}
 	
 	public function getClienteId() {
-		return $this->cliente_id;
+		return $this->clienteId;
 	}
 	
 	public function setClienteId($clienteId) {
-		$this->cliente_id = $clienteId;
+		$this->clienteId = $clienteId;
 	}
 	
 	public function getDataHorario() {
-		return $this->data_horario;
+		return $this->dataHorario;
 	}
 	
 	public function setDataHorario($DataHorario) {
-		$this->data_horario = $DataHorario;
+		$this->dataHorario = $DataHorario;
 	}
 	
 	public function getExcluido() {

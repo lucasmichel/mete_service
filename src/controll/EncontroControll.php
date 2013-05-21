@@ -22,8 +22,11 @@ class EncontroControll extends Controll{
             static $acao = 1;
             // buscando o usuário //
             $encontro = Encontro::buscar($id);
+            
+            $cliente = Cliente::buscar($encontro->getClienteId());
             // jogando o usuário no atributo $dados do controlador //
             $this->setDados($encontro,'encontro');
+            $this->setDados($cliente,'cliente');
             // definindo a tela //
             $this->setTela('ver',array('encontro'));
 	}
@@ -53,11 +56,29 @@ class EncontroControll extends Controll{
 	private function _add($dados){	
             // persistindo em inserir o usuário //
             try {
-                $encontro = new Servico();
-                $encontro->setClienteId($dados['cliente_id']);
-                $encontro->setDataHorario($dados['data_horario']);
-                $encontro->getAprovado($dados['aprovado']);
-                $encontro->inserir();
+                
+                $encontro = new Encontro();
+                
+                $encontro->setClienteId($dados["clienteId"]);
+                $encontro->setDataHorario($dados["dataHora"]);
+                $encontro->setExcluido(0);
+                $encontro = $encontro->inserir();
+                
+                foreach ($dados["ids"] as $id) {
+                    
+                    $servicoAcompanhante = ServicosAcompanhante::buscar($id);
+                    
+                    $servicosDoEncontro = new ServicosDoEncontro();
+                    
+                    $servicosDoEncontro->setServicoId($servicoAcompanhante->getServicoId());
+                    $servicosDoEncontro->setAcompanhanteId($servicoAcompanhante->getAcompanhanteId());
+                    $servicosDoEncontro->setServicosAcompanhanteId($id);
+                    $servicosDoEncontro->setClienteId($dados["clienteId"]);
+                    $servicosDoEncontro->setEncontroId($encontro->getId());
+                    $servicosDoEncontro->setAprovado(1);
+                    $servicosDoEncontro->setExcluido(0);
+                    $servicosDoEncontro->inserir();
+                }
                 // setando a mensagem de sucesso //
                 $this->setFlash('Encontro cadastrado com sucesso.');
                 // setando a url //

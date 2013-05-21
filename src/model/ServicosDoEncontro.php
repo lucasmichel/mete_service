@@ -1,5 +1,5 @@
 <?php
-class ServicosDoEcontro {
+class ServicosDoEncontro {
 	/**
 	 * @Lucas Michel
 	 */
@@ -177,7 +177,7 @@ class ServicosDoEcontro {
 		// percorrendo os usuarios //
 		foreach($lista as $obj){
                     
-                    $objetos[] =  $this->fabricaObjeto($obj);                    
+                    $objetos[] =  self::fabricaObjeto($obj);                    
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
@@ -277,7 +277,7 @@ class ServicosDoEcontro {
             return $objetos;
 	}
         
-        public static function listarPorEcontro(Econtro $encontro){
+        public static function listarPorEcontro(Encontro $encontro){
             // recuperando a instancia da classe de acesso a dados //
             $instancia = ServicosDoEncontroDAO::getInstancia();
             // executando o metodo //
@@ -289,7 +289,7 @@ class ServicosDoEcontro {
             // percorrendo os usuarios //
             foreach($lista as $obj){			
 
-                $objetos[] = $this->fabricaObjeto($obj);
+                $objetos[] = self::fabricaObjeto($obj);
 
             }
             // retornando a colecao $objetos //
