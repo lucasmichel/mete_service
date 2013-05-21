@@ -75,6 +75,17 @@ class ServicosAcomapnhanteDAO extends ClassDAO{
     	// RETORNANDO O RESULTADO //
     	return $resultado;
     }
+    
+    public function listar() {
+    	// INSTRUCAO SQL //
+    	$sql = "SELECT * FROM " . self::TABELA . " 
+            where excluido = '0' ";
+    	//meuVarDump($sql);
+    	// EXECUTANDO A SQL //
+    	$resultado = $this->conexao->fetchAll($sql);
+    	// RETORNANDO O RESULTADO //
+    	return $resultado;
+    }
     	
 }
 

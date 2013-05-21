@@ -114,11 +114,11 @@ class ServicosAcompanhante {
 		return $instancia->excluir($this->getId());
 	}
 	
-	public static function listar($ordenarPor){
+	public static function listar(){
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ServicosAcomapnhanteDAO::getInstancia();
 		// executando o metodo //
-		$servicos = $instancia->listar($ordenarPor);
+		$servicos = $instancia->listar();
 		// checando se o retorno foi falso //
 		if(!$servicos)
 			// levantando a excessao ListaVazia //
@@ -132,11 +132,7 @@ class ServicosAcompanhante {
                                         $servico['valor'],
 					$servico['excluido']
                                 );
-                        
-                        
                         //Chamada da função
-                    
-                        
 		}
 		// retornando a colecao $objetos //
 		return $objetos;

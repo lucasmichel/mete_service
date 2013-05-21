@@ -23,6 +23,7 @@ class ListaVazia extends Exception {
     const AVALIACAO = 11;
     const SERVICOS_DO_ENCONTRO = 12;
     const ENCONTRO = 13;
+    const LOCALIZACAO = 14;
     
     public function __construct($tipo) {
         switch ($tipo) {
@@ -64,6 +65,9 @@ class ListaVazia extends Exception {
                 break;
             case self::ENCONTRO:
                 $msg = 'Nenhum encontro localizado.';
+                break;
+            case self::LOCALIZACAO:
+                $msg = 'Nenhuma localização encontrada.';
                 break;
             	
         }

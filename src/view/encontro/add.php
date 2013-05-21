@@ -1,21 +1,22 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $cliente = $this->getDados('cliente');    
-    $usuario = $this->getDados('usuario');
+    $econtro = $this->getDados('encontro');    
+    $cliente = $this->getDados('cliente');
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-    	function validaEmail (email)
-    	{
-    		er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
-    		if(er.exec(email))
-    			return true;
-    		else
-    			return false;
-    	};
-        
+    	
         $('#email').focus();
-       
+        
+        $("#selTodos").click(function() {            
+            var checkedStatus = this.checked;
+            if(checkedStatus){
+                $(':checkbox:not(:checked)').attr('checked', 'checked');
+            }
+            else{
+                $(':checkbox:checked').removeAttr('checked');
+            }
+        });
                 
         $("#ok").click(function() {
         	var senha = $.trim($("#senha").val());
@@ -69,7 +70,7 @@
 </script>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "encontro.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -78,30 +79,97 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Cliente</span>
+                        <span>Cadastrar Encontro</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
+                                    
                                     <li>
-                                        <label for="email">Email</label>
-                                        <input type="text" id="email" name="email" value="<?php if($usuario != null) echo $usuario->getEmail();  ?>" />
-                                    </li>
-                                    <li>
-                                        <label for="senha">Senha</label>
-                                        <input type="password" id="senha" name="senha" value=""  />
-                                    </li>
-                                    <li>
-                                        <label for="nome">Nome</label>
-                                        <input type="text" id="nome" name="nome" value="<?php if($cliente != null) echo $cliente->getNome();  ?>"  />
+                                        <label for="clienteId">Cliente</label>
+                                        <select id="clienteId" name="clienteId" class="required">
+                                            <option value="">Selecione</option>
+                                            <?php
+                                            try {
+                                                $listaObj = Cliente::listar("nome");
+                                                foreach ($listaObj as $obj) {
+                                                    ?>
+                                            <option <?php if($cliente->getId() == $obj->getId()) {
+                                                        echo "selected"; 
+                                                    }
+                                                    ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
+                                            </option>
+                                                    <?php
+                                                }
+                                            } catch (ListaVazia $e) {
+                                                
+                                            }
+                                            ?>
+                                        </select>
                                     </li>
                                     
                                     <li>
-                                        <label for="cpf">CPF</label>
-                                        <input type="text" alt="cpf" id="cpf" name="cpf" value="<?php if($cliente != null) echo $cliente->getCpf();  ?>" />
-                                    </li>                                    
+                                        <label for="clienteId">Data / hora</label>
+                                        <input type="text" id="dataHora" name="dataHora" value="<?php if($econtro != null) echo $econtro->getDataHorario();  ?>" />
+                                    </li>
+                                    
+                                    <li>
+                                        <h4>Serviços</h4>
+                                        <table class="widefat fixed">
+                                            <thead>
+                                                <tr>
+                                                    <th width="10%">Sel.Todos<input type="checkbox" id="selTodos" name="selTodos" /></th>
+                                                
+                                                    
+                                                    <th width="28%" align="right">Acompanhante</th>
+                                                    <th width="28%" align="right">Serviço</th>
+                                                    <th width="28%" align="right">Valor</th>
+                                                    <!--<th width="20%" align="left">Ações</th>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                                $listaObj = ServicosAcompanhante::listar();
+                                                foreach ($listaObj as $objeto) {
+                                            ?>  
+                                                <tr>
+                                                    <th width="1%">
+                                                        <input type="checkbox" id="ids" name="ids[]" value="" />
+                                                    </th>
+                                                
+                                                    <td width="28%" align="right">
+                                                        <?php 
+                                                            $obj = Acompanhante::buscar($objeto->getAcompanhanteId());
+                                                            echo $obj->getNome(); 
+                                                        ?>
+                                                    </td>
+                                                
+                                                    <td width="28%" align="right">
+                                                        <?php 
+                                                            $obj = Servico::buscar($objeto->getServicoId());
+                                                            echo $obj->getNome();
+                                                        ?>
+                                                    </td>
+                                                
+                                                    <td width="28%" align="right">
+                                                        <?php 
+                                                            echo $objeto->getValor();
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            
+                                            
+                                            <?php      
+                                              }
+                                              //meuVarDump($listaObj);
+                                            ?>
+                                            </tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+                                    </li>
+
                                 </ul>
                             </fieldset>
                             <ul id="bts">
