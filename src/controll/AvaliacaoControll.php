@@ -142,7 +142,7 @@ class AvaliacaoControll extends Controll {
     	// checando se o formulário nao foi passado //
     	if(!$this->getDados('POST')){
     		// Buscando o usuário //
-    		$objeto = Acompanhante::buscar($id);
+    		//$objeto = Acompanhante::buscar($id);
     		// Jogando perfil no atributo $dados do controlador //
     		$this->setDados($objeto,'acompanhante');
     		// Definindo a tela //
