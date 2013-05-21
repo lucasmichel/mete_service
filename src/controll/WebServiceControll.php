@@ -1235,5 +1235,108 @@ class WebServiceControll extends Controll{
 		}
         }
         
+        public function _cadastrarEncontro($dados) {
+	
+		// O Curl irá fazer uma requisição para a API do Vimeo
+		// e irá receber o JSON com as informações do vídeo.
+		/*$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
+		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$jsonCriptografado = curl_exec($curl);
+		curl_close($curl);
+		$encoded = json_decode(base64_decode( $jsonCriptografado));*/
+	
+	
+	
+		// As informações pode ser recuperadas da seguinte forma.
+		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
+		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+		try {
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+			
+                        
+                        $encontro = new Encontro();
+                        $encontro->setClienteId($dados["clienteId"]);
+                        $encontro->setDataHorario($dados["dataHora"]);
+                        $encontro->setExcluido(0);
+                        $encontro = $encontro->inserir();
+                        
+                        $retornoDados[] = (array) $encontro;
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Encontro cadastrado com sucesso");
+			
+			$this->retorno($arrayRetorno);
+		}
+		catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	
+	}
+        
+        
+        public function _cadastrarServicosDoEncontro($dados) {
+	
+		// O Curl irá fazer uma requisição para a API do Vimeo
+		// e irá receber o JSON com as informações do vídeo.
+		/*$curl = curl_init("http://leonardogalvao.com.br/teste/json.php");
+		 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$jsonCriptografado = curl_exec($curl);
+		curl_close($curl);
+		$encoded = json_decode(base64_decode( $jsonCriptografado));*/
+	
+	
+	
+		// As informações pode ser recuperadas da seguinte forma.
+		// Resultado do echo: Forest aerials 5D 1080p KAHRS / 395 segundos
+		//echo $encoded->{'login'} . " / " . $encoded->{'senha'} . " segundos";
+		try {
+			
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+                        
+			//$atributoDados = $encoded["dados"][0];
+			$atributoDados = $encoded["dados"];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+			
+                        foreach ($atributoDados as $value) {
+                            
+                            $servicoAcompanhante = ServicosAcompanhante::buscar($value["servicoAcompanhanteId"]);
+                            $servicosDoEncontro = new ServicosDoEncontro();
+                            $servicosDoEncontro->setServicoId($servicoAcompanhante->getServicoId());
+                            $servicosDoEncontro->setAcompanhanteId($servicoAcompanhante->getAcompanhanteId());
+                            
+                            $servicosDoEncontro->setServicosAcompanhanteId($value["servicoAcompanhanteId"]);
+                            $servicosDoEncontro->setClienteId($value["clienteId"]);
+                            $servicosDoEncontro->setEncontroId($value["encontroId"]);
+                            $servicosDoEncontro->setAprovado(1);
+                            $servicosDoEncontro->setExcluido(0);
+                            $servicosDoEncontro->inserir();
+                            
+                            $retornoDados[] = (array)$servicosDoEncontro;
+                        }
+                        
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Servicos do encontro cadastrado com sucesso");
+			
+			$this->retorno($arrayRetorno);
+		}
+		catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	
+	}
+        
 }
 ?>
