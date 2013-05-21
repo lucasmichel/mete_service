@@ -360,7 +360,7 @@ class AcompanhanteControll extends Controll {
     		$avaliacao->setAcompanhanteId($id);
     		$avaliacao = $avaliacao->inserir();
     		//$comentarioAcompanhanteId = $comentario->getId();
-    		$avaliacao->inserir();
+    		//$avaliacao->inserir();
     		// setando a mensagem de sucesso //
     		$this->setFlash('Avaliacao cadastrado com sucesso.');
     		// setando a url //
@@ -374,7 +374,7 @@ class AcompanhanteControll extends Controll {
     
     private function _adicionarComentario($dados, $id){
     	try {
-    		var_dump($id);
+    		//var_dump($id);
     		$comentario = new Comentario();
     		$comentario->setComentario($dados['comentario']);
     		//$comentario->getClienteId($dados['clienteId']);

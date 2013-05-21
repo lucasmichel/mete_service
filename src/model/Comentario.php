@@ -104,7 +104,7 @@ class  Comentario{
  		// executando o metodo //
  		$comentario = $instancia->inserir($this);
  		// retornando o Usuario //
- 		return  $comentario = $instancia->inserir($this);
+ 		//return  $comentario = $instancia->inserir($this);
  	}
  	
  	public function editar(){

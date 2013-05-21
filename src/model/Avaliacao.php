@@ -77,7 +77,7 @@
  		// executando o metodo //
  		$avaliacao = $instancia->inserir($this);
  		// retornando o Usuario //
- 		return  $avaliacao = $instancia->inserir($this);
+ 		//return  $avaliacao = $instancia->inserir($this);
  	}
  	
  	public function editar(){

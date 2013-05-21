@@ -136,16 +136,17 @@ class AvaliacaoControll extends Controll {
      * @param $id
      */
     public function editar($id){
+    	//meuVarDump("testeee");
         // código da ação //
-        static $acao = 3;
-        // Buscando o usuário //
-        $objeto = Acompanhante::buscar($id);
-        // checando se o formulário nao foi passado //
-        if(!$this->getDados('POST')){
-            // Jogando perfil no atributo $dados do controlador //
-            $this->setDados($objeto,'acompanhante');
-            // Definindo a tela //
-            $this->setTela('editar',array('acompanhante'));
+        static $acao = 3; 
+    	// checando se o formulário nao foi passado //
+    	if(!$this->getDados('POST')){
+    		// Buscando o usuário //
+    		$objeto = Acompanhante::buscar($id);
+    		// Jogando perfil no atributo $dados do controlador //
+    		$this->setDados($objeto,'acompanhante');
+    		// Definindo a tela //
+    		$this->setTela('editar',array('avaliacao/editar'));
         }
         // caso passar o formulario //
         else
@@ -164,39 +165,18 @@ class AvaliacaoControll extends Controll {
     	// persistindo em inserir o usuário //
     	try {
     		
-	        // instanciando o novo Usuário //
-	        
-    		$usuario = Usuario::buscar($dados['idUsuario']);    		
-    		$usuario->setLogin(trim($dados['email']));
-    		$usuario->setSenha(trim($dados['senha']));
-    		$usuario->setEmail(trim($dados['email']));
-    		
-	        
-    		$acompanhante = Acompanhante::buscar($dados['idAcompanhante']);
-    		$acompanhante->setNome(trim($dados['nome']));
-    		$acompanhante->setIdade(trim($dados['idade']));
-    		$acompanhante->setAltura(trim($dados['altura']));    		
-    		$acompanhante->setPeso(trim($dados['peso']));
-    		$acompanhante->setBusto(trim($dados['busto']));
-    		$acompanhante->setCintura(trim($dados['cintura']));
-    		$acompanhante->setQuadril(trim($dados['quadril']));
-    		$acompanhante->setOlhos(trim($dados['olhos']));
-    		$acompanhante->setPernoite(trim($dados['pernoite']));
-    		$acompanhante->setAtendo(trim($dados['atendo']));
-    		$acompanhante->setEspecialidade(trim($dados['especialidade']));
-    		$acompanhante->setHorarioAtendimento(trim($dados['horarioAtendimento']));
-            
-    		//meuVarDump($acompanhante);
-    		
-    		
-    		$usuario->editar();
-    		
-    		$acompanhante->editar();
-            
-            // setando a mensagem de sucesso //
-            $this->setFlash('Acompanhante editada com sucesso.');
-            // setando a url //
-            $this->setPage();
+	       $avaliacao = new Avaliacao();
+    		//meuVarDump($dados['nota']);
+    		$avaliacao->setNota($dados['nota']);
+    		//$avaliacao->getClienteId($dados['clienteId']);
+    		$avaliacao->setAcompanhanteId($id);
+    		$comentario = $comentario->alterar();
+    		//$comentariooAcompanhanteId = $comentario->getId();
+    		//$comentario->inserir();
+    		// setando a mensagem de sucesso //
+    		$this->setFlash('Avaliacao Alterado com sucesso.');
+    		// setando a url //
+    		$this->setPage();
         }        
         catch (Exception $e) {
             //retorna os campos prar serem preenchidos novamente
@@ -218,14 +198,15 @@ class AvaliacaoControll extends Controll {
      */
     public function excluir($id){
         // código da ação //
+    	//meuVarDump("testeee");
         static $acao = 4;
         // buscando o usuário //			
-        $objeto = Acompanhante::buscar($id);
+        $objeto = Avaliacao::buscar($id);
         
         // excluíndo ele //
         $objeto->excluir();
         // setando mensagem de sucesso //
-		$this->setFlash('Acompanhante excluída com sucesso.');
+		$this->setFlash('Avaliacao excluída com sucesso.');
         
         
         $this->setPage();

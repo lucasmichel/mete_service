@@ -86,14 +86,14 @@ $acompanhante = $this->getDados('acompanhante');
                                         <td width="20%">						
                                             <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, AvaliacaoControll::MODULO)) {
                                             ?>
-                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="avaliacao/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
+                                            if (Acao::checarPermissao(4, AvaliacaoControll::MODULO)) {
                                             ?>    
-                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="avaliacao/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>

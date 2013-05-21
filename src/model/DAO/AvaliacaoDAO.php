@@ -70,9 +70,9 @@
  	
  	public function excluir($id) {
  		// checando se existe algum vinculo desse registro com outros //
- 		$validacao = "SELECT a.id FROM avaliacao a WHERE a.id = '" . $id . "'";
- 		if ($this->conexao->fetch($validacao))
- 			throw new RegistroNaoExcluido(RegistroNaoExcluido::AVALIACAO);
+ 		//$validacao = "SELECT a.id FROM avaliacao a WHERE a.id = '" . $id . "'";
+ 		//if ($this->conexao->fetch($validacao))
+ 			//throw new RegistroNaoExcluido(RegistroNaoExcluido::AVALIACAO);
  		// INSTRUCOES SQL //
  		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
  		// PERCORRENDO AS SQL //
