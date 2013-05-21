@@ -37,7 +37,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Encontro::listar("data_horario");
+                    $objetos = Encontro::listar("data_horario");                    
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -46,11 +46,11 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Cliente</th>                                    
-                                    <th width="28%" align="left">Acompanhante(s)</th>
-                                    <th width="28%" align="left">Total de servicos</th>
-                                    <th width="28%" align="left">Situação</th>
-                                    <th width="28%" align="left">Data Hora</th>
+                                    <th width="15%" align="left">Cliente</th>                                    
+                                    <th width="15%" align="left">Acompanhante(s)</th>
+                                    <th width="15%" align="left">Total de serviços contratados</th>
+                                    <th width="5%" align="left">Situação</th>
+                                    <th width="10%" align="left">Data Hora</th>
                                     <th width="20%" align="left">Ações</th>
                                 </tr>
                             </thead>
@@ -63,17 +63,17 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left">
+                                        <td align="left">
                                             <?php 
                                                 $obj = Cliente::buscar($objeto->getClienteId());
                                                 echo $obj->getNome(); 
                                             ?>
                                         </td>
-                                        <td width="28%" align="left">
+                                        <td align="left">
                                             <?php 
                                                 
-                                                $servicosEcontro = ServicosDoEcontro::listarPorEcontro($objeto);
-                                                
+                                                $servicosEcontro = ServicosDoEncontro::listarPorEcontro($objeto);
+                                                $totalServicos = count($servicosEcontro);
                                                 foreach ($servicosEcontro as $servico) {
                                                    $acompanhante = Acompanhante::buscar($servico->getAcompanhanteId());
                                                    echo '<p>'.$acompanhante->getNome().'</p>';
@@ -81,18 +81,26 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             ?>
                                         </td>
                                         
-                                        <td width="28%" align="left">
+                                        <td align="left">
+                                            <?php    
+                                            
+                                                echo $totalServicos;
+                                            
+                                            ?>
+                                        </td>
+                                        
+                                        <td align="left">
                                             <?php    
                                             $encontro = Encontro::buscar($objeto->getId());
                                             if($encontro->buscarSituacaoEcontro())
                                                 echo "Aprovado";
                                             else{
-                                                echo "Esperando aprovacao;";
+                                                echo "Esperando aprovacao";
                                             }
                                             ?>
                                         </td>
                                         
-                                        <td width="28%" align="left">
+                                        <td align="left">
                                             <?php    
                                             
                                                 echo $objeto->getDataHorario();

@@ -69,14 +69,15 @@ class EncontroDAO extends ClassDAO{
             }*/
             
             // INSTRUCAO SQL //
-            $sql2 = "SELECT count(id) as total FROM servicos_do_encontro WHERE econtro_id = '" . $idEcontro . "' and aprovado = 0";
+            $sql2 = "SELECT count(id) as total FROM servicos_do_encontro WHERE encontro_id = '" . $idEcontro . "' and aprovado = '0'";
             // EXECUTANDO A SQL //
-            $resultado2 = $this->conexao->fetch($sql);            
-            foreach($resultados as $objs){
-                $totReprovado = $obj['total'];
-            }
             
-            if($totReprovado == 0){
+            //meuVarDump($sql2);
+            
+            $resultado2 = $this->conexao->fetchAll($sql2);
+            
+            
+            if($resultado2[0]["total"] == 0){
                 return true;
             }
             else {

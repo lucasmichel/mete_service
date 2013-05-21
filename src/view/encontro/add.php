@@ -19,6 +19,7 @@
         });
                 
         $("#ok").click(function() {
+            /*
         	var senha = $.trim($("#senha").val());
         	var email = $.trim($("#email").val());
         	var nome = $.trim($("#nome").val());
@@ -62,8 +63,8 @@
             
             else{
                 $("#cadastro").submit();
-            }
-
+            }*/
+            $("#cadastro").submit();
         });                
                 
     });
@@ -96,9 +97,11 @@
                                                 $listaObj = Cliente::listar("nome");
                                                 foreach ($listaObj as $obj) {
                                                     ?>
-                                            <option <?php if($cliente->getId() == $obj->getId()) {
-                                                        echo "selected"; 
-                                                    }
+                                            <option <?php 
+                                                    if($cliente != null)
+                                                        if($cliente->getId() == $obj->getId()) {
+                                                            echo "selected"; 
+                                                        }
                                                     ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
                                             </option>
                                                     <?php
@@ -117,7 +120,7 @@
                                     
                                     <li>
                                         <h4>Serviços</h4>
-                                        <table class="widefat fixed">
+                                        <table class="widefat fixed" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th width="10%">Sel.Todos<input type="checkbox" id="selTodos" name="selTodos" /></th>
@@ -136,7 +139,7 @@
                                             ?>  
                                                 <tr>
                                                     <th width="1%">
-                                                        <input type="checkbox" id="ids" name="ids[]" value="" />
+                                                        <input type="checkbox" id="ids" name="ids[]" value="<?php echo $objeto->getId();?>" />
                                                     </th>
                                                 
                                                     <td width="28%" align="right">

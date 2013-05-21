@@ -53,7 +53,7 @@ class  Cliente{
 
 	public static function buscar($id) {
 		$instancia = ClienteDAO::getInstancia();
-		$cliente = $instancia->buscarPorIdUsuario($id);
+		$cliente = $instancia->buscarPorId($id);
 		if (!$cliente)
 			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::CLIENTE);
 		
