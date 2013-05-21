@@ -408,6 +408,25 @@ class DefaultControll extends Controll {
           */  
     }
     
+    
+    public function excluirFoto() {
+    	if ($this->getDados('POST')) {
+    		$this->_excluirFoto($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }
+    
+    
+    private function _excluirFoto($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_excluirFoto($dados);
+    
+    }
+    
     /******FOTO******/
     /******FOTO******/
     /******FOTO******/

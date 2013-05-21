@@ -1188,5 +1188,52 @@ class WebServiceControll extends Controll{
 		}
         }
         
+        public function _excluirFoto($dados) {
+            
+            try {
+                
+                    //COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+                    $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];	
+			
+                    //meuVarDump($encoded);
+                    /*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+                    //$to = count($encoded["dados"]);
+                    //meuVarDump($to);
+                    /*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
+			
+                        
+                    $obj = new Fotos();
+                    $obj = $obj->buscar($atributoDados['id']);
+                    $obj = $obj->excluir();
+			
+                    $retornoDados[] = (array) $obj;
+                        
+		    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Foto excluída com sucesso!");
+			
+                    $this->retorno($arrayRetorno);
+	
+		} catch (Exception $e) {
+						
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+            
+            
+            
+            
+            
+            try {
+                    $foto = Fotos::buscar($dados['id']);
+                    $foto->excluir();
+                    
+		} catch (Exception $e) {			
+                    echo $e->getMessage();
+		}
+        }
+        
 }
 ?>
