@@ -546,6 +546,58 @@ class DefaultControll extends Controll {
     
     
     
+    /******ENCONTRO******/
+    /******ENCONTRO******/
+    /******ENCONTRO******/    
+    public function cadastrarEncontro(){
+        if ($this->getDados('POST')) {
+            $this->_cadastrarEncontro($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _cadastrarEncontro($dados){
+        $executa = new WebServiceControll();
+        $executa->_cadastrarEncontro($dados);
+    }
+    
+    /******ENCONTRO******/
+    /******ENCONTRO******/
+    /******ENCONTRO******/
+    
+    
+    
+    
+    /******ENCONTROS_DO_SERVCOS******/
+    /******ENCONTROS_DO_SERVCOS******/
+    /******ENCONTROS_DO_SERVCOS******/
+    
+    public function cadastrarServicosDoEncontro(){
+        if ($this->getDados('POST')) {
+            $this->_cadastrarServicosDoEncontro($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _cadastrarServicosDoEncontro($dados){
+        $executa = new WebServiceControll();
+        $executa->_cadastrarServicosDoEncontro($dados);
+    }
+    
+    /******ENCONTROS_DO_SERVCOS******/
+    /******ENCONTROS_DO_SERVCOS******/
+    /******ENCONTROS_DO_SERVCOS******/
+    
+    
+    
     public function logarAndroid() {
         if ($this->getDados('POST')) {
             $this->_logarAndroid($this->getDados('POST'));
