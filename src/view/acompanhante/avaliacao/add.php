@@ -33,7 +33,7 @@
 </style>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+   // include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -43,7 +43,7 @@
                 <div class="table">
                     <h3 class="hndle">                        
                         <span>Cadastrar Comentario</span>
-                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
+                  
                               
                     </h3>
                     <div class="inside">

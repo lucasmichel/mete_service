@@ -37,8 +37,8 @@
  	}
  	
  	public function editar(Comentario $obj) {
-		//meuVarDump($obj->getComentario());
- 		// INSTRUCAO SQL //
+		//meuVarDump($obj->getId());
+ 		// INSTRUCAO SQL 
  		$sql = "UPDATE " . self::TABELA . " SET
             comentario = '" . $obj->getComentario() . "',
             acompanhanteId = '" .$obj->getAcompanhanteId() . "'

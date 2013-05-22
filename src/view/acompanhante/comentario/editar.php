@@ -41,7 +41,7 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Comentario</span>
+                        <span>Alterar Comentario</span>
                          <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
                               
                     </h3>
@@ -53,8 +53,7 @@
                                     <li>
                                         <label for="nome">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
-                                         <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
-                                          
+                                         
                                     </li>                                   
                                 </ul>
                             </fieldset>

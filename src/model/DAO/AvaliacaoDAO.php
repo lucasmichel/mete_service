@@ -57,15 +57,15 @@
  	 */
  	public function editar(Avaliacao $obj) {
  		// INSTRUCAO SQL //
- 		$sql = "UPDATE " . self::TABELA . " SET
-            nota = '" . $obj->getNota() . "',
-            clienteId =	'" . $obj->getClienteId() . "',
-            acompanhanteId = '" . $obj->getAcompanhanteId() . "'
+ 		//meuVarDump($obj->getId());
+ 		// INSTRUCAO SQL //
+			$sql = "UPDATE " . self::TABELA . " SET
+            nota = '" . $obj->getNota() . "' 
             WHERE id = '" . $obj->getId() . "'";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->exec($sql);
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
+			// EXECUTANDO A SQL //
+			$resultado = $this->conexao->exec($sql);
+			// RETORNANDO O RESULTADO //
+			return $resultado;
  	}
  	
  	public function excluir($id) {

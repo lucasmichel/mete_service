@@ -42,12 +42,13 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Comentario</span>
-                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
+                        <span>Alterar Avaliacao</span>
+                         
                               
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
+                        <input type="hidden" id="id" name="id" value="<?php if($avaliacao != null) echo $avaliacao->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
@@ -55,7 +56,7 @@
                                         <label for="nome">Nota</label>
                                         <input type="text" id="nota" name="nota" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
                                          <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
-                                          
+                                           
                                     </li>                                   
                                 </ul>
                             </fieldset>

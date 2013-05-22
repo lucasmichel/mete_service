@@ -108,8 +108,10 @@
  		
  	// persistindo em inserir o usuário //
  	try {
+ 		//meuVarDump($dados['id']);
  		$comentario = new Comentario();
  		$comentario->setComentario($dados['comentario']);
+ 		$comentario->setId($dados['id']);
  		//$comentario->setNome($dados['comentario_id']);
  		//$comentario->getCliente_id($dados['cliente_id']);
  		//$comentario->setAcompanhante_id($dados['acompanhante_id']);

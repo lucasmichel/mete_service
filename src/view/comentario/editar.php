@@ -32,7 +32,7 @@
 </style>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -41,21 +41,20 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Comentario</span>
+                        <span>Alterar Comentario</span>
                       
                               
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
+                        <input type="hidden" id="id" name="id" value="<?php if($comentario != null) echo $comentario->getId();  ?>" />
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">                                    
                                     <li>
                                         <label for="nome">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
-                                        <input type="text" id="comentario" name="comentario" value="<?php  echo $comentario->getId();  ?>" />
-                                         <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
-                                          
+                                        
                                     </li>                                   
                                 </ul>
                             </fieldset>

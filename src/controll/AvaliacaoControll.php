@@ -136,17 +136,17 @@ class AvaliacaoControll extends Controll {
      * @param $id
      */
     public function editar($id){
-    	//meuVarDump("testeee");
+    	//meuVarDump($id);
         // código da ação //
-        static $acao = 3; 
-    	// checando se o formulário nao foi passado //
-    	if(!$this->getDados('POST')){
-    		// Buscando o usuário //
-    		//$objeto = Acompanhante::buscar($id);
-    		// Jogando perfil no atributo $dados do controlador //
-    		$this->setDados($objeto,'acompanhante');
-    		// Definindo a tela //
-    		$this->setTela('editar',array('avaliacao/editar'));
+       static $acao = 3;
+ 	// Buscando o usuário //
+ 	$objeto = Avaliacao::buscar($id);
+ 	// checando se o formulário nao foi passado //
+ 	if(!$this->getDados('POST')){
+ 		// Jogando perfil no atributo $dados do controlador //
+ 		$this->setDados($objeto,'avaliacao');
+ 		// Definindo a tela //
+ 		$this->setTela('editar',array('avaliacao'));;
         }
         // caso passar o formulario //
         else
@@ -164,13 +164,14 @@ class AvaliacaoControll extends Controll {
     	
     	// persistindo em inserir o usuário //
     	try {
-    		
+    		//meuVarDump($dados['id']);
 	       $avaliacao = new Avaliacao();
     		//meuVarDump($dados['nota']);
     		$avaliacao->setNota($dados['nota']);
+    		$avaliacao->setId($dados['id']);
     		//$avaliacao->getClienteId($dados['clienteId']);
-    		$avaliacao->setAcompanhanteId($id);
-    		$comentario = $comentario->alterar();
+    		//$avaliacao->setAcompanhanteId($id);
+    		 $avaliacao->editar ();
     		//$comentariooAcompanhanteId = $comentario->getId();
     		//$comentario->inserir();
     		// setando a mensagem de sucesso //

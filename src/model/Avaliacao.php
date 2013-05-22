@@ -88,9 +88,12 @@
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = AvaliacaoDAO::getInstancia();
  		// executando o metodo //
- 		$avaliacao = $instancia->editar($this);
+ 		 if($instancia->editar($this))
+                return $this;
+            else
+                return null;
  		// retornando o Usuario //
- 		return  $avaliacao = $instancia->editar($this);
+ 		//return  $avaliacao = $instancia->editar($this);
  	}
  	
  	public function excluir(){
