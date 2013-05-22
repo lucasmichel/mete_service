@@ -474,16 +474,13 @@ class DefaultControll extends Controll {
             $this->getPage();
     	}
     	
-    }
-        
+    }   
     private function _cadastrarServicosAcompanhnate($dados) {
         $executa = new WebServiceControll();
         $executa->_cadastrarServicosAcompanhnate($dados);
     }
     
-    
-    
-     public function listarServicoAcompanhante() {
+    public function listarServicoAcompanhante() {
     	if ($this->getDados('POST')) {
     		$this->_listarServicoAcompanhante($this->getDados('POST'));
     	}
@@ -496,6 +493,22 @@ class DefaultControll extends Controll {
     
     	$executa = new WebServiceControll();
     	$executa->_listarServicoAcompanhante($dados);
+    
+    }
+    
+    public function excluirServicoAcompanhante() {
+    	if ($this->getDados('POST')) {
+    		$this->_excluirServicoAcompanhante($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    private function _excluirServicoAcompanhante($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_excluirServicoAcompanhante($dados);
     
     }
     /******SERVIÇOS_ACOMPANHNATE******/

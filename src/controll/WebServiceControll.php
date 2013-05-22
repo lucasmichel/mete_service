@@ -1338,5 +1338,35 @@ class WebServiceControll extends Controll{
 	
 	}
         
+        
+        public function _excluirServicoAcompanhante($dados) {
+		try {
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];	
+                        
+                        $servicosAcompanhnate = new ServicosAcompanhante();
+			$servicosAcompanhnate = ServicosAcompanhante::buscar($atributoDados['id']);
+                        $servicosAcompanhnate = $servicosAcompanhnate->excluir();
+                        
+                        $retornoDados[] = (array) $servicosAcompanhnate;
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Servico da acompanhnate excluído com sucesso!");
+			
+			$this->retorno($arrayRetorno);
+                        
+	
+		} catch (Exception $e) {
+			
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			
+			$this->retorno($arrayRetorno);
+		}
+	}
+        
+        
 }
 ?>
