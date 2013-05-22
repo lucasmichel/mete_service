@@ -182,7 +182,7 @@ class Fotos {
             // checando se o resultado foi falso //
             if(!$foto)
                     // levanto a excessao RegistroNaoEncontrado //
-                    throw new RegistroNaoEncontrado(RegistroNaoEncontrado::USUARIO);
+                    throw new RegistroNaoEncontrado(RegistroNaoEncontrado::FOTO);
             // instanciando e retornando o Usuario //
             
             $a = new Fotos($foto['id'],
