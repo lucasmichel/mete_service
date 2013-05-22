@@ -12,6 +12,7 @@ class RegistroNaoEncontrado extends Exception {
     const  SERVICOS_DO_ECONTRO = 10;
     const  ECONTRO = 11;
     const  LOCALIZACAO = 12;
+    const FOTO = 13;
 
     public function __construct($tipo){
         switch($tipo){
@@ -51,7 +52,9 @@ class RegistroNaoEncontrado extends Exception {
                 case self::LOCALIZACAO:
                         $msg = 'Localização não encontrada.';
                         break;
-                        	
+                case self::FOTO:
+                        $msg = 'Foto não encontrada.';
+                        break;                        	
         }
         parent::__construct($msg);
     }
