@@ -18,75 +18,41 @@
  	}
  	
  	public static function getInstancia() {
- 		if (!isset(self::$instancia))
- 			self::$instancia = new ComentarioDAO();
- 		return self::$instancia;
+            if (!isset(self::$instancia))
+                    self::$instancia = new ComentarioDAO();
+            return self::$instancia;
  	}
  	
  	
  	public function inserir(Comentario $obj) {
- 		// INSTRUCAO SQL //
- 		$sql = "INSERT INTO " . self::TABELA . "
+            // INSTRUCAO SQL //
+            $sql = "INSERT INTO " . self::TABELA . "
             (comentario,acompanhanteId)
             VALUES('" . $obj->getComentario() . "' ,
-            
             '" . $obj->getAcompanhanteId() . "')";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->exec($sql);
- 		// TRATANDO O RESULTADO // '" . $obj->getClienteId() . "' ,
- 	}
+
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // TRATANDO O RESULTADO //
+            ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+            // RETORNANDO O RESULTADO //
+            return $obj;
+            }
  	
  	public function editar(Comentario $obj) {
-		//meuVarDump($obj->getId());
- 		// INSTRUCAO SQL 
- 		$sql = "UPDATE " . self::TABELA . " SET
-            comentario = '" . $obj->getComentario() . "',
-            acompanhanteId = '" .$obj->getAcompanhanteId() . "'
-            WHERE id = '" . $obj->getId() . "'";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->exec($sql);
- 		// RETORNANDO O RESULTADO /////
- 		return $resultado;
+            //meuVarDump($obj->getId());
+            // INSTRUCAO SQL 
+            $sql = "UPDATE " . self::TABELA . " SET
+                comentario = '" . $obj->getComentario() . "',
+                acompanhanteId = '" .$obj->getAcompanhanteId() . "'
+                WHERE id = '" . $obj->getId() . "'";
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // RETORNANDO O RESULTADO /////
+            return $resultado;
  	}
  	
- 	public function excluir($id) {
- 		// checando se existe algum vinculo desse registro com outros //
- 		//$validacao = "SELECT c.id FROM comentario c WHERE c.id = '" . $id . "'";
- 		//if ($this->conexao->fetch($validacao))
- 			//throw new RegistroNaoExcluido(RegistroNaoExcluido::COMENTARIO);
- 		// INSTRUCOES SQL //
- 		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
- 		// PERCORRENDO AS SQL //
- 		foreach ($sql as $item) {
- 			// EXECUTANDO A SQL //
- 			$resultado = $this->conexao->exec($item);
- 		}
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
- 	}
  	
-
- 	public function buscar($id) {
- 		// INSTRUCAO SQL //
- 		$sql = "SELECT c. * FROM " . self::TABELA . " c  WHERE c.id = '" . $id . "'";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->fetch($sql);
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
- 	}
- 	
- 	/**
- 	 * Metodo listar()
- 	 * @return fetch_assoc[]
- 	 */
- 	public function listar() {
- 		// INSTRUCAO SQL //
- 		$sql = "SELECT * FROM " . self::TABELA . " c ORDER BY c.comentario";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->fetchAll($sql);
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
- 	}
  	/**
  	 * Metodo listar($ordenarPor)
  	 * @return fetch_assoc[]

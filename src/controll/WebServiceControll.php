@@ -309,7 +309,7 @@ class WebServiceControll extends Controll{
 
 			
 			$acompanhante = new Acompanhante();
-			$acompanhante2 = $acompanhante->buscar($atributoDados['idUsuario']);
+			$acompanhante2 = $acompanhante->buscarPorIdUsuario($atributoDados['idUsuario']);
 			$acompanhante3 = $acompanhante2->excluirPorIdUsuario();
 			
                         
@@ -594,13 +594,11 @@ class WebServiceControll extends Controll{
 			
                         
 			$cliente = new Cliente();
-			$cliente = $cliente->buscar($atributoDados['idUsuario']);
+			$cliente = $cliente->buscarPorIdUsuario($atributoDados['idUsuario']);
 			$cliente = $cliente->excluirPorIdUsuario();
 			
                         $retornoDados[] = (array) $cliente;
-                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
-			
 			$this->retorno($arrayRetorno);
 	
 		} catch (Exception $e) {
@@ -1205,7 +1203,8 @@ class WebServiceControll extends Controll{
                     //meuVarDump($to);
                     /*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			
-                        
+                    
+                    
                     $obj = new Fotos();
                     $obj = $obj->buscar($atributoDados['id']);
                     $obj = $obj->excluir();
@@ -1348,11 +1347,11 @@ class WebServiceControll extends Controll{
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
                         
-                        $servicosAcompanhnate = new ServicosAcompanhante();
-			$servicosAcompanhnate = ServicosAcompanhante::buscar($atributoDados['id']);
-                        $servicosAcompanhnate = $servicosAcompanhnate->excluir();
                         
-                        $retornoDados[] = (array) $servicosAcompanhnate;
+			$servicosAcompanhnate = ServicosAcompanhante::buscar($atributoDados['id']);
+                        $servicosAcompanhnate1 = $servicosAcompanhnate->excluir();
+                        
+                        $retornoDados[] = (array) $servicosAcompanhnate1;
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Servico da acompanhnate excluído com sucesso!");
 			

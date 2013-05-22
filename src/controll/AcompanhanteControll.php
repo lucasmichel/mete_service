@@ -263,6 +263,22 @@ class AcompanhanteControll extends Controll {
     	$this->setTela('ver',array('acompanhante/servicos'));
     }
     
+    
+    public function excluirServico($id){
+    	// código da ação serve para o controle de acesso//
+    	static $acao = 8;
+    	// buscando o usuário //
+        
+        $ServicosAcompanhanteRetorno = ServicosAcompanhante::buscar($id); // Acompanhante::buscar($id);        
+        $acompanhante = Acompanhante::buscar($ServicosAcompanhanteRetorno->getAcompanhanteId());
+        $ServicosAcompanhanteRetorno->excluir();
+    	// jogando o usuário no atributo $dados do controlador //
+    	
+        $this->setDados($acompanhante,'acompanhante');
+    	// definindo a tela //
+    	$this->setTela('listar',array('acompanhante/servicos'));
+    }
+    
     /**
      * Acao foto($id)
      * @param $id

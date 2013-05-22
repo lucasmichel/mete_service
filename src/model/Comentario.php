@@ -8,8 +8,7 @@ class  Comentario{
 	
 	public function __construct($id = 0, $comentario = '', $clienteId = null, $acompanhanteId = null) {
 		$this->id = $id;
-		$this->comentario = $comentario;
-		//$this->comentario_id = $comentario_id;
+		$this->comentario = $comentario;		
 		$this->clienteId = $clienteId;
 		$this->acompanhanteId = $acompanhanteId;
 		
@@ -20,11 +19,11 @@ class  Comentario{
 	public function _validarCampos(){
 		$retorno = true;
 		if($this->getComentario() == null){
-			throw new CamposObrigatorios("Comentario");
-			$retorno = false;
+                    throw new CamposObrigatorios("Comentario");
+                    $retorno = false;
 		}
 		else{
-			$retorno = true;
+                    $retorno = true;
 		}
 		return $retorno;
 	}
@@ -42,7 +41,7 @@ class  Comentario{
 		return $objetos;
 	}
 	
-	public static function listarPorAcompanhante(Acompanhante $acompanhante){
+    public static function listarPorAcompanhante(Acompanhante $acompanhante){
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ComentarioDAO::getInstancia();
 		// executando o metodo //
@@ -62,7 +61,7 @@ class  Comentario{
 		return $objetos;
 	}
 	
- public static function listarPorIdAcompanhante($id){
+    public static function listarPorIdAcompanhante($id){
             // recuperando a instancia da classe de acesso a dados //
            $instancia = ComentarioDAO::getInstancia();
             // executando o metodo //
@@ -74,11 +73,12 @@ class  Comentario{
             // percorrendo os usuarios //
             foreach($comentario as $comentario){
                 
-                    // instanciando e jogando dentro da colecao $objetos o Usuario //
-                    $objetos[] = new Comentario($comentario['id'], $comentario['comentario'],
-					 $comentario['clienteId'], $comentario['acompanhanteId']
-                           );
-                    
+                // instanciando e jogando dentro da colecao $objetos o Usuario //
+                $objetos[] = new Comentario(
+                        $comentario['id'], 
+                        $comentario['comentario'],
+                        $comentario['clienteId'], 
+                        $comentario['acompanhanteId']);
                            
             }
             // retornando a colecao $objetos //
@@ -90,8 +90,11 @@ class  Comentario{
  		$comentario = $instancia->buscar($id);
  		if (!$comentario)
  			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::COMENTARIO);
- 		return new Comentario($comentario['id'], $comentario['comentario'],
-					 $comentario['clienteId'], $comentario['acompanhanteId']);
+ 		return new Comentario(
+                        $comentario['id'], 
+                        $comentario['comentario'],
+                        $comentario['clienteId'], 
+                        $comentario['acompanhanteId']);
  	}
 	
  	public function inserir(){
@@ -102,9 +105,8 @@ class  Comentario{
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = ComentarioDAO::getInstancia();
  		// executando o metodo //
- 		$comentario = $instancia->inserir($this);
  		// retornando o Usuario //
- 		//return  $comentario = $instancia->inserir($this);
+ 		return  $instancia->inserir($this);
  	}
  	
  	public function editar(){
@@ -114,10 +116,8 @@ class  Comentario{
  			throw new CamposObrigatorios();
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = ComentarioDAO::getInstancia();
- 		// executando o metodo //
- 		$comentario = $instancia->editar($this);
- 		// retornando o Usuario //
- 		return  $comentario = $instancia->editar($this);
+ 		// executando o metodo // 		
+ 		return  $instancia->editar($this);
  	}
  	
  	public function excluir(){
@@ -127,31 +127,6 @@ class  Comentario{
  		$comentario = $instancia->excluir($this->getId());
  		// retornando o resultado //
  		return $comentario;
- 	}
- 	
- 	private static function construirObjeto($dados){
- 		//varDump($dados);
- 			
- 		$acompanhante =	new Acompanhante();
-		$acompanhante->setId(trim($dados['id']));
-    	$acompanhante->setNome(trim($dados['nome']));
-    	$acompanhante->setIdade(trim($dados['idade']));
-    	$acompanhante->setAltura(trim($dados['altura']));
-    	$acompanhante->setPeso(trim($dados['peso']));
-    	$acompanhante->setBusto(trim($dados['busto']));
-    	$acompanhante->setCintura(trim($dados['cintura']));
-    	$acompanhante->setQuadril(trim($dados['quadril']));
-    	$acompanhante->setOlhos(trim($dados['olhos']));
-    	$acompanhante->setPernoite(trim($dados['pernoite']));
-    	$acompanhante->setAtendo(trim($dados['atendo']));
-    	$acompanhante->setEspecialidade(trim($dados['especialidade']));
-    	$acompanhante->setHorarioAtendimento(trim($dados['horario_atendimento']));
-    	$acompanhante->setExcluido(trim($dados['excluido']));
-    	$acompanhante->setUsuarioId(trim($dados['usuarios_id']));
-    	$acompanhante->setUsuarioIdPerfil(trim($dados['usuarios_id_perfil']));  	
-    		
-		return $acompanhante; 
- 			
  	}
  	
 	public function getId() {
