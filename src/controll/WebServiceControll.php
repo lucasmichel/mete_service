@@ -1260,8 +1260,8 @@ class WebServiceControll extends Controll{
 			
                         
                         $encontro = new Encontro();
-                        $encontro->setClienteId($dados["clienteId"]);
-                        $encontro->setDataHorario($dados["dataHora"]);
+                        $encontro->setClienteId($atributoDados["clienteId"]);
+                        $encontro->setDataHorario($atributoDados["dataHora"]);
                         $encontro->setExcluido(0);
                         $encontro = $encontro->inserir();
                         

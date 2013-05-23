@@ -2,24 +2,42 @@
 class  Comentario{
 	private $id;
 	private $comentario;
-	//private $comentarioId;
 	private $clienteId;
 	private $acompanhanteId;
+	private $dataCadastro;
+	private $excluido;
 	
-	public function __construct($id = 0, $comentario = '', $clienteId = null, $acompanhanteId = null) {
+	public function __construct($id = 0, 
+                $comentario = null, 
+                $clienteId = 0, 
+                $acompanhanteId = 0,
+                $dataCadastro = null,
+                $excluido = 0
+                ) {
+            
 		$this->id = $id;
 		$this->comentario = $comentario;		
 		$this->clienteId = $clienteId;
-		$this->acompanhanteId = $acompanhanteId;
-		
+		$this->acompanhanteId = $acompanhanteId;	
+		$this->dataCadastro = $dataCadastro;	
+		$this->excluido = $excluido;
 	}
 	
 
 	
 	public function _validarCampos(){
 		$retorno = true;
+                
 		if($this->getComentario() == null){
-                    throw new CamposObrigatorios("Comentario");
+                    throw new CamposObrigatorios("Comentario: falta o texto do comentario");
+                    $retorno = false;
+		}                
+		if($this->getClienteId() == 0){
+                    throw new CamposObrigatorios("Comentario: falta o id cliente");
+                    $retorno = false;
+		}
+		if($this->getAcompanhanteId() == 0){
+                    throw new CamposObrigatorios("Comentario: falta o id acompanhante");
                     $retorno = false;
 		}
 		else{
@@ -30,35 +48,36 @@ class  Comentario{
 	
 	
 	public static function listar($campo) {
-		$instancia = ComentarioDAO::getInstancia();
-		$comentario = $instancia->listar($campo);
-		if (!$comentario)
-			throw new ListaVazia(ListaVazia::COMENTARIO);
-		foreach ($comentario as $comentario) {
-			$objetos[] = new Comentario($comentario['id'], $comentario['comentario'],
-					 $comentario['clienteId'], $comentario['acompanhanteId']);
-		}
-		return $objetos;
+            $instancia = ComentarioDAO::getInstancia();
+            $comentario = $instancia->listar($campo);
+            if (!$comentario)
+                    throw new ListaVazia(ListaVazia::COMENTARIO);
+            foreach ($comentario as $comentario) {
+                
+                $objetos[] = self::factoryObj($comentario);
+            }
+            return $objetos;
 	}
 	
-    public static function listarPorAcompanhante(Acompanhante $acompanhante){
-		// recuperando a instancia da classe de acesso a dados //
-		$instancia = ComentarioDAO::getInstancia();
-		// executando o metodo //
-		$comentario = $instancia->listarPorIdAcompanhante($acompanhante->getId());
-		// checando se o retorno foi falso //
-		if(!$comentario)
-			// levantando a excessao ListaVazia //
-			throw new ListaVazia(ListaVazia::COMENTARIO);
-		// percorrendo os usuarios //
-		foreach($comentario as $comentario){
-			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$ob = new Comentario($comentario['id'], $comentario['comentario'],
-					 $comentario['clienteId'], $comentario['acompanhanteId']);           
-			$objetos[] = (array) $ob;
-		}
-		// retornando a colecao $objetos //
-		return $objetos;
+        public static function listarPorAcompanhante(Acompanhante $acompanhante){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = ComentarioDAO::getInstancia();
+            // executando o metodo //
+            $comentario = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+            // checando se o retorno foi falso //
+            if(!$comentario)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::COMENTARIO);
+            // percorrendo os usuarios //
+            foreach($comentario as $comentario){
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $ob = self::factoryObj($comentario);
+                    
+                    //$objetos[] = (array) $ob;
+                    $objetos[] = $ob;
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
 	}
 	
     public static function listarPorIdAcompanhante($id){
@@ -74,12 +93,7 @@ class  Comentario{
             foreach($comentario as $comentario){
                 
                 // instanciando e jogando dentro da colecao $objetos o Usuario //
-                $objetos[] = new Comentario(
-                        $comentario['id'], 
-                        $comentario['comentario'],
-                        $comentario['clienteId'], 
-                        $comentario['acompanhanteId']);
-                           
+                $objetos[] = self::factoryObj($comentario);
             }
             // retornando a colecao $objetos //
             return $objetos;
@@ -87,14 +101,10 @@ class  Comentario{
 		
  	public static function buscar($id) {
  		$instancia = ComentarioDAO::getInstancia();
- 		$comentario = $instancia->buscar($id);
+ 		$comentario = $instancia->buscarPorId($id);
  		if (!$comentario)
  			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::COMENTARIO);
- 		return new Comentario(
-                        $comentario['id'], 
-                        $comentario['comentario'],
-                        $comentario['clienteId'], 
-                        $comentario['acompanhanteId']);
+ 		return self::factoryObj($comentario);
  	}
 	
  	public function inserir(){
@@ -128,8 +138,20 @@ class  Comentario{
  		// retornando o resultado //
  		return $comentario;
  	}
- 	
-	public function getId() {
+        
+         private static function factoryObj(array $dados){
+             
+             return new Comentario($dados['id'], 
+                        $dados['comentario'],
+                        $dados['cliente_id'], 
+                        $dados['acompanhante_id'],
+                        $dados['data_cadastro'],                    
+                        $dados['excluido']
+                    );
+         }
+
+
+         public function getId() {
 		return $this->id;
 	}
 	
@@ -150,7 +172,7 @@ class  Comentario{
 		return $this->clienteId;
 	}
 	
-	public function setClienteoId($clienteId) {
+	public function setClienteId($clienteId) {
 		$this->clienteId = $clienteId;
 	}
 	
@@ -160,6 +182,14 @@ class  Comentario{
 	
 	public function setAcompanhanteId($acompanhanteId) {
 		$this->acompanhanteId = $acompanhanteId;
+	}
+        
+	public function getDataCadastro() {
+		return $this->dataCadastro;
+	}
+	
+	public function setdataCadastro($dataCadastro) {
+		$this->dataCadastro = $dataCadastro;
 	}
 }
 

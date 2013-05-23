@@ -2,7 +2,6 @@
 header('Content-Type: text/html; charset=utf-8', true);
 $cliente = $this->getDados('cliente');
 ?>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <div class="wrap">
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");

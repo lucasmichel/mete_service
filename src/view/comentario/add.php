@@ -1,8 +1,5 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    
-    $cliente = $this->getDados('cliente');    
-    $acompanhante = $this->getDados('acompanhante');
     $comentario = $this->getDados('comentario');
 ?>
 <script type="text/javascript">
@@ -10,14 +7,14 @@
         $('#comentario').focus();
                 
         $("#ok").click(function() {
-        	var servico = $.trim($("#comentario").val());
-        	
-        	
-        	if(comentario.length <= 0){
-            	alert('N�o necessário o nome do comentario');
+            var comentario = $.trim($("#comentario").val());
+            
+            if(comentario.length <= 0)
+            {
+                alert('Não necessário o nome do comentario');
                 $("#comentario").focus();
                 return false;
-			}           
+            }           
             else{
                 $("#cadastro").submit();
             }          
@@ -41,13 +38,71 @@
                         <form method="post" id="cadastro">
                             <fieldset>
                                 <legend>Dados</legend>
-                                <ul class="list-cadastro">                                    
+                                <ul class="list-cadastro">
+                                    
                                     <li>
-                                        <label for="nome">Comentarioo</label>
+                                        <label for="clienteId">Cliente</label>
+                                        <select id="clienteId" name="clienteId">
+                                            <option value="">Selecione</option>
+                                            <?php
+                                            if($comentario!=null){
+                                                $idCliente = $comentario->getClienteId();
+                                            }
+                                            else {
+                                                $idCliente = null;
+                                            }
+                                            try {
+                                                $objs = Cliente::listar("nome");
+                                                foreach ($objs as $obj) {
+                                                    ?>
+                                            <option <?php if($idCliente == $obj->getId()) {
+                                                        echo "selected"; 
+                                                    }
+                                                    ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
+                                            </option>
+                                                    <?php
+                                                }
+                                            } catch (ListaVazia $e) {
+                                                
+                                            }
+                                            ?>
+                                        </select>
+                                    </li>
+                                    
+                                    <li>
+                                        <label for="nome">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
-                                                                             <input type="text" id="acompanhanteId" name="acompanhanteId" value="<?php if($comentario != null) echo $comentario->getId();  ?>" />
-                                         <input type="text" id="clienteId" name="clienteId" value="<?php  echo $cliente->getId();  ?>" />
                                     </li>                                   
+                                    
+                                    <li>
+                                        <label for="acompanhanteId">Acompanhante:</label>
+                                        <select id="acompanhanteId" name="acompanhanteId">
+                                            <option value="">Selecione</option>
+                                            <?php
+                                            if($comentario!=null){
+                                                $idAcompanhante = $comentario->getAcompanhanteId();
+                                            }
+                                            else {
+                                                $idAcompanhante = null;
+                                            }
+                                            try {
+                                                $objs = Acompanhante::listar("nome");
+                                                foreach ($objs as $obj) {
+                                                    ?>
+                                            <option <?php if($idAcompanhante == $obj->getId()) {
+                                                        echo "selected"; 
+                                                    }
+                                                    ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
+                                            </option>
+                                                    <?php
+                                                }
+                                            } catch (ListaVazia $e) {
+                                                
+                                            }
+                                            ?>
+                                        </select>
+                                    </li>
+                                    
                                 </ul>
                             </fieldset>
                             <ul id="bts">

@@ -1,18 +1,7 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
     $acompanhante = $this->getDados('acompanhante');
-    $usuario = $this->getDados('usuario');
 ?>
-
-<script type="text/javascript">
-    $(document).ready(function($){
-        $("#ok").click(function() {
-            $("#cadastro").submit();
-        });                
-                
-                
-    });
-</script>
 <div class="wrap">
     <?php
     //meuVarDump("testeee");
@@ -51,19 +40,19 @@
                 /**
                  * Persistindo em listar os usuários
                  */
-               // meuVarDump("testeee");
-				 try {
+                // meuVarDump("testeee");
+                 try {
                         if(Acao::checarPermissao(2, AcompanhanteControll::MODULO))
                         {
 					?>
                             <a class="classBt" href=acompanhante/adicionarComentario/<?php echo $acompanhante->getId(); ?> >
                                 Adicionar Comentario
                             </a>
-              		  <?php 
+                    <?php 
                         }
-					//meuVarDump("testeee");
-                    $objetos = Comentario::listar("comentario");                   
-                    $paginacao = new Paginacao($objetos, 20);
+                    
+                        $objetos = Comentario::listarPorAcompanhante($acompanhante);                   
+                        $paginacao = new Paginacao($objetos, 20);
 
                     ?>
                       <div class="table">
@@ -72,7 +61,10 @@
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Comentario</th>
+                                    <th width="35%" align="left">Comentario</th>
+                                    <th width="15%" align="left">Cliente</th>
+                                    <th width="10%" align="left">DataCadastro</th>
+                                    <th width="10%" align="left">Açoes</th>
 
                                 </tr>
                             </thead>
@@ -85,15 +77,21 @@
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getComentario(); ?></td>
-                                        <td width="28%" align="left">
+                                        <td  align="left"><?php echo $objeto->getComentario(); ?></td>
+                                        <td align="left">
                                         <?php
-                                       // $comentario = Comentario::buscar($objeto->getId()); 
-                                        	//echo $comentario->getComentario(); 
+                                            $cliente = Cliente::buscar($objeto->getClienteId()); 
+                                            echo $cliente->getNome(); 
+                                        ?>
+                                        </td>
+                                        <td align="left">
+                                        <?php
+                                        
+                                            echo $objeto->getDataCadastro(); 
                                         ?>
                                         </td>
                                         
-                                        <td width="20%">						
+                                        <td >						
                                             <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
                                             if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {

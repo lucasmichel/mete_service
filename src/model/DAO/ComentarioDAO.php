@@ -27,9 +27,10 @@
  	public function inserir(Comentario $obj) {
             // INSTRUCAO SQL //
             $sql = "INSERT INTO " . self::TABELA . "
-            (comentario,acompanhanteId)
+            (comentario,acompanhante_id, cliente_id, data_cadastro)
             VALUES('" . $obj->getComentario() . "' ,
-            '" . $obj->getAcompanhanteId() . "')";
+            '" . $obj->getAcompanhanteId() . "',
+            '" . $obj->getClienteId() . "', NOW())";
 
             // EXECUTANDO A SQL //
             $resultado = $this->conexao->exec($sql);
@@ -43,9 +44,8 @@
             //meuVarDump($obj->getId());
             // INSTRUCAO SQL 
             $sql = "UPDATE " . self::TABELA . " SET
-                comentario = '" . $obj->getComentario() . "',
-                acompanhanteId = '" .$obj->getAcompanhanteId() . "'
-                WHERE id = '" . $obj->getId() . "'";
+                    comentario = '" . $obj->getComentario() . "'              
+                    WHERE id = '" . $obj->getId() . "'";
             // EXECUTANDO A SQL //
             $resultado = $this->conexao->exec($sql);
             // RETORNANDO O RESULTADO /////
@@ -60,7 +60,22 @@
  	public function listarPorIdAcompanhante($id) {
  		// INSTRUCAO SQL //
  		$sql = "SELECT * FROM " . self::TABELA . "
-            where acompanhanteId = '".$id."' and excluido = '0' ";
+            where acompanhante_id = '".$id."' and excluido = '0' ";
+ 		//meuVarDump($sql);
+ 		// EXECUTANDO A SQL //
+ 		$resultado = $this->conexao->fetchAll($sql);
+ 		// RETORNANDO O RESULTADO //
+ 		return $resultado;
+ 	}
+        
+ 	/**
+ 	 * Metodo listar($ordenarPor)
+ 	 * @return fetch_assoc[]
+ 	 */
+ 	public function listarPorIdCliente($id) {
+ 		// INSTRUCAO SQL //
+ 		$sql = "SELECT * FROM " . self::TABELA . "
+            where cliente_id = '".$id."' and excluido = '0' ";
  		//meuVarDump($sql);
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);

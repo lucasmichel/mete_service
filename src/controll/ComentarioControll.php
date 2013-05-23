@@ -57,9 +57,8 @@
  	try {
  		$comentario = new Comentario();
  		$comentario->setComentario($dados['comentario']);
- 		//$comentario->setNome($dados['comentario_id']);
-		//$comentario->getCliente_id($dados['cliente_id']);
-		//$comentario->setAcompanhante_id($dados['acompanhante_id']);
+ 		$comentario->setAcompanhanteId($dados['acompanhanteId']);
+ 		$comentario->setClienteId($dados['clienteId']);
  		$comentario->inserir();
  		// setando a mensagem de sucesso //
  		$this->setFlash('Comentario cadastrado com sucesso.');
@@ -72,10 +71,7 @@
  		//retorna os campos prar serem preenchidos novamente
  		if(isset($comentario))
  			$this->setDados($comentario,'comentario');
- 
- 		if(isset($usuario))
- 			$this->setDados($comentario,'comentario');
- 		// setando a mensagem de excessão //
+                // setando a mensagem de excessão //
  		$this->setFlash($e->getMessage());
  		// definindo a tela //
  		$this->setTela('add',array('comentario'));
@@ -112,6 +108,8 @@
  		$comentario = new Comentario();
  		$comentario->setComentario($dados['comentario']);
  		$comentario->setId($dados['id']);
+ 		$comentario->setClienteId($dados['clienteId']);
+ 		$comentario->setAcompanhanteId($dados['acompanhanteId']);
  		//$comentario->setNome($dados['comentario_id']);
  		//$comentario->getCliente_id($dados['cliente_id']);
  		//$comentario->setAcompanhante_id($dados['acompanhante_id']);
@@ -128,8 +126,6 @@
  		if(isset($comentario))
  			$this->setDados($comentario,'comentario');
  
- 		if(isset($usuario))
- 			$this->setDados($comentario,'comentario');
  		// setando a mensagem de excessão //
  		$this->setFlash($e->getMessage());
  		// definindo a tela //

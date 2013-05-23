@@ -1,25 +1,23 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    
-    $cliente = $this->getDados('cliente');    
     $acompanhante = $this->getDados('acompanhante');
     $comentario = $this->getDados('comentario');
-    $usuario = $this->getDados('usuario');
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
         $('#comentario').focus();
                 
         $("#ok").click(function() {
-        	var servico = $.trim($("#comentario").val());
+            var comentario = $.trim($("#comentario").val());
         	
         	
-        	if(comentario.length <= 0){
-            	alert('N�o necessário o nome do comentario');
+            if(comentario.length <= 0){
+                alert('Não necessário o nome do comentario');
                 $("#comentario").focus();
                 return false;
-			}           
-            else{
+            }           
+            else
+            {
                 $("#cadastro").submit();
             }          
         });                
@@ -40,10 +38,9 @@
         <div class="box-content">
             <div class="box">
                 <div class="table">
-                    <h3 class="hndle">                        
+                    <h3 class="hndle">
                         <span>Cadastrar Comentario</span>
-                         <h5>C�digo acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
-                              
+                         <h5>Código acompanhante: <?php echo $acompanhante->getId(); ?></h5> 
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
@@ -53,8 +50,7 @@
                                     <li>
                                         <label for="nome">Comentario</label>
                                         <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
-                                         <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
-                                          
+                                        <input  id="acompanhanteId" name="acompanhanteId"  type="hidden"  text="acompanhanteId"  value="<?php if($acompanhante != null) echo $acompanhante->getId();  ?>" />
                                     </li>                                   
                                 </ul>
                             </fieldset>
