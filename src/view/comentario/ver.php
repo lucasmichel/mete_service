@@ -3,7 +3,7 @@
     $comentario = $this->getDados('comentario');
 ?>
 <script type="text/javascript">
-    $(document).ready(function($){
+    /*$(document).ready(function($){
         $('#comentario').focus();
                 
         $("#ok").click(function() {
@@ -19,11 +19,11 @@
                 $("#cadastro").submit();
             }          
         });                
-    });
+    });*/
 </script>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+        include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -32,18 +32,17 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Editar Comentario</span>
+                        <span>Cadastrar Comentario</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
-                            <input type="hidden" id="id" name ="id" value="<?php echo $comentario->getId();?>"/>
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
                                     
                                     <li>
                                         <label for="clienteId">Cliente</label>
-                                        <select id="clienteId" name="clienteId">
+                                        <select disabled="true" id="clienteId" name="clienteId">
                                             <option value="">Selecione</option>
                                             <?php
                                             if($comentario!=null){
@@ -72,12 +71,12 @@
                                     
                                     <li>
                                         <label for="nome">Comentario</label>
-                                        <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
+                                        <input disabled="true" type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
                                     </li>                                   
                                     
                                     <li>
                                         <label for="acompanhanteId">Acompanhante:</label>
-                                        <select id="acompanhanteId" name="acompanhanteId">
+                                        <select disabled="true" id="acompanhanteId" name="acompanhanteId">
                                             <option value="">Selecione</option>
                                             <?php
                                             if($comentario!=null){
@@ -108,7 +107,7 @@
                             </fieldset>
                             <ul id="bts">
                                 <li>
-                                    <input type="button" class="bt-cadastro border" value=" OK " id="ok"/>
+                                    <input disabled="true" type="button" class="bt-cadastro border" value=" OK " id="ok"/>
                                 </li>
                             </ul>
                         </form>

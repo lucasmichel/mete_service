@@ -23,7 +23,7 @@
 </script>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "servico.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
