@@ -4,69 +4,103 @@
  	private $nota;
  	private $clienteId;
  	private $acompanhanteId;
+ 	private $dataCadastro;
+ 	private $excluido;
  	
- 	public function __construct($id = 0, $nota = '', $clienteId = null, $acompanhanteId = null) {
+ 	public function __construct($id = 0, $nota = null, $clienteId = 0, $acompanhanteId = 0, $dataCadastro = null,
+                $excluido = 0) {
  		$this->id = $id;
  		$this->nota = $nota;
  		$this->clienteId = $clienteId;
  		$this->acompanhanteId = $acompanhanteId;
+ 		$this->dataCadastro = $dataCadastro;
+ 		$this->excluido = $excluido;
+ 		
  	}
  	
  	private function _validarCampos(){
- 		
  		$retorno = true;
+ 		
  		if($this->getNota() == null){
- 			throw new CamposObrigatorios("Avaliacao");
+ 			throw new CamposObrigatorios("Avaliacao: falta o Nota da acompanhante");
+ 			$retorno = false;
+ 		}
+ 		if($this->getClienteId() == 0){
+ 			throw new CamposObrigatorios("Avaliacao: falta o id cliente");
+ 			$retorno = false;
+ 		}
+ 		if($this->getAcompanhanteId() == 0){
+ 			throw new CamposObrigatorios("Avaliacao: falta o id acompanhante");
  			$retorno = false;
  		}
  		else{
  			$retorno = true;
- 		
  		}
  		return $retorno;
  	}
  	
- 	public static function listarPorAcompanhante(Acompanhante $acompanhante){
- 		// recuperando a instancia da classe de acesso a dados //
- 		$instancia = AvaliacaoDAO::getInstancia();
- 		// executando o metodo //
- 		$avaliacao = $instancia->listarPorIdAcompanhante($acompanhante->getId());
- 		// checando se o retorno foi falso //
- 		if(!$avaliacao)
- 			// levantando a excessao ListaVazia //
- 			throw new ListaVazia(ListaVazia::AVALIACAO);
- 		// percorrendo os usuarios //
- 		foreach($avaliacao as $avaliacao){
- 			// instanciando e jogando dentro da colecao $objetos o Usuario //
- 			$ob = new Comentario($avaliacao['id'], $avaliacao['nota'],
- 					$avaliacao['clienteId'], $avaliacao['acompanhanteId']);
- 			$objetos[] = (array) $ob;
- 		}
- 		// retornando a colecao $objetos //
- 		return $objetos;
- 	}
- 	
- 	public static function listar() {
- 		$instancia = AvaliacaoDAO::getInstancia();
- 		$avaliacao = $instancia->listar();
- 		if (!$avaliacao)
- 			throw new ListaVazia(ListaVazia::AVALIACAO);
- 		foreach ($avaliacao as $avaliacao) {
- 			$objetos[] = new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['clienteId'],
- 					$avaliacao['acompanhanteId']);
- 		}
- 		return $objetos;
- 	}
- 	
+ public static function listar($campo) {
+            $instancia = AvaliacaoDAO::getInstancia();
+            $avaliacao = $instancia->listar($campo);
+            if (!$avaliacao)
+                    throw new ListaVazia(ListaVazia::AVALIACAO);
+            foreach ($avaliacao as $avaliacao) {
+                
+                $objetos[] = self::factoryObj($avaliacao);
+            }
+            return $objetos;
+	}
+	
+        public static function listarPorAcompanhante(Acompanhante $acompanhante){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = AvaliacaoDAO::getInstancia();
+            // executando o metodo //
+            $avaliacao = $instancia->listarPorIdAcompanhante($acompanhante->getId());
+            // checando se o retorno foi falso //
+            if(!$avaliacao)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::AVALIACAO);
+            // percorrendo os usuarios //
+            foreach($avaliacao as $avaliacao){
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $ob = self::factoryObj($avaliacao);
+                    
+                    //$objetos[] = (array) $ob;
+                    $objetos[] = $ob;
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+	}
+	
+    public static function listarPorIdAcompanhante($id){
+            // recuperando a instancia da classe de acesso a dados //
+           $instancia = AvaliacaoDAO::getInstancia();
+            // executando o metodo //
+            $avaliacao = $instancia->listarPorIdAcompanhante($id);
+            // checando se o retorno foi falso //
+            if(!$avaliacao)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::AVALIACAO);
+            // percorrendo os usuarios //
+            foreach($avaliacao as $avaliacao){
+                
+                // instanciando e jogando dentro da colecao $objetos o Usuario //
+                $objetos[] = self::factoryObj($avaliacao);
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+    }
+		
  	public static function buscar($id) {
+ 		
  		$instancia = AvaliacaoDAO::getInstancia();
- 		$avaliacao = $instancia->buscar($id);
+ 		$avaliacao = $instancia->buscarPorId($id);
+ 		//meuVarDump("teste");
  		if (!$avaliacao)
  			throw new RegistroNaoEncontrado(RegistroNaoEncontrado::AVALIACAO);
- 		return new Avaliacao($avaliacao['id'], $avaliacao['nota'], $avaliacao['clienteId'],
- 					$avaliacao['acompanhanteId']);
+ 		return self::factoryObj($avaliacao);
  	}
- 	
+	
  	public function inserir(){
  		// validando os campos //
  		if(!$this->_validarCampos())
@@ -75,9 +109,8 @@
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = AvaliacaoDAO::getInstancia();
  		// executando o metodo //
- 		$avaliacao = $instancia->inserir($this);
  		// retornando o Usuario //
- 		//return  $avaliacao = $instancia->inserir($this);
+ 		return  $instancia->inserir($this);
  	}
  	
  	public function editar(){
@@ -87,13 +120,8 @@
  			throw new CamposObrigatorios();
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = AvaliacaoDAO::getInstancia();
- 		// executando o metodo //
- 		 if($instancia->editar($this))
-                return $this;
-            else
-                return null;
- 		// retornando o Usuario //
- 		//return  $avaliacao = $instancia->editar($this);
+ 		// executando o metodo // 		
+ 		return  $instancia->editar($this);
  	}
  	
  	public function excluir(){
@@ -105,6 +133,17 @@
  		return $avaliacao;
  	}
  	
+ 	private static function factoryObj(array $dados){
+ 		 
+ 		return new Avaliacao($dados['id'],
+ 				$dados['nota'],
+ 				$dados['cliente_id'],
+ 				$dados['acompanhante_id'],
+ 				$dados['data_cadastro'],
+ 				$dados['excluido']
+ 		);
+ 	}
+ 	
  	public function getId() {
  		return $this->id;
  	}
@@ -112,6 +151,7 @@
  	public function setId($id) {
  		$this->id = $id;
  	}
+ 	
  	public function getNota() {
  		return $this->nota;
  	}
@@ -134,6 +174,14 @@
  	
  	public function setAcompanhanteId($acompanhanteId) {
  		$this->acompanhanteId = $acompanhanteId;
+ 	}
+
+ 	public function getDataCadastro() {
+ 		return $this->dataCadastro;
+ 	}
+ 	
+ 	public function setdataCadastro($dataCadastro) {
+ 		$this->dataCadastro = $dataCadastro;
  	}
  }
 

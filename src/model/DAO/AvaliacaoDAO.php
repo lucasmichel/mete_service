@@ -34,20 +34,18 @@
  	
  	public function inserir(Avaliacao $obj) {
  		// INSTRUCAO SQL //
- 		$sql = "INSERT INTO " . self::TABELA . "
-            (nota, clienteId, acompanhanteId
-            )
- 	
-            VALUES('" . $obj->getNota() . "',
-            '" . $obj->getClienteId() . "',
-            '" . $obj->getAcompanhanteId() . "')";
+ 		  $sql = "INSERT INTO " . self::TABELA . "
+            (nota,acompanhante_id, cliente_id, data_cadastro)
+            VALUES('" . $obj->getNota() . "' ,
+            '" . $obj->getAcompanhanteId() . "',
+            '" . $obj->getClienteId() . "', NOW())";
 
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->exec($sql);
- 		// TRATANDO O RESULTADO //
- 		($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
- 		// RETORNANDO O RESULTADO //
- 		return $obj;
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // TRATANDO O RESULTADO //
+            ($resultado) ? $obj->setId(mysql_insert_id()) : $obj = $resultado;
+            // RETORNANDO O RESULTADO //
+            return $obj;
  	}
  	
  	/**
@@ -59,53 +57,38 @@
  		// INSTRUCAO SQL //
  		//meuVarDump($obj->getId());
  		// INSTRUCAO SQL //
-			$sql = "UPDATE " . self::TABELA . " SET
-            nota = '" . $obj->getNota() . "' 
-            WHERE id = '" . $obj->getId() . "'";
-			// EXECUTANDO A SQL //
-			$resultado = $this->conexao->exec($sql);
-			// RETORNANDO O RESULTADO //
-			return $resultado;
+		    $sql = "UPDATE " . self::TABELA . " SET
+                    nota = '" . $obj->getNota() . "'              
+                    WHERE id = '" . $obj->getId() . "'";
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->exec($sql);
+            // RETORNANDO O RESULTADO /////
+            return $resultado;
  	}
  	
- 	public function excluir($id) {
- 		// checando se existe algum vinculo desse registro com outros //
- 		//$validacao = "SELECT a.id FROM avaliacao a WHERE a.id = '" . $id . "'";
- 		//if ($this->conexao->fetch($validacao))
- 			//throw new RegistroNaoExcluido(RegistroNaoExcluido::AVALIACAO);
- 		// INSTRUCOES SQL //
- 		$sql[] = "DELETE FROM " . self::TABELA . " WHERE id = '" . $id . "'";
- 		// PERCORRENDO AS SQL //
- 		foreach ($sql as $item) {
- 			// EXECUTANDO A SQL //
- 			$resultado = $this->conexao->exec($item);
- 		}
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
- 	}
- 	
- 	public function buscar($id) {
+
+ 	public function listarPorIdAcompanhante($id) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT a.* FROM " . self::TABELA . " a WHERE a.id = '" . $id . "'";
- 		// EXECUTANDO A SQL //
- 		$resultado = $this->conexao->fetch($sql);
- 		// RETORNANDO O RESULTADO //
- 		return $resultado;
- 	}
- 	
- 	/**
- 	 * Metodo listar()
- 	 * @return fetch_assoc[]
- 	 */
- 	public function listar() {
- 		// INSTRUCAO SQL //
- 		$sql = "SELECT a.* FROM " . self::TABELA . " a ORDER BY a.nota";
+ 		$sql = "SELECT * FROM " . self::TABELA . "
+            where acompanhante_id = '".$id."' and excluido = '0' ";
+ 		//meuVarDump($sql);
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //
  		return $resultado;
  	}
  	
+ 	public function listarPorIdCliente($id) {
+ 		// INSTRUCAO SQL //
+ 		$sql = "SELECT * FROM " . self::TABELA . "
+            where cliente_id = '".$id."' and excluido = '0' ";
+ 		//meuVarDump($sql);
+ 		// EXECUTANDO A SQL //
+ 		$resultado = $this->conexao->fetchAll($sql);
+ 		// RETORNANDO O RESULTADO //
+ 		return $resultado;
+ 	}
+
  }
 
 ?>

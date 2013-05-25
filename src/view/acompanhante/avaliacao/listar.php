@@ -1,13 +1,13 @@
 <?php
+//meuVarDump("testeee");
 header('Content-Type: text/html; charset=utf-8', true);
-$acompanhante = $this->getDados('acompanhante');
 ?>
 <div class="wrap">
     <?php
-    //meuVarDump("testeee");
-    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+    meuVarDump("testeee");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
-    <h2>Lista das avaliacoes da acompanhante: <?php echo $acompanhante->getNome(); ?></h2>
+    
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
@@ -40,21 +40,8 @@ $acompanhante = $this->getDados('acompanhante');
                  * Persistindo em listar os usuários
                  */
                 try {
-					if(Acao::checarPermissao(12, AcompanhanteControll::MODULO))
-						
-					{
-						//meuVarDump("testeee");
-							?>
-					 <a class="classBt" href=acompanhante/adicionarAvaliacao/<?php echo $acompanhante->getId(); ?> >
-                                Adicionar Avaliacao
-                            </a>
-							                <?php 
-					}
-					//meuVarDump("testeee");
-                    $objetos = Avaliacao::listar("avaliacao"); 
+                    $objetos = Comentario::listar("comentario");
                     $paginacao = new Paginacao($objetos, 20);
-						
-                  
                     ?>
                     <div class="table">
                         <table id="lista" class="widefat fixed">
@@ -62,7 +49,11 @@ $acompanhante = $this->getDados('acompanhante');
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nota</th>
+                                    <th width="10%" align="left">Cliente</th>
+                                    <th width="30%" align="left">Comentario</th>
+                                    <th width="10%" align="left">Acompanhante</th>                                    
+                                    <th width="10%" align="left">Data cadastro</th>
+                                    <th width="20%" align="left">Açoes</th>
                                     
                                 </tr>
                             </thead>
@@ -74,26 +65,41 @@ $acompanhante = $this->getDados('acompanhante');
                                         <th width="1%">
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
-                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNota(); ?></td>
-                                        <td width="28%" align="left">
+                                        <td width="1%"></td>
+                                        
+                                        <td align="left">
                                         <?php
-                                        //$avaliacao = Avaliacao::buscar($objeto->getId()); 
-                                        	//echo $avaliacao->getNota(); 
+                                            $usuario = Cliente::buscar($objeto->getClienteId()); 
+                                            echo $usuario->getNome(); 
                                         ?>
                                         </td>
                                         
-                                        <td width="20%">						
+                                        <td align="left"><?php echo $objeto->getComentario(); ?></td>
+                                        
+                                        <td align="left">
+                                        <?php
+                                            $acomp = Acompanhante::buscar($objeto->getAcompanhanteId()); 
+                                            echo $acomp->getNome(); 
+                                        ?>
+                                        </td>
+                                        
+                                        <td align="left">
+                                        <?php                                        
+                                            echo $objeto->getDataCadastro(); 
+                                        ?>
+                                        </td>
+                                        
+                                        <td >						
                                             <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, AvaliacaoControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
-                                                <a href="avaliacao/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, AvaliacaoControll::MODULO)) {
+                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
                                             ?>    
-                                                <a href="avaliacao/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>

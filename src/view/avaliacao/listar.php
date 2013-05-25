@@ -1,11 +1,13 @@
 <?php
+//meuVarDump("testeee");
 header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
-    meuVarDump("testeee");
+    //meuVarDump("testeee");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "avaliacao.php");
     ?>
+    
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 
@@ -38,7 +40,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Avaliacao::listar("avaliacao");
+                    $objetos = Comentario::listar("comentario");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -47,7 +49,12 @@ header('Content-Type: text/html; charset=utf-8', true);
                                 <tr>
                                     <th width="1%"><input type="checkbox" id="all" style="visibility:hidden;"/></th>
                                     <th width="1%"></th>
-                                    <th width="28%" align="left">Nota</th>                                    
+                                    <th width="10%" align="left">Cliente</th>
+                                    <th width="30%" align="left">Nota</th>
+                                    <th width="10%" align="left">Acompanhante</th>                                    
+                                    <th width="10%" align="left">Data cadastro</th>
+                                    <th width="20%" align="left">Açoes</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,24 +66,40 @@ header('Content-Type: text/html; charset=utf-8', true);
                                             <input type="checkbox" id="ids" name="ids[]" value="" style="visibility:hidden;"/>
                                         </th>
                                         <td width="1%"></td>
-                                        <td width="28%" align="left"><?php echo $objeto->getNota(); ?></td>
-                                        <td width="28%" align="left">
+                                        
+                                        <td align="left">
                                         <?php
-                                        $avaliacao = Avaliacao::buscar($objeto->getId()); 
-                                        	echo $avaliacao->getNota(); 
+                                            $usuario = Cliente::buscar($objeto->getClienteId()); 
+                                            echo $usuario->getNome(); 
                                         ?>
                                         </td>
-                                        <td width="20%">						
-                                            <a href="avaliacao/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
+                                        
+                                        <td align="left"><?php echo $objeto->getComentario(); ?></td>
+                                        
+                                        <td align="left">
+                                        <?php
+                                            $acomp = Acompanhante::buscar($objeto->getAcompanhanteId()); 
+                                            echo $acomp->getNome(); 
+                                        ?>
+                                        </td>
+                                        
+                                        <td align="left">
+                                        <?php                                        
+                                            echo $objeto->getDataCadastro(); 
+                                        ?>
+                                        </td>
+                                        
+                                        <td >						
+                                            <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
                                             if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
                                             ?>
-                                                <a href="avaliacao/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
                                             if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
                                             ?>    
-                                                <a href="avaliacao/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>
@@ -92,14 +115,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                         <span class="page"><?php echo $paginacao->getLinks(); ?></span>
                     </div>
                     <?php
-                } catch (Exception $e) {
-                    ?>
-                    <div class="exception">
-                        <?php echo $e->getMessage(); ?>
-                    </div>
-                    <?php
-                }
-                ?>
+	                } catch (Exception $e) {
+	                    ?>
+	                    <div class="exception">
+	                        <?php echo $e->getMessage(); ?>
+	                    </div>
+	                    <?php
+	                }
+	                ?>
             </div> <!--fim div box-->
         </div> <!--fim div box-content-->
     </div><!--fim div dashboard-wrap-->

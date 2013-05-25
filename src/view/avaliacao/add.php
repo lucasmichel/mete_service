@@ -1,75 +1,29 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $cliente = $this->getDados('cliente');    
-    $usuario = $this->getDados('usuario');
+    $avaliacao = $this->getDados('avaliacao');
 ?>
 <script type="text/javascript">
     $(document).ready(function($){
-    	function validaEmail (email)
-    	{
-    		er = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
-    		if(er.exec(email))
-    			return true;
-    		else
-    			return false;
-    	};
-        
-        $('#email').focus();
-       
+        $('#avaliacao').focus();
                 
         $("#ok").click(function() {
-        	var senha = $.trim($("#senha").val());
-        	var email = $.trim($("#email").val());
-        	var nome = $.trim($("#nome").val());
-        	var cpf = $.trim($("#cpf").val());
-        	        	
-        	if(email.length <= 0){
-            	alert('é necessário um email');
-                $("#email").focus();
-                return false;
-			}
-        	            
-            else if(!validaEmail(email)){
-            	alert('email invalido');
-                $("#email").focus();
-                return false;
-			}
+            var avaliacao = $.trim($("#avaliacao").val());
             
-            else if(senha.length <= 0){
-                alert('é necessário definir a senha');
-                $("#senha").focus();
+            if(avaliacao.length <= 0)
+            {
+                alert('Necessário digitar nota');
+                $("#avaliacao").focus();
                 return false;
-            }
-
-            else if(nome.length <= 0){
-                alert('é necessário definir o nome');
-                $("#nome").focus();
-                return false;
-            }
-
-            else if(cpf.length <= 0){
-                alert('é necessário definir o CPF');
-                $("#cpf").focus();
-                return false;
-            }
-
-            else if(!$('#cpf').validateCPF()){
-                alert('CPF inválido!');
-                $("#cpf").focus();
-                return false;
-            }
-            
+            }           
             else{
                 $("#cadastro").submit();
-            }
-
+            }          
         });                
-                
     });
 </script>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
+   // include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -78,30 +32,78 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Cadastrar Cliente</span>
+                        <span>Cadastrar Avaliacao</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
                             <fieldset>
                                 <legend>Dados</legend>
-                                <ul class="list-cadastro">                                    
+                                <ul class="list-cadastro">
+                                    
                                     <li>
-                                        <label for="email">Email</label>
-                                        <input type="text" id="email" name="email" value="<?php if($usuario != null) echo $usuario->getEmail();  ?>" />
-                                    </li>
-                                    <li>
-                                        <label for="senha">Senha</label>
-                                        <input type="password" id="senha" name="senha" value=""  />
-                                    </li>
-                                    <li>
-                                        <label for="nome">Nome</label>
-                                        <input type="text" id="nome" name="nome" value="<?php if($cliente != null) echo $cliente->getNome();  ?>"  />
+                                        <label for="clienteId">Cliente</label>
+                                        <select id="clienteId" name="clienteId">
+                                            <option value="">Selecione</option>
+                                            <?php
+                                            if($comentario!=null){
+                                                $idCliente = $comentario->getClienteId();
+                                            }
+                                            else {
+                                                $idCliente = null;
+                                            }
+                                            try {
+                                                $objs = Cliente::listar("nome");
+                                                foreach ($objs as $obj) {
+                                                    ?>
+                                            <option <?php if($idCliente == $obj->getId()) {
+                                                        echo "selected"; 
+                                                    }
+                                                    ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
+                                            </option>
+                                                    <?php
+                                                }
+                                            } catch (ListaVazia $e) {
+                                                
+                                            }
+                                            ?>
+                                        </select>
                                     </li>
                                     
                                     <li>
-                                        <label for="cpf">CPF</label>
-                                        <input type="text" alt="cpf" id="cpf" name="cpf" value="<?php if($cliente != null) echo $cliente->getCpf();  ?>" />
-                                    </li>                                    
+                                        <label for="nome">Nota</label>
+                                        <input type="text" id="avaliacao" name="avaliacao" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
+                                    </li>        
+                                                               
+                                    
+                                    <li>
+                                        <label for="acompanhanteId">Acompanhante:</label>
+                                        <select id="acompanhanteId" name="acompanhanteId">
+                                            <option value="">Selecione</option>
+                                            <?php
+                                            if($comentario!=null){
+                                                $idAcompanhante = $comentario->getAcompanhanteId();
+                                            }
+                                            else {
+                                                $idAcompanhante = null;
+                                            }
+                                            try {
+                                                $objs = Acompanhante::listar("nome");
+                                                foreach ($objs as $obj) {
+                                                    ?>
+                                            <option <?php if($idAcompanhante == $obj->getId()) {
+                                                        echo "selected"; 
+                                                    }
+                                                    ?> value="<?php echo $obj->getId(); ?>"><?php echo $obj->getNome(); ?>
+                                            </option>
+                                                    <?php
+                                                }
+                                            } catch (ListaVazia $e) {
+                                                
+                                            }
+                                            ?>
+                                        </select>
+                                    </li>
+                                    
                                 </ul>
                             </fieldset>
                             <ul id="bts">

@@ -97,9 +97,9 @@ $cliente = $this->getDados('cliente');
                                             <a href="acompanhante/visualizarComentario/<?php echo $objeto->getId(); ?>">Comentario</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(12, AcompanhanteControll::MODULO)) {
+                                            if (Acao::checarPermissao(1, AvaliacaoControll::MODULO)) {
                                             ?>
-                                            <a href="acompanhante/visualizarAvaliacao/<?php echo $objeto->getId(); ?>">Avalicao</a>
+                                            <a href="avaliacao/visualizarAvaliacao/<?php echo $objeto->getId(); ?>">Avalicao</a>
                                             
                                             <?php
                                             }
