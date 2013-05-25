@@ -655,13 +655,13 @@ class DefaultControll extends Controll {
 
     private function _teste($_POST) {    	
         
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
         
     	$executa = new WebServiceControll();
     	$executa->_teste($_POST);
             
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
         
     }
     
@@ -676,9 +676,14 @@ class DefaultControll extends Controll {
         }
     }
 
-    private function _teste30($_POST) {    	
+    private function _teste30($_POST) {    
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
     	$executa = new WebServiceControll();
     	$executa->_teste($_POST);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -693,8 +698,14 @@ class DefaultControll extends Controll {
     }
 
     private function _teste100($_POST) {
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
     	$executa = new WebServiceControll();
     	$executa->_teste($_POST);
+    	
+
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -712,12 +723,12 @@ class DefaultControll extends Controll {
 
     private function _testeListaAcompanhante($_POST) {    	
         
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
         
     	$executa = new WebServiceControll();
     	$A = $executa->_testeListar($_POST);
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
         
     }
     
@@ -734,12 +745,12 @@ class DefaultControll extends Controll {
     }
 
     private function _testeListaAcompanhante30($_POST) {    	
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
     	$executa = new WebServiceControll();
     	$A = $executa->_testeListar($_POST);
             
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/   
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
     }
     
     public function testeListaAcompanhante100() {
@@ -754,12 +765,12 @@ class DefaultControll extends Controll {
     }
 
     private function _testeListaAcompanhante100($_POST) {    	
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
     	$executa = new WebServiceControll();
     	$A = $executa->_testeListar($_POST);
             
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/   
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);  
     }
     
     
@@ -776,12 +787,12 @@ class DefaultControll extends Controll {
 
     private function _testeListaServico($_POST) {    	
         
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
         
     	$executa = new WebServiceControll();
     	$executa->_testeListarServico($_POST);
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
         
     }
     
@@ -797,12 +808,12 @@ class DefaultControll extends Controll {
 
     private function _testeListaServico30($_POST) {    	
         
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
         
     	$executa = new WebServiceControll();
     	$executa->_testeListarServico($_POST);
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
         
     }
     
@@ -818,12 +829,12 @@ class DefaultControll extends Controll {
 
     private function _testeListaServico100($_POST) {    	
         
-        //$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
+        $DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );        
         
     	$executa = new WebServiceControll();
     	$executa->_testeListarServico($_POST);
-        /*$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
-        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);*/
+        $DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+        $executa->calcularTempo("logarAndroid",$DateTimeInicio, $DateTimeFim);
         
     }
     
@@ -839,8 +850,13 @@ class DefaultControll extends Controll {
         }
     }
     public function _excluirAcompanhantePerformance($dados){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirAcompanhantePerformance($dados);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -854,8 +870,13 @@ class DefaultControll extends Controll {
         }
     }
     public function _excluirAcompanhantePerformance30($dados){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirAcompanhantePerformance($dados);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -869,19 +890,15 @@ class DefaultControll extends Controll {
         }
     }
     public function _excluirAcompanhantePerformance100($dados){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirAcompanhantePerformance($dados);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     public function excluirClientePerformance() {
         if ($this->getDados('POST')) {
@@ -894,8 +911,13 @@ class DefaultControll extends Controll {
     }
     
     public function _excluirClientePerformance(){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirClientePerformance($dados);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -910,8 +932,13 @@ class DefaultControll extends Controll {
     }
     
     public function _excluirClientePerformance30($dados){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirClientePerformance($dados);
+    	
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
     
     
@@ -926,8 +953,14 @@ class DefaultControll extends Controll {
     }
     
     public function _excluirClientePerformance100($dados){
+    	$DateTimeInicio = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	
         $executa = new WebServiceControll();
     	$executa->_excluirClientePerformance($dados);
+    	
+
+    	$DateTimeFim = new DateTime( 'now', new DateTimeZone( 'America/Recife') );
+    	$executa->calcularTempo("buscar",$DateTimeInicio, $DateTimeFim);
     }
     
     

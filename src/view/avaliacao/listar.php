@@ -3,7 +3,8 @@ header('Content-Type: text/html; charset=utf-8', true);
 ?>
 <div class="wrap">
     <?php
-    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
+    meuVarDump("testeee");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -65,8 +66,6 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         	echo $avaliacao->getNota(); 
                                         ?>
                                         </td>
-                                        
-                                         
                                         <td width="20%">						
                                             <a href="avaliacao/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php

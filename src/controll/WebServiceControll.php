@@ -1222,9 +1222,6 @@ class WebServiceControll extends Controll{
 		}
             
             
-            
-            
-            
             try {
                     $foto = Fotos::buscar($dados['id']);
                     $foto->excluir();
