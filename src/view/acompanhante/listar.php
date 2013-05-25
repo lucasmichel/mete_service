@@ -5,6 +5,7 @@ $cliente = $this->getDados('cliente');
 <div class="wrap">
     <?php
     include_once(VIEW . DS . "default" . DS . "tops" . DS . "acompanhante.php");
+    //meuVarDump("testeee");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
