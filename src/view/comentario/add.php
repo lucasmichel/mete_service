@@ -11,7 +11,7 @@
             
             if(comentario.length <= 0)
             {
-                alert('Não necessário o nome do comentario');
+                alert('NÃ£o necessÃ¡rio o nome do comentario');
                 $("#comentario").focus();
                 return false;
             }           

@@ -78,7 +78,7 @@ class AvaliacaoControll extends Controll {
     	// persistindo em inserir o usuário //
     try {
  		$avaliacao = new Avaliacao();
- 		//meuVarDump($dados['nota']);
+ 		//meuVarDump($dados);
  		$avaliacao->setNota($dados['nota']);
  		$avaliacao->setAcompanhanteId($dados['acompanhanteId']);
  		$avaliacao->setClienteId($dados['clienteId']);

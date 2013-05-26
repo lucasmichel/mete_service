@@ -107,7 +107,9 @@
  			// levantando a excessao CamposObrigatorios //
  			throw new CamposObrigatorios();
  		// recuperando a instancia da classe de acesso a dados //
+ 		
  		$instancia = AvaliacaoDAO::getInstancia();
+ 		//meuVarDump($this);
  		// executando o metodo //
  		// retornando o Usuario //
  		return  $instancia->inserir($this);
@@ -121,6 +123,7 @@
  		// recuperando a instancia da classe de acesso a dados //
  		$instancia = AvaliacaoDAO::getInstancia();
  		// executando o metodo // 		
+ 		
  		return  $instancia->editar($this);
  	}
  	

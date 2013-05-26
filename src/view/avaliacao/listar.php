@@ -40,7 +40,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                  * Persistindo em listar os usuários
                  */
                 try {
-                    $objetos = Comentario::listar("comentario");
+                    $objetos = Avaliacao::listar("avaliacao");
                     $paginacao = new Paginacao($objetos, 20);
                     ?>
                     <div class="table">
@@ -74,7 +74,7 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         ?>
                                         </td>
                                         
-                                        <td align="left"><?php echo $objeto->getComentario(); ?></td>
+                                        <td align="left"><?php echo $objeto->getNota(); ?></td>
                                         
                                         <td align="left">
                                         <?php
@@ -92,14 +92,14 @@ header('Content-Type: text/html; charset=utf-8', true);
                                         <td >						
                                             <a href="comentario/ver/<?php echo $objeto->getId(); ?>">Ver</a> 
                                             <?php
-                                            if (Acao::checarPermissao(3, ComentarioControll::MODULO)) {
+                                            if (Acao::checarPermissao(3, AvaliacaoControll::MODULO)) {
                                             ?>
-                                                <a href="comentario/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                                <a href="avaliacao/editar/<?php echo $objeto->getId(); ?>">Editar</a>
                                             <?php
                                             }
-                                            if (Acao::checarPermissao(4, ComentarioControll::MODULO)) {
+                                            if (Acao::checarPermissao(4, AvaliacaoControll::MODULO)) {
                                             ?>    
-                                                <a href="comentario/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                                <a href="avaliacao/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
                                             ?>

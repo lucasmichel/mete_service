@@ -1,29 +1,32 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
+   // $comentario = $this->getDados('comentario');
     $avaliacao = $this->getDados('avaliacao');
 ?>
 <script type="text/javascript">
-    $(document).ready(function($){
-        $('#avaliacao').focus();
-                
-        $("#ok").click(function() {
-            var avaliacao = $.trim($("#avaliacao").val());
+$(document).ready(function($){
+    
+    $('#avaliacao').focus();
             
-            if(avaliacao.length <= 0)
-            {
-                alert('Necessário digitar nota');
-                $("#avaliacao").focus();
-                return false;
-            }           
-            else{
-                $("#cadastro").submit();
-            }          
-        });                
-    });
+    $("#ok").click(function() {
+    	var servico = $.trim($("#avaliacao").val());
+    	
+    	
+    	if(nota.length <= 0){
+        	alert('N�o necessário o nome do comentario');
+            $("#avaliacao").focus();
+            return false;
+		}           
+        else{
+            $("#cadastro").submit();
+        }          
+    });                
+});
 </script>
 <div class="wrap">
     <?php
-   // include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
+    //meuVarDump("testeee");
+    include_once(VIEW . DS . "default" . DS . "tops" . DS . "comentario.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
@@ -45,8 +48,8 @@
                                         <select id="clienteId" name="clienteId">
                                             <option value="">Selecione</option>
                                             <?php
-                                            if($comentario!=null){
-                                                $idCliente = $comentario->getClienteId();
+                                            if($avaliacao!=null){
+                                                $idCliente = $avaliacao->getClienteId();
                                             }
                                             else {
                                                 $idCliente = null;
@@ -71,17 +74,16 @@
                                     
                                     <li>
                                         <label for="nome">Nota</label>
-                                        <input type="text" id="avaliacao" name="avaliacao" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
-                                    </li>        
-                                                               
+                                        <input type="text" id="nota" name="nota" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
+                                    </li>                                   
                                     
                                     <li>
                                         <label for="acompanhanteId">Acompanhante:</label>
                                         <select id="acompanhanteId" name="acompanhanteId">
                                             <option value="">Selecione</option>
                                             <?php
-                                            if($comentario!=null){
-                                                $idAcompanhante = $comentario->getAcompanhanteId();
+                                            if($avaliacao!=null){
+                                                $idAcompanhante = $avaliacao->getAcompanhanteId();
                                             }
                                             else {
                                                 $idAcompanhante = null;

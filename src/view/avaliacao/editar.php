@@ -1,25 +1,26 @@
 <?php
     header('Content-Type: text/html; charset=utf-8', true);
-    $comentario = $this->getDados('comentario');
+    $avaliacao = $this->getDados('avaliacao');
 ?>
 <script type="text/javascript">
-    $(document).ready(function($){
-        $('#comentario').focus();
-                
-        $("#ok").click(function() {
-            var comentario = $.trim($("#comentario").val());
+$(document).ready(function($){
+    
+    $('#avaliacao').focus();
             
-            if(comentario.length <= 0)
-            {
-                alert('Não necessário o nome do comentario');
-                $("#comentario").focus();
-                return false;
-            }           
-            else{
-                $("#cadastro").submit();
-            }          
-        });                
-    });
+    $("#ok").click(function() {
+    	var servico = $.trim($("#avaliacao").val());
+    	
+    	
+    	if(nota.length <= 0){
+        	alert('N�o necessário o nome do comentario');
+            $("#avaliacao").focus();
+            return false;
+		}           
+        else{
+            $("#cadastro").submit();
+        }          
+    });                
+});
 </script>
 <div class="wrap">
     <?php
@@ -32,11 +33,11 @@
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">                        
-                        <span>Editar Comentario</span>
+                        <span>Editar Avaliacao</span>
                     </h3>
                     <div class="inside">
                         <form method="post" id="cadastro">
-                            <input type="hidden" id="id" name ="id" value="<?php echo $comentario->getId();?>"/>
+                            <input type="hidden" id="id" name ="id" value="<?php echo $avaliacao->getId();?>"/>
                             <fieldset>
                                 <legend>Dados</legend>
                                 <ul class="list-cadastro">
@@ -71,8 +72,8 @@
                                     </li>
                                     
                                     <li>
-                                        <label for="nome">Comentario</label>
-                                        <input type="text" id="comentario" name="comentario" value="<?php if($comentario != null) echo $comentario->getComentario();  ?>" />
+                                        <label for="nome">Avaliacao</label>
+                                        <input type="text" id="nota" name="nota" value="<?php if($avaliacao != null) echo $avaliacao->getNota();  ?>" />
                                     </li>                                   
                                     
                                     <li>

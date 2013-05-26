@@ -34,12 +34,13 @@
  	
  	public function inserir(Avaliacao $obj) {
  		// INSTRUCAO SQL //
+ 		//meuVarDump("testeee");
  		  $sql = "INSERT INTO " . self::TABELA . "
             (nota,acompanhante_id, cliente_id, data_cadastro)
             VALUES('" . $obj->getNota() . "' ,
             '" . $obj->getAcompanhanteId() . "',
             '" . $obj->getClienteId() . "', NOW())";
-
+ 		 // meuVarDump("testeee");
             // EXECUTANDO A SQL //
             $resultado = $this->conexao->exec($sql);
             // TRATANDO O RESULTADO //
