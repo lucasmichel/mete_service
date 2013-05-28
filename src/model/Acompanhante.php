@@ -269,7 +269,7 @@ class Acompanhante {
     }
     
     public static function buscar($id){
-    	// recuperando a instancia da classe de acesso a dados //
+        // recuperando a instancia da classe de acesso a dados //
     	$instancia = AcompanhanteDAO::getInstancia();
     	// executando o metodo //
     	$acompanhante = $instancia->buscarPorId($id);
@@ -335,6 +335,23 @@ class Acompanhante {
     		// instanciando e jogando dentro da colecao $objetos o Usuario //
     		
     		//$obj = self::construirObjeto($acompanhante);
+                $da['id'] = $acompanhante['id'];
+                $da['nome'] = $acompanhante['nome'];
+                $da['idade'] = $acompanhante['idade'];
+                $da['altura'] = $acompanhante['altura'];
+                $da['peso'] = $acompanhante['peso'];
+                $da['busto'] = $acompanhante['busto'];
+                $da['cintura'] = $acompanhante['cintura'];
+                $da['quadril'] = $acompanhante['quadril'];
+                $da['olhos'] = $acompanhante['olhos'];
+                $da['pernoite'] = $acompanhante['pernoite'];
+                $da['atendo'] = $acompanhante['atendo'];
+                $da['especialidade'] = $acompanhante['especialidade'];
+                $da['horarioAtendimento'] = $acompanhante['horario_atendimento'];
+                $da['excluido'] = $acompanhante['excluido'];
+                $da['usuarioId'] = $acompanhante['usuarios_id'];
+                $da['usuarioIdPerfil'] = $acompanhante['usuarios_id_perfil'];
+            
     		$objetos[] = $acompanhante; 
     	
 	}
@@ -342,29 +359,7 @@ class Acompanhante {
     }
     
     
-    public static function listarParaWebServiceSerializado(){
-    	// recuperando a instancia da classe de acesso a dados //
-    	$instancia = AcompanhanteDAO::getInstancia();
-    	// executando o metodo //
-    	$acompanhantes = $instancia->listar("nome");
-    	 
-    	// checando se o retorno foi falso //
-    	if(!$acompanhantes)
-    		// levantando a excessao ListaVazia //
-    		throw new ListaVazia(ListaVazia::ACOMPANHANTES);
-    	 
-    	foreach($acompanhantes as $acompanhante){
-    		// instanciando e jogando dentro da colecao $objetos o Usuario //
-    
-    		$obj = self::construirObjeto($acompanhante);
-    
-    		$a = serialize($obj);
-    		//$b = unserialize($str);
-    		$objetos[] = $a;
-    		 
-    	}
-    	return $objetos;
-    }
+   
     
     
     public static function buscarParaWebService($id){

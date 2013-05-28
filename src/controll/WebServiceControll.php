@@ -117,6 +117,7 @@ class WebServiceControll extends Controll{
 		$retorno = base64_encode(json_encode($arrayRetorno));
 		//$retorno = json_encode($arrayRetorno);
 		echo $retorno;
+                
 	}
 	
 	
@@ -340,15 +341,16 @@ class WebServiceControll extends Controll{
 			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
 			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
 			$encoded = json_decode($jsonDescriptografado, true);
+                        
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];
-				
-			$acompanhante = new Acompanhante();
+			
+			$acompanhante = new Acompanhante();                        
 			$acompanhante = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
 			
-			$retornoDados[] = Acompanhante::objetoParaArray($acompanhante) ;
-			
+                        $retornoDados[] = Acompanhante::objetoParaArray($acompanhante);
+                        
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
 			$this->retorno($arrayRetorno);
@@ -356,8 +358,10 @@ class WebServiceControll extends Controll{
 	
 		} catch (Exception $e) {
 			
+                        
+                        
+                    
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
-			
 			$this->retorno($arrayRetorno);
 		}
 	}

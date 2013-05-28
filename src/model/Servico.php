@@ -113,13 +113,13 @@ class Servico {
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ServicoDAO::getInstancia();
 		// executando o metodo //
-		$servico = $instancia->listar($ordenarPor);
+		$servicos = $instancia->listar($ordenarPor);
 		// checando se o retorno foi falso //
-		if(!$servico)
+		if(!$servicos)
 			// levantando a excessao ListaVazia //
 			throw new ListaVazia(ListaVazia::SERVICOS);
 		// percorrendo os usuarios //
-		foreach($servico as $servico){
+		foreach($servicos as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
                         
                         $objetos[] = $servico;
