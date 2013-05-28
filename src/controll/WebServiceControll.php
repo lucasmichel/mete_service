@@ -698,9 +698,7 @@ class WebServiceControll extends Controll{
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			
 			$usuario = Usuario::logarAndroid($atributoDados['email'], $atributoDados['senha']);
-			
-                        $retornoDados[] = Usuario::objetoParaArray($usuario);
-                        
+			$retornoDados[] = $usuario;
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Usuário logado com sucesso");
 			
 			$this->retorno($arrayRetorno);

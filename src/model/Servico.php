@@ -121,12 +121,8 @@ class Servico {
 		// percorrendo os usuarios //
 		foreach($servico as $servico){
 			// instanciando e jogando dentro da colecao $objetos o Usuario //
-			$obj = new Servico($servico['id'],					
-					$servico['nome'],
-					$servico['excluido']
-			);
                         
-                        $objetos[] = (array) $obj;
+                        $objetos[] = $servico;
 		}
 		// retornando a colecao $objetos //
 		return $objetos;
