@@ -1292,8 +1292,7 @@ class WebServiceControll extends Controll{
 			$atributoDados = $encoded["dados"];
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
-			
-                        foreach ($atributoDados as $value) {
+			foreach ($atributoDados as $value) {
                             
                             $servicoAcompanhante = ServicosAcompanhante::buscar($value["servicoAcompanhanteId"]);
                             $servicosDoEncontro = new ServicosDoEncontro();

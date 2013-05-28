@@ -211,6 +211,10 @@ class ServicosAcompanhante {
 		$instancia = ServicosAcomapnhanteDAO::getInstancia();
 		// executando o metodo //
 		$servico = $instancia->buscarPorId($id);
+                
+                /*meuVarDump($id);
+                die();*/
+                
 		// checando se o resultado foi falso //
 		if(!$servico)
 			// levanto a excessao RegistroNaoEncontrado //
