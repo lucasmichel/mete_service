@@ -207,13 +207,12 @@ class ServicosAcompanhante {
 	}
 	
 	public static function buscar($id){
+                
+            
 		// recuperando a instancia da classe de acesso a dados //
 		$instancia = ServicosAcomapnhanteDAO::getInstancia();
 		// executando o metodo //
 		$servico = $instancia->buscarPorId($id);
-                
-                /*meuVarDump($id);
-                die();*/
                 
 		// checando se o resultado foi falso //
 		if(!$servico)
