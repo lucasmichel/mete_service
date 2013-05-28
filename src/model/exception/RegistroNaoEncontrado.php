@@ -10,7 +10,7 @@ class RegistroNaoEncontrado extends Exception {
     const COMENTARIO = 8;
     const  AVALIACAO = 9;
     const  SERVICOS_DO_ECONTRO = 10;
-    const  ECONTRO = 11;
+    const  ENCONTRO = 11;
     const  LOCALIZACAO = 12;
     const FOTO = 13;
 
@@ -46,7 +46,7 @@ class RegistroNaoEncontrado extends Exception {
                 case self::SERVICOS_DO_ECONTRO:
                         $msg = 'Serviço do encontro não encontrado.';
                         break;
-                case self::ECONTRO:
+                case self::ENCONTRO:
                         $msg = 'Encontro não encontrado.';
                         break;
                 case self::LOCALIZACAO:

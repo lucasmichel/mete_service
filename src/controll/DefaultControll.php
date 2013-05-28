@@ -591,6 +591,23 @@ class DefaultControll extends Controll {
         $executa->_cadastrarServicosDoEncontro($dados);
     }
     
+    
+    public function listarServicosDoEncontro(){
+        if ($this->getDados('POST')) {
+            $this->_listarServicosDoEncontro($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _listarServicosDoEncontro($dados){
+        $executa = new WebServiceControll();
+        $executa->_listarServicosDoEncontro($dados);
+    }
+    
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/

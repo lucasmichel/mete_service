@@ -1344,6 +1344,34 @@ class WebServiceControll extends Controll{
 		}
 	}
         
+        public function _listarServicosDoEncontro($dados) {
+            
+		try {
+                    
+                        $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];                        
+                        
+                        $encontro = Encontro::buscar($atributoDados['id']);
+                        
+			$arrayRetornoLista = ServicosDoEncontro::listarPorEcontro($encontro);
+                        
+                        foreach ($arrayRetornoLista as $servicosDoEncontro) {
+                            $retornoDados[] = ServicosDoEncontro::objetoParaArray($servicosDoEncontro);
+                        }
+                        
+                        //$retornoDados[] =(array) $arrayRetornoLista;
+                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "Servicos localizados!");
+                        $this->retorno($arrayRetorno);
+                        
+		} catch (Exception $e) {
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+	}
+        
         
 }
 ?>
