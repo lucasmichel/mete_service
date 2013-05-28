@@ -24,6 +24,7 @@ class ListaVazia extends Exception {
     const SERVICOS_DO_ENCONTRO = 12;
     const ENCONTRO = 13;
     const LOCALIZACAO = 14;
+    const RELATORIOS = 15;
    // const LOCALIZACAO = 15;
     
     
@@ -71,6 +72,9 @@ class ListaVazia extends Exception {
             case self::LOCALIZACAO:
                 $msg = 'Nenhuma localização encontrada.';
                 break;
+            case self::RELATORIOS:
+                	$msg = 'Nenhuma localização encontrada.';
+                	break;
             	
         }
         parent::__construct($msg);

@@ -72,21 +72,7 @@ class DefaultControll extends Controll {
         $this->setPage();
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /* PARA ANDROID *//* PARA ANDROID */
     /* PARA ANDROID *//* PARA ANDROID */
     
