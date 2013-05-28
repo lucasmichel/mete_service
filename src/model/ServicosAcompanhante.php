@@ -18,6 +18,18 @@ class ServicosAcompanhante {
 		$this->excluido = $excluido;
 		
 	}
+        
+        public static function objetoParaArray(ServicosAcompanhante $obj){
+            
+            $da['id'] = $obj->getId();
+            $da['servicoId'] = $obj->getServicoId();
+            $da['acompanhanteId'] = $obj->getAcompanhanteId();
+            $da['valor'] = $obj->getValor();
+            $da['excluido'] = $obj->getExcluido();
+
+            return $da;
+        }
+        
 	public function getId() {
 		return $this->id;
 	}

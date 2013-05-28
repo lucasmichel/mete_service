@@ -290,6 +290,19 @@ class Usuario {
     }
     
     
+    public static function objetoParaArray(Usuario $obj){
+            
+        $da['id'] = $obj->getId();
+        $da['login'] = $obj->getLogin();
+        $da['email'] = $obj->getEmail();
+        $da['idPerfil'] = $obj->getPerfil()->getId();
+        $da['excluido'] = $obj->getExcluido();
+        $da['dataUltimoLogin'] = $obj->getDataUltimoLogin();
+        
+        return $da;
+    }
+	
+    
     /**
      * Metodos getters() e setters()
      */

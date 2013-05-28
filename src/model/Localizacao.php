@@ -44,6 +44,16 @@ class  Localizacao{
             return $retorno;
 	}
 	
+         public static function objetoParaArray(Localizacao $obj){
+             
+            $da['id'] = $obj->getId();
+            $da['latitude'] = $obj->getLatitude();
+            $da['longitude'] = $obj->getLongitude();
+            $da['enderecoFormatado'] = $obj->getEnderecoFormatado();
+            $da['servicoAcompanhanteId'] = $obj->getServicoAcompanhanteId();
+
+            return $da;
+        }
 	
 	public function getId() {
 		return $this->id;

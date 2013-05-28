@@ -30,6 +30,21 @@ class ServicosDoEncontro {
 		$this->excluido = $excluido;
 		
 	}
+        
+        
+        public static function objetoParaArray(ServicosDoEncontro $obj){
+             
+            $da['id'] = $obj->getId();
+            $da['aprovado'] = $obj->getAprovado();            
+            $da['clienteId'] = $obj->getClienteId();
+            $da['excluido'] = $obj->getExcluido();
+            $da['encontroId'] = $obj->getEncontroId();
+            $da['servicoId'] = $obj->getServicoId();
+            $da['servicoAcompanhanteId'] = $obj->getServicosAcompanhanteId();
+                    
+            return $da;
+        }
+        
 	public function getId() {
 		return $this->id;
 	}        

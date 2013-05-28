@@ -115,7 +115,7 @@ class Acompanhante {
     }
 
     public function getUsuarioIdPerfil() {
-        return $this->usuario_id_perfil;
+        return $this->usuarioIdPerfil;
     }
 
     public function setId($id) {
@@ -382,6 +382,29 @@ class Acompanhante {
     	
     	return  $acompanhante;
     }
+    
+    public static function objetoParaArray(Acompanhante $acompanhante){
+        $da['id'] = $acompanhante->getId();
+        $da['nome'] = $acompanhante->getNome();
+        $da['idade'] = $acompanhante->getIdade();
+        $da['altura'] = $acompanhante->getAltura();
+        $da['peso'] = $acompanhante->getPeso();
+        $da['busto'] = $acompanhante->getBusto();
+        $da['cintura'] = $acompanhante->getCintura();
+        $da['quadril'] = $acompanhante->getQuadril();
+        $da['olhos'] = $acompanhante->getOlhos();
+        $da['pernoite'] = $acompanhante->getPernoite();
+        $da['atendo'] = $acompanhante->getAtendo();
+        $da['especialidade'] = $acompanhante->getEspecialidade();
+        $da['horarioAtendimento'] = $acompanhante->getHorarioAtendimento();
+        $da['excluido'] = $acompanhante->getExcluido();
+        $da['usuarioId'] = $acompanhante->getUsuarioId();
+        $da['usuarioIdPerfil'] = $acompanhante->getUsuarioIdPerfil();
+                        
+        return $da;
+    }
+
+
     /*PARA WEBSERVICE*/
     
     

@@ -115,6 +115,17 @@ class Encontro{
             // executando o metodo //            
             return $instancia->buscarSituacaoEcontro($this->getId());
         }
+        
+        
+        public static function objetoParaArray(Encontro $obj){
+             
+            $da['id'] = $obj->getId();
+            $da['dataHorario'] = $obj->getDataHorario();            
+            $da['clienteId'] = $obj->getClienteId();
+            $da['excluido'] = $obj->getExcluido();
+            
+            return $da;
+        }
 	
 	public function getId() {
 		return $this->id;

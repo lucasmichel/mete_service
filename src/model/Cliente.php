@@ -145,30 +145,43 @@ class  Cliente{
 
 	
 	private function _testarCpfExiste(){
-		// recuperando a instancia da classe de acesso a dados //
-    	$instancia = ClienteDAO::getInstancia();
-    	// executando o metodo //
-    	$objeto = $instancia->testarCpfExiste($this->getCpf());
-    	// checando se o resultado foi falso //
-    	if($objeto)
-	    	return true;
-    	// instanciando e retornando o bollean//
-    	else
-			return false;
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = ClienteDAO::getInstancia();
+            // executando o metodo //
+            $objeto = $instancia->testarCpfExiste($this->getCpf());
+            // checando se o resultado foi falso //
+            if($objeto)
+                return true;
+                // instanciando e retornando o bollean//
+            else
+                return false;
 	}
 	
 	private function _testarCpfExisteEdicao(){
-		// recuperando a instancia da classe de acesso a dados //
-    	$instancia = ClienteDAO::getInstancia();
-    	// executando o metodo //
-    	$objeto = $instancia->testarCpfExisteEdicao($this->getId() ,$this->getCpf());
-    	// checando se o resultado foi falso //
-    	if($objeto)
-	    	return true;
-    	// instanciando e retornando o bollean//
-    	else
-			return false;
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = ClienteDAO::getInstancia();
+            // executando o metodo //
+            $objeto = $instancia->testarCpfExisteEdicao($this->getId() ,$this->getCpf());
+            // checando se o resultado foi falso //
+            if($objeto)
+                return true;
+            // instanciando e retornando o bollean//
+            else
+                return false;
 	}
+        
+        
+        public static function objetoParaArray(Cliente $obj){
+            
+            $da['id'] = $obj->getId();
+            $da['nome'] = $obj->getNome();
+            $da['cpf'] = $obj->getCpf();
+            $da['excluido'] = $obj->getExcluido();
+            $da['usuarioId'] = $obj->getUsuarioId();
+            $da['usuarioIdPerfil'] = $obj->getUsuarioIdPerfil();
+            
+            return $da;
+        }
 	
 
 	public function getId() {

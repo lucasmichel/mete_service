@@ -67,19 +67,29 @@ class Fotos {
         $this->acompanhanteId = $acompanhanteId;
     }
 
-        
-	public function inserir(){
-            // validando os campos //
+    
+    public static function objetoParaArray(Fotos $obj){
             
-            if(!$this->_validarCampos())
-                    // levantando a excessao CamposObrigatorios //
-                    throw new CamposObrigatorios("Fotos");
-            // recuperando a instancia da classe de acesso a dados //
-            $instancia = FotosDAO::getInstancia();
-            // executando o metodo //
-            $fotos = $instancia->inserir($this);
-            // retornando o Usuario //
-            return  $fotos;
+        $da['id'] = $obj->getId();
+        $da['nome'] = $obj->getNome();        
+        $da['excluido'] = $obj->getExcluido();
+        $da['acompanhanteId'] = $obj->getAcompanhanteId();
+        
+        return $da;
+    }
+        
+    public function inserir(){
+        // validando os campos //
+
+        if(!$this->_validarCampos())
+                // levantando a excessao CamposObrigatorios //
+                throw new CamposObrigatorios("Fotos");
+        // recuperando a instancia da classe de acesso a dados //
+        $instancia = FotosDAO::getInstancia();
+        // executando o metodo //
+        $fotos = $instancia->inserir($this);
+        // retornando o Usuario //
+        return  $fotos;
     }
      public function editar(){
             // validando os campos //
