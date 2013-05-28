@@ -539,6 +539,22 @@ class DefaultControll extends Controll {
     
     }
     
+    public function excluirLocalizacaoServicoAcompanhante() {
+    	if ($this->getDados('POST')) {
+    		$this->_excluirLocalizacaoServicoAcompanhante($this->getDados('POST'));
+    	}
+    	else{
+    		$this->setTela('excluirUsuario');
+    		$this->getPage();
+    	}
+    }    
+    private function _excluirLocalizacaoServicoAcompanhante($dados) {
+    
+    	$executa = new WebServiceControll();
+    	$executa->_excluirLocalizacaoServicoAcompanhante($dados);
+    
+    }
+    
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
     /******LOCALIZAÇÃO_SERVIÇO_ACOMPANHANTE******/
@@ -564,6 +580,21 @@ class DefaultControll extends Controll {
         $executa->_cadastrarEncontro($dados);
     }
     
+    public function listarEncontroPorIdCliente(){
+        if ($this->getDados('POST')) {
+            $this->_listarEncontroPorIdCliente($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _listarEncontroPorIdCliente($dados){
+        $executa = new WebServiceControll();
+        $executa->_listarEncontroPorIdCliente($dados);
+    }
     /******ENCONTRO******/
     /******ENCONTRO******/
     /******ENCONTRO******/
@@ -574,7 +605,6 @@ class DefaultControll extends Controll {
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/
-    
     public function cadastrarServicosDoEncontro(){
         if ($this->getDados('POST')) {
             $this->_cadastrarServicosDoEncontro($this->getDados('POST'));
@@ -607,11 +637,66 @@ class DefaultControll extends Controll {
         $executa = new WebServiceControll();
         $executa->_listarServicosDoEncontro($dados);
     }
-    
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/
     /******ENCONTROS_DO_SERVCOS******/
     
+    
+    /******COMENTARIO******/
+    /******COMENTARIO******/
+    /******COMENTARIO******/
+    
+    public function cadastrarComentario(){
+        if ($this->getDados('POST')) {
+            $this->_cadastrarComentario($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _cadastrarComentario($dados){
+        $executa = new WebServiceControll();
+        $executa->_cadastrarComentario($dados);
+    }
+    
+    public function listarComentarioPorIdAcompanhante(){
+        if ($this->getDados('POST')) {
+            $this->_listarComentarioPorIdAcompanhante($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _listarComentarioPorIdAcompanhante($dados){
+        $executa = new WebServiceControll();
+        $executa->_listarComentarioPorIdAcompanhante($dados);
+    }
+    
+    public function excluirComentario(){
+        if ($this->getDados('POST')) {
+            $this->_excluirComentario($this->getDados('POST'));
+        }
+        else
+        {
+            $this->setTela('cadastrarFoto');
+            $this->getPage();
+    	}
+    }
+        
+    private function _excluirComentario($dados){
+        $executa = new WebServiceControll();
+        $executa->_excluirComentario($dados);
+    }
+    
+    /******COMENTARIO******/
+    /******COMENTARIO******/
+    /******COMENTARIO******/
     
     
     public function logarAndroid() {

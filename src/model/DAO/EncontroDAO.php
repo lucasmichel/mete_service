@@ -59,6 +59,16 @@ class EncontroDAO extends ClassDAO{
             return $resultado;
 	}
 	
+        
+        public function buscarPorIdUsuario($id) {
+            // INSTRUCAO SQL //
+            $sql = "SELECT u.* FROM " . self::TABELA . " u WHERE u.cliente_id = '" . $id . "'";
+            // EXECUTANDO A SQL //
+            $resultado = $this->conexao->fetch($sql);
+            // RETORNANDO O RESULTADO //
+            return $resultado;
+        }
+        
         public function buscarSituacaoEcontro($idEcontro) {
             // INSTRUCAO SQL //
             /*$sql = "SELECT count(id) as total FROM servicos_do_encontro WHERE econtro_id = '" . $idEcontro . "' and aprovado = 1";

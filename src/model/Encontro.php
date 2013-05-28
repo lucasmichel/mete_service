@@ -95,6 +95,24 @@ class Encontro{
             // retornando a colecao $objetos //
             return $objetos;
 	}
+        
+	public static function listarPorIdCliente($id){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = EncontroDAO::getInstancia();
+            // executando o metodo //
+            $lista = $instancia->listarPorIdCliente($id);
+            // checando se o retorno foi falso //
+            if(!$lista)
+                    // levantando a excessao ListaVazia //
+                    throw new ListaVazia(ListaVazia::ENCONTRO);
+            // percorrendo os usuarios //
+            foreach($lista as $obj){
+                    // instanciando e jogando dentro da colecao $objetos o Usuario //
+                    $objetos[] = self::fabricaObjeto($obj);
+            }
+            // retornando a colecao $objetos //
+            return $objetos;
+	}
 	
 	public static function buscar($id){
             // recuperando a instancia da classe de acesso a dados //

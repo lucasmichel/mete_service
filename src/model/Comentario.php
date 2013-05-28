@@ -149,6 +149,17 @@ class  Comentario{
                         $dados['excluido']
                     );
          }
+         
+         public static function objetoParaArray(Comentario $obj){
+
+            $da['id'] = $obj->getId();
+            $da['comentario'] = $obj->getComentario();
+            $da['clienteId'] = $obj->getClienteId();
+            $da['acompanhanteId'] = $obj->getAcompanhanteId();
+            $da['dataCadastro'] = $obj->getDataCadastro();
+            $da['excluido'] = $obj->getExcluido();
+            return $da;
+        }
 
 
          public function getId() {
@@ -190,6 +201,14 @@ class  Comentario{
 	
 	public function setdataCadastro($dataCadastro) {
 		$this->dataCadastro = $dataCadastro;
+	}
+        
+        
+	public function setExcluido($excluido) {
+		$this->excluido = $excluido;
+	}
+	public function getExcluido() {
+		return $this->excluido;
 	}
 }
 

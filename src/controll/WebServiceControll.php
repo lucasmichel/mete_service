@@ -378,7 +378,7 @@ class WebServiceControll extends Controll{
 				
 			$acompanhante = new Acompanhante();
 			$acompanhante = $acompanhante->buscarPorIdUsuario($atributoDados['id']);
-                        $retornoDados[] = Acompanhante::obetoParaArray($acompanhante);
+                        $retornoDados[] = Acompanhante::objetoParaArray($acompanhante);
                         
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante localizada!");
 			
@@ -1353,30 +1353,165 @@ class WebServiceControll extends Controll{
         
         public function _listarServicosDoEncontro($dados) {
             
+            try {
+
+                    $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                    $encoded = json_decode($jsonDescriptografado, true);
+                    $atributoDados = $encoded["dados"][0];
+                    $atributoStatus = $encoded["status"];
+                    $atributoMensagem = $encoded["mensagem"];                        
+
+                    $encontro = Encontro::buscar($atributoDados['id']);
+
+                    $arrayRetornoLista = ServicosDoEncontro::listarPorEcontro($encontro);
+
+                    foreach ($arrayRetornoLista as $servicosDoEncontro) {
+                        $retornoDados[] = ServicosDoEncontro::objetoParaArray($servicosDoEncontro);
+                    }
+
+                    //$retornoDados[] =(array) $arrayRetornoLista;
+                    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Servicos localizados!");
+                    $this->retorno($arrayRetorno);
+
+            } catch (Exception $e) {
+                    $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    $this->retorno($arrayRetorno);
+            }
+	}
+        
+        
+        public function _listarEncontroPorIdCliente($dados) {
+            
+            try {
+
+                $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                $encoded = json_decode($jsonDescriptografado, true);
+                $atributoDados = $encoded["dados"][0];
+                $atributoStatus = $encoded["status"];
+                $atributoMensagem = $encoded["mensagem"];                        
+
+                $listaEncontro = Encontro::listarPorIdCliente($atributoDados['id']);
+
+                foreach ($listaEncontro as $encontro){
+                    $retornoDados[] = Encontro::objetoParaArray($encontro);
+                }
+
+                //$retornoDados[] =(array) $arrayRetornoLista;
+                $arrayRetorno = $this->preencherArray($retornoDados, 0, "Servicos localizados!");
+                $this->retorno($arrayRetorno);
+
+            } catch (Exception $e) {
+                $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                $this->retorno($arrayRetorno);
+            }
+	}
+        
+        
+        public function _cadastrarComentario($dados) {
 		try {
-                    
-                        $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+	
+			//COM TRUE NO FINAL È PRA OBJETO $encoded = json_decode($jsonDescriptografado, true);
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
 			$encoded = json_decode($jsonDescriptografado, true);
 			$atributoDados = $encoded["dados"][0];
 			$atributoStatus = $encoded["status"];
-			$atributoMensagem = $encoded["mensagem"];                        
+			$atributoMensagem = $encoded["mensagem"];	
+				
+			$comentario = new Comentario( );
+                        $comentario->setAcompanhanteId($atributoDados['acompanhanteId']);
+                        $comentario->setClienteId($atributoDados['clienteId']);
+                        $comentario->setComentario($atributoDados['comentario']);
                         
-                        $encontro = Encontro::buscar($atributoDados['id']);
+                        $comentario = $comentario->inserir();
                         
-			$arrayRetornoLista = ServicosDoEncontro::listarPorEcontro($encontro);
-                        
-                        foreach ($arrayRetornoLista as $servicosDoEncontro) {
-                            $retornoDados[] = ServicosDoEncontro::objetoParaArray($servicosDoEncontro);
-                        }
-                        
-                        //$retornoDados[] =(array) $arrayRetornoLista;
-                        $arrayRetorno = $this->preencherArray($retornoDados, 0, "Servicos localizados!");
-                        $this->retorno($arrayRetorno);
-                        
-		} catch (Exception $e) {
+                        $retornoDados[] =  Comentario::objetoParaArray($comentario);
+			
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Comentario cadastrada com suceso");
+			
+			$this->retorno($arrayRetorno);
+		} catch (Exception $e) {			
 			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
 			$this->retorno($arrayRetorno);
 		}
+                
+	}
+        
+        
+        public function _listarComentarioPorIdAcompanhante($dados) {
+            
+            try {
+
+                $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                $encoded = json_decode($jsonDescriptografado, true);
+                $atributoDados = $encoded["dados"][0];
+                $atributoStatus = $encoded["status"];
+                $atributoMensagem = $encoded["mensagem"];                        
+
+                $lista = Comentario::listarPorIdAcompanhante($atributoDados['id']);
+                
+                foreach ($lista as $obj){
+                    $retornoDados[] = Comentario::objetoParaArray($obj);
+                }
+
+                //$retornoDados[] =(array) $arrayRetornoLista;
+                $arrayRetorno = $this->preencherArray($retornoDados, 0, "Comentarios localizados!");
+                $this->retorno($arrayRetorno);
+
+            } catch (Exception $e) {
+                $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                $this->retorno($arrayRetorno);
+            }
+	}
+        
+        
+        public function _excluirComentario($dados) {
+            
+            try {
+
+                $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                $encoded = json_decode($jsonDescriptografado, true);
+                $atributoDados = $encoded["dados"][0];
+                $atributoStatus = $encoded["status"];
+                $atributoMensagem = $encoded["mensagem"];                        
+
+                $obj = Comentario::buscar($atributoDados['id']);                
+                $obj = $obj->excluir();                
+                $retornoDados[] = Comentario::objetoParaArray($obj);
+                
+
+                //$retornoDados[] =(array) $arrayRetornoLista;
+                $arrayRetorno = $this->preencherArray($retornoDados, 0, "Comentarios Excluido!");
+                $this->retorno($arrayRetorno);
+
+            } catch (Exception $e) {
+                $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                $this->retorno($arrayRetorno);
+            }
+	}
+        
+        public function _excluirLocalizacaoServicoAcompanhante($dados) {
+            
+            try {
+
+                $jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+                $encoded = json_decode($jsonDescriptografado, true);
+                $atributoDados = $encoded["dados"][0];
+                $atributoStatus = $encoded["status"];
+                $atributoMensagem = $encoded["mensagem"];                        
+
+                $obj = Localizacao::buscar($atributoDados['id']);                
+                $obj = $obj->excluir();                
+                $retornoDados[] = Localizacao::objetoParaArray($obj);
+                
+
+                //$retornoDados[] =(array) $arrayRetornoLista;
+                $arrayRetorno = $this->preencherArray($retornoDados, 0, "Localizacao excluida!");
+                $this->retorno($arrayRetorno);
+
+            } catch (Exception $e) {
+                $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                $this->retorno($arrayRetorno);
+            }
 	}
         
         
