@@ -1,11 +1,11 @@
 <?php
 header('Content-Type: text/html; charset=utf-8', true);
 $cliente = $this->getDados('cliente');
-$usuario = Usuario::buscar($cliente->getUsuarioId()); 
+//$usuario = Usuario::buscar($cliente->getUsuarioId()); 
 ?>
 <div class="wrap">
     <?php
-    include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
+    //include_once(VIEW . DS . "default" . DS . "tops" . DS . "cliente.php");
     ?>
     <div id="dashboard-wrap">
         <div class="metabox">
@@ -15,28 +15,39 @@ $usuario = Usuario::buscar($cliente->getUsuarioId());
             <div class="box">
                 <div class="table">
                     <h3 class="hndle">
-                        <span>Ver Usuário</span>
+                        <h2>Lista de Relatorios </h2>
                     </h3>
                     <div class="inside">
                         <ul class="list-cadastro">
                             <li>
-                                <h4>DADOS</h4>
+                                <h4>Lista</h4>
                                 <ul>
-                                    <li>
-                                        <strong>Email</strong><br />
-                                        <?php if($usuario != null) echo $usuario->getEmail(); ?>
-                                    </li>
-                                    <li style="background:#f5f5f5;">
-                                        <strong>Nome:</strong><br />
-                                        <?php if($cliente != null) echo $cliente->getNome();  ?>
-                                    </li>
-                                    <li>
-                                        <strong>CPF</strong><br />
-                                        <?php if($cliente != null) echo $cliente->getCpf();  ?>
-                                    </li>                                     
+                                <?php
+                                            if (Acao::checarPermissao(1, RelatoriosControll::MODULO)) {
+											?>
+                                			 <a href="relatorios/visualizarAvaliacao">Relatorio Avaliacao</a>
+                                   <?php
+                                            if (Acao::checarPermissao(3, AcompanhanteControll::MODULO)) {
+											?>
+                                                <a href="relatorioo/editar/<?php echo $objeto->getId(); ?>">Editar</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(4, AcompanhanteControll::MODULO)) {
+											?>    
+                                                <a href="relatorio/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
+                                            <?php
+                                            }
+                                            if (Acao::checarPermissao(5, AcompanhanteControll::MODULO)) {
+                                            ?>                              
+                                             <?php
+                                }
+                                ?>
                                 </ul>
                             </li>
                         </ul>
+                            <?php
+                                }
+                                ?>
                         <hr> </hr>
                         <ul id="bts">
                             <li>

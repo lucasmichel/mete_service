@@ -15,10 +15,12 @@ class RelatoriosControll extends Controll {
      * Acao index()
      */
     public function index(){
-        // cÃ³digo da aÃ§Ã£o serve para o controle de acesso//
+         // cÃ³digo da aÃ§Ã£o serve para o controle de acesso//
         static $acao = 1;
+       
         // definindo a tela //
         $this->setTela('listar',array('relatorios'));
+        meuVarDump("teste");
         // guardando a url //
         $this->getPage();
     }
@@ -29,11 +31,36 @@ class RelatoriosControll extends Controll {
     	//meuVarDump("teste");
     	static $acao = 1;
  	// buscando o usuÃ¡rio //
- 	$avaliacao = Avaliacao::buscar($id);
+
+    	include_once('class/fpdf/FPDF.php');
+    	
+    	include_once("class/PHPJasperXML.inc");
+    	
+    	include_once ('config.php');
+    	
+    	$xml = simplexml_load_file("phpjasperxml.jrxml"); //informe onde está seu arquivo jrxml
+    	
+    	$PHPJasperXML = new PHPJasperXML();
+    	
+    	$PHPJasperXML->debugsql=false;
+    	
+    	$descricao=$_GET["descricao"]; //recebendo o parâmetro descrição
+    	
+    	$PHPJasperXML->arrayParameter=array("descricao"=>$descricao); //passa o parâmetro cadastrado no iReport
+    	
+    	$PHPJasperXML->xml_dismantle($xml);
+    	
+    	$PHPJasperXML->connect($server,$user,$pass,$db);
+    	
+    	$PHPJasperXML->transferDBtoArray($server,$user,$pass,$db);
+    	
+    	$PHPJasperXML->outpage("I");
+    	
+    	//$avaliacao = Avaliacao::buscar($id);
  	// jogando o usuÃ¡rio no atributo $dados do controlador //
- 	$this->setDados($avaliacao,'relatorios');
+ 	//$this->setDados($avaliacao,'relatorios');
  	// definindo a tela //
- 	$this->setTela('ver',array('relatorios'));
+ 	//$this->setTela('ver',array('relatorios'));
     }
 
     /**
