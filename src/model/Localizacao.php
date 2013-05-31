@@ -202,7 +202,7 @@ class  Localizacao{
  
         public static function buscar($id){
         	// recuperando a instancia da classe de acesso a dados //
-        	$instancia = CaracteisticasDAO::getInstancia();
+        	$instancia = LocalizacaoDAO::getInstancia();
         	// executando o metodo //
         	$localizacao = $instancia->buscarPorId($id);
         	// checando se o resultado foi falso //

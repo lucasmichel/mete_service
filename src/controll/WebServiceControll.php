@@ -293,7 +293,7 @@ class WebServiceControll extends Controll{
 			$acompanhante = $acompanhante->buscar($atributoDados['id']);
 			$acompanhante = $acompanhante->excluir();
 			
-                        $retornoDados[] = Acompanhante::objetoParaArray($acompanhante);
+                        $retornoDados[] = $acompanhante; //Acompanhante::objetoParaArray($acompanhante);
                         
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante excluída com sucesso!");
 			
@@ -319,9 +319,9 @@ class WebServiceControll extends Controll{
                         
 			$acompanhante = new Acompanhante();
 			$acompanhante = $acompanhante->buscarPorIdUsuario($atributoDados['idUsuario']);
-			$acompanhante = $acompanhante2->excluirPorIdUsuario();
+			$acompanhante = $acompanhante->excluirPorIdUsuario();
 			
-			$retornoDados[] = Acompanhante::objetoParaArray($acompanhante);
+			$retornoDados[] =  $acompanhante;//Acompanhante::objetoParaArray($acompanhante);
 			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Acompanhante excluída com sucesso!");
 			
@@ -562,7 +562,7 @@ class WebServiceControll extends Controll{
 			$cliente = $cliente->buscar($atributoDados['id']);
 			$cliente = $cliente->excluir();
 			
-                        $retornoDados[] = Cliente::objetoParaArray($cliente);
+                        $retornoDados[] = $cliente; ///Cliente::objetoParaArray($cliente);
                         
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
 			
@@ -597,7 +597,7 @@ class WebServiceControll extends Controll{
 			$cliente = $cliente->buscarPorIdUsuario($atributoDados['idUsuario']);
 			$cliente = $cliente->excluirPorIdUsuario();
 			
-                        $retornoDados[] = Cliente::objetoParaArray($cliente);
+                        $retornoDados[] = $cliente; //Cliente::objetoParaArray($cliente);
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Cliente excluído com sucesso!");
 			$this->retorno($arrayRetorno);
 	
@@ -654,7 +654,7 @@ class WebServiceControll extends Controll{
 			$atributoStatus = $encoded["status"];
 			$atributoMensagem = $encoded["mensagem"];	
 				
-			//meuVarDump($encoded);
+			
 			/*CONTA O TOTAL DE INTENS VINDOS NO ARRAY*/
 			//$to = count($encoded["dados"]);
 			//meuVarDump($to);
@@ -1201,7 +1201,7 @@ class WebServiceControll extends Controll{
                     $obj = $obj->buscar($atributoDados['id']);
                     $obj = $obj->excluir();
 			
-                    $retornoDados[] = Fotos::objetoParaArray($obj);                        
+                    $retornoDados[] = $foto; // Fotos::objetoParaArray($obj);                        
 		    $arrayRetorno = $this->preencherArray($retornoDados, 0, "Foto excluída com sucesso!");
                     $this->retorno($arrayRetorno);
 	
@@ -1339,7 +1339,7 @@ class WebServiceControll extends Controll{
 			$servicosAcompanhnate = ServicosAcompanhante::buscar($atributoDados['id']);
                         $servicosAcompanhnate = $servicosAcompanhnate->excluir();
                         
-                        $retornoDados[] = ServicosAcompanhante::objetoParaArray($servicosAcompanhnate);			
+                        $retornoDados[] = $servicosAcompanhnate;//ServicosAcompanhante::objetoParaArray($servicosAcompanhnate);			
 			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Servico da acompanhnate excluído com sucesso!");
 			$this->retorno($arrayRetorno);
                         	
@@ -1476,7 +1476,7 @@ class WebServiceControll extends Controll{
 
                 $obj = Comentario::buscar($atributoDados['id']);                
                 $obj = $obj->excluir();                
-                $retornoDados[] = Comentario::objetoParaArray($obj);
+                $retornoDados[] = $obj; //Comentario::objetoParaArray($obj);
                 
 
                 //$retornoDados[] =(array) $arrayRetornoLista;
@@ -1501,7 +1501,7 @@ class WebServiceControll extends Controll{
 
                 $obj = Localizacao::buscar($atributoDados['id']);                
                 $obj = $obj->excluir();                
-                $retornoDados[] = Localizacao::objetoParaArray($obj);
+                $retornoDados[] =  $obj;//Localizacao::objetoParaArray($obj);
                 
 
                 //$retornoDados[] =(array) $arrayRetornoLista;
