@@ -132,5 +132,23 @@ class  ServicoControll extends Controll{
 		
 		$this->setPage();
 	}
+        
+        
+	/**
+	 * Acao excluir($id)
+	 * @param $id
+	 */
+	public function servicosMaisUtilizados(){
+            $servico = new Servico();
+            $listarServicosMaisUtilizados = $servico->listarServicosMaisUtilizados();            
+            // jogando o usuário no atributo $dados do controlador //
+            
+            $totalServicos = ServicosDoEncontro::totalDeServicos();
+            
+            $this->setDados($listarServicosMaisUtilizados,'listarServicosMaisUtilizados');
+            $this->setDados($totalServicos,'totalServicos');
+            // definindo a tela //
+            $this->setTela('servicosMaisUtilizados',array('servico'));
+	}
 }
 ?>

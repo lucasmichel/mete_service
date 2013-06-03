@@ -1515,6 +1515,38 @@ class WebServiceControll extends Controll{
 	}
         
         
+        public function _servicosMaisUtilizados() {
+            
+            try {
+                
+                
+                
+                
+                $totalServicosSelecionadosDoEncontro = ServicosDoEncontro::totalDeServicos();
+                
+                
+                $listarServicosMaisUtilizados = Servico::listarServicosMaisUtilizados();
+                
+                $retorno = array();
+                
+                for($i = 0; $i <= count($listarServicosMaisUtilizados); $i++ ){
+                    
+                    $servico = $listarServicosMaisUtilizados['servico'][$i];
+                    
+                    $retorno[$i]['nome'] = $servico->getNome();
+                    $retorno[$i]['total'] = $listarServicosMaisUtilizados['total'][$i];
+                }
+                    
+                //$retornoDados[] = (array) $arrayRetornoLista;
+                $arrayRetorno = $this->preencherArray($retorno, $totalServicosSelecionadosDoEncontro, "listarServicos OK");
+                $this->retorno($arrayRetorno);
+            } catch (Exception $e) {
+                    $arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+                    $this->retorno($arrayRetorno);
+            }
+	}
+        
+        
 }
 ?>
 

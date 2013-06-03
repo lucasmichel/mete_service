@@ -421,6 +421,11 @@ class DefaultControll extends Controll {
     /******SERVIÇO******/
     /******SERVIÇO******/
     /******SERVIÇO******/ 
+    public function servicosMaisUtilizados() {
+    	$executa = new WebServiceControll();
+    	$executa->_servicosMaisUtilizados();
+    }
+    
     public function listarServicos() {
     	$executa = new WebServiceControll();
     	$executa->listarServicos();

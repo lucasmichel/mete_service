@@ -13,7 +13,12 @@
 	<link type="text/css" rel="stylesheet" href="lib/js/jquery-tooltip/jquery.tooltip.css" />
 	
 	<!--JAVASCRIPT-->
-	<script type="text/javascript" src="lib/js/jquery-1.4.2.js" ></script>
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/js/highcharts/highcharts.js"></script>
+        <script type="text/javascript" src="lib/js/highcharts/modules/exporting.js"></script>
+        
+	<!--<script type="text/javascript" src="lib/js/jquery-1.4.2.js" ></script>-->
 	<script type="text/javascript" src="lib/js/jquery.meio.mask.js"></script>
 	<script type="text/javascript" src="lib/js/jquery.cpf.validate.1.0.min.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-validate/jquery.validate.js"></script>	
