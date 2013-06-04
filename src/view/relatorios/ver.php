@@ -23,7 +23,7 @@ $cliente = $this->getDados('cliente');
                                 <h4>Lista</h4>
                                 <ul>
                                 <?php
-                                            if (Acao::checarPermissao(1, RelatoriosControll::MODULO)) {
+                                            if (Acao::checarPermissao( DefaulControll::MODULO)) {
 											?>
                                 			 <a href="relatorios/visualizarAvaliacao">Relatorio Avaliacao</a>
                                    <?php

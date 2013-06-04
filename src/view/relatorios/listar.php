@@ -7,7 +7,7 @@ header('Content-Type: text/html; charset=utf-8', true);
     //meuVarDump("testeee");
    // include_once(VIEW . DS . "default" . DS . "tops" . DS . "avaliacao.php");
     ?>
-    <h2 width="30%" > Relatorio de avaliacao</h2>
+    <h2 width="30%" > Relatorio de Encontro(estatistico)</h2>
     <div id="dashboard-wrap">
         <div class="metabox"></div>
         <!-- 

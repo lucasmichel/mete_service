@@ -20,7 +20,7 @@ class RelatoriosControll extends Controll {
        
         // definindo a tela //
         $this->setTela('listar',array('relatorios'));
-        meuVarDump("teste");
+        //meuVarDump("teste");
         // guardando a url //
         $this->getPage();
     }

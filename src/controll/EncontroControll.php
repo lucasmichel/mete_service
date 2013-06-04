@@ -31,6 +31,19 @@ class EncontroControll extends Controll{
             $this->setTela('ver',array('encontro'));
 	}
 	
+	public function relatorio($id){
+		// código da ação serve para o controle de acesso//
+		static $acao = 5;
+		// buscando o usuário //
+		$encontro = Encontro::buscar($id);
+	
+		$cliente = Cliente::buscar($encontro->getClienteId());
+		// jogando o usuário no atributo $dados do controlador //
+		$this->setDados($encontro,'encontro');
+		$this->setDados($cliente,'cliente');
+		// definindo a tela //
+		$this->setTela('ver',array('encontro'));
+	}
 	/**
 	 * Acao add()
 	 */

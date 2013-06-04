@@ -126,6 +126,12 @@ header('Content-Type: text/html; charset=utf-8', true);
                                                 <a href="encontro/excluir/<?php echo $objeto->getId(); ?>">Excluir</a>
                                             <?php
                                             }
+                                            if (Acao::checarPermissao(5, EncontroControll::MODULO)) {
+                                            	?>
+                                                <a href="encontro/relatorio/<?php echo $objeto->getId(); ?>">Relatorio</a>
+                                                 <?php
+                                            }
+                                            
                                             ?>
                                         </td>
                                     </tr>

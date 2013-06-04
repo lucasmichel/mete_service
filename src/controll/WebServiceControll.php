@@ -1378,6 +1378,33 @@ class WebServiceControll extends Controll{
                     $this->retorno($arrayRetorno);
             }
 	}
+	
+	public function  _listarEncontroRelatorio($dados){
+		try {
+			$jsonDescriptografado = base64_decode($dados["textoCriptografado"]);
+			$encoded = json_decode($jsonDescriptografado, true);
+			$atributoDados = $encoded["dados"][0];
+			$atributoStatus = $encoded["status"];
+			$atributoMensagem = $encoded["mensagem"];
+			
+			$listaEncontro = Encontro::listar('encontro');
+			$listaEncontro = Encontro::listarPorIdCliente($atributoDados['id']);
+			
+			foreach ($listaEncontro as $encontro){
+				$retornoDados[] = Encontro::objetoParaArray($encontro);
+			}
+			
+			//$retornoDados[] =(array) $arrayRetornoLista;
+			$arrayRetorno = $this->preencherArray($retornoDados, 0, "Encontro!");
+			$this->retorno($arrayRetorno);
+			
+			
+		} catch (Exception $e) {
+			$arrayRetorno = $this->preencherArray(null, 1, $e->getMessage());
+			$this->retorno($arrayRetorno);
+		}
+		
+	}
         
         
         public function _listarEncontroPorIdCliente($dados) {

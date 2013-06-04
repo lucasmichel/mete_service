@@ -420,7 +420,24 @@ class DefaultControll extends Controll {
     
     /******SERVIÇO******/
     /******SERVIÇO******/
-    /******SERVIÇO******/ 
+    /******SERVIÇO******/
+public  function  listarRelatorioEncontro(){
+	if ($this->getDados('POST')) {
+		$this->_listarEncontroRelatorio($this->getDados('POST'));
+	}
+	else{
+		$this->setTela('listar');
+		$this->getPage();
+	}
+}
+
+private function _listarRelatorioEncontro($dados) {
+
+	$executa = new WebServiceControll();
+	$executa->_listarEncontroRelatorio($dados);
+
+}    
+
     public function listarServicos() {
     	$executa = new WebServiceControll();
     	$executa->listarServicos();
