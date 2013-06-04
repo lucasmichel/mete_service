@@ -205,6 +205,28 @@ class Servico {
 		else
 			return false;
 	}
+        
+        
+        
+	/**
+	 * Metodo testarEmailExiste($email)
+	 * @param $email
+	 * @return Usuario
+	 */
+	public static function listarServicosMaisUtilizados(){
+            $lisServico = self::listar("nome");            
+            foreach ($lisServico as $servico) {
+                $instancia = ServicoDAO::getInstancia();                
+                $total = $instancia->contaServicosUtilizadosEmEncontro($servico->getId());                
+                //meuVarDump($total);                
+                $retorno["servico"][] = $servico;
+                $retorno["total"][] = $total['total'];
+                
+            }            
+            return $retorno;
+            
+            
+	}
 }
 
 ?>

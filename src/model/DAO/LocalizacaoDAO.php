@@ -88,7 +88,7 @@
 
  	public function buscar($id) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT l.* FROM " . self::TABELA . " l WHERE l.id = '" . $id . "'";
+ 		$sql = "SELECT l.* FROM " . self::TABELA . " l WHERE l.id = '" . $id . "' and l.excluido = 0 ";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetch($sql);
  		// RETORNANDO O RESULTADO //
@@ -101,7 +101,7 @@
  	 */
  	public function listar() {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT * FROM " . self::TABELA . "";
+ 		$sql = "SELECT * FROM " . self::TABELA . " where excluido = 0 ";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //
@@ -115,7 +115,7 @@
  	 */
  	public function listarPorServicoAcompanhanteId($ServicoAcompanhanteId) {
  		// INSTRUCAO SQL //
- 		$sql = "SELECT * FROM " . self::TABELA . " where servicos_acompanhante_id = '".$ServicoAcompanhanteId."'";
+ 		$sql = "SELECT * FROM " . self::TABELA . " where servicos_acompanhante_id = '".$ServicoAcompanhanteId."' and excluido = 0";
  		// EXECUTANDO A SQL //
  		$resultado = $this->conexao->fetchAll($sql);
  		// RETORNANDO O RESULTADO //

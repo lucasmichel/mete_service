@@ -107,7 +107,7 @@ class  Comentario{
  		return self::factoryObj($comentario);
  	}
 	
- 	public function inserir(){
+ 	public function inserir(){            
  		// validando os campos //
  		if(!$this->_validarCampos())
  			// levantando a excessao CamposObrigatorios //

@@ -125,6 +125,15 @@ class ServicosDoEncontroDAO extends ClassDAO{
         // RETORNANDO O RESULTADO //
         return $resultado;
     }
+    
+    public function totalServicosDoEncontro() {
+        // INSTRUCAO SQL //
+        $sql = "SELECT count(id) as total FROM " . self::TABELA . " ;";
+        // EXECUTANDO A SQL //
+        $resultado = $this->conexao->fetchAll($sql);
+        // RETORNANDO O RESULTADO //
+        return $resultado;
+    }
 	
 	
 }

@@ -91,7 +91,7 @@ class UsuarioDAO extends ClassDAO {
         // INSTRUCAO SQL //
                 $sql = "SELECT u.* FROM " . self::TABELA . " u 
                         WHERE u.email = '" . $login . "' AND 
-                        u.senha = '" . md5($senha) . "'";
+                        u.senha = '" . md5($senha) . "' AND u.excluido = 0";
         // EXECUTANDO A SQL //
         $resultado = $this->conexao->fetch($sql);
         // RETORNANDO O RESULTADO //                        

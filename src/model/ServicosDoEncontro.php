@@ -333,6 +333,19 @@ class ServicosDoEncontro {
 	}
         
         
+	public static function totalDeServicos(){
+            // recuperando a instancia da classe de acesso a dados //
+            $instancia = ServicosDoEncontroDAO::getInstancia();
+            // executando o metodo //
+            $total = $instancia->totalServicosDoEncontro();
+            
+            //meuVarDump($total[0]["total"]);
+            
+            // retornando a colecao $objetos //
+            return $total[0]["total"];
+	}
+        
+        
 	
 	
 	
