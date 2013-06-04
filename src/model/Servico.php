@@ -214,12 +214,7 @@ class Servico {
 	 * @return Usuario
 	 */
 	public static function listarServicosMaisUtilizados(){
-            
-            //listatodos os servicos...
-            $lisServico = self::listar("nome");
-            
-            
-            
+            $lisServico = self::listar("nome");            
             foreach ($lisServico as $servico) {
                 $instancia = ServicoDAO::getInstancia();                
                 $total = $instancia->contaServicosUtilizadosEmEncontro($servico->getId());                
@@ -227,8 +222,7 @@ class Servico {
                 $retorno["servico"][] = $servico;
                 $retorno["total"][] = $total['total'];
                 
-            }
-            
+            }            
             return $retorno;
             
             

@@ -139,9 +139,8 @@ class  ServicoControll extends Controll{
 	 * @param $id
 	 */
 	public function servicosMaisUtilizados(){
-            $servico = new Servico();
-            $listarServicosMaisUtilizados = $servico->listarServicosMaisUtilizados();            
-            // jogando o usuário no atributo $dados do controlador //
+            
+            $listarServicosMaisUtilizados = Servico::listarServicosMaisUtilizados();
             
             $totalServicos = ServicosDoEncontro::totalDeServicos();
             

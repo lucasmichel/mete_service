@@ -1,6 +1,6 @@
 <?php 
     header('Content-Type: text/html; charset=utf-8', true); 
-    $listarServicosMaisUtilizados = $this->getDados('listarServicosMaisUtilizados');
+    $listarServicosMaisUtilizados = $this->getDados('listarServicosMaisUtilizados');   
     $totalServicos = $this->getDados('totalServicos');
     //meuVarDump($listarServicosMaisUtilizados);
 ?>
@@ -23,27 +23,29 @@ $(function () {
         },
         series: [
             
-        <?php 
-           for($i = 0; $i <= count($listarServicosMaisUtilizados); $i++ ){
+        <?php  
+           //meuVarDump(($listarServicosMaisUtilizados['servico'][3]));
+           for($i = 0; $i < count($listarServicosMaisUtilizados['servico']); $i++ ){
                $servico = $listarServicosMaisUtilizados['servico'][$i];
                $total = $listarServicosMaisUtilizados['total'][$i];
-               //echo $servico->getNome(); 
-               //echo $total;
                
-               if($i == count($listarServicosMaisUtilizados)){
+               if($i == count($listarServicosMaisUtilizados)+1){
                    echo'{
-                            name: \''.$servico->getNome().'\',
+                            name: \''.$servico->getNome().' '. $total. '\',
                             data: ['.$total.']
                         }';
                }
-               else{
+               else {
                     echo'{
-                            name: \''.$servico->getNome().'\',
+                            name: \''.$servico->getNome().' '. $total. '\',
                             data: ['.$total.']
                           },';
                }
                
-               
+               /*echo'{
+                            name: \''.$servico->getNome().'\',
+                            data: ['.$total.']
+                          }';*/
                
             }
         ?>   
